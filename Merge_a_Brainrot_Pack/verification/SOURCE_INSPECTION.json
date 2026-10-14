@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-14",
+  "inspection_scope": "All archive member names, sizes, content hashes and CRC reads; targeted content review described in audit documents. No archived code executed. No source media repackaged.",
+  "inputs": [
+    {
+      "filename": "research.zip",
+      "bytes": 45088483,
+      "sha256": "32c2412a7a3c5e2084d15c94422a3dc4e23668ee80f0a2b15bbee680325c320d",
+      "files": 1776,
+      "directories": 26,
+      "uncompressed_bytes": 85818966,
+      "extensions": {
+        ".md": 643,
+        ".py": 1,
+        ".json": 114,
+        ".lua": 2,
+        ".txt": 130,
+        ".csv": 2,
+        ".wikitext": 451,
+        ".png": 109,
+        ".tsv": 1,
+        ".js": 1,
+        ".webp": 62,
+        ".avif": 1,
+        ".html": 21,
+        ".description": 76,
+        ".vtt": 117,
+        ".jpg": 45
+      },
+      "categories": {
+        "research/top_level": 6,
+        "research/generated": 4,
+        "research/raw/community": 94,
+        "research/raw/fandom": 456,
+        "research/raw/fandom_categories.txt": 1,
+        "research/raw/fandom_images": 110,
+        "research/raw/fandom_images_list.json": 1,
+        "research/raw/fandom_images_list.txt": 1,
+        "research/raw/fandom_meta.json": 1,
+        "research/raw/fandom_pagelist.json": 1,
+        "research/raw/fandom_pagelist.txt": 1,
+        "research/raw/fandom_petindex_utility_main_v0.1.13.js": 1,
+        "research/raw/fandom_petindex_utility_pets.json": 1,
+        "research/raw/fandom_petpages_parsed.json": 1,
+        "research/raw/fandom_pets_merged.csv": 1,
+        "research/raw/fandom_pets_merged.json": 1,
+        "research/raw/fandom_revision_dates.txt": 1,
+        "research/raw/guides": 559,
+        "research/raw/guide_images": 63,
+        "research/raw/roblox_api": 61,
+        "research/raw/youtube": 410,
+        "research/raw/youtube_videolist.md": 1
+      },
+      "crc_read_status": "all_passed",
+      "unsafe_members": [],
+      "identical_content_groups": 34,
+      "extra_identical_content_files": 53,
+      "inventory": "research/ORIGINAL_RESEARCH_INVENTORY.csv"
+    },
+    {
+      "filename": "reference.zip",
+      "bytes": 84823367,
+      "sha256": "63b1950b799d240b42209cdcc68e7724d9feb55fd34cf9a87ee1dc5b79485ece",
+      "files": 255,
+      "directories": 10,
+      "uncompressed_bytes": 85412912,
+      "extensions": {
+        ".webp": 62,
+        ".avif": 1,
+        ".jpg": 61,
+        ".png": 127,
+        ".mp4": 4
+      },
+      "categories": {
+        "reference/guides": 63,
+        "reference/ingame": 20,
+        "reference/ingame_clips": 4,
+        "reference/official": 14,
+        "reference/wiki": 109,
+        "reference/youtube_storyboards": 29,
+        "reference/youtube_thumbs": 16
+      },
+      "crc_read_status": "all_passed",
+      "unsafe_members": [],
+      "identical_content_groups": 0,
+      "extra_identical_content_files": 0,
+      "inventory": "reference/ORIGINAL_REFERENCE_INVENTORY.csv"
+    },
+    {
+      "filename": "STEAL_AN_EGG_ONE_SHOT_PROMPT.md",
+      "bytes": 193194,
+      "sha256": "f69a44f1de3d5bf83729cbf325c767d13c35a1a90d103ea98e64816b7da9648d",
+      "lines": 1768,
+      "headings": 110,
+      "inspection": "full_heading_index_and_targeted_section_review; numeric_appendices_not_imported"
+    }
+  ]
+}

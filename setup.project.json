@@ -1,0 +1,26 @@
+{
+  "name": "MergeABrainrot-Setup",
+  "tree": {
+    "$path": "default.project.json",
+    "Workspace": {
+      "$className": "Workspace",
+      "SetupBaseplate": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [240, 1, 200],
+          "Position": [0, -0.5, 0]
+        }
+      },
+      "SetupSpawn": {
+        "$className": "SpawnLocation",
+        "$properties": {
+          "Anchored": true,
+          "Neutral": true,
+          "Size": [8, 1, 8],
+          "Position": [0, 0.5, 0]
+        }
+      }
+    }
+  }
+}

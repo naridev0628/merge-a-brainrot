@@ -1,0 +1,111 @@
+line,heading
+1,# STEAL AN EGG — Full One-Shot Recreation Prompt (Roblox / Luau)
+7,## 0. YOUR MISSION
+31,### 0.1 Required file tree
+98,### 0.2 Build order (so each step is testable)
+111,"### 0.3 Acceptance test (run it mentally, then implement so it passes)"
+114,### 0.4 NATIVE IMAGE GENERATION WITH CODEX (required tooling)
+134,"### 0.5 MAP PIPELINE: GENERATE → SPEC → BUILD → VERIFY (mandatory, do this BEFORE and AFTER `WorldBuilder`)"
+207,## 1. THE GAME IN ONE PAGE
+227,## 2. WORLD LAYOUT (build it in `WorldBuilder`)
+244,### 2.1 Hub / base
+262,### 2.2 Lanes (zones)
+277,"## 3. ZONES (biomes): order, speed gates, guardians, themes"
+298,### 3.1 Zone config shape (`Zones.luau`)
+313,## 4. CORE FORMULAS (`Formulas.luau`)
+315,"### 4.1 Size (Scale), weight and pet income [SOURCE: decompiled client config published by stealanegg-wiki.com, consistent with the Fandom Income Calculator]"
+330,### 4.2 Scale roll for spawned eggs [DESIGN; the real distribution is server-side]
+346,### 4.3 Grow (hatch) time [DESIGN fit to observed timers]
+354,"### 4.4 Walk speed from the Speed stat [SOURCE: ""the client converts Speed Power into movement speed with a curved formula""; exact curve DESIGN]"
+370,### 4.5 Guardian chase speed (relative model) [DESIGN; the game compares your Speed against a configured guardian speed]
+386,### 4.6 Treadmill gain [SOURCE: client code]
+399,### 4.7 Sell value [SOURCE ≈100× income]
+402,### 4.8 Index rewards [SOURCE]
+405,### 4.9 Number formatting (`NumberFormat.luau`) [VERIFIED style]
+419,"## 5. DAY/NIGHT CYCLE, EGG RESET & GLOBAL SPAWNING (`CycleService`, `SpawnService`)"
+421,### 5.1 Cycle [SOURCE + VERIFIED HUD]
+442,"### 5.2 Nest eggs: global rolls, per-player availability"
+464,### 5.3 Rare spawn announcements [VERIFIED format]
+472,### 5.4 Egg visuals in nests
+483,## 6. STEALING & CARRYING (`CarryService`)
+485,### 6.1 Pickup
+498,### 6.2 Carrying
+510,### 6.3 Completing the steal
+520,### 6.4 Dropped (loose) eggs
+530,## 7. GUARDIANS (`GuardianService`)
+552,"## 8. BASE: PLOTS, PENS, EGG PLACEMENT, HATCHING, PETS, INCOME (`PlotService`)"
+554,### 8.1 Plot assignment
+558,"### 8.2 Base (pen) levels and pet slots [SOURCE: config table; VERIFIED board ""Level 5 > Level 6  $50B""]"
+571,### 8.3 Upgrade Pen board behavior
+576,### 8.4 Placing an egg
+587,### 8.5 Hatching
+604,### 8.6 Pets in the pen
+617,### 8.7 Offline earnings
+623,### 8.8 Pets panel (paw button)
+631,"## 9. SPEED: TREADMILL, SPEED MULTIPLIER, TRAILS, BOOSTS (`TreadmillService`)"
+633,### 9.1 Treadmill
+646,"### 9.2 Speed Multiplier (Robux, 12 sequential tiers) [VERIFIED + API]"
+649,### 9.3 Trails
+655,### 9.4 Timed boosts (`BoostService`)
+667,### 9.5 Other Speed sources
+681,## 10. PVP: BAT & TRAPS (`CombatService`)
+683,### 10.1 Bat & index weapons (hotbar slot 1) [VERIFIED slot 1 = wooden bat; weapon stats SOURCE: config]
+707,"### 10.2 Bear traps (hotbar slot 2) [VERIFIED: slot 2 shows a spiked trap icon with ""x3""]"
+718,### 10.3 Knockback & ragdoll (used by guardian catches and bat hits)
+730,## 11. PET INDEX (`IndexService`) [VERIFIED UI]
+754,## 12. SELL BOOTH (`SellService`)
+758,## 13. FUSE MACHINE (`FuseService`) [VERIFIED UI via guide screenshot; rules SOURCE: config]
+779,"## 14. SHOP & MONETIZATION (`ShopService`) [VERIFIED screenshots in `reference/ingame/`: `ingame_002_shop_featured_extinction_egg.jpg`, `ingame_003_shop_passes_growth_money.jpg`, `ingame_004_shop_speed_double.jpg`, `ingame_005_shop_upgrade_treadmill.jpg`, `ingame_006_shop_speed_packs.jpg`, `ingame_007_shop_speed_packs_2.jpg`, `ingame_008_shop_money_packs.jpg`, `ingame_009_shop_money_packs_2.jpg`]"
+821,"## 15. LIVE EVENTS (`EventService`) — Phase 2, all behind `Config.Features.*` flags"
+825,### 15.1 Admin Abuse (admin-triggered)
+838,### 15.2 Capture the Egg (admin or scheduled)
+844,"### 15.3 Great Bloom + Sakura Incubator (Cherry Blossom, every 30 min)"
+854,"### 15.4 Rift Boss (Abyss Overlord), every 30 min at :00/:30"
+861,### 15.5 Dr. Scramble
+871,### 15.6 Angels & Demons Secret Shrine (fusion room)
+879,### 15.7 Hungry Frog / parasites (Update 2)
+885,"## 16. TUTORIAL (`TutorialService`) [SOURCE, VERIFIED text where marked]"
+897,## 17. UI SPECIFICATION (match `reference/ingame/*` screenshots closely)
+899,### 17.0 Global style rules
+912,### 17.1 HUD — left side (see `reference/ingame/ingame_001_spawn_base_overview.jpg`)
+923,### 17.2 HUD — right side
+933,### 17.3 HUD — bottom-right timers [VERIFIED]
+939,### 17.4 HUD — bottom center
+947,### 17.5 HUD — top center
+954,### 17.6 HUD — top-left and top-right
+960,### 17.7 Shop window (§14 content) [VERIFIED: the eight `reference/ingame/ingame_002_…` to `ingame_009_…` shop screenshots listed in §14]
+967,"### 17.8 Pet Index window — see §11 and `reference/ingame/ingame_010_index_forest_chicken.jpg` [VERIFIED]. `Size = UDim2.fromScale(0.61, 0.645)`, `AnchorPoint (0.5, 0.5)`, `Position (0.5, 0.48)`, same `UIAspectRatioConstraint` as the Shop."
+969,### 17.9 Growing Eggs panel (red egg button) [SOURCE `reference/guides/ui_growing_eggs_panel_grow_all_allthings.webp`]
+974,"### 17.10 Pets panel (paw) — §8.8. Card grid 4 columns; the top bar holds ""Equipped 8/9 [+1 Equip $75M] [Equip Best] [Unequip All]"" and a search box (9 slots = base level 2; ""+1 Equip"" buys level 3 for $75M, §8.2)."
+976,### 17.11 World boards (SurfaceGui / BillboardGui)
+984,### 17.12 Notifications / toasts
+989,### 17.13 Screen effects
+996,### 17.14 Platform support
+1000,"### 17.15 UI ART PACK (generate with Codex native image gen, §0.4)"
+1042,## 18. AUDIO & VFX
+1072,"## 19. DATA, NETWORKING, ANTI-EXPLOIT"
+1074,"### 19.1 Player data schema (`DataService`, DataStore ""SAE_PlayerData_v1"", key `""u_"" .. userId`)"
+1102,"### 19.2 Remotes (all in `Remotes.luau`, server validates everything)"
+1107,### 19.3 Anti-exploit (the real game was plagued by teleport and auto-steal scripts)
+1117,## 20. PROCEDURAL VOXEL ART (`ModelFactory`)
+1121,### 20.1 Eggs
+1145,### 20.2 Pets — archetype builders
+1175,### 20.3 Guardians
+1178,### 20.4 Treadmills (11 themes) [SOURCE images `reference/wiki/treadmill__*`]
+1195,## 21. DATA APPENDICES (paste into the `Shared/` modules verbatim)
+1197,### Appendix A — `PetData.luau`: every biome pet [SOURCE: in-game index cards + decompiled config + Fandom modules]
+1345,### Appendix A2 — `PetVisuals.luau` (ModelFactory look per species) [VERIFIED where marked; otherwise DESIGN from pet names/wiki renders]
+1474,"### Appendix B — `LimitedEggs.luau` (Robux / event eggs for the Shop FEATURED card and the Index ""Limited"" tab)"
+1553,### Appendix C — `Rarities.luau` [SOURCE: official product names + Fandom rarity colors + VERIFIED index tile colors]
+1571,"### Appendix D — `Mutations.luau` [SOURCE: config; community multipliers conflicted, so config wins]"
+1586,"### Appendix E — `Treadmills.luau` [SOURCE: config + VERIFIED shop card ""$75B / R$299"" for Lucky Block]"
+1603,### Appendix F — `Trails.luau` [SOURCE: config + API prices]
+1620,"### Appendix G — `SpeedMultipliers.luau` (Robux developer products, sequential) [VERIFIED first tier ""x1 ▶ x2 R$3""; API prices]"
+1626,"### Appendix H — `PenLevels.luau` (see §8.2; the ""+1 EQUIP"" button buys the next entry of this same list)"
+1634,### Appendix I — `Products.luau` (Robux; use placeholder ids) [VERIFIED shop screenshots + official API]
+1654,## 22. REFERENCE MEDIA INDEX (`reference/` folder shipped with this prompt)
+1659,### 22.1 Most important files
+1703,"### 22.2 Everything else, by folder"
+1716,## 23. CONFLICTS YOU MUST RESOLVE THE WAY THIS DOCUMENT SAYS
+1730,"## 24. KNOWN UNKNOWNS (implement the DESIGN value, keep it in Config)"
+1745,## 25. FINAL CHECKLIST — the build is DONE when all of these are true

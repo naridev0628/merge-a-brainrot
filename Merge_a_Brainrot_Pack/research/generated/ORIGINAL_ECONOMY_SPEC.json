@@ -1,0 +1,80 @@
+{
+  "status": "original_design_specification_not_game_code",
+  "version": 1,
+  "players": 6,
+  "producerSlots": 12,
+  "productionIntervalSeconds": 6,
+  "groundPerOrigin": 8,
+  "groundPerPlot": 96,
+  "bagCapacity": 96,
+  "coinUnitsPerCoin": 4,
+  "tier1PriceCoins": 20,
+  "tier1PriceUnits": 80,
+  "rebirthBaseCoins": 10000,
+  "rebirthStepCoins": 2500,
+  "maxRebirths": 20,
+  "maxCoinUnits": 4000000000000,
+  "saleCreditUnitsFormula": "sum(baseCoinValue * count) * (4 + rebirths)",
+  "catalog": [
+    {
+      "tier": 1,
+      "speciesId": "tier_01",
+      "workingName": "Spoon Sprout",
+      "baseCoinValue": 2,
+      "intervalSeconds": 6,
+      "successor": "tier_02",
+      "assetId": null,
+      "assetStatus": "planned_original_placeholder"
+    },
+    {
+      "tier": 2,
+      "speciesId": "tier_02",
+      "workingName": "Wobble Waffle",
+      "baseCoinValue": 5,
+      "intervalSeconds": 6,
+      "successor": "tier_03",
+      "assetId": null,
+      "assetStatus": "planned_original_placeholder"
+    },
+    {
+      "tier": 3,
+      "speciesId": "tier_03",
+      "workingName": "Bubble Boots",
+      "baseCoinValue": 12,
+      "intervalSeconds": 6,
+      "successor": "tier_04",
+      "assetId": null,
+      "assetStatus": "planned_original_placeholder"
+    },
+    {
+      "tier": 4,
+      "speciesId": "tier_04",
+      "workingName": "Disco Turnip",
+      "baseCoinValue": 29,
+      "intervalSeconds": 6,
+      "successor": "tier_05",
+      "assetId": null,
+      "assetStatus": "planned_original_placeholder"
+    },
+    {
+      "tier": 5,
+      "speciesId": "tier_05",
+      "workingName": "Noodle Comet",
+      "baseCoinValue": 70,
+      "intervalSeconds": 6,
+      "successor": "tier_06",
+      "assetId": null,
+      "assetStatus": "planned_original_placeholder"
+    },
+    {
+      "tier": 6,
+      "speciesId": "tier_06",
+      "workingName": "Toaster Monarch",
+      "baseCoinValue": 170,
+      "intervalSeconds": 6,
+      "successor": null,
+      "assetId": null,
+      "assetStatus": "planned_original_placeholder"
+    }
+  ]
+}

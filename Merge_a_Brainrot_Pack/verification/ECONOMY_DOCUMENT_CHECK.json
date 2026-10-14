@@ -1,0 +1,247 @@
+{
+  "check_type": "written_specification_arithmetic_and_idealized_event_simulation",
+  "roblox_runtime_test": false,
+  "source_path": "/Users/andrezanabria/Documents/Codex/2026-10-14/referenced-chatgpt-conversation-this-is-an/outputs/Merge_a_Brainrot_Pack/MERGE_A_BRAINROT_ONE_SHOT_PROMPT.md",
+  "source_sha256": "83f9fb2ad48550a54c18c74d07cc5ccff5bf5facbf2513291e94dde3ab25d10f",
+  "inputs": {
+    "mini_coin_values": [
+      2,
+      5,
+      12,
+      29,
+      70,
+      170
+    ],
+    "interval_seconds_by_tier": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+    ],
+    "tier1_price_coin_units": 80,
+    "coin_units_per_coin": 4,
+    "ground_cap_per_origin": 8,
+    "ground_cap_per_plot": 96,
+    "bag_cap": 96,
+    "producer_cap": 12,
+    "rebirth_count_cap": 20
+  },
+  "assumptions": [
+    "Starts at time zero with one free Tier 1 producer, zero wallet units and zero bag goods.",
+    "First drop is due six seconds after startup; scheduler ticks are on time with no jitter or stalls.",
+    "All producers due at the same timestamp emit before collection, sale, purchase or merge actions.",
+    "Every generated Mini is immediately collected and the entire bag immediately sold at the same timestamp.",
+    "Each sale applies the current multiplier once as exact integer coin units.",
+    "Buy Tier 1 repeatedly when affordable; greedily merge equal species from lower to higher tier after each buy.",
+    "Purchases and merges start fresh six-second producer clocks and consume no action time.",
+    "Stop purchasing as soon as the first Tier 6 is created; then sell subsequent Minis and save for rebirth.",
+    "Movement, pad proximity, network delay, UI time, manual decisions and persistence operations consume no time here.",
+    "Capacity limits are checked, but immediate collection and sale keep them nonbinding on this strategy.",
+    "No offline generation, rebirth rewards, tutorial bonus, automatic cash credit or paid multiplier is included."
+  ],
+  "checks": {
+    "catalog_matches_requested_values": true,
+    "tier_milestones_match_reported": true,
+    "tier6_wallet_equals_89_coins": true,
+    "rebirth_eligibility_equals_546_seconds": true,
+    "tier6_cost_equals_31_times_20": true,
+    "each_merge_increases_total_output": true,
+    "quarter_coin_low_tier_bonus_preserved": true,
+    "rebirth_cost_scales_like_current_multiplier": true,
+    "last_allowed_rebirth_cost_is_57500_coins": true,
+    "rebirth_20_blocks_further_rebirth": true,
+    "simulation_does_not_hit_ground_or_bag_caps": true
+  },
+  "first_run": {
+    "starting_rebirths": 0,
+    "sale_multiplier": 1.0,
+    "tier_milestones_seconds": {
+      "2": 60,
+      "3": 102,
+      "4": 138,
+      "5": 168,
+      "6": 192
+    },
+    "at_tier6": {
+      "seconds": 192,
+      "wallet_units": 356,
+      "wallet_coins": 89.0,
+      "purchases": 31,
+      "merges": 31,
+      "spent_units": 2480,
+      "spent_coins": 620.0
+    },
+    "rebirth_eligible_seconds": 546,
+    "rebirth_threshold_units": 40000,
+    "rebirth_threshold_coins": 10000.0,
+    "wallet_units_at_eligibility": 40476,
+    "wallet_coins_at_eligibility": 10119.0,
+    "peak_counts": {
+      "ground_count": 4,
+      "ground_per_origin": 1,
+      "bag_count": 4,
+      "producer_count": 6
+    },
+    "generated_minis_by_tier": {
+      "1": 23,
+      "2": 12,
+      "3": 10,
+      "4": 7,
+      "5": 4,
+      "6": 59
+    },
+    "caps_bound_during_simulation": false
+  },
+  "illustrative_repeat_runs": [
+    {
+      "starting_rebirths": 1,
+      "sale_multiplier": 1.25,
+      "tier_milestones_seconds": {
+        "2": 48,
+        "3": 84,
+        "4": 114,
+        "5": 138,
+        "6": 156
+      },
+      "at_tier6": {
+        "seconds": 156,
+        "wallet_units": 265,
+        "wallet_coins": 66.25,
+        "purchases": 31,
+        "merges": 31,
+        "spent_units": 2480,
+        "spent_coins": 620.0
+      },
+      "rebirth_eligible_seconds": 510,
+      "rebirth_threshold_units": 50000,
+      "rebirth_threshold_coins": 12500.0,
+      "wallet_units_at_eligibility": 50415,
+      "wallet_coins_at_eligibility": 12603.75,
+      "peak_counts": {
+        "ground_count": 4,
+        "ground_per_origin": 1,
+        "bag_count": 4,
+        "producer_count": 6
+      },
+      "generated_minis_by_tier": {
+        "1": 13,
+        "2": 12,
+        "3": 9,
+        "4": 5,
+        "5": 3,
+        "6": 59
+      },
+      "caps_bound_during_simulation": false
+    },
+    {
+      "starting_rebirths": 4,
+      "sale_multiplier": 2.0,
+      "tier_milestones_seconds": {
+        "2": 30,
+        "3": 54,
+        "4": 72,
+        "5": 90,
+        "6": 102
+      },
+      "at_tier6": {
+        "seconds": 102,
+        "wallet_units": 600,
+        "wallet_coins": 150.0,
+        "purchases": 31,
+        "merges": 31,
+        "spent_units": 2480,
+        "spent_coins": 620.0
+      },
+      "rebirth_eligible_seconds": 456,
+      "rebirth_threshold_units": 80000,
+      "rebirth_threshold_coins": 20000.0,
+      "wallet_units_at_eligibility": 80840,
+      "wallet_coins_at_eligibility": 20210.0,
+      "peak_counts": {
+        "ground_count": 4,
+        "ground_per_origin": 1,
+        "bag_count": 4,
+        "producer_count": 6
+      },
+      "generated_minis_by_tier": {
+        "1": 11,
+        "2": 7,
+        "3": 6,
+        "4": 4,
+        "5": 2,
+        "6": 59
+      },
+      "caps_bound_during_simulation": false
+    },
+    {
+      "starting_rebirths": 19,
+      "sale_multiplier": 5.75,
+      "tier_milestones_seconds": {
+        "2": 12,
+        "3": 24,
+        "4": 30,
+        "5": 36,
+        "6": 42
+      },
+      "at_tier6": {
+        "seconds": 42,
+        "wallet_units": 648,
+        "wallet_coins": 162.0,
+        "purchases": 31,
+        "merges": 31,
+        "spent_units": 2480,
+        "spent_coins": 620.0
+      },
+      "rebirth_eligible_seconds": 396,
+      "rebirth_threshold_units": 230000,
+      "rebirth_threshold_coins": 57500.0,
+      "wallet_units_at_eligibility": 231338,
+      "wallet_coins_at_eligibility": 57834.5,
+      "peak_counts": {
+        "ground_count": 2,
+        "ground_per_origin": 1,
+        "bag_count": 2,
+        "producer_count": 6
+      },
+      "generated_minis_by_tier": {
+        "1": 5,
+        "2": 3,
+        "3": 1,
+        "4": 1,
+        "5": 1,
+        "6": 59
+      },
+      "caps_bound_during_simulation": false
+    }
+  ],
+  "merge_gains_percent": [
+    {
+      "output_tier": 2,
+      "gain_percent": 25.0
+    },
+    {
+      "output_tier": 3,
+      "gain_percent": 20.0
+    },
+    {
+      "output_tier": 4,
+      "gain_percent": 20.833333333333332
+    },
+    {
+      "output_tier": 5,
+      "gain_percent": 20.689655172413794
+    },
+    {
+      "output_tier": 6,
+      "gain_percent": 21.428571428571427
+    }
+  ],
+  "discrepancies": [],
+  "limitations": [
+    "This validates the document's arithmetic under the stated idealized action ordering, not implementation correctness or observed player pace.",
+    "The simulation does not establish that the 96-item bag/ground limits recover correctly in Roblox, only that they do not affect this route.",
+    "The 9\u201315 minute real-player pacing target still needs actual gameplay observation."
+  ]
+}
