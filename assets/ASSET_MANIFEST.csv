@@ -1,0 +1,6 @@
+id,name,source,external_asset_id,base_parts,notes
+tier_01,Spoon Sprout,src/shared/ModelFactory.luau,none,7,Original anchored procedural primitive model
+tier_02,Wobble Waffle,src/shared/ModelFactory.luau,none,11,Original anchored procedural primitive model
+tier_03,Bubble Boots,src/shared/ModelFactory.luau,none,7,Original anchored procedural primitive model
+mini,Mini token,src/shared/ModelFactory.luau,none,1,Original neon primitive with server-owned token identity
+world,Mini Meadow,src/server/Services/WorldBuilder.luau,none,generated,Original primitive plot pads trees fences and walkway
