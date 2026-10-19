@@ -1,0 +1,38 @@
+{
+  "BrickRockIsland": {
+    "triangles": 10064,
+    "vertices": 6512,
+    "dimensions_xyz": [
+      11.918,
+      9.818,
+      5.33
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "glb_bytes": 698188
+  },
+  "LuckyBlock": {
+    "triangles": 5028,
+    "vertices": 3064,
+    "dimensions_xyz": [
+      4.19,
+      4.19,
+      4.015
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "glb_bytes": 344692
+  },
+  "CoolTralalero": {
+    "triangles": 7900,
+    "vertices": 4312,
+    "dimensions_xyz": [
+      3.639,
+      5.858,
+      4.615
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "glb_bytes": 481828
+  }
+}

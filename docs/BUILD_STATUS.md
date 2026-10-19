@@ -1,10 +1,10 @@
-# Build status — 2026-10-19
+# Build status - 2026-10-19
 
-Checkpoint 1 implemented on `codex/first-playable`: one plot, three tiers, production/collection/selling/buying/merging, respawn-safe session state, server validation and basic responsive UI. All 13 domain tests pass; the real Studio client completed its first merge. See [current verification](../verification/FIRST_PLAYABLE.md).
+Current work is on `codex/stacked-brainrot-farm`, based on `codex/first-playable`. Six compact plots, six tiers, 100-slot vertical farms, timed processing, upgrades, Lucky Blocks, rebirth, original Blender assets and revised HUD are implemented. See [current verification](verification/STACKED_FARM.md) and [economy audit](verification/ECONOMY_PACE.md).
 
-Build `default.project.json` to `build/MergeABrainrot-FirstPlayable.rbxlx` and press Play in Studio. Memory only: progress resets on Stop. No experience has been published. Next learner action: collect ten Minis, sell, buy a second Sprout and merge the pair.
+Build `default.project.json` to `build/MergeABrainrot-StackedFarm.rbxlx` and press Play. Memory only: progress resets on Stop. No experience has been published. Start with $5, walk onto BUY 1, collect three Tong Tong Minis, deposit and collect $6, then buy and merge a second Tong Tong. Shift and touch sprint are supported. The welcome popup has been removed.
 
-Remaining roadmap: Checkpoint 2 full farm/rebirth → 3 persistence → 4 presentation → 5 QA. Collaborator invitation and Mac verification remain pending.
+Pending release work: persistence, configured gamepasses/products, friend boost, real multiplayer/device load tests, balance tuning and asset permission verification for the eventual experience owner. Current leaderboards rank this server only. First rebirth remains $1 million plus owned Level 6; measured manual progression is much slower than first-species discovery. Collaborator invitation and Mac verification remain pending.
 
 ## Historical Checkpoint 0 record — 2026-10-14
 

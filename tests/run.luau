@@ -13,9 +13,14 @@ local function test(name, fn)
 end
 local function fixture(overrides)
     local config = table.clone(Config)
+    config.SaleSeconds=0 -- Legacy economy tests isolate value math; sales.luau tests real waiting.
+    config.ProcessorRates=nil; config.TransitSeconds=0 -- Timing is covered by sales/conveyor suites.
     for k, v in overrides or {} do config[k] = v end
     local core = Core.new(config, Catalog)
-    return core, core:newSession(42, 0, "session"), config
+    local session=core:newSession(42,0,"session")
+    core:dispatch(session,"Buy",{"starter"},{now=0,alive=true,position={x=Config.BuyPads['1'],y=3,z=Config.BuyZ}})
+    session.cache={}; session.cacheCount=0
+    return core,session,config
 end
 local function context(now, x, z)
     return {now = now or 0, alive = true, position = {x = x or 0, y = 3, z = z or 36}}
@@ -24,8 +29,15 @@ local function collect(core, s, token, now)
     return core:dispatch(s, "Collect", {token.id}, context(now, token.x, token.z))
 end
 local function command(core, s, action, id, args, now)
-    local x = if action == "Buy" then 18 elseif action == "Sell" then -18 else 0
-    return core:dispatch(s, action, {id, table.unpack(args or {})}, context(now, x, 34))
+    if action=='Sell' then
+        local deposited=core:dispatch(s,'Deposit',{id..'/deposit'},context(now,Config.SellX,Config.SellZ))
+        if deposited.code~='OK' then return deposited end
+        core:step(s,now or 0)
+        return core:dispatch(s,'Claim',{id},context(now,Config.ClaimX,Config.ClaimZ))
+    end
+    local x = if action == "Buy" then Config.BuyPads["1"] elseif action == "Sell" then Config.SellX else 0
+    local z = if action == "Sell" then Config.SellZ else Config.BuyZ
+    return core:dispatch(s, action, {id, table.unpack(args or {})}, context(now, x, z))
 end
 local function fingerprint(s)
     -- Economic invariants, deliberately excluding rate limiter and attempted-ID sequence.
@@ -34,28 +46,28 @@ local function fingerprint(s)
     for _, p in st.producers do table.insert(pieces, p.id .. p.speciesId .. tostring(p.slot)) end
     return table.concat(pieces, "|")
 end
-test("fresh player earns first merge from ten Minis without bonus currency", function()
+test("starting $5 buys Tong Tong and three Minis fund the first merge", function()
     local core, s = fixture()
     eq(#s.state.producers, 1, "starter producer")
     eq(s.state.coinUnits, 0)
     core:step(s, 5.99); eq(#s.state.tokens, 0)
-    for i = 1, 10 do
+    for i = 1, 3 do
         core:step(s, i * 6)
         eq(#s.state.tokens, 1)
         eq(collect(core, s, s.state.tokens[1], i * 6).code, "OK")
     end
-    eq(#s.state.bag, 10)
-    eq(command(core, s, "Sell", "sell1", nil, 60).creditUnits, 80)
-    eq(command(core, s, "Buy", "buy1", nil, 60).code, "OK")
-    eq(s.state.coinUnits, 0)
+    eq(#s.state.bag, 3)
+    eq(command(core, s, "Sell", "sell1", nil, 18).creditUnits, 24)
+    eq(command(core, s, "Buy", "buy1", nil, 18).code, "OK")
+    eq(s.state.coinUnits, 4)
     local a, b = s.state.producers[1], s.state.producers[2]
-    eq(command(core, s, "Merge", "merge1", {a.id, b.id}, 60).code, "OK")
+    eq(command(core, s, "Merge", "merge1", {a.id, b.id}, 18).code, "OK")
     eq(#s.state.producers, 1)
     eq(s.state.producers[1].speciesId, "tier_02")
     eq(s.state.producers[1].slot, 1)
-    eq(s.state.producers[1].due, 66)
+    eq(s.state.producers[1].due, 24)
     eq(s.state.discoveries.tier_02, true)
-    core:step(s, 66); eq(s.state.tokens[1].baseCoinValue, 5)
+    core:step(s, 24); eq(s.state.tokens[1].baseCoinValue, 5)
 end)
 test("duplicate collection and successful sale replay cannot grant extras", function()
     local core, s = fixture()
@@ -121,13 +133,13 @@ test("full bag leaves token; coin overflow leaves entire bag",function()
     eq(command(core,s,"Sell","overflow").code,"WalletFull"); eq(fingerprint(s),before)
 end)
 test("full plot rejects purchase without charge and merge frees a slot",function()
-    local core,s=fixture(); s.state.coinUnits=2000
+    local core,s=fixture({Slots=12}); s.state.coinUnits=2000
     for i=1,11 do eq(command(core,s,"Buy","b"..i).code,"OK") end
     local before=fingerprint(s)
     eq(command(core,s,"Buy","full").code,"PlotFull"); eq(fingerprint(s),before)
     command(core,s,"Merge","m",{s.state.producers[1].id,s.state.producers[2].id})
     eq(command(core,s,"Buy","full").code,"OK") -- failed requests are not remembered
-    eq(s.state.producers[#s.state.producers].slot,2)
+    eq(s.state.producers[#s.state.producers].slot,12)
 end)
 test("stall catchup and capped production discard backlog",function()
     local core,s=fixture()
@@ -157,13 +169,14 @@ test("max tier merge request cache cap and closing lifecycle reject safely",func
     eq(command(core,s,"Buy","first").code,"Unavailable")
     core:step(s,100); eq(fingerprint(s),before)
     local c,t=fixture(); t.state.coinUnits=80; command(c,t,"Buy","b")
-    t.state.producers[1].speciesId="tier_03"; t.state.producers[2].speciesId="tier_03"
+    t.state.producers[1].speciesId="tier_06"; t.state.producers[2].speciesId="tier_06"
     before=fingerprint(t)
     eq(command(c,t,"Merge","m",{t.state.producers[1].id,t.state.producers[2].id}).code,"MaxTier")
     eq(fingerprint(t),before)
 end)
 test("independent sessions cannot consume each other's producers or tokens",function()
     local core,a=fixture(); local b=core:newSession(43,0,"other")
+    command(core,b,'Buy','starter')
     core:step(a,6); core:step(b,6)
     local before=fingerprint(b)
     eq(collect(core,b,a.state.tokens[1],6).code,"MissingToken")
@@ -191,7 +204,11 @@ test("earned income reaches tier three without grants",function()
     local function earnPurchase()
         while s.state.coinUnits<80 do
             now+=6; core:step(s,now)
-            for _,token in table.clone(s.state.tokens) do eq(collect(core,s,token,now).code,"OK") end
+            for _,token in table.clone(s.state.tokens) do
+                for _,live in s.state.tokens do
+                    if live.id==token.id then eq(collect(core,s,live,now).code,"OK"); break end
+                end
+            end
             sequence+=1
             eq(command(core,s,"Sell","sale"..sequence,nil,now).code,"OK")
         end

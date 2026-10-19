@@ -1,0 +1,34 @@
+{
+  "TungTung": {
+    "triangles": 4740,
+    "vertices": 2632
+  },
+  "TungTung_Mini": {
+    "triangles": 1036,
+    "vertices": 568
+  },
+  "Chimpanzini": {
+    "triangles": 4276,
+    "vertices": 2348
+  },
+  "Chimpanzini_Mini": {
+    "triangles": 996,
+    "vertices": 556
+  },
+  "Ballerina": {
+    "triangles": 4240,
+    "vertices": 2328
+  },
+  "Ballerina_Mini": {
+    "triangles": 1660,
+    "vertices": 912
+  },
+  "Tralalero": {
+    "triangles": 7416,
+    "vertices": 4048
+  },
+  "Tralalero_Mini": {
+    "triangles": 1540,
+    "vertices": 840
+  }
+}

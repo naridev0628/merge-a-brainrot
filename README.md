@@ -1,19 +1,21 @@
 # Merge a Brainrot
 
-BUILD_MODE: INCREMENTAL. Current scope: Checkpoint 1 (first playable).
+Six-player, memory-only Roblox Studio prototype with compact brick farms, six Brainrot tiers, stacking, timed mini sales, merging, Lucky Blocks and rebirth. Source files in Git are the source of truth. No live experience has been published.
 
-Shared repository: [naridev0628/merge-a-brainrot](https://github.com/naridev0628/merge-a-brainrot) (private).
+Start with $5 and walk onto BUY 1 to get Tong Tong. Each producer makes a Mini every six seconds. Collect three $2 Minis from the conveyor tray, deposit them, then walk onto Collect Cash. Buy a second $5 Tong Tong and merge the pair. There is no welcome modal; the small tutorial guides the first loop. Hold Shift to sprint, or use the touch Sprint button.
 
-The original handoff is preserved in `Merge_a_Brainrot_Pack/`. Its canonical specification is `Merge_a_Brainrot_Pack/MERGE_A_BRAINROT_ONE_SHOT_PROMPT.md`.
+Each plot has 100 producer slots across ten rows. Plots are 56 by 56 studs, half the earlier width and depth. Minis tumble into separate layered pile positions and producers hop when creating them. The HUD includes gradient cash, a collection index, merge-weighted Total Brainrots and an eligible-rebirth badge. Original Blender characters, brick scenery, nests and Lucky Blocks include editable sources.
 
-The first playable has one plot, three original producer species, automatic Mini collection, an amber Sell pad, a blue Buy pad, and two-input merging. Start with one Spoon Sprout and zero Coins. Collect ten Minis, sell them for 20 Coins, buy another Sprout, then select both in Merge. Two Wobble Waffles merge into Bubble Boots.
+Build with Rojo 7.7.1:
 
-This is a Studio-only memory prototype. Stopping Play resets progress. Persistence, six plots, rebirth, later tiers and release polish belong to later checkpoints.
+```sh
+rojo build default.project.json -o build/MergeABrainrot-StackedFarm.rbxlx
+```
 
-Build with Rojo 7.7.1: `rojo build default.project.json -o build/MergeABrainrot-FirstPlayable.rbxlx` (create `build/` first). Open that file in Studio and press Play. The world is generated when Play starts. `setup.project.json` is the historical setup scaffold.
+Create `build/` first, open the generated place in Studio and press Play. The map generates at runtime. For live editing use `rojo serve default.project.json` and connect the Studio Rojo plugin. `setup.project.json` is the historical setup scaffold.
 
-Run the 13 domain tests with Luau 0.743: `luau tests/run.luau`. See [first-playable verification](verification/FIRST_PLAYABLE.md) for Studio checks and limitations.
+Run all non-Studio `tests/*.luau` scripts with Luau 0.743. Run `tests/studio-layout.client.luau` in the Studio Client command bar during Play. `tools/simulate_progression.luau` exercises the real economy with a timed active-player benchmark.
 
-See [setup instructions](docs/SETUP.md), [build status](docs/BUILD_STATUS.md), and [verification](verification/TEST_REPORT.md).
+Stopping Play resets progress. Persistence, live release, friend boosts and configured monetization remain pending. Gamepass IDs are unset, so paid offers display Coming soon rather than invented Robux prices. First rebirth retains the specified $1 million plus Level 6 requirement; the [economy audit](docs/verification/ECONOMY_PACE.md) records its substantial manual progression burden.
 
-Source files in Git are the source of truth. Change scripts here and rebuild, or run `rojo serve default.project.json` and connect the Studio Rojo plugin. Avoid separate edited copies in Studio.
+See [build status](docs/BUILD_STATUS.md), [current verification](docs/verification/STACKED_FARM.md), [asset sources and imports](assets/README.md), and [setup instructions](docs/SETUP.md). The original handoff remains unchanged in `Merge_a_Brainrot_Pack/`; subsequent explicit user requests govern the current prototype.

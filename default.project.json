@@ -2,7 +2,7 @@
   "name": "MergeABrainrot",
   "tree": {
     "$className": "DataModel",
-    "ReplicatedStorage": {"Shared": {"$path": "src/shared"}},
+    "ReplicatedStorage": {"Shared": {"$path": "src/shared"}, "CharacterModels": {"$path": "assets/characters/roblox"}, "MapModels": {"$path": "assets/map/roblox"}},
     "ServerScriptService": {"$path": "src/server"},
     "StarterPlayer": {"StarterPlayerScripts": {"$path": "src/client"}},
     "StarterGui": {"$properties": {"ScreenOrientation": "Sensor"}}

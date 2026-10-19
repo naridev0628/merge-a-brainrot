@@ -1,0 +1,26 @@
+{
+  "Crocodilo": {
+    "triangles": 10002,
+    "vertices": 5485,
+    "dimensions_xyz": [
+      6.1,
+      6.444,
+      3.69
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "glb_bytes": 594180
+  },
+  "Crocodilo_Mini": {
+    "triangles": 2838,
+    "vertices": 1567,
+    "dimensions_xyz": [
+      6.1,
+      6.444,
+      3.69
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "glb_bytes": 186968
+  }
+}
