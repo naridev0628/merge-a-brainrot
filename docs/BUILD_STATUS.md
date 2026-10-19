@@ -1,4 +1,12 @@
-# Build status — 2026-10-14
+# Build status — 2026-10-19
+
+Checkpoint 1 implemented on `codex/first-playable`: one plot, three tiers, production/collection/selling/buying/merging, respawn-safe session state, server validation and basic responsive UI. All 13 domain tests pass; the real Studio client completed its first merge. See [current verification](../verification/FIRST_PLAYABLE.md).
+
+Build `default.project.json` to `build/MergeABrainrot-FirstPlayable.rbxlx` and press Play in Studio. Memory only: progress resets on Stop. No experience has been published. Next learner action: collect ten Minis, sell, buy a second Sprout and merge the pair.
+
+Remaining roadmap: Checkpoint 2 full farm/rebirth → 3 persistence → 4 presentation → 5 QA. Collaborator invitation and Mac verification remain pending.
+
+## Historical Checkpoint 0 record — 2026-10-14
 
 BUILD_MODE: INCREMENTAL
 

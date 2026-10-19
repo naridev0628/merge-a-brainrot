@@ -4,6 +4,7 @@
     "$className": "DataModel",
     "ReplicatedStorage": {"Shared": {"$path": "src/shared"}},
     "ServerScriptService": {"$path": "src/server"},
-    "StarterPlayer": {"StarterPlayerScripts": {"$path": "src/client"}}
+    "StarterPlayer": {"StarterPlayerScripts": {"$path": "src/client"}},
+    "StarterGui": {"$properties": {"ScreenOrientation": "Sensor"}}
   }
 }
