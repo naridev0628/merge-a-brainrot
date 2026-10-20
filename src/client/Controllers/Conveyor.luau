@@ -1,6 +1,7 @@
 --!strict
 local Collection=game:GetService('CollectionService')
 local MiniMotion=require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('MiniMotion'))
+local MiniNeighborIndex=require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('MiniNeighborIndex'))
 local TierEffects=require(script.Parent:WaitForChild('TierEffects'))
 local Conveyor={}; Conveyor.__index=Conveyor
 local function smooth(t: number): number
@@ -26,18 +27,29 @@ function Conveyor.update(self: any,now: number)
     if self.tierEffects then self.tierEffects:update(self.producers,now) end
     -- Nearby settled minis give slightly when an arriving mini joins the pile.
     -- This is a brief visual contact response; final pickup centers stay fixed.
+    local neighbors: any=nil
     for model,record in self.models do
         local ready=model:GetAttribute('ReadyAt')
         local target=model:GetAttribute('ConveyorEnd')
         if not record.landed and ready and target and now>=ready then
             record.landed=true
+            if neighbors then neighbors:insert(record,target.X,target.Y,target.Z) end
             if now-ready<.45 then
                 local scale=model:GetAttribute('PlotScale') or .5
-                for neighbor,other in self.models do
-                    local otherTarget=neighbor:GetAttribute('ConveyorEnd')
-                    if neighbor~=model and other.landed and otherTarget and (otherTarget-target).Magnitude<3*scale then
-                        other.jostledAt=now
+                if not neighbors then
+                    -- Build once only when a fresh landing needs contact feedback.
+                    -- Other farms are spatially distant and never need pair checks.
+                    neighbors=MiniNeighborIndex.new(2)
+                    for neighbor,other in self.models do
+                        local otherTarget=neighbor:GetAttribute('ConveyorEnd')
+                        if other.landed and otherTarget then
+                            neighbors:insert(other,otherTarget.X,otherTarget.Y,otherTarget.Z)
+                        end
                     end
+                end
+                local nearby=neighbors:query(target.X,target.Y,target.Z,3*scale)
+                for _,other in nearby do
+                    if other~=record then other.jostledAt=now end
                 end
             end
         end

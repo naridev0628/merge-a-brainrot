@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-20",
+  "source": "https://www.youtube.com/watch?v=HJcoc02bumg",
+  "creator": "SSundee",
+  "title": "Roblox Chicken Farm is INSANE",
+  "captures": 100,
+  "captureResolution": [
+    1920,
+    1080
+  ],
+  "captureUniqueHashes": 100,
+  "timestampToleranceSeconds": 2.5,
+  "implementation": [
+    "FarmLandmarks: thick green foundations and striped silo on each plot; hub skirt",
+    "ConveyorFacade: gold apron, pale skirts, open end frames and tray trim",
+    "HubScenery: authored gardens between all six bridge approaches, wheat, shrubs, lighthouse and water props",
+    "WorldBuilder: paths join plaza to bridge approaches; terrain ocean with gentle waves",
+    "MiniNeighborIndex: bounded spatial lookup for landing animation contacts"
+  ],
+  "tests": {
+    "compiledSources": 50,
+    "standaloneBehaviorSuites": 23,
+    "studioPassed": [
+      "farm-landmarks",
+      "conveyor-facade",
+      "hub-routes",
+      "mini-neighbors",
+      "environment",
+      "bridge-grounding",
+      "mirrored-plot"
+    ],
+    "review": "Independent source review found no actionable defects"
+  },
+  "geometryFixes": [
+    "Trimmed gold/cream tray side strips to stop at the conveyor boundary",
+    "Landmark test compares transformed bay/lawn edges with .01 logical tolerance",
+    "Environment fixture follows nested scenery for 30 lilies and three rock islands"
+  ],
+  "evidence": [
+    "before-plot.png",
+    "after-plot.png",
+    "before-hub.png",
+    "after-hub.png",
+    "after-farmer.png"
+  ],
+  "limitations": [
+    "Board image, annotation, link and JavaScript static checks passed; interactive browser preview was blocked by local-file URL policy",
+    "Audio was not audited from continuous reference playback",
+    "Capacity remains50/50 for this batch; pure tests are not device FPS certification",
+    "Studio output also contains pre-existing cloud_9643911698 Superpower plugin errors and an unrelated203785492 asset-type warning absent from project source"
+  ],
+  "studio": "Synced to existing Studio edit sources and restarted successfully; no game publishing"
+}

@@ -120,7 +120,7 @@ for id=1,Config.PlotCount do
     assert(position.Y>=40 and math.abs(position.Z-Config.DisplayZ)<.01,'Badge must sit high above the rear display')
 end
 local lily,rocks=0,0
-for _,p in root:GetChildren() do
+for _,p in root:GetDescendants() do
     if p.Name=='BrickLilyPad' or p.Name=='BrickRockIsland' then
         assert(p:IsA('MeshPart') and p.Anchored and p.CanCollide and p.CanQuery,'Water props must support players')
         if p.Name=='BrickLilyPad' then lily+=1 else rocks+=1 end

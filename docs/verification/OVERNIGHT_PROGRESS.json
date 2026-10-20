@@ -1,0 +1,31 @@
+{
+  "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
+  "heartbeat": "overnight-chicken-farm-polish",
+  "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
+  "branch": "codex/stacked-brainrot-farm",
+  "studioId": "ef89b65f-2f6a-4fe7-8272-bae9e8007fd1",
+  "completed": [
+    "100 annotated reference frames",
+    "Map silhouettes, connected paths, authored gardens, ocean detail",
+    "Mini landing spatial-index optimization"
+  ],
+  "active": [
+    "map_pass_review agent implementing SettingsPanel, Preferences, FarmUI and Main Escape",
+    "map_structure_audit agent implementing verified Creator Store audio and MusicController"
+  ],
+  "next": [
+    "Integrate and verify settings/audio; sync Studio and commit second batch",
+    "Compare six-farm50/50 against50/96 Minis under load; retain bounded rendering and do not claim low-end certification",
+    "Refactor high-part shelf generator and investigate cosmetic LOD before expanding producer limit",
+    "Review additional Chicken Farm footage for settings/obby/progression gaps",
+    "Run repeated fill/collect/merge/upgrade checks and save morning screenshots"
+  ],
+  "constraints": [
+    "User permits expanding former50limits if performance supports it",
+    "No incremental cash purchase buttons",
+    "Preserve immediate pad entry, standing repeat, aura/airborne pickup and nonmodal Lucky UI",
+    "Use authorized assets and original code; no video-music extraction",
+    "Sync Studio; do not merge draft PR or publishgame",
+    "Continue meaningful coding passes through minimum overnight window; pauseheartbeat only after cutoff or user requests"
+  ]
+}

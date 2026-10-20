@@ -2,6 +2,9 @@
 local Shared=game:GetService('ReplicatedStorage'):WaitForChild('Shared')
 local Factory=require(Shared.ModelFactory)
 local Environment=require(Shared.EnvironmentArt)
+local Landmarks=require(Shared.FarmLandmarks)
+local ConveyorFacade=require(Shared.ConveyorFacade)
+local HubScenery=require(Shared.HubScenery)
 local Decor=require(Shared.StallDecor)
 local LeaderboardDisplay=require(script.Parent.LeaderboardDisplay)
 local Map=require(Shared.MapSpec)
@@ -292,6 +295,8 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local producers=Instance.new('Folder'); producers.Name='Producers'; producers.Parent=root
     local tokens=Instance.new('Folder'); tokens.Name='Minis'; tokens.Parent=root
     local rows=Instance.new('Folder'); rows.Name='StackRows'; rows.Parent=root
+    Landmarks.buildPlot(root)
+    ConveyorFacade.build(root)
     placeScaled(root,transform)
     root.Parent=parent; task.wait()
     local lighting=game:GetService('Lighting'); lighting.ClockTime=13; lighting.Brightness=2; lighting.Ambient=Color3.fromRGB(170,170,170)
@@ -300,23 +305,26 @@ end
 function World.build()
     local old=workspace:FindFirstChild('MergeABrainrotGenerated'); if old then old:Destroy() end
     local root=Instance.new('Folder'); root.Name='MergeABrainrotGenerated'; root.Parent=workspace
-    local water=Factory.part(root,'Water',Vector3.new(1000,1,1000),CFrame.new(0,-5,0),Color3.fromRGB(46,174,224),nil,true); water.Material=Enum.Material.Glass; water.Transparency=.15
+    local water=Factory.part(root,'Water',Vector3.new(1000,1,1000),CFrame.new(0,-5,0),Color3.fromRGB(46,174,224),nil,true);water.Transparency=1
+    local terrain=workspace.Terrain
+    terrain.WaterColor=Color3.fromRGB(41,156,231)
+    terrain.WaterTransparency=.24;terrain.WaterReflectance=.12
+    terrain.WaterWaveSize=.12;terrain.WaterWaveSpeed=9
+    terrain:FillBlock(CFrame.new(0,-6.6,0),Vector3.new(1000,4,1000),Enum.Material.Water)
     Environment.octagon(root,CFrame.new(0,0,0),96,1,Color3.fromRGB(115,210,38))
+    Landmarks.buildHub(root)
     for i=1,6 do
         local angle=(i-1)*math.pi/3
         local outward=Vector3.new(math.sin(angle),0,math.cos(angle))
-        local walkCF=CFrame.lookAt(outward*63+Vector3.new(0,.08,0),outward*80+Vector3.new(0,.08,0))
-        local walk=Factory.part(root,'LobbyWalkway',Vector3.new(14,.2,50),walkCF,Color3.fromRGB(245,204,123));walk.TopSurface=Enum.SurfaceType.Studs
+        local walkCF=CFrame.lookAt(outward*65+Vector3.new(0,.08,0),outward*90+Vector3.new(0,.08,0))
+        local walk=Factory.part(root,'LobbyWalkway',Vector3.new(14,.2,62),walkCF,Color3.fromRGB(245,204,123));walk.TopSurface=Enum.SurfaceType.Studs
+        for _,side in {-1,1} do
+            local edge=Factory.part(root,'WalkwayBrickEdge',Vector3.new(.3,.15,62),walkCF*CFrame.new(side*7,.08,0),Color3.fromRGB(255,222,153));edge.CanQuery=false
+        end
     end
     for i=1,16 do
         local angle=i*math.pi/8; local x,z=math.cos(angle)*37,math.sin(angle)*37
         local edging=Factory.part(root,'CircleEdging',Vector3.new(6,.4,1.1),CFrame.new(x,.3,z)*CFrame.Angles(0,-angle+math.pi/2,0),orange);edging.TopSurface=Enum.SurfaceType.Studs
-    end
-    for i=1,6 do
-        local angle=(i-.5)*math.pi/3; local center=Vector3.new(math.sin(angle)*57,0,math.cos(angle)*57)
-        local bed=Factory.part(root,'Planter',Vector3.new(9,.7,5),CFrame.new(center+Vector3.new(0,.35,0))*CFrame.Angles(0,angle,0),Color3.fromRGB(134,81,41));bed.TopSurface=Enum.SurfaceType.Studs
-        for flower=1,4 do Factory.prop(root,'BrickFlower',CFrame.new(center+Vector3.new(-4+flower*1.6,.7,0)),.85+flower%2*.2) end
-        Factory.prop(root,'BrickBush',CFrame.new(center+Vector3.new(3,.7,0)),.75)
     end
     local plots={}
     for i=1,6 do
@@ -350,42 +358,12 @@ function World.build()
         end end
         if x%10==0 then task.wait() end
     end
-    -- Authored clusters between bridge approaches, with the radial paths left open.
-    for sector=1,6 do
-        local angle=(sector-.5)*math.pi/3
-        for _,radius in {45,82} do
-            local cf=CFrame.new(math.sin(angle)*radius,0,math.cos(angle)*radius)*CFrame.Angles(0,angle,0)
-            Factory.prop(root,'BrickBush',cf,1.25)
-            Factory.prop(root,'BrickBush',cf*CFrame.new(3.8,0,1.4),.8)
-            Factory.prop(root,'BrickGrass',cf*CFrame.new(-3,0,1),1.3)
-            for flower=1,3 do Factory.prop(root,'BrickFlower',cf*CFrame.new(flower-2,0,-3),.8) end
-        end
-    end
+    HubScenery.build(root)
     for i=1,10 do
         local angle=i*.7
         local block=Factory.part(root,'ParkourStep'..i,Vector3.new(5,1,5),CFrame.new(math.cos(angle)*14,i*3,math.sin(angle)*14),orange,nil,true); block.TopSurface=Enum.SurfaceType.Studs
     end
     Factory.part(root,'ParkourFinish',Vector3.new(9,1,9),CFrame.new(math.cos(7)*7,33,math.sin(7)*7),Color3.fromRGB(255,225,41),nil,true)
-    for i=1,9 do
-        local angle=i*2.399; local radius=65+i%3*7
-        local position=Vector3.new(math.cos(angle)*radius,0,math.sin(angle)*radius)
-        Environment.tree(root,CFrame.new(position)*CFrame.Angles(0,angle,0),.85+i%4*.12,i%3+1)
-        for flower=1,3 do Factory.prop(root,'BrickFlower',CFrame.new(position+Vector3.new(4+flower*1.3,0,2)),.7+flower*.1) end
-        Factory.prop(root,'BrickGrass',CFrame.new(position+Vector3.new(-3,0,2)),1.1)
-    end
-    Environment.lighthouse(root,CFrame.new(-62,0,-62)*CFrame.Angles(0,math.pi/4,0),.7)
-    for index,position in {Vector3.new(-67,-4.4,86),Vector3.new(67,-4.4,-86),Vector3.new(190,-4.4,112)} do
-        Factory.prop(root,'BrickRockIsland',CFrame.new(position)*CFrame.Angles(0,index*.9,0),1.25)
-        Factory.prop(root,'BrickLilyPad',CFrame.new(position+Vector3.new(10,0,4)),1.2)
-        Factory.prop(root,'BrickLilyPad',CFrame.new(position+Vector3.new(-6,0,-8)),.9)
-    end
-    for index,position in {Vector3.new(-65,0,25),Vector3.new(65,0,-24)} do
-        local facing=CFrame.Angles(0,if index==1 then -.4 else math.pi-.4,0)
-        Factory.prop(root,'BrickBarn',CFrame.new(position)*facing,.85)
-        Factory.prop(root,'CoolTralalero',CFrame.new(position+Vector3.new(8,0,-10))*facing,.65)
-        Factory.prop(root,'BrickGrass',CFrame.new(position+Vector3.new(-4,0,-3)),1.4)
-        Factory.prop(root,'BrickFlower',CFrame.new(position+Vector3.new(4,0,3)),1.1)
-    end
     local boardSpecs={
         {key='time',title='Time Played',color=Color3.fromRGB(86,178,255)},
         {key='coins',title='Net Worth',color=Color3.fromRGB(103,255,31)},

@@ -1,0 +1,902 @@
+[
+  {
+    "index": 1,
+    "title": "Intro character cutaway",
+    "category": "context",
+    "visibility": "context",
+    "observation": "A blocky rider and chicken appear against a blurred background with the editorial word BETTER; the farm is absent.",
+    "application": "Intro context only. Do not infer plot geometry or game typography from this edit.",
+    "key": false
+  },
+  {
+    "index": 2,
+    "title": "Crowded tray in the opening montage",
+    "category": "conveyor",
+    "visibility": "partial",
+    "observation": "A high camera shows many drops packed into a square red tray, framed in gold beside the purchase pads.",
+    "application": "Use the strong tray boundary and clear pad separation; retain our own Mini capacity.",
+    "key": false
+  },
+  {
+    "index": 3,
+    "title": "Basket HUD close-up",
+    "category": "ui",
+    "visibility": "partial",
+    "observation": "The shot is cropped tightly around the egg basket: a cream count panel, dark outline, and woven brown base.",
+    "application": "Reference the inventory icon hierarchy, not the camera scale or surrounding map proportions.",
+    "key": false
+  },
+  {
+    "index": 4,
+    "title": "Empty conveyor exposes the construction",
+    "category": "conveyor",
+    "visibility": "clear",
+    "observation": "The empty red trough exposes studs, gold rims, a cream outside skirt, and a substantial orange display fascia.",
+    "application": "Primary construction reference for ConveyorFacade. Preserve the existing belt and pickup plane.",
+    "key": true
+  },
+  {
+    "index": 5,
+    "title": "Tray mouth and tutorial guidance",
+    "category": "conveyor",
+    "visibility": "partial",
+    "observation": "The square collection recess opens directly into the long red lane. A bright tutorial trail crosses the lawn.",
+    "application": "Keep the chute visually continuous; a guidance effect should remain separate from permanent map geometry.",
+    "key": false
+  },
+  {
+    "index": 6,
+    "title": "Collection recess from inside",
+    "category": "conveyor",
+    "visibility": "clear",
+    "observation": "From the tray, gold edging encloses three sides while the lane remains open behind the avatar.",
+    "application": "Use a shallow border that identifies collection space without enclosing the player behind a wall.",
+    "key": false
+  },
+  {
+    "index": 7,
+    "title": "Processor and silo share a utility corner",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "A large wooden selling board sits beside the red silo; small pads occupy the lawn beneath it.",
+    "application": "Group the utility landmarks while preserving clear space between the board, cash pad, and route.",
+    "key": true
+  },
+  {
+    "index": 8,
+    "title": "Open purchase forecourt",
+    "category": "map",
+    "visibility": "partial",
+    "observation": "The player stands on broad grass in front of the central red tray, with small pads spaced along the conveyor.",
+    "application": "Retain the open forecourt and avoid filling it with decorative props.",
+    "key": false
+  },
+  {
+    "index": 9,
+    "title": "Guidance across the lawn",
+    "category": "feedback",
+    "visibility": "partial",
+    "observation": "A luminous arrow trail leads away from a gray studded pad toward the deposit area in the distance.",
+    "application": "Directional feedback can connect objectives without adding permanent signs to every route.",
+    "key": false
+  },
+  {
+    "index": 10,
+    "title": "First row and merge tutorial",
+    "category": "display",
+    "visibility": "clear",
+    "observation": "Four occupied display bays form a simple repeating rhythm above the orange fascia while the merge prompt stays overhead.",
+    "application": "Keep the architectural base readable when only a few producers are owned.",
+    "key": false
+  },
+  {
+    "index": 11,
+    "title": "Tray lip and pickup numbers",
+    "category": "feedback",
+    "visibility": "clear",
+    "observation": "An overhead close-up shows the avatar at the gold tray lip, with small gain numbers above the basket HUD.",
+    "application": "Keep pickup feedback near the inventory area and preserve visibility of the red collection floor.",
+    "key": false
+  },
+  {
+    "index": 12,
+    "title": "Cash pad beside the silo",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "The mint cash pad is offset from the wooden processor board and placed against the silo’s red vertical mass.",
+    "application": "Use the silo as a recognizable utility landmark, with the cash pad remaining visually distinct.",
+    "key": true
+  },
+  {
+    "index": 13,
+    "title": "Index covers the central play view",
+    "category": "ui",
+    "visibility": "occluded",
+    "observation": "A purple Index panel shows discovered characters and dark unknown silhouettes; it obscures most of the farm.",
+    "application": "Use as a collection-menu reference only. The underlying layout cannot be assessed from this frame.",
+    "key": false
+  },
+  {
+    "index": 14,
+    "title": "Utility corner from the collection side",
+    "category": "map",
+    "visibility": "partial",
+    "observation": "The cash pad, tall banded silo, and glowing deposit stall are visible across a wide, largely empty lawn.",
+    "application": "Compare landmark separation from a normal approach angle before adding smaller set dressing.",
+    "key": false
+  },
+  {
+    "index": 15,
+    "title": "Farmer stall and banded silo",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "The stall has a red-and-white awning, a basket-and-arrow sign, and a yellow deposit glow; the tall silo anchors its side.",
+    "application": "Primary landmark reference for FarmLandmarks; keep the mirrored Brainrot stall and existing deposit interaction.",
+    "key": true
+  },
+  {
+    "index": 16,
+    "title": "Distinct utility pad colors",
+    "category": "economy",
+    "visibility": "partial",
+    "observation": "The processor corner uses yellow paid pads, a gray upgrade pad, and a larger mint cash surface.",
+    "application": "Use color and size to distinguish actions while showing only the offers implemented in our game.",
+    "key": false
+  },
+  {
+    "index": 17,
+    "title": "Silo bands read at walking distance",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "White horizontal bands and corner ribs break up the tall red studded silo behind the cash area.",
+    "application": "Build the silo from a few bold color bands and restrained stud accents rather than tiny surface clutter.",
+    "key": true
+  },
+  {
+    "index": 18,
+    "title": "Purchase prompt with expanded facecam",
+    "category": "context",
+    "visibility": "occluded",
+    "observation": "A dark purchase dialog dims the game, and a large facecam covers much of the lower-right scene.",
+    "application": "Mark as obstructed context. Do not treat dimmed colors or covered geometry as map evidence.",
+    "key": false
+  },
+  {
+    "index": 19,
+    "title": "A long empty display platform",
+    "category": "display",
+    "visibility": "partial",
+    "observation": "Much of the gold platform is empty, making its continuous horizontal fascia and the red lane below especially apparent.",
+    "application": "Use the continuous apron to hold the scene together before the producer bays fill up.",
+    "key": false
+  },
+  {
+    "index": 20,
+    "title": "Purchase row in front of the rear bank",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "Green purchase pads sit ahead of the conveyor, while a gray tier-upgrade pad and a small gold crop cluster mark the end.",
+    "application": "Keep the primary purchase row organized; use end decorations sparingly and outside interaction footprints.",
+    "key": false
+  },
+  {
+    "index": 21,
+    "title": "Producer feet above the gold apron",
+    "category": "display",
+    "visibility": "clear",
+    "observation": "Nest bowls rest on pale studded display shelves; a broad orange face separates the shelves from the red belt below.",
+    "application": "Strengthen the display base while retaining the raised Brainrot standing surface and clear actor silhouettes.",
+    "key": true
+  },
+  {
+    "index": 22,
+    "title": "Deposit approach remains open",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "The camera approaches the striped farmer stall across grass, with the silo at left and little decoration in the direct path.",
+    "application": "Keep the route to deposit open and make the awning and warm pad glow do the wayfinding.",
+    "key": false
+  },
+  {
+    "index": 23,
+    "title": "Calculator overlay obscures the scene",
+    "category": "context",
+    "visibility": "occluded",
+    "observation": "A desktop calculator occupies the middle of the video and hides the player and much of the utility corner.",
+    "application": "Context for the creator’s calculation only; no new geometry or economy rule is established by this frame.",
+    "key": false
+  },
+  {
+    "index": 24,
+    "title": "Processor hierarchy and island edge",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "The wooden board separates status, queue count, and rate. Behind its fence, a neighboring plot has a thick green sidewall above water.",
+    "application": "Primary evidence for solid island foundations; keep board values readable and preserve the existing playable top.",
+    "key": true
+  },
+  {
+    "index": 25,
+    "title": "Held block over a populated tray",
+    "category": "ui",
+    "visibility": "partial",
+    "observation": "A yellow block is held above the tray while a narrow odds card occupies the right side; the world stays bright.",
+    "application": "Keep the Lucky interface compact and leave the pickup area visible while the player moves.",
+    "key": false
+  },
+  {
+    "index": 26,
+    "title": "Discovery overlay in the forecourt",
+    "category": "feedback",
+    "visibility": "partial",
+    "observation": "A newly discovered Bee character and its message appear low on screen, with the rear display still visible behind them.",
+    "application": "Keep discoveries temporary and localized so the farm’s main shapes remain readable.",
+    "key": false
+  },
+  {
+    "index": 27,
+    "title": "Block carry scale against the avatar",
+    "category": "ui",
+    "visibility": "partial",
+    "observation": "The held yellow block is substantial beside the avatar, while the right-hand card and bottom inventory remain separate.",
+    "application": "Use this as a scale and panel-spacing reference; retain the Brainrot Lucky interaction and reward table.",
+    "key": false
+  },
+  {
+    "index": 28,
+    "title": "Centered buy dialog",
+    "category": "context",
+    "visibility": "occluded",
+    "observation": "A purchase confirmation sits at the center of a darkened farm; only the peripheral pads and rear row remain visible.",
+    "application": "Purchase-flow context only. Do not use the dimmed view to judge lighting or map color.",
+    "key": false
+  },
+  {
+    "index": 29,
+    "title": "Facecam dominates the frame",
+    "category": "context",
+    "visibility": "occluded",
+    "observation": "The enlarged facecam covers the center and lower play area, leaving only fragments of the silo, grass, and UI visible.",
+    "application": "Editorial context. Prefer neighboring frames for map proportions and object placement.",
+    "key": false
+  },
+  {
+    "index": 30,
+    "title": "Purchase dialog over rebirth",
+    "category": "ui",
+    "visibility": "occluded",
+    "observation": "A purchase confirmation overlays a red-header Rebirth panel and dims the underlying farm.",
+    "application": "Separate platform purchase dialogs from in-game panel design; the map is not assessable here.",
+    "key": false
+  },
+  {
+    "index": 31,
+    "title": "Layered conveyor outside face",
+    "category": "conveyor",
+    "visibility": "clear",
+    "observation": "A cream outer support carries a narrow gold rim beneath the red lane; the broad orange display apron sits behind it.",
+    "application": "Primary palette and layering reference for the new conveyor skirts, crown, and display fascia.",
+    "key": true
+  },
+  {
+    "index": 32,
+    "title": "Complete display-to-tray relationship",
+    "category": "display",
+    "visibility": "clear",
+    "observation": "Angled bay dividers frame individual nests above the orange base; the red lane feeds a gold-edged tray in front.",
+    "application": "Use open gold end frames and a continuous base while keeping every Brainrot visible.",
+    "key": true
+  },
+  {
+    "index": 33,
+    "title": "Processor board as a freestanding sign",
+    "category": "map",
+    "visibility": "partial",
+    "observation": "Two wooden posts lift the selling board above paired utility pads. A Lucky card covers the right-hand portion of the view.",
+    "application": "Keep signage freestanding and legible from the lawn; assess the covered corner using other frames.",
+    "key": false
+  },
+  {
+    "index": 34,
+    "title": "Wider view with large facecam",
+    "category": "context",
+    "visibility": "occluded",
+    "observation": "A broad view exposes portions of the lawn and rear bank, but an enlarged facecam hides the center-right and lower scene.",
+    "application": "Use only the visible open-lawn relationship; do not measure the hidden utility layout.",
+    "key": false
+  },
+  {
+    "index": 35,
+    "title": "Deposit burst crosses the utility corner",
+    "category": "feedback",
+    "visibility": "partial",
+    "observation": "Large egg icons and a deposit message scatter over the grass between the processor board and red silo.",
+    "application": "Reference the celebratory burst scale, with bounded effects and a short lifetime in Brainrot Farm.",
+    "key": false
+  },
+  {
+    "index": 36,
+    "title": "Cream skirt under the whole purchase row",
+    "category": "conveyor",
+    "visibility": "clear",
+    "observation": "The pale outside conveyor wall forms a continuous band behind the green pads, ending at the tray’s gold corner.",
+    "application": "Primary reference for a more substantial conveyor silhouette without moving any pads.",
+    "key": true
+  },
+  {
+    "index": 37,
+    "title": "Merge pad directly before the tray",
+    "category": "map",
+    "visibility": "partial",
+    "observation": "The yellow Merge pad sits immediately in front of the red collection recess; a blue Lucky block and card overlap the view.",
+    "application": "Retain a strong central merge-and-collection relationship while preserving our confirmed pad spacing.",
+    "key": false
+  },
+  {
+    "index": 38,
+    "title": "Centered merge approach",
+    "category": "conveyor",
+    "visibility": "clear",
+    "observation": "From the lawn, the central tray interrupts the long conveyor and the yellow Merge pad marks its approach.",
+    "application": "Keep the tray visually central and avoid extra trim crossing its open mouth.",
+    "key": true
+  },
+  {
+    "index": 39,
+    "title": "Overhead tray and red lane",
+    "category": "conveyor",
+    "visibility": "clear",
+    "observation": "An elevated angle shows the square gold tray border and the continuous red belt behind its pile of drops.",
+    "application": "Use this angle to inspect border continuity; source item counts are not a requirement for our game.",
+    "key": false
+  },
+  {
+    "index": 40,
+    "title": "Gold end accents and clear forecourt",
+    "category": "map",
+    "visibility": "partial",
+    "observation": "A small gold crop cluster marks the conveyor end near the fence, while the broad lawn stays open in front.",
+    "application": "Favor strong end landmarks and negative space; optional crop decoration must stay outside routes.",
+    "key": true
+  },
+  {
+    "index": 41,
+    "title": "Fat discovery uses a large character reveal",
+    "category": "feedback",
+    "visibility": "clear",
+    "observation": "At the visible 08:25 player time, a large white block-shaped chicken appears against the green ground with a bright green NEW label and the name Fat beneath it. Part of the discovery sentence and the avatar are cropped by the close view.",
+    "application": "Pair a newly unlocked character with its name and a short discovery message; preserve the user's preference for direct feedback without a received prefix.",
+    "key": false
+  },
+  {
+    "index": 42,
+    "title": "Lucky-block panel beside a physical reward",
+    "category": "ui",
+    "visibility": "partial",
+    "observation": "A blue question-mark block is beside the avatar. A tall blue panel on the right lists rewards and probabilities above Unlock, Buy, and Discard actions; the facecam hides its upper portion.",
+    "application": "Keep a reward interaction visually tied to its world object, and reserve a consistent screen region for its choices.",
+    "key": false
+  },
+  {
+    "index": 43,
+    "title": "Silo anchors cash collection",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "A tall red silo with white bands stands beside a green Collect Cash pad. Smaller selling-rate and Finish Now pads sit toward the fence, while a deposit confirmation and egg graphics occupy the lower screen.",
+    "application": "Use the silo as a visible landmark for the selling cluster, with its collection pad facing the open interior aisle.",
+    "key": true
+  },
+  {
+    "index": 44,
+    "title": "Open-front producer bays above the belt",
+    "category": "display",
+    "visibility": "clear",
+    "observation": "Nests occupy repeated yellow shelf bays separated by tall tan dividers. Each bird has a name and tier above it. A broad orange fascia separates this raised display from the red conveyor directly below.",
+    "application": "Give each producer a distinct open-front bay and readable label, while keeping the belt visually separate through height and color.",
+    "key": true
+  },
+  {
+    "index": 45,
+    "title": "Purchase prompt obscures the rebirth panel",
+    "category": "ui",
+    "visibility": "occluded",
+    "observation": "A native Buy Item prompt is centered over a larger Rebirth panel. The game and its silo, deposit stall, and conveyor are dimmed behind the stacked dialogs.",
+    "application": "Use this as modal-state context only; the stacked dialogs conceal too much of the plot for geometry decisions.",
+    "key": false
+  },
+  {
+    "index": 46,
+    "title": "Conveyor collection recess at the aisle edge",
+    "category": "conveyor",
+    "visibility": "clear",
+    "observation": "The red belt widens toward the avatar through a rectangular recess bounded by low gold trim and cream outer sides. A yellow Auto Collect pad sits immediately to its left, near the smaller green purchase pads.",
+    "application": "Make the collection recess a clear interruption in the straight belt edge, with low trim that preserves access and view of the contents.",
+    "key": true
+  },
+  {
+    "index": 47,
+    "title": "Long sightline along purchase pads",
+    "category": "map",
+    "visibility": "partial",
+    "observation": "An oblique view shows green purchase pads arranged along the near side of the conveyor, with a pile of collectibles beside them and the producer shelf receding into the distance. Motion blur softens fine details.",
+    "application": "Align the purchase row with the conveyor so the player can read the production line from one standing position.",
+    "key": false
+  },
+  {
+    "index": 48,
+    "title": "Index combines discovered and unknown entries",
+    "category": "ui",
+    "visibility": "clear",
+    "observation": "The centered Index window uses a four-column grid of bird images, names, and egg values. Discovered entries are colored; later entries use black silhouettes and question marks. A scrollbar sits on the right.",
+    "application": "Use a compact collection grid to show both acquired characters and visible future goals without exposing every locked identity.",
+    "key": true
+  },
+  {
+    "index": 49,
+    "title": "Open aisle links production and selling",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "The avatar stands in broad green space between the silo and deposit stall on the left and the conveyor collection pile on the right. Water channels, wooden bridges, trees, and other plots are visible beyond.",
+    "application": "Keep the central plot interior open so players can see and cross between collection, deposit, and purchase stations.",
+    "key": true
+  },
+  {
+    "index": 50,
+    "title": "Purple pad distinguishes the tier upgrade",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "A purple Upgrade Buy Tier pad shows Duck to Dirt and a cash price beside the green Buy 25 and Buy 100 pads. Behind them, several different bird tiers remain visible together in the shelf bays.",
+    "application": "Give a major progression action its own pad color and explicit current-to-next label while keeping it beside ordinary purchase controls.",
+    "key": true
+  },
+  {
+    "index": 51,
+    "title": "Collection pile and purchase row share a route",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "The colorful collection pile fills a gold-edged tray beside the belt. Two avatars occupy the nearby green pad row, and a gray pad remains set farther into the grass with room to approach it.",
+    "application": "Leave approach space around purchase pads and the tray so nearby players and accumulated objects do not hide every interaction surface.",
+    "key": false
+  },
+  {
+    "index": 52,
+    "title": "New-character discovery keeps the world visible",
+    "category": "feedback",
+    "visibility": "clear",
+    "observation": "A Snowman character illustration, NEW label, and discovery sentence appear across the lower screen while the avatar, purchase pad, conveyor, and producer bays remain visible.",
+    "application": "Celebrate a new character with a short illustrated overlay that preserves enough of the world for the player to remain oriented.",
+    "key": false
+  },
+  {
+    "index": 53,
+    "title": "Purchase amounts remain spatially separated",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "Buy 25 Dirts and Auto Merge Buy 100 Dirts appear above two separate green pads. A gray next-tier pad to the right carries a progress bar, and an egg-multiplier warning overlays the lower center.",
+    "application": "Separate purchase quantities physically, and place the longer-term tier requirement adjacent to them with a different surface state.",
+    "key": false
+  },
+  {
+    "index": 54,
+    "title": "Selling stations form one readable cluster",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "A Selling Eggs board and two small pads sit left of the silo; the green Collect Cash pad is in front of it. The glowing deposit pad and striped stall are at the right edge, across the open grass.",
+    "application": "Group selling status, processing upgrades, deposit, and collection within one view, using the silo and stall as different landmarks.",
+    "key": true
+  },
+  {
+    "index": 55,
+    "title": "Selling board places status above its controls",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "A large wooden Selling Eggs board shows an outstanding quantity and a per-second rate. Beneath it are a yellow Finish Now pad and a green rate-upgrade pad, backed by a low fence and water.",
+    "application": "Put production status above the controls that affect it, and use the plot boundary as a backdrop rather than crowding the central walking area.",
+    "key": true
+  },
+  {
+    "index": 56,
+    "title": "Progress requirement stays beside bulk buying",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "The Dirt-to-Bee upgrade display reads 90,099 out of 100K chickens above a gray pad. The neighboring Buy 25 and Buy 100 pads remain green, and the collection tray is visibly full behind them.",
+    "application": "Keep progress toward the next purchase tier visible from the bulk-buying position so repeated purchases have an immediate nearby goal.",
+    "key": false
+  },
+  {
+    "index": 57,
+    "title": "Rebirth requirement appears at the world pad",
+    "category": "ui",
+    "visibility": "partial",
+    "observation": "A purchase dialog covers the center of the Rebirth panel. At the unobscured right side, the Bee-to-Mushroom world label displays a red Rebirth 3 requirement above the gray upgrade pad.",
+    "application": "Show an unmet progression requirement at the relevant world control, so its locked state can be understood without relying only on a menu.",
+    "key": false
+  },
+  {
+    "index": 58,
+    "title": "Higher-tier purchase labels reuse the same stations",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "The familiar pad row now reads Buy 25 Bees and Auto Merge Buy 100 Bees. The adjacent upgrade display is Bee to Mushroom with a 300K chicken target; the belt and tray retain their previous placement.",
+    "application": "Let the same recognizable purchase stations advance with progression, updating their labels and requirements without forcing players to relearn the plot.",
+    "key": false
+  },
+  {
+    "index": 59,
+    "title": "Character reveal occupies the avatar area",
+    "category": "feedback",
+    "visibility": "clear",
+    "observation": "A large Fried chicken model and name appear near screen center over the avatar's position. A red Please wait message sits above the egg counter, while the purchase pads and red belt remain visible behind.",
+    "application": "Use a centered character reveal sparingly and keep wait-state feedback distinct from purchase prices and collection totals.",
+    "key": false
+  },
+  {
+    "index": 60,
+    "title": "Higher tiers preserve the display rhythm",
+    "category": "display",
+    "visibility": "clear",
+    "observation": "The long shelf contains birds including Villager, Dummy, and Mushroom in the same repeated nest-and-divider bays. Below it, the continuous orange fascia and red belt frame a Mushroom purchase row and Dummy upgrade target.",
+    "application": "Keep bay dimensions and shelf framing consistent as character tiers change, allowing the characters and their labels to carry the progression.",
+    "key": true
+  },
+  {
+    "index": 61,
+    "title": "Enlarged facecam over the purchase row",
+    "category": "context",
+    "visibility": "occluded",
+    "observation": "A large facecam covers the central pads and avatar, leaving the tray and rear conveyor visible only around its edges.",
+    "application": "Editorial context only; neighboring frames provide clearer measurements of the rear bank.",
+    "key": false
+  },
+  {
+    "index": 62,
+    "title": "Tier upgrade stays at the row end",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "The gray tier-upgrade pad remains at the end of the green purchase row, with a red rebirth requirement above it.",
+    "application": "Keep locked actions distinguishable and use our own progression requirements rather than these source values.",
+    "key": false
+  },
+  {
+    "index": 63,
+    "title": "Processor board viewed from above",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "A high angle shows the selling board just inside the perimeter fence, with Finish Now and speed pads in front.",
+    "application": "Protect board sightlines and the lawn approach when placing utility decorations.",
+    "key": false
+  },
+  {
+    "index": 64,
+    "title": "Utility pads keep their separation",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "The processor queue is prominent above two separated pads; the yellow paid action and green upgrade have distinct labels.",
+    "application": "Maintain separate action and price lines so larger progression values do not merge into one label.",
+    "key": false
+  },
+  {
+    "index": 65,
+    "title": "Silo, water edge, and deposit burst",
+    "category": "map",
+    "visibility": "partial",
+    "observation": "The silo sits between the cash area and a fenced water edge; large egg icons pass across the glowing deposit approach.",
+    "application": "Use the silo as a landmark at the plot boundary and keep temporary feedback out of the permanent silhouette.",
+    "key": true
+  },
+  {
+    "index": 66,
+    "title": "Skeleton discovery close-up",
+    "category": "feedback",
+    "visibility": "partial",
+    "observation": "A Skeleton character, NEW label, and discovery sentence occupy a zoomed portion of the studded lawn.",
+    "application": "Use the reveal as feedback reference only; it does not establish normal camera scale or new map geometry.",
+    "key": false
+  },
+  {
+    "index": 67,
+    "title": "Cash collection beside the landmark",
+    "category": "feedback",
+    "visibility": "partial",
+    "observation": "A bright collection effect surrounds the avatar on the cash pad, with the silo occupying the right side and the board behind.",
+    "application": "Concentrate cash effects on the interaction point and preserve the readable mint pad after the burst.",
+    "key": false
+  },
+  {
+    "index": 68,
+    "title": "Another rebirth purchase interruption",
+    "category": "context",
+    "visibility": "occluded",
+    "observation": "A platform purchase prompt overlays the Rebirth panel and darkens the farm, hiding the center of the purchase area.",
+    "application": "Keep as progression context; do not derive the farm’s palette or layout from this obstructed state.",
+    "key": false
+  },
+  {
+    "index": 69,
+    "title": "Late purchase row keeps the same footprint",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "The row now advertises Goose purchases, but the green pads, central tray, and gray upgrade pad occupy the familiar arrangement.",
+    "application": "Preserve stable action locations as progression changes names and prices.",
+    "key": false
+  },
+  {
+    "index": 70,
+    "title": "Empty cash state and framed processor",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "The cash surface is gray with a zero value, the processor says No eggs, and yellow utility pads remain separately visible.",
+    "application": "Compare empty-state readability and leave room around the silo; use only our implemented pad-state rules.",
+    "key": true
+  },
+  {
+    "index": 71,
+    "title": "Across the farm toward neighboring plots",
+    "category": "map",
+    "visibility": "partial",
+    "observation": "The view looks past the purchase row across open grass to the silo, farmer stall, bridges, and distant stacked displays.",
+    "application": "Check distant landmarks as a group so every plot remains recognizable from another plot.",
+    "key": false
+  },
+  {
+    "index": 72,
+    "title": "Collection at the tray corner",
+    "category": "conveyor",
+    "visibility": "clear",
+    "observation": "Drops collect in the recessed red center while the avatar stands beside its gold corner; the open grass begins immediately outside.",
+    "application": "Keep the outer trim shallow and free of obstacles so the player can approach the pile from the lawn.",
+    "key": false
+  },
+  {
+    "index": 73,
+    "title": "Cash and deposit destinations across open lawn",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "The mint cash pad sits below the silo, while the striped deposit stall is farther right across a clear expanse of grass.",
+    "application": "Preserve this separation of destinations and use large landmarks instead of additional route clutter.",
+    "key": false
+  },
+  {
+    "index": 74,
+    "title": "Looking outward from a busy collection tray",
+    "category": "feedback",
+    "visibility": "partial",
+    "observation": "Stacked gain numbers appear above the tray, with the avatar and the opposite farmer stall still visible beyond them.",
+    "application": "Bound concurrent pickup numbers so heavy collection does not hide the lawn or deposit destination.",
+    "key": false
+  },
+  {
+    "index": 75,
+    "title": "Walking lane beside elevated producer bays",
+    "category": "conveyor",
+    "visibility": "clear",
+    "observation": "The red lane is wide enough for the avatar; a low gold rim borders grass while the orange display face rises on the other side.",
+    "application": "Primary clearance reference: improve the outside architecture without narrowing the lane or changing Mini motion.",
+    "key": true
+  },
+  {
+    "index": 76,
+    "title": "Rebirth requirement at the tier pad",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "A red rebirth requirement is attached to the tier-upgrade label, while the neighboring purchase pads remain green.",
+    "application": "Keep requirements local to the relevant action rather than covering the entire farm with a warning.",
+    "key": false
+  },
+  {
+    "index": 77,
+    "title": "Purchase modal and large reaction shot",
+    "category": "context",
+    "visibility": "occluded",
+    "observation": "A dark purchase dialog and enlarged facecam cover the middle of a Rebirth screen and most of the underlying lawn.",
+    "application": "Mark as obstructed context; this is not evidence for extra structures or lighting changes.",
+    "key": false
+  },
+  {
+    "index": 78,
+    "title": "High-tier display with localized effects",
+    "category": "display",
+    "visibility": "partial",
+    "observation": "Named high-tier characters sit in individual bowls above the gold fascia, with colorful particles around a bright block near the belt.",
+    "application": "Keep effects local to special characters or rewards, and preserve the repeated bay divisions.",
+    "key": false
+  },
+  {
+    "index": 79,
+    "title": "Farmer booth front and bridge connection",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "A frontal view shows the striped awning, pictorial basket sign, produce crates, yellow deposit pad, side fences, and adjacent wooden bridge.",
+    "application": "Primary stall reference. Preserve our mirrored booth and bridge route, with crates and flowers outside the deposit pad.",
+    "key": true
+  },
+  {
+    "index": 80,
+    "title": "Sparse late-game belt under a long apron",
+    "category": "conveyor",
+    "visibility": "clear",
+    "observation": "Only a few drops remain on the long red belt, so the continuous orange fascia, gold rim, and spaced green pads dominate.",
+    "application": "Judge the facade in both sparse and crowded states; the architecture should read without a large item pile.",
+    "key": false
+  },
+  {
+    "index": 81,
+    "title": "Adjacent bulk-purchase pads use different states",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "The Buy 25 Snowmans pad is green while the neighboring Buy 100 Snowmans pad is red. The next-tier control is a separate gray pad with a progress bar, and a yellow Finish Now pad sits toward the selling board.",
+    "application": "Use distinct available, unavailable, and locked states on the existing producer-purchase pads, supported by labels rather than color alone.",
+    "key": true
+  },
+  {
+    "index": 82,
+    "title": "Low conveyor edge keeps pickups reachable",
+    "category": "conveyor",
+    "visibility": "clear",
+    "observation": "The avatar is on the red conveyor beside several differently shaped pickups. The low gold boundary turns outward around a collection recess, with an Auto Collect pad directly beside it and the shelf raised on the opposite side.",
+    "application": "Preserve a low player-facing belt edge and an unobstructed collection recess so the decorative facade does not conceal pickups.",
+    "key": true
+  },
+  {
+    "index": 83,
+    "title": "Rebirth panel presents rewards and requirement",
+    "category": "ui",
+    "visibility": "clear",
+    "observation": "The Rebirth panel shows two reward cards above a requirement progress bar, followed by Rebirth and Skip buttons. A red reset summary is placed directly below the panel; the production shelf remains visible above it.",
+    "application": "Keep progression rewards, the unmet requirement, and reset effects readable in one compact panel; write feedback directly without adding a received prefix.",
+    "key": false
+  },
+  {
+    "index": 84,
+    "title": "Collection recess has a clear mouth toward the aisle",
+    "category": "conveyor",
+    "visibility": "clear",
+    "observation": "From above, the red collection recess projects into the grass and has a stepped opening in its near gold edge. A gray floor pad faces the opening, while red purchase pads sit on either side and the yellow Auto Collect pad remains beside the recess.",
+    "application": "Keep the collection opening and facing approach area legible from above, with purchase controls offset to either side.",
+    "key": true
+  },
+  {
+    "index": 85,
+    "title": "Mixed pad states remain visible across the collection area",
+    "category": "economy",
+    "visibility": "partial",
+    "observation": "The collection recess sits between green purchase pads at the left and a green-and-red pair at the right. A large gray pad is in front of the recess. Motion blur makes small labels unreliable, but the surface colors remain distinct.",
+    "application": "Make pad state readable at a distance through the whole surface while preserving spacing around the tray.",
+    "key": false
+  },
+  {
+    "index": 86,
+    "title": "Rebirth lock sits at the end of the purchase row",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "Green Buy 25 and Buy 100 Cactuses pads lead to a gray Cactus-to-Yinyang upgrade pad. Its red label states a Rebirth 7 requirement. A fence and water border the right side of this station group.",
+    "application": "Place the locked tier action at a predictable end of the purchase row and explain its prerequisite directly above the pad.",
+    "key": true
+  },
+  {
+    "index": 87,
+    "title": "Collection feedback sits near the inventory counter",
+    "category": "feedback",
+    "visibility": "clear",
+    "observation": "A large blue positive pickup amount appears above the egg counter as the avatar stands on the belt. The green Buy 1 Cactus pad, red Buy 5 Cactuses pad, and yellow Auto Collect pad remain visible to the left.",
+    "application": "Show concise positive amounts near the inventory counter without a received prefix, and keep them away from world-control labels.",
+    "key": false
+  },
+  {
+    "index": 88,
+    "title": "Idle processor still shows collectable cash",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "The selling board displays an empty-egg state with a per-second rate beneath it, while the green Collect Cash pad at the silo shows a stored cash amount. The selling and collection states are visible together.",
+    "application": "Distinguish an empty processing queue from money waiting to be collected so an idle processor does not imply that every station is empty.",
+    "key": true
+  },
+  {
+    "index": 89,
+    "title": "Large special reward contrasts with regular bays",
+    "category": "feedback",
+    "visibility": "partial",
+    "observation": "A white-and-gold winged question-mark box and confetti cover the near end of the conveyor. Behind it, Shark, Octopus, and Mailbox birds occupy regular labeled nest bays. A short support message sits above the egg counter.",
+    "application": "Reserve larger effects for special rewards while preserving the familiar shelf and conveyor silhouette behind the reveal.",
+    "key": false
+  },
+  {
+    "index": 90,
+    "title": "Belt-level view reveals the shelf setback",
+    "category": "display",
+    "visibility": "clear",
+    "observation": "From near belt level, the birds and nests sit well behind the orange fascia on yellow shelf floors. Tan dividers separate their bays, leaving the red conveyor open along the full front. Small pickups occupy the belt at intervals.",
+    "application": "Set producer models back from the display front so the decorative structure does not intrude into the conveyor corridor.",
+    "key": true
+  },
+  {
+    "index": 91,
+    "title": "Red buying pads differ from the gray progression lock",
+    "category": "economy",
+    "visibility": "clear",
+    "observation": "Both nearby Cactus purchase pads are red, while the next-tier pad is gray with the explicit Rebirth 7 requirement. The collection recess, its separate gray approach pad, and open grass remain easy to distinguish.",
+    "application": "Use different visual treatments for a purchase that is currently unavailable and a progression action blocked by a prerequisite.",
+    "key": true
+  },
+  {
+    "index": 92,
+    "title": "Facecam leaves only boundary details visible",
+    "category": "context",
+    "visibility": "occluded",
+    "observation": "An enlarged facecam covers most of the avatar and purchase area. At the right edge, a low wooden fence follows a right-angle plot boundary above blue water, while the belt's cream base and gold rim remain visible at the left.",
+    "application": "Use only the unobscured boundary materials as supporting reference; do not infer hidden pad spacing from this frame.",
+    "key": false
+  },
+  {
+    "index": 93,
+    "title": "Pad borders separate controls from studded grass",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "A close view shows thin brown borders around the green purchase pads and the gray tier-upgrade pad. A strip of grass separates them from the cream conveyor base, and small positive pickup feedback appears near the avatar's feet.",
+    "application": "Use a thin, contrasting base under each pad so its footprint remains clear against the patterned ground.",
+    "key": false
+  },
+  {
+    "index": 94,
+    "title": "Deposit entrance remains visible behind the facecam",
+    "category": "map",
+    "visibility": "partial",
+    "observation": "Although an enlarged facecam hides the center, the deposit stall and its bright yellow pad are visible at upper right. A wooden bridge lies beside the stall across the water, with other plots and red silos beyond.",
+    "application": "Use the stall's canopy and glowing pad as approach landmarks, while relying on clearer frames for exact bridge and station spacing.",
+    "key": false
+  },
+  {
+    "index": 95,
+    "title": "End bay and belt fit inside a fenced plot corner",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "An elevated view shows the Paladin end bay beside the end of the red belt. A narrow grass margin and low wooden fence wrap the outside corner above water; the purchase pads and deposit area lie farther along the inside edge.",
+    "application": "Leave a visible perimeter margin between the production structure and the plot fence, especially at the ends of the belt.",
+    "key": true
+  },
+  {
+    "index": 96,
+    "title": "Interior view connects collection to the exit bridge",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "The view from the collection recess crosses open grass toward the deposit stall and a wooden bridge. The silo and empty gray cash pad are on the left, while a tree, low foliage, and a sign sit near the far boundary.",
+    "application": "Preserve a direct walking route and sightline from collection to deposit and the bridge, using small scenery at the perimeter.",
+    "key": true
+  },
+  {
+    "index": 97,
+    "title": "Shared green area separates the surrounding plots",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "The avatar is in a broad green area with low shrubs, flowers, and a small red coop. Water channels separate it from neighboring plots with striped stalls and tall silos; part of a wooden bridge enters at the lower right.",
+    "application": "Use an open shared island and short bridges to connect plots, keeping vegetation low enough to preserve views of the surrounding landmarks.",
+    "key": true
+  },
+  {
+    "index": 98,
+    "title": "Elevated plot overview is partly obscured",
+    "category": "map",
+    "visibility": "partial",
+    "observation": "The enlarged facecam covers most of an elevated view, but visible edges show a producer shelf and belt along one side, a silo and striped stall near the water, and another plot across the channel.",
+    "application": "Use this as corroboration of the repeated plot arrangement; do not derive hidden dimensions or connections from the obstructed center.",
+    "key": false
+  },
+  {
+    "index": 99,
+    "title": "Bridge arrives in a shared approach area",
+    "category": "map",
+    "visibility": "clear",
+    "observation": "A wooden bridge leads from the open central green area into the plot beside the deposit stall. Several avatars fit in the grass between the bridge, a low shrub cluster, the sign, and the conveyor purchase pads.",
+    "application": "Keep the bridge landing broad and free of large props so multiple players can approach the deposit and production stations together.",
+    "key": true
+  },
+  {
+    "index": 100,
+    "title": "End-screen cards obscure the lower gameplay area",
+    "category": "context",
+    "visibility": "occluded",
+    "observation": "Two YouTube end-screen cards cover much of the lower left and right. The upper portion still shows the repeated producer bays, orange fascia, and red conveyor, while a deposit confirmation is partly hidden below.",
+    "application": "Treat this as end-of-video context; use earlier clear frames for pad layout and feedback wording.",
+    "key": false
+  }
+]
