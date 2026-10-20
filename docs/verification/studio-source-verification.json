@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-10-20T11:36:37.716Z",
+  "recordedAt": "2026-10-20T11:51:38.8371176Z",
   "algorithm": "DJB2 UTF-8, CRLF normalized to LF",
   "sources": [
     {
@@ -203,8 +203,8 @@
     {
       "path": "src/server/Domain/FarmCore.luau",
       "studioPath": "ServerScriptService.Domain.FarmCore",
-      "bytes": 26177,
-      "hash": 2577440722
+      "bytes": 26277,
+      "hash": 2919078930
     },
     {
       "path": "src/server/Domain/ObbyRun.luau",
@@ -233,8 +233,8 @@
     {
       "path": "src/server/Services/LeaderboardDisplay.luau",
       "studioPath": "ServerScriptService.Services.LeaderboardDisplay",
-      "bytes": 12335,
-      "hash": 3168681226
+      "bytes": 12388,
+      "hash": 1478348194
     },
     {
       "path": "src/server/Services/LuckyCarry.luau",

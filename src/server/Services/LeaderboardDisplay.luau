@@ -24,9 +24,11 @@ local function thumbnail(userId: number, receive: (string) -> ())
         end)
         local image = if ok and ready and type(content) == 'string' then content else ''
         if image ~= '' then thumbnails[userId] = image end
-        local waiting = requests[userId]
+        local waiting: {(string) -> ()}? = requests[userId]
         requests[userId] = nil
-        for _, callback in waiting or {} do callback(image) end
+        if waiting then
+            for _, callback in waiting do callback(image) end
+        end
     end)
 end
 

@@ -1,8 +1,16 @@
--- Private unparented boards only; no live-world edits, player progress or remotes.
-local Display = require(game.ServerScriptService.Services.LeaderboardDisplay)
+-- Requires Source access. Private unparented boards and a temporary module clone;
+-- no live-world edits, production Source changes, player progress or remotes.
+local original = game.ServerScriptService.Services.LeaderboardDisplay
+local Display = require(original)
 local sandbox = Instance.new('Folder')
 local player = assert(game.Players:GetPlayers()[1], 'Run during a normal Studio play session')
 local parts, rearPlanes = 0, 0
+local asyncModule, asyncState
+local function waitUntil(predicate)
+    local deadline = os.clock() + 3
+    while not predicate() and os.clock() < deadline do task.wait() end
+    assert(predicate(), 'Timed out waiting for native thumbnail workers')
+end
 local ok, err = xpcall(function()
     for index, key in {'coins', 'time', 'count'} do
         local cf = CFrame.new(index * 30, 14, -20) * CFrame.Angles(0, index * 1.2, 0)
@@ -47,7 +55,72 @@ local ok, err = xpcall(function()
         end
     end
     assert(parts == 771 and rearPlanes == 6, 'Three leaderboards may add exactly six noninteractive planes')
+
+    -- Keep the actual task.spawn scheduling and UI Instances; control only the
+    -- thumbnail provider so delayed responses and fetch counts are deterministic.
+    local injection = [[
+local fixture = {calls={},released={},workers={},errors={},completed=0}
+local nativeTask=task
+local task={spawn=function(callback)
+    return nativeTask.spawn(function()
+        local worker=coroutine.running();fixture.workers[worker]=true
+        local success,problem=xpcall(callback,debug.traceback)
+        if not success then table.insert(fixture.errors,problem) end
+        fixture.workers[worker]=nil;fixture.completed+=1
+    end)
+end}
+local Players={}
+function Players:GetUserThumbnailAsync(id)
+    fixture.calls[id]=(fixture.calls[id] or 0)+1
+    while not fixture.released[id] do nativeTask.wait() end
+    return 'rbxthumb://type=AvatarHeadShot&id='..id..'&w=100&h=100',true
+end
+]]
+    local source, providers = original.Source:gsub("local Players = game:GetService%('Players'%)", function() return injection end)
+    assert(providers == 1, 'Expected exactly one thumbnail provider')
+    local exports
+    source, exports = source:gsub('return Display%s*$', 'Display.__thumbnailFixture=fixture\nreturn Display')
+    assert(exports == 1, 'Expected one Display export')
+    asyncModule = original:Clone(); asyncModule.Name = 'LeaderboardThumbnailFixture'
+    asyncModule.Source = source; asyncModule.Parent = original.Parent
+    local isolated = require(asyncModule)
+    asyncState = isolated.__thumbnailFixture
+    local boards = {}
+    for _, key in {'coins', 'time'} do
+        table.insert(boards, isolated.new(sandbox, key, 'Async fixture', Color3.new(1, 1, 1), CFrame.identity))
+    end
+    local entries = {
+        {userId=11,name='First',coins=100,time=100,count=1},
+        {userId=22,name='Second',coins=200,time=200,count=2},
+    }
+    for _, board in boards do isolated.update(board, entries) end
+    waitUntil(function() return asyncState.calls[11] and asyncState.calls[22] end)
+    entries[1].coins=300; entries[1].time=300
+    for _, board in boards do isolated.update(board, entries) end
+    assert(asyncState.calls[11] == 1 and asyncState.calls[22] == 1, 'Pending avatar requests must coalesce across faces/boards')
+    asyncState.released[22]=true
+    waitUntil(function() return asyncState.completed == 1 end)
+    for _, board in boards do for _, face in board.faces do
+        assert(face.rows[1].frame:GetAttribute('UserId') == 11 and face.rows[1].avatar.Image == '',
+            'An old-user response must not overwrite the replacement row')
+        assert(face.rows[2].avatar.Image:find('id=22&', 1, true), 'Current rows must receive the delayed response')
+    end end
+    asyncState.released[11]=true
+    waitUntil(function() return asyncState.completed == 2 end)
+    for _, board in boards do
+        isolated.update(board, {})
+        isolated.update(board, entries)
+        for _, face in board.faces do assert(face.rows[1].avatar.Image:find('id=11&', 1, true), 'Cached avatar must restore immediately') end
+    end
+    assert(asyncState.calls[11] == 1 and asyncState.calls[22] == 1, 'Cached avatars must not refetch')
+    isolated.update(boards[1], {{userId=33,name='Leaving',coins=1,time=1,count=1}})
+    waitUntil(function() return asyncState.calls[33] == 1 end)
+    boards[1].rootModel:Destroy(); asyncState.released[33]=true
+    waitUntil(function() return asyncState.completed == 3 end)
+    assert(#asyncState.errors == 0, table.concat(asyncState.errors, '\n'))
 end, debug.traceback)
+if asyncState then for worker in asyncState.workers do task.cancel(worker) end end
+if asyncModule then asyncModule:Destroy() end
 sandbox:Destroy()
 assert(ok, err)
-return 'PASS three two-sided native boards, upright reversed surfaces, matching live rows/clear, current-server scope and six inert added Parts (765 -> 771)'
+return 'PASS three two-sided native boards, matching rows/clear, six inert added Parts (765 -> 771); native async thumbnail coalescing, stale-row rejection, cache reuse and destroyed-row cleanup'

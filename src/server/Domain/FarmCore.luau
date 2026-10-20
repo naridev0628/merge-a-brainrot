@@ -17,13 +17,13 @@ export type Context = {now: number, alive: boolean, position: Position?, pickupP
 export type Session = {owner: number, key: string, phase: string, sequence: number, state: State, cache: {[string]: any}, cacheCount: number, productionCursor: number, pickupCache: {[string]: any}, pickupOrder: {string}}
 local env: any=getfenv()
 local Economy: any
-if env.script then Economy=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.Economy) else Economy=require('../../shared/Economy') end
+if env.script then Economy=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.Economy) else Economy=(require :: (string) -> unknown)('../../shared/Economy') end
 local PickupGeometry: any
-if env.script then PickupGeometry=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.PickupGeometry) else PickupGeometry=require('../../shared/PickupGeometry') end
+if env.script then PickupGeometry=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.PickupGeometry) else PickupGeometry=(require :: (string) -> unknown)('../../shared/PickupGeometry') end
 local MiniMotion: any
-if env.script then MiniMotion=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.MiniMotion) else MiniMotion=require('../../shared/MiniMotion') end
+if env.script then MiniMotion=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.MiniMotion) else MiniMotion=(require :: (string) -> unknown)('../../shared/MiniMotion') end
 local PadGeometry: any
-if env.script then PadGeometry=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.PadGeometry) else PadGeometry=require('../../shared/PadGeometry') end
+if env.script then PadGeometry=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.PadGeometry) else PadGeometry=(require :: (string) -> unknown)('../../shared/PadGeometry') end
 local Core = {}
 Core.__index = Core
 local function finite(n: any): boolean
