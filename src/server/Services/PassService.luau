@@ -1,7 +1,7 @@
 --!strict
 local Marketplace=game:GetService('MarketplaceService')
 local Players=game:GetService('Players')
-local Config=require(game.ReplicatedStorage.Shared.PassConfig)
+local Config=require(game.ReplicatedStorage.Shared.PassConfig) :: {[string]: {id: number,name: string,suggestedRobux: number?}}
 local Passes={}
 function Passes.start(onUpdate: (Player,{[string]: boolean})->())
     local records: {[Player]: {[string]: boolean}}={}
@@ -9,7 +9,7 @@ function Passes.start(onUpdate: (Player,{[string]: boolean})->())
     local function refresh(player: Player)
         if running[player] then return end
         running[player]=true
-        local owned=records[player] or {}
+        local owned: {[string]: boolean}=records[player] or {}
         for key,pass in Config do
             if pass.id>0 then
                 local ok,value=pcall(Marketplace.UserOwnsGamePassAsync,Marketplace,player.UserId,pass.id)

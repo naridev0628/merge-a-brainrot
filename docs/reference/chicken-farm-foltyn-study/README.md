@@ -15,6 +15,7 @@ The screenshots were captured through native Computer Use from the existing Chro
 | Lawn surface | [08:00](0480-08-00.jpg) | Removed only the raised lawn overlay: 844 Parts per plot, 5064 across six. Native studded slabs remain; all 18 slab sizes/transforms match within 1e-5 and 77 colliders per plot are unchanged. Environment, mirror, bridge and affordability fixtures passed. |
 | Producer name palette | [12:48](0768-12-48.jpg) | Applied Tung RGB(255,204,143) and Crocodilo RGB(177,236,112), with matched front/oblique native views of six actual meshes. Other names, font, outlines, size/offset/cutoff/depth occlusion and character colors are unchanged. This is a name-fill adjustment, not a font change. |
 | Farm title clearance | Normal gameplay clipping, compared with the reference’s readable display hierarchy | Our adaptation moves only the title Billboard above the highest occupied row and wraps long display names. Physical sign, portrait, font, outline and ordinary depth occlusion remain unchanged. This is not an exact reference-header reproduction. |
+| Processor hierarchy | [03:22](0202-03-22.jpg): small heading, large standalone 79, rate below | Applied “Processing Minis”, a larger numeric queue with comma separators, and the existing rate. The same three text cells and board geometry remain; no Instances or Parts added. Clear also resets the queue, rate and upgrade quote/affordability. |
 
 The [board’s applied comparison section](index.html#comparison-layout) includes every paired front/oblique scene. Direct evidence:
 
@@ -43,6 +44,21 @@ The [title comparison section](index.html#comparison-title) adds two illustrated
 The title center follows logical Y `16 + (rows − 1) × 11` in world Y, with a 32×4 logical-stud canvas. The existing authored distance cutoff of 100 still becomes 65 world studs under plot scaling. The physical sign and portrait badge are unchanged. Native RED on the original camera-relative offset was followed by GREEN for one, two and five rows, shrink, empty and ownership reset; synthetic IDs preserve immutable species identity. At the close five-row camera, the 20-W display name measured **343.53×40.0618 pixels inside a 347×43 canvas**. Four paired views were visually accepted.
 
 This fixes the farm title’s shelf clipping. Lower-row producer names can still be occluded by upper shelf edges. A fixed-pixel portrait can crowd the header at far distances on short viewports, and cloned comparison-pad labels remain unmanaged by the normal owned-plot controller. The captures do not establish universal text readability or any FPS, memory, device or multiplayer improvement.
+
+### Processor board: count first, with reliable empty-state reset
+
+The [processor comparison section](index.html#comparison-processor) uses the matched **96-count pair** as its main comparison. The reference at 03:22 informs the heading/count/rate hierarchy; “Processing Minis”, numeric formatting and dimensions are our adaptation. The font, economy, physical board and existing three text cells remain unchanged. Baseline source is `977b29e`; this processor change is native-verified and uncommitted at this checkpoint.
+
+| View | Before | After |
+| --- | --- | --- |
+| 96 queued, close | [Original queue text](../../verification/processor-before-96.jpg) | [Larger standalone count](../../verification/processor-after-96.jpg) |
+| Empty queue | [Original empty state](../../verification/processor-before-zero.jpg) | [Numeric zero](../../verification/processor-after-zero.jpg) |
+| 96 queued, approach | [Original approach](../../verification/processor-before-96-approach.jpg) | [Clearer count; cloned labels still overlap](../../verification/processor-after-96-approach.jpg) |
+| Maximum queue | — | [2,147,483,647 fits](../../verification/processor-after-max.jpg) |
+
+Native checks reduced **15 expected baseline failures to zero across nine recorded samples**, including clear and fresh-state rendering on the same Core session. Clear resets queue, rate and related upgrade quote/affordability consistently. Native text measurements passed for 0, 1, 96 and the maximum count: the title measured **269×40 inside 660×48 pixels**, the maximum count **491×92 inside 660×110**, and the rate **248×48 inside 660×58**. No Instances or Parts were added.
+
+Matched close views were visually accepted. The approach count is clearer, but unmanaged cloned pad labels still overlap the board: this is **not normal owned-pad layout acceptance**. The empty after-view includes a chat-loading artifact and a slightly different background; the 96-count pair is the closest visual match. These images and text bounds establish no FPS, memory, device or multiplayer improvement.
 
 The farmer’s visible shirt and sleeves at [01:36](0096-01-36.jpg) and [03:22](0202-03-22.jpg) support the already implemented waist-height blue counter. Thick island foundations, square silo, two-rail fences, basket, shrubs, plank bridges and tutorial ground guidance are also already present. They are comparison points, not missing-feature claims. Existing tree variants should be assessed before adding scenery.
 

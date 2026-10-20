@@ -6,7 +6,7 @@ function Carry.update(character: Model?,lucky: any)
     if not character then return end
     local old=character:FindFirstChild('HeldLuckyBlock')
     if not lucky or not lucky.held then if old then old:Destroy() end;return end
-    if old and old:GetAttribute('LuckyId')==lucky.id then Visuals.apply(old,lucky.baseTier);return end
+    if old and old:IsA('BasePart') and old:GetAttribute('LuckyId')==lucky.id then Visuals.apply(old,lucky.baseTier);return end
     if old then old:Destroy() end
     local root=character:FindFirstChild('HumanoidRootPart')
     if not root or not root:IsA('BasePart') then return end

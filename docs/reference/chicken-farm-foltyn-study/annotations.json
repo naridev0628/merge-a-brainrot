@@ -41,8 +41,10 @@
     "category": "map",
     "visibility": "partial",
     "key": true,
-    "observation": "A brown processor board is distinct from the blue deposit stall. A green claim pad, yellow deposit pad and sparse white flowers help separate the area’s functions.",
-    "application": "Retain current mirrored utilities and waist-high blue counter. Color and label contrast can be compared in the actual game lighting; no pixel RGB values are inferred from the video."
+    "observation": "The brown board separates a small “Selling Eggs” heading, a large standalone 79 and the rate below. It remains distinct from the blue deposit stall, green claim pad and yellow deposit pad.",
+    "application": "Applied: “Processing Minis” supplies context above a larger numeric queue with comma separators, retaining the existing rate, font, board geometry and three text cells. Native checks cover count fit and clear/fresh-state resets. This is our hierarchy adaptation, not a copied economy; approach captures still contain unmanaged cloned pad-label overlap.",
+    "implementationStatus": "Applied · processor hierarchy",
+    "implementationAnchor": "comparison-processor"
   },
   {
     "seconds": 288,

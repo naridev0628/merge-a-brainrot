@@ -78,8 +78,13 @@ local ok,err=xpcall(function()
     assert(held.TextureID==templateTexture and not held:FindFirstChild('LuckyQuestionMarks'),'Held tier transfer must restore Basic gold')
     lucky.held=false;Carry.update(character,lucky)
     assert(not character:FindFirstChild('HeldLuckyBlock'),'Dropping must release the decorated held block')
+    local invalid=Instance.new('Folder');invalid.Name='HeldLuckyBlock';invalid:SetAttribute('LuckyId',lucky.id);invalid.Parent=character
+    lucky.held=true;Carry.update(character,lucky)
+    assert(invalid.Parent==nil and character.HeldLuckyBlock:IsA('BasePart'),'A same-ID non-Part must be replaced before applying appearance')
+    lucky.held=false;Carry.update(character,lucky)
+    assert(not character:FindFirstChild('HeldLuckyBlock'),'Replacement must retain normal drop cleanup')
     assert(template.TextureID==templateTexture and template.Color==templateColor and not template:FindFirstChild('LuckyQuestionMarks'),'Never recolor the shared template')
 end,debug.traceback)
 sandbox:Destroy()
 assert(ok,err)
-return 'PASS Lucky gold/blue geometry, 36-part cap, eight authored corner positions/bounds, flags, idempotence, ScaleTo/pivot, texture transfer, held cleanup and unchanged interaction/template properties'
+return 'PASS Lucky gold/blue geometry, 36-part cap, eight authored corner positions/bounds, flags, idempotence, ScaleTo/pivot, texture transfer, invalid held-instance replacement, held cleanup and unchanged interaction/template properties'

@@ -26,6 +26,11 @@ local function cashText(units: number): string
     local grouped=string.reverse(digits):gsub('(%d%d%d)','%1,')
     return '$'..string.reverse(grouped):gsub('^,','')
 end
+local function countText(count: number): string
+    local grouped=string.reverse(string.format('%.0f',count)):gsub('(%d%d%d)','%1,')
+    local formatted=string.reverse(grouped):gsub('^,','')
+    return formatted
+end
 local function placeScaled(model: Model,transform: CFrame)
     local pivot=model:GetPivot()
     model:ScaleTo(model:GetScale()*Map.PlotScale)
@@ -80,6 +85,14 @@ local function padAvailability(world: any,part: BasePart,affordable: boolean,pie
     for _,detail in pieces[part.Name..'Stud'] do detail.Color=studColor end
     for _,detail in pieces[part.Name..'Edge'] do detail.Color=edgeColor end
     return pieces
+end
+local function updateProcessorDisplay(world: any,queued: number,level: number,coins: number,pieces: PadPieces?)
+    world.processorLabel.Text=countText(queued)
+    world.processorRate.Text=Config.ProcessorRates[level+1]..' per second'
+    local upgradeCost=Config.ProcessorCosts[level+1]
+    padAvailability(world,world.upgradeLabel.Parent.Parent,upgradeCost~=nil and coins>=upgradeCost,pieces)
+    world.upgradeLabel.Text=if upgradeCost then '+'..(Config.ProcessorRates[level+2]-Config.ProcessorRates[level+1])..' per second' else 'PROCESSOR MAXED'
+    world.upgradePrice.Text=if upgradeCost then '$'..(upgradeCost/4) else ''
 end
 local function actionLabel(part: BasePart,action: string,value: string,width: number?)
     local title=Factory.label(part,action,width or 180,102)
@@ -182,10 +195,10 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
         TextStyle.apply(label,size,color,3)
         return label
     end
-    signLine('Title','MINI PROCESSOR',20,48,40,TextStyle.Cream)
-    local processorLabel=signLine('Queued','No Minis queued',88,92,58,TextStyle.Cream)
+    signLine('Title','Processing Minis',20,48,40,TextStyle.Cream)
+    local processorLabel=signLine('Queued','0',88,110,92,TextStyle.Cream)
     processorLabel.TextScaled=true
-    local queueSize=Instance.new('UITextSizeConstraint');queueSize.MinTextSize=28;queueSize.MaxTextSize=58;queueSize.Parent=processorLabel
+    local queueSize=Instance.new('UITextSizeConstraint');queueSize.MinTextSize=28;queueSize.MaxTextSize=92;queueSize.Parent=processorLabel
     local processorRate=signLine('Rate','2 per second',222,58,48,TextStyle.Cream)
     local signTransform=CFrame.new(-47,0,10)*CFrame.Angles(0,-math.pi/2,0)*CFrame.new(34,0,-29)
     for _,part in processorGroup:GetDescendants() do if part:IsA('BasePart') then part.CFrame=signTransform*part.CFrame end end
@@ -482,13 +495,7 @@ function World.render(world: any,state: any)
         label.Parent.Detail.Text=if not unlocked then 'Rebirth '..Config.BuyUnlocks[quantity]..' required' elseif quote.code=='PlotFull' then 'Merge to make room' elseif quantity=='50' then 'Up to 50 '..Catalog[string.format('tier_%02d',tier)].name else ''
     end
     world.saleLabel.Text='$'..string.format('%g',state.soldUnits/4)
-    local queued=Economy.count(state.saleQueue)
-    world.processorLabel.Text=if queued==0 then 'No Minis queued' else tostring(queued)..' Minis queued'
-    world.processorRate.Text=Config.ProcessorRates[state.processorLevel+1]..' per second'
-    local upgradeCost=Config.ProcessorCosts[state.processorLevel+1]
-    padAvailability(world,world.upgradeLabel.Parent.Parent,upgradeCost~=nil and state.coinUnits>=upgradeCost,padPieces)
-    world.upgradeLabel.Text=if upgradeCost then '+'..(Config.ProcessorRates[state.processorLevel+2]-Config.ProcessorRates[state.processorLevel+1])..' per second' else 'PROCESSOR MAXED'
-    world.upgradePrice.Text=if upgradeCost then '$'..(upgradeCost/4) else ''
+    updateProcessorDisplay(world,Economy.count(state.saleQueue),state.processorLevel,state.coinUnits,padPieces)
 end
 function World.clear(world: any)
     world.renderGeneration=(world.renderGeneration or 0)+1
@@ -498,5 +505,7 @@ function World.clear(world: any)
     world.ownerName.Position=UDim2.fromOffset(0,40);world.badgePart.CFrame=world.frame*CFrame.new(Vector3.new(0,44,Config.DisplayZ)*Map.PlotScale)
     positionOwnerTitle(world,1)
     world.saleLabel.Text='$0'
+    -- Available plots must not advertise the departed owner's queue or upgrades.
+    updateProcessorDisplay(world,0,0,0,nil)
 end
 return World

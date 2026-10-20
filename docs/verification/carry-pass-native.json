@@ -1,0 +1,27 @@
+{
+  "recordedAt": "2026-10-20T12:19:35.584Z",
+  "before": {
+    "content": [
+      {
+        "type": "text",
+        "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:89: Color is not a valid member of Folder \"Folder.Model.HeldLuckyBlock\"\nReplicatedStorage.Shared.LuckyBlockVisuals:61 function apply\nServerScriptService.Services.LuckyCarry:9 function update\nAssistantCommand:82\nAssistantCommand:37\n"
+      }
+    ],
+    "isError": true
+  },
+  "after": {
+    "content": [
+      {
+        "type": "text",
+        "text": "PASS Lucky gold/blue geometry, 36-part cap, eight authored corner positions/bounds, flags, idempotence, ScaleTo/pivot, texture transfer, invalid held-instance replacement, held cleanup and unchanged interaction/template properties"
+      }
+    ],
+    "isError": false
+  },
+  "passService": {
+    "scope": "Exact frozen PassConfig import with full optional metadata record cast; both Luau solvers pass. Final native Script Analysis recheck unavailable because native desktop accessibility returns null/stale windows.",
+    "nativeBaseline": "carry-pass-warning-red.txt",
+    "intermediateRejectedAnnotation": "carry-pass-intermediate-warning.txt",
+    "codeChanges": "Narrow require return type and owned-record annotation only; no ID/offer/price/callback behavior change."
+  }
+}

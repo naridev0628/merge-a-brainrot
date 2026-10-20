@@ -1,0 +1,9 @@
+										813 tree item (settable, string) ServerScriptService.Services.LuckyCarry
+										814 tree item (settable, string) Type Error: (9,73) Expected this to be 'BasePart', but got 'Instance'
+										815 tree item (settable, string) ServerScriptService.Services.PassService
+										816 tree item (settable, string) Type Error: (14,16) Type 'unknown' does not have key 'id'
+										817 tree item (settable, string) Type Error: (15,98) Type 'unknown' does not have key 'id'
+										818 tree item (settable, string) Type Error: (16,34) Expected this to be 'string', but got 'unknown'
+										819 tree item (settable, string) Type Error: (20,56) Expected this to be '{ [string]: boolean }' but got '{ [string]: boolean } | {| [unknown]: 'a |}' caused by: Not all union options are compatible. Expected this to be exactly '{ [string]: boolean }' but got '{| [unknown]: 'a |}' caused by: Property '[indexer key]' is not compatible. Expected this to be exactly 'string', but got 'unknown'
+									224 check box (settable, string) 0 of 0 Errors ID: RBXMainWindow.RootWidget.Layout0.Layout3.FixedSplitLayoutSouth0.Layout27.scriptAnalysisPanel.ScriptingAnalysisWidget.ErrorsToolButton
+									226 check box (settable, string) 79 of 79 Warnings ID: RBXMainWindow.RootWidget.Layout0.Layout3.FixedSplitLayoutSouth0.Layout27.scriptAnalysisPanel.ScriptingAnalysisWidget.WarningsToolButton

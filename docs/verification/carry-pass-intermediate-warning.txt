@@ -1,0 +1,4 @@
+										982 tree item (settable, string) ServerScriptService.Services.PassService
+										983 tree item (settable, string) Type Error: (4,1) Expected this to be exactly '{ [string]: { id: number } }' but got '{ autoCollect: { id: number, name: string }, ... 5 more ... }' caused by: Property 'autoCollect' is not compatible. Table type '{ id: number, name: string }' not compatible with type '{ id: number }' because the former has extra field 'name'
+									224 check box (settable, string) 0 of 0 Errors ID: RBXMainWindow.RootWidget.Layout0.Layout3.FixedSplitLayoutSouth0.Layout27.scriptAnalysisPanel.ScriptingAnalysisWidget.ErrorsToolButton
+									226 check box (settable, string) 78 of 78 Warnings ID: RBXMainWindow.RootWidget.Layout0.Layout3.FixedSplitLayoutSouth0.Layout27.scriptAnalysisPanel.ScriptingAnalysisWidget.WarningsToolButton
