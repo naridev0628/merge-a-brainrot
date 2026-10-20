@@ -4,7 +4,7 @@ This is a live work checkpoint, not a completion or release report. The minimum 
 
 ## Current Studio state
 
-The latest committed/pushed batch remains **`4d4fd29`** on `origin/codex/stacked-brainrot-farm`; PR 2 remains open, draft, and unmerged. The current **board/menu/label batch is synced and natively verified but uncommitted**. Final gates are complete and the batch is ready for root commit. Normal HUD is enabled, CameraType.Custom is restored, `ProducerLabelProbe` is absent, and the actual character is back at its plot and unanchored. The earlier committed canopy/hub/packet baseline separately passed Main State/HUD at coinUnits=20 and zero producers/Minis.
+The latest committed/pushed batch is **`88818e4`** on `origin/codex/stacked-brainrot-farm`; PR 2 remains open, draft, and unmerged. The **board/menu/label batch is committed and pushed**. The subsequent Main.server refactor is synced and natively verified, awaiting commit. Normal HUD is enabled, CameraType.Custom is restored, `ProducerLabelProbe` is absent, and the actual character is back at its plot and unanchored. The earlier committed canopy/hub/packet baseline separately passed Main State/HUD at coinUnits=20 and zero producers/Minis.
 
 Current gates pass: **79 source files compile**, **43 standalone Luau tests**, `leaderboard-faces-cli.ps1`, and **Rojo build**. Native board server/client fixtures and the hidden-panel fixture pass; six actual producer meshes pass label scaling checks. The saved [running-Server source comparison](studio-source-verification.json) confirms **79 local / 79 Studio project sources, zero mismatches at 08:32:21 UTC**, normalized CRLF and DJB2 bytes, excluding engine-injected scripts. [Native evidence](leaderboard-panel-native.json) records the current working-tree probe results and limitations.
 
@@ -66,7 +66,7 @@ The hub composition passes the native environment fixture and **all six routes /
 
 For **12,000 envelopes per trial**, actual-helper CLI timings were deep **2,786.891 / 2,063.966 / 2,053.348 ms** versus packet **8.308 / 7.541 / 8.333 ms**, avoiding **1,812,000 nested table copies per trial**. Order alternated and no GC was forced. These timings exclude RemoteEvent serialization, Studio rendering, GPU, and native memory; the native probe establishes correctness, not a native FPS or memory improvement. The earlier capacity/churn/recovery metrics remain unchanged.
 
-## Current board, menu, and label batch — uncommitted
+## Board, menu, and label batch committed as 88818e4
 
 All three leaderboards now show the same current-server ranks and guarded personal footers on both faces. The native server/client fixtures and actual-module CLI pass. Exactly **six inert planes** raise the three-board Part count **765 → 771**; collision/query/touch remain false on the additions. Root inspected front and rear views with the player in the hub. [Front](leaderboard-front.jpg) and [rear](leaderboard-rear.jpg) captures are saved. All five board/label JPGs passed direct JPEG header, expected-length, and System.Drawing decode checks at **1759 × 567**. This is a reference-informed usability adaptation, not an exact copy or a global leaderboard claim.
 
@@ -113,3 +113,11 @@ One small allocation candidate remains unimplemented: `World.render` writes `Con
 The [additional reference research](../reference/ADDITIONAL_CHICKEN_FARM_RESEARCH.md#browser-follow-up--20-october-2026) remains the basis for visual comparisons. The newly completed Lucky identity pass does not establish exact reference economy rules.
 
 Preserve the user's overrides: no incremental cash buttons, no “Received” prefix, immediate pad entry and held repeat, aura/airborne pickup, and nonmodal Lucky UI. Continue through the overnight cutoff; neither the window nor final 96-Mini validation is complete.
+
+## Current server refactor and board documentation
+
+Main.server keeps strict mode while refining the cloned optional Lucky state, typing its transport response envelope, and making the protected render call return explicit nil on success. The isolated analyzer probe imports actual Core types and reproduces all five prior warnings; its old/new solver runs now pass. Full native Studio Script Analysis was not re-read. See [diagnostics](main-strict-diagnostics.json).
+
+The [fresh ordinary gameplay route](main-strict-gameplay.json) passed 159 Minis deposited, three all-flight collection events while Lucky was held, 141 standing cash claims and two upgrades to processor level 2. A same-ID Buy replay preserved action/requestID/revision and retained one producer. Actual death and live respawn preserved the same LuckyID unheld at 100 health. All temporary drivers/observers were removed and fresh normal Play restored. 79 source compilations, 43 standalone testfiles,Rojo build and 79/79 source parity passed. This is a one-client memory-only run,not a capacity or memory benchmark.
+
+The annotated board links current front/rear rankings and label comparisons, identifies two-sided boards as our adaptation, and preserves all 100 frames / 36 key references plus 96-preview caveats. Next confirmed candidate: reachable Shop rebuilds 36 offers / 1,296 descendants for six unrelated snapshots; native RED observed,optimization not yet applied at this checkpoint. Continue until 13:30 UTC.

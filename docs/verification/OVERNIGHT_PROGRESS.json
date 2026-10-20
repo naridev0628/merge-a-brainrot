@@ -1,5 +1,5 @@
 {
-  "updatedAtUTC": "2026-10-20T08:33:55Z",
+  "updatedAtUTC": "2026-10-20T08:46:14.768Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
@@ -7,12 +7,12 @@
   "studioId": "ef89b65f-2f6a-4fe7-8272-bae9e8007fd1",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Current board/menu/label batch synced and natively verified, uncommitted, all final gates PASS; ready for root commit. Normal HUD enabled, CameraType.Custom, actual character returned to plot and unanchored.",
+    "mode": "Fresh normal Play on current Main.server refactor; latest pushed commit88818e4. HUD enabled, Custom camera, no native gameplay observers.",
     "mainScripts": "Both production Main scripts are enabled (Disabled=false), confirmed by root.",
     "temporaryScripts": [],
     "harnessCleanup": "Current hidden-panel temporary HUD removed; ProducerLabelProbe absent; actual character returned to plot/unanchored, normal HUD enabled and CameraType.Custom. Prior 4d4fd29 packet probe separately restored zero producers/Minis and Main State/HUD coinUnits=20.",
-    "productionSync": "Current 79 source files compile; saved running-Server comparison confirms 79 local/79 Studio project sources with zero mismatches at 08:32:21 UTC, normalized CRLF/DJB2 bytes, excluding engine-injected scripts.",
-    "currentTrial": "4d4fd29 latest committed/pushed; PR 2 open/draft/unmerged. Current board/menu/label improvements are uncommitted and ready for root commit after all final gates PASS.",
+    "productionSync": "79 sources compile,43 standalonefiles and buildPASS;79/79 runningServer hashesmatch afterMain refactor.",
+    "currentTrial": "88818e4 committed/pushed; strict server refactor and annotated board update verified, awaiting commit. Shop redraw fixture has observed RED; optimization next.",
     "sourceFreeze": "Capacity benchmark remains earlier fixed source based on 70786a3, excluding later lighthouse/UI/canopy/hub/packet work. Its metrics/provenance are unchanged.",
     "console": "Root latest console includes Ready and no project errors. Previously observed external plugin/asset errors were not treated as project defects; plugins untouched.",
     "computerUse": "Physical Escape stopped UI work in the earlier 07:56 turn. Root subsequently completed native/render checks; no overnight cancellation was requested."
@@ -65,7 +65,8 @@
     "Two-sided boards: native server/client and actual-module CLI PASS. Same current-server rows and guarded personal footers on both faces; exactly six inert planes, 765 to 771 Parts. Actual front/rear views inspected with player in hub.",
     "Hidden-panel native RED/GREEN: 249 to zero hidden cards/portraits; 6993 to 3756 added descendants, with deferred startup stud work still counted. Fresh reopening, live visible panels and nonmodal Lucky/Settings PASS; fixture cleanup executed.",
     "Producer label native scaling PASS on six real meshes: logical forward offset 4 becomes 2.6 world, logical cutoff 65 becomes 42.25 world at ScaleTo(.65). Lower rows improve; top cropping and oblique overlap remain.",
-    "Final board/menu/label gates PASS: 79 compiled, 43 pure tests, leaderboard CLI, Rojo; 79/79 running-Server source match at 08:32:21 UTC; five JPGs valid headers/lengths and 1759x567 decode. Normal HUD/Custom camera restored, ProducerLabelProbe absent, actual character back at plot and unanchored."
+    "Final board/menu/label gates PASS: 79 compiled, 43 pure tests, leaderboard CLI, Rojo; 79/79 running-Server source match at 08:32:21 UTC; five JPGs valid headers/lengths and 1759x567 decode. Normal HUD/Custom camera restored, ProducerLabelProbe absent, actual character back at plot and unanchored.",
+    "88818e4 committed/pushed:two-sidedleaderboards,hiddenmenudeferral,producerlabeldepthoffset;nativeregessionsandcapturesevidencepassed."
   ],
   "benchmarkEvidence": {
     "baselineFiles": [
@@ -398,7 +399,7 @@
     ]
   },
   "boardMenuLabelEvidence": {
-    "status": "Synced, native verified, uncommitted after 4d4fd29; all final build/source/capture/cleanup gates PASS, ready for root commit.",
+    "status": "Committed/pushed in88818e4; nativechecks and captures passed.",
     "leaderboards": {
       "native": "Server/client fixtures PASS",
       "cli": "PASS",
@@ -450,5 +451,23 @@
       ]
     },
     "nativeEvidence": "docs/verification/leaderboard-panel-native.json"
+  },
+  "strictServerEvidence": {
+    "status": "Verified native gameplay, awaitingcommit",
+    "baseline": "88818e4",
+    "diagnostics": "docs/verification/main-strict-diagnostics.json",
+    "gameplay": "docs/verification/main-strict-gameplay.json",
+    "warningProbe": "Five original warnings reproduced underoldsolver;newcode passes old/newisolatedtypeprobes importingactualCoretypes.FullStudioScriptAnalysispanelnotre-read.",
+    "native": {
+      "deposited": 159,
+      "heldAirborneCollectionEvents": 3,
+      "standingClaims": 141,
+      "upgrades": 2,
+      "processorLevel": 2,
+      "purchaseReplay": "PASS same requestID and revision;oneproducer",
+      "deathRespawn": "PASS same LuckyID preservedunheld;live100health"
+    },
+    "gates": "79compile/43standalone/build/sourceparityPASS",
+    "scope": "OneStudio client,memoryonly;notcapacity/FPS/memorycertification"
   }
 }

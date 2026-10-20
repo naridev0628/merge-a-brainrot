@@ -1,0 +1,40 @@
+{
+  "baseline": "88818e4",
+  "scope": "Isolated diagnostics probe importing the actual Core.State and Core.Result types; full Roblox Main.server analysis remains native Studio QA",
+  "productionFile": "src/server/Main.server.luau",
+  "productionSha256": "9B4F4C5E5F305624673D3E79B76C8A8DD524DAD15263C6187FD0220F36DF7F06",
+  "before": {
+    "file": ".tools/main-strict-before.luau",
+    "solver": "old",
+    "exitCode": 1,
+    "diagnostics": [
+      "./.tools/main-strict-before.luau(8,1): TypeError: Function only returns 1 value, but 2 are required here",
+      "./.tools/main-strict-before.luau(11,40): TypeError: Value of type '{ baseTier: number, held: boolean?, id: string }?' could be nil",
+      "./.tools/main-strict-before.luau(14,42): TypeError: Value of type '{ baseTier: number, held: boolean?, id: string }?' could be nil",
+      "./.tools/main-strict-before.luau(17,1): TypeError: Cannot add property 'requestId' to table 'Result'",
+      "./.tools/main-strict-before.luau(18,1): TypeError: Cannot add property 'action' to table 'Result'"
+    ]
+  },
+  "after": [
+    {
+      "file": ".tools/main-strict-after.luau",
+      "solver": "old",
+      "exitCode": 0,
+      "diagnostics": []
+    },
+    {
+      "file": ".tools/main-strict-after.luau",
+      "solver": "new",
+      "exitCode": 0,
+      "diagnostics": []
+    }
+  ],
+  "existingSuitesPassed": [
+    "tests/run.luau: 13 cases",
+    "tests/lucky.luau",
+    "tests/lucky-carry.luau",
+    "tests/snapshot-packet.luau"
+  ],
+  "productionCompilePassed": true,
+  "nativeVerified": false
+}

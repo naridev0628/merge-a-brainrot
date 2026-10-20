@@ -10,6 +10,7 @@ local Map=require(Shared.MapSpec)
 local MiniEvent=require(Shared.MiniEvent)
 local MultiplierDisplay=require(script.Parent.Services.MultiplierDisplay)
 local Core=require(script.Parent.Domain.FarmCore)
+type CommandResponse=Core.Result & {requestId: string?,action: string?}
 local SnapshotPacket=require(script.Parent.Domain.SnapshotPacket)
 local ObbyRun=require(script.Parent.Domain.ObbyRun)
 local ObbyService=require(script.Parent.Services.ObbyService)
@@ -48,7 +49,11 @@ local function send(player: Player)
 end
 local function render(player: Player)
     if not sessions[player] then return end
-    local ok,err=pcall(World.render,worlds[player],sessions[player].state)
+    local world,state=worlds[player],sessions[player].state
+    local ok,err=pcall(function()
+        World.render(world,state)
+        return nil
+    end)
     if not ok then warn('[MergeABrainrot] Visual update failed: '..tostring(err)) end
     LuckyCarry.update(player.Character,sessions[player].state.lucky)
 end
@@ -92,7 +97,9 @@ local function attach(player: Player)
         if changed then send(player) end
         local session=sessions[player]
         if session and session.state.lucky and session.state.lucky.held then
-            local state=core:snapshot(session);state.lucky.held=false;core:commit(session,state);render(player);send(player)
+            local state=core:snapshot(session)
+            local lucky=state.lucky
+            if lucky then lucky.held=false;core:commit(session,state);render(player);send(player) end
         end
         moveHome(player,c)
     end)
@@ -119,7 +126,8 @@ command.OnServerEvent:Connect(function(player: Player,action: any,args: any,...:
         if type(args)=='table' and next(args)==nil and context(player).alive and player.Character then moveHome(player,player.Character) end
         return
     end
-    local response=core:dispatch(session,action,args,context(player))
+    -- Transport metadata belongs to this outgoing envelope, not the domain Result.
+    local response=table.clone(core:dispatch(session,action,args,context(player))) :: CommandResponse
     response.requestId=type(args)=='table' and type(args[1])=='string' and #args[1]<=128 and args[1] or nil
     response.action=action; result:FireClient(player,response)
     if response.code=='OK' and not response.replayed then render(player) end
@@ -161,7 +169,9 @@ task.spawn(function()
         eventDisplay:update(eventValue,eventNextAt,now)
         for player,session in sessions do
             if session.state.lucky and session.state.lucky.held and not context(player).alive then
-                local dropped=core:snapshot(session);dropped.lucky.held=false;core:commit(session,dropped);render(player);send(player)
+                local dropped=core:snapshot(session)
+                local lucky=dropped.lucky
+                if lucky then lucky.held=false;core:commit(session,dropped);render(player);send(player) end
             end
             local sample=context(player)
             local changed,farmChanged=obby:step(player,{now=sample.now,alive=sample.alive,position=sample.worldPosition})
