@@ -10,6 +10,7 @@ local Map=require(Shared.MapSpec)
 local MiniEvent=require(Shared.MiniEvent)
 local MultiplierDisplay=require(script.Parent.Services.MultiplierDisplay)
 local Core=require(script.Parent.Domain.FarmCore)
+local SnapshotPacket=require(script.Parent.Domain.SnapshotPacket)
 local ObbyRun=require(script.Parent.Domain.ObbyRun)
 local ObbyService=require(script.Parent.Services.ObbyService)
 local ObbyConfig=require(Shared.ObbyConfig)
@@ -41,10 +42,8 @@ local rates={CollectNearby={4,6},AutoMerge={2,3},Collect={12,24},State={1,2},Dep
 local function send(player: Player)
     local session=sessions[player]
     if not session then snapshot:FireClient(player,{status='Unavailable',reason='All six plots are occupied. Waiting for a free plot.'}); return end
-    local state: any=core:snapshot(session); state.status=session.phase; state.memoryOnly=true; state.serverNow=os.clock()
-    state.plotId=worlds[player].id; state.plotCFrame=worlds[player].frame; state.sessionKey=session.key
-    state.timePlayed=math.floor(os.clock()-(session.joinedAt or os.clock()))
-    state.obby=obby:snapshot(player)
+    -- Packet borrows committed nested state; never mutate it or yield before send.
+    local state=SnapshotPacket.build(session,worlds[player],os.clock(),obby:snapshot(player))
     snapshot:FireClient(player,state)
 end
 local function render(player: Player)

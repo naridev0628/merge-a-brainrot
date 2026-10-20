@@ -10,6 +10,22 @@ for id=1,6 do
     assert(math.abs(localPosition(plot.CoinPad).X-Config.ClaimX)<.01 and math.abs(localPosition(plot.UpgradePad).X-Config.UpgradeX)<.01,'Pad geometry must match mirrored server coordinates')
     assert(plot.DepositBooth.BoothFoundation.Size.X>=18.7*scale and plot.DepositBooth.BoothFoundation.Size.Z>=9.9*scale,'Farmer stall must be larger')
     assert(math.abs(plot.DepositBooth.Shopkeeper.Size.Y-5.5)<.01,'Keep the farmer at avatar height')
+    local booth=plot.DepositBooth
+    local farmerTop=localPosition(booth.Shopkeeper).Y+booth.Shopkeeper.Size.Y/(2*scale)
+    local signBottom=localPosition(booth.MiniSignFrame).Y-booth.MiniSignFrame.Size.Y/(2*scale)
+    local signTop=localPosition(booth.MiniSignFrame).Y+booth.MiniSignFrame.Size.Y/(2*scale)
+    assert(signBottom>=farmerTop+.4,'The hanging sign must leave the farmer head visible')
+    local boothFront=-math.huge
+    for _,part in booth:GetDescendants() do if part:IsA('BasePart') then
+        if part.Name=='AwningFringe' then
+            assert(localPosition(part).Y-part.Size.Y/(2*scale)>=signTop+.05,'The deep fringe must not cover the hanging sign')
+        end
+        for _,x in {-1,1} do for _,y in {-1,1} do for _,z in {-1,1} do
+            local corner=part.CFrame:PointToWorldSpace(part.Size*Vector3.new(x,y,z)/2)
+            boothFront=math.max(boothFront,frame:PointToObjectSpace(corner).Z/scale)
+        end end end
+    end end
+    assert(boothFront<=Config.SellZ-Map.DepositHalfSize.Y-4,'The booth must leave an open approach behind the deposit pad')
     local params=RaycastParams.new();params.FilterType=Enum.RaycastFilterType.Include;params.FilterDescendantsInstances={plot.ConveyorCenter};params.RespectCanCollide=true
     for z=Config.BeltZ-3.9,Config.BeltZ+3.9,.3 do
         assert(workspace:Raycast(frame:PointToWorldSpace(Vector3.new(0,10,z)*scale),Vector3.new(0,-12,0),params),'Red conveyor center must cover the whole belt')
@@ -29,4 +45,4 @@ for id=1,6 do
         assert(workspace:Raycast(from,frame:VectorToWorldSpace(Vector3.new(0,0,-5)*scale),params),'Farmer alcove fence must close its back edge')
     end
 end
-return 'PASS mirrored utilities, enlarged stall, full red conveyor and fenced plot fronts'
+return 'PASS mirrored utilities, farmer/sign/awning visibility, clear deposit approach, enlarged stall, full red conveyor and fenced plot fronts'

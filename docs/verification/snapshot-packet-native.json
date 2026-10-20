@@ -1,0 +1,26 @@
+{
+  "recordedAtUTC": "2026-10-20 08:16:38 UTC",
+  "source": "Working tree after 0059fb2; SnapshotPacket/Main send integration plus canopy/hub changes; 79/79 Studio source match at 08:15:56 UTC.",
+  "fixtureFiles": [
+    "tests/studio-snapshot-packet.server.luau",
+    "tests/studio-snapshot-packet.client.luau"
+  ],
+  "isolatedProbe": {
+    "result": "PASS 50/96 packet values, CFrame, client isolation, later commit and metadata",
+    "producers": 50,
+    "minis": 96,
+    "scope": "Isolated Core session and temporary RemoteEvent; never the normal player's economy.",
+    "cleanup": "Temporary SnapshotPacketProbe folder/RemoteEvent removed."
+  },
+  "normalMain": {
+    "result": "PASS normal Main snapshot reaches unchanged HUD",
+    "coinUnits": 20,
+    "producers": 0,
+    "minis": 0,
+    "hud": true
+  },
+  "limitations": [
+    "No native performance, network bandwidth or memory comparison.",
+    "The initial test-only seed lacked starterClaimed=true and was rejected by Core validation; fixture corrected before the passing round. No production change was needed."
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "updatedAtUTC": "2026-10-20T07:50:35Z",
+  "updatedAtUTC": "2026-10-20T08:16:15Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
@@ -7,14 +7,15 @@
   "studioId": "ef89b65f-2f6a-4fe7-8272-bae9e8007fd1",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Fresh normal Play restored after final blue/white-cap capture: zero BrainrotProducer and zero ConveyorMini tags.",
+    "mode": "Normal Play on synced current canopy/hub/packet batch. Server Main enabled, zero producer/Mini tags, HUD enabled, camera Custom; temporary packet test folder removed.",
     "mainScripts": "Both production Main scripts are enabled (Disabled=false), confirmed by root.",
     "temporaryScripts": [],
-    "harnessCleanup": "Capacity/tray harnesses and temporary world containers/previews absent. Both Main scripts enabled. Client BrainrotHUD enabled, CameraType.Custom, no OvernightNormalFarmFlow test script.",
-    "productionSync": "07:39:58 UTC comparison: localCount=78, studioProjectCount=78, mismatches=[] after CRLF normalization; engine scripts excluded. Both Main scripts enabled.",
-    "currentTrial": "Prior 58c7875 committed/pushed; PR 2 open/draft/unmerged. New gameplay/allocation/Lucky/shelf batch verified and ready for root commit, currently uncommitted. Final blue/white-cap capture inspected/saved, Play restarted.",
-    "sourceFreeze": "Saved benchmark provenance remains fixed source based on 70786a3, before lighthouse and later UI work. It measures neither the complete 58c7875 build nor the new uncommitted batch. Benchmark metrics unchanged.",
-    "console": "Root latest console includes Ready and no project errors. Previously observed external plugin/asset errors were not treated as project defects; plugins untouched."
+    "harnessCleanup": "Temporary packet test folder removed; normal Main State/HUD probe PASS coinUnits=20, producers=0, Minis=0. No capacity/tray/label preview containers.",
+    "productionSync": "79 source files compile and current batch is synced/native verified. Saved final comparison confirms 79 local/79 Studio project sources, zero mismatches at 08:15:56 UTC, normalized CRLF and excluding engine-injected scripts.",
+    "currentTrial": "0059fb2 remains latest committed/pushed source; PR 2 open/draft/unmerged. Current canopy/hub/packet batch is uncommitted with final source comparison passed; root commit pending.",
+    "sourceFreeze": "Capacity benchmark remains earlier fixed source based on 70786a3, excluding later lighthouse/UI/canopy/hub/packet work. Its metrics/provenance are unchanged.",
+    "console": "Root latest console includes Ready and no project errors. Previously observed external plugin/asset errors were not treated as project defects; plugins untouched.",
+    "computerUse": "Physical Escape stopped UI work in the earlier 07:56 turn. Root subsequently completed native/render checks; no overnight cancellation was requested."
   },
   "candidateConfig": {
     "producerSlots": 50,
@@ -54,8 +55,13 @@
     "Core.step conservative preflight: 20,160 old/new deterministic steps retained identical state/RNG; 984,048 table copies avoided in the 600-second scenario, reported by root. No new native FPS/memory result.",
     "Lucky gold Basic for baseTier <=2 and blue for valid baseTier >=3 is consistent across ground/held/card. Updated server/client native fixtures pass; blue has 28 white glyph runs and eight white corner caps, 36 decorative Parts. Economy and nonmodal behavior unchanged; tier mapping is our adaptation.",
     "Shelf rear joins native PASS: one live row and five isolated scaled rows, actual-generator CLI and peer review. Ground row 221 Parts, upper rows 224; +12 per full plot. One/two/five-row screenshots saved. Producer labels can still clip at some angles; synthetic-camera probe inconclusive, ModelFactory unchanged.",
-    "Current gates PASS: 78 source files compile, 42 standalone Luau files, display-shelves CLI, Rojo build, diff check. At 07:39:58 UTC 78 local/Studio project sources match with zero mismatches. Batch remains uncommitted.",
-    "Root inspected/saved final blue/white-cap capture and restarted Play. Server confirms zero BrainrotProducer/ConveyorMini tags; both Main scripts enabled, no temporary world containers, client HUD enabled/CameraType.Custom/no OvernightNormalFarmFlow test script. No source changes after 78/42 gates."
+    "Current gates PASS: 78 source files compile, 42 standalone Luau files, display-shelves CLI, Rojo build, diff check. At 07:39:58 UTC 78 local/Studio project sources match with zero mismatches. Batch subsequently committed/pushed as 0059fb2.",
+    "Root inspected/saved final blue/white-cap capture and restarted Play. Server confirms zero BrainrotProducer/ConveyorMini tags; both Main scripts enabled, no temporary world containers, client HUD enabled/CameraType.Custom/no OvernightNormalFarmFlow test script. No source changes after 78/42 gates.",
+    "0059fb2 committed/pushed. At 07:56 UTC root removed OvernightLabelPreview, returned actual avatar, verified both Main enabled, HUD enabled, camera Custom, zero producer/Mini tags, no temporary test containers/scripts. Physical Escape stopped Computer Use; no further UI input this turn.",
+    "Current canopy native mirrored fixture PASS across all six plots, 68 Parts per stall unchanged, farmer face visible from front/elevated views; before/after/elevated captures saved.",
+    "Current hub native environment and six-route/8664-clearance checks PASS: 21 bushes, 51 flowers, six logs, decorative flags false, 12 extra Parts; before/after/ground captures saved.",
+    "SnapshotPacket implemented and reviewed: deep Core.snapshot preserved, 151 nested copies avoided per full-farm send, 11 Core transitions and no-yield/parity/isolation pure checks PASS. Native full50/96/CFrame/client-isolation/later-commit/metadata probe PASS.",
+    "Current gates: 79 sources compile, 43 standalone Luau files, Rojo and diff PASS. Normal Main State/HUD PASS coinUnits=20, zero producers/Minis; temporary packet folder removed, server Main enabled, HUD enabled, Custom camera. Final source comparison PASS: 79 local/79 Studio sources, zero mismatches at 08:15:56 UTC; root commit pending."
   ],
   "benchmarkEvidence": {
     "baselineFiles": [
@@ -182,16 +188,16 @@
     }
   },
   "active": [
-    "Root: commit the verified batch and checkpoint docs. Final blue/white-cap capture and fresh normal-Play restoration complete; batch currently uncommitted.",
-    "Fresh normal Play has zero producer/Mini tags, both Main scripts enabled, no temporary world/test scripts, HUD enabled and camera Custom.",
-    "Minimum work window continues through 13:30 UTC with active 15-minute continuation heartbeat."
+    "Root: commit current synced/native-verified canopy/hub/packet batch after final 79-file source comparison PASS. Latest committed source remains 0059fb2.",
+    "Next visual candidate: board-face assessment in progress; producer AlwaysOnTop capture remains unverified and ModelFactory unchanged.",
+    "15-minute heartbeat active through minimum13:30UTC; overnight work not complete."
   ],
   "next": [
-    "Commit the verified batch and docs; final capture/reset is complete. Keep PR 2 draft/unmerged and do not publish.",
-    "Improve canopy with thicker existing roof/fringe/posts and about two logical studs lower canopy/sign assembly, zero added Parts; preserve mirrored footprint, face visibility, deposit-route clearance.",
-    "Inspect 50-producer label readability through actual gameplay camera; select a verified bounded fix preserving producer positions and Mini paths.",
-    "Run targeted native allocation profiling only for a specific audit hypothesis; no repeated long benchmark without a reason or leak-resolution claim.",
-    "Retain 50 producers and 96 preview Minis with memory/device/species/multiplayer limits explicit. Continue through 13:30 UTC with 15-minute heartbeat; no eight-hour-completion claim."
+    "Commit the verified canopy/hub/packet batch; keep PR 2 draft/unmerged and do not publish.",
+    "Finish board-face assessment and choose a bounded reference-based improvement only if evidence supports it.",
+    "Inspect 50-producer label readability through actual gameplay camera; prior AlwaysOnTop capture remains inconclusive.",
+    "Optional duplicate ConveyorEnd candidate needs creation/repack/removal/tag-order validation; do not repeat long benchmark without a specific hypothesis.",
+    "Preserve50producers/96previewMinis and unresolved memory/device/species/multiplayer limits; continue through13:30UTC with15-minute heartbeat, no eight-hour-completion claim."
   ],
   "constraints": [
     "User permits expanding former 50 limits if performance supports it; producer count remains 50.",
@@ -204,27 +210,33 @@
   "heartbeatIntervalMinutes": 15,
   "heartbeatStatus": "Root confirms the 15-minute continuation heartbeat remains active.",
   "verification": {
-    "sourceFilesCompiled": 78,
-    "standaloneLuauTestFilesPassed": 42,
+    "sourceFilesCompiled": 79,
+    "standaloneLuauTestFilesPassed": 43,
     "rojoBuild": "PASS",
-    "finalScopedFix": "Lucky white corner caps and rear shelf joins; updated native fixtures passed, final 36-Part appearance inspected/saved, fresh Play restored. Source unchanged after 78/42 gates.",
+    "finalScopedFix": "Canopy, hub composition and SnapshotPacket native probes PASS; normal Main State/HUD restored. Final 79-file source comparison PASS.",
     "studioSourceFile": "docs/verification/studio-source-verification.json",
-    "studioSourceMatched": 78,
-    "studioSourceLocalCount": 78,
+    "studioSourceMatched": 79,
+    "studioSourceLocalCount": 79,
     "studioSourceMismatchCount": 0,
-    "studioSourceRecordedAtUTC": "2026-10-20T07:39:58Z",
-    "studioSourceScope": "Compact localCount/studioProjectCount/mismatches record; CRLF-normalized project sources, engine scripts excluded.",
+    "studioSourceRecordedAtUTC": "2026-10-20T08:15:56Z",
+    "studioSourceScope": "Project sources in running Server DataModel, normalized CRLF; excludes engine-injected scripts.",
     "padLabelsBefore": "docs/verification/fresh-hud-pad-spacing.jpg",
     "padLabelsAfter": "docs/verification/pad-labels-after.jpg",
-    "commitStatus": "58c7875 latest committed/pushed batch in open draft/unmerged PR 2. New verified batch and docs uncommitted, ready for root commit; final capture/reset complete.",
+    "commitStatus": "0059fb2 latest committed/pushed; new synced/native-verified canopy/hub/packet batch uncommitted with final source check passed, awaiting root commit.",
     "shelfStructureCLI": "PASS red/green regression and unchanged original geometry",
     "diffCheck": "PASS",
     "priorExcludedEngineScripts": 6,
-    "priorWhitespaceOnlyDifferences": 11
+    "priorWhitespaceOnlyDifferences": 11,
+    "previousStudioSourceVerification": {
+      "studioSourceMatched": 78,
+      "studioSourceLocalCount": 78,
+      "studioSourceMismatchCount": 0,
+      "studioSourceRecordedAtUTC": "2026-10-20T07:39:58Z"
+    }
   },
-  "latestVerifiedCommit": "58c7875453eee8c916ccd1784bf760f71f1726d4",
+  "latestVerifiedCommit": "0059fb2e6d9925519f14e9378ef218772f337e49",
   "newBatchEvidence": {
-    "status": "Verified, uncommitted after 58c7875; final blue/white-cap capture inspected/saved and fresh normal Play restored.",
+    "status": "Gameplay/allocation/Lucky/shelf batch committed/pushed as 0059fb2. New canopy/hub/packet batch is separate, synced/native verified and uncommitted.",
     "normalFarmFlow": {
       "file": "docs/verification/normal-farm-flow-raw.json",
       "capture": "docs/verification/normal-flow-lucky-held.jpg",
@@ -280,5 +292,97 @@
       ],
       "remaining": "Producer labels can clip behind upper ledges at some angles. Synthetic-camera AlwaysOnTop probe unverified; no ModelFactory change."
     }
+  },
+  "allocationCandidates": [
+    {
+      "target": "src/server/Services/WorldBuilder.luau World.render",
+      "proposal": "New Minis receive ConveyorEnd twice. Restrict outer update to existing-Mini branch to remove one redundant write per creation.",
+      "scope": "Source-proven duplicate, not a measured native CPU gain; review creation/repack/removal and preserve attribute-before-tag ordering before implementation."
+    }
+  ],
+  "canopyEvidence": {
+    "files": [
+      "src/server/Services/WorldBuilder.luau",
+      "tests/studio-mirrored-plot.server.luau"
+    ],
+    "status": "Synced; native mirrored-plot PASS, 68 Parts on all six plots; front/elevated face visibility inspected. Uncommitted current batch.",
+    "agentChecks": "Compilation, diff, 68-Part count, farmer head clearance 0.688462 logical studs, sign/fringe clearance 0.1 logical studs PASS.",
+    "beforeCapture": "docs/verification/farmer-canopy-before.jpg",
+    "labelStatus": "AlwaysOnTop render capture inconclusive; no production ModelFactory label change.",
+    "captures": [
+      "docs/verification/farmer-canopy-before.jpg",
+      "docs/verification/farmer-canopy-after.jpg",
+      "docs/verification/farmer-canopy-elevated.jpg"
+    ]
+  },
+  "historicalPacketProbe": {
+    "target": "src/server/Main.server.luau send()",
+    "proposal": "Shallow outbound packet-root clone only; retain deep Core.snapshot for transactions.",
+    "fullStateTables": 152,
+    "fullStateEntries": 1669,
+    "rootFields": 19,
+    "avoidedNestedTablesPerSend": 151,
+    "probeEnvelopes": 12000,
+    "deepMs": 2171.844,
+    "shallowMs": 13.329,
+    "avoidedNestedTables": 1812000,
+    "checks": "Packet parity, root metadata isolation, 40 due ticks, event change, pickup/repack prior-state stability PASS.",
+    "scope": "Read-only CLI probe, no files changed; excludes RemoteEvent/Studio/GPU/native memory. Review server serialization and state lifecycle before implementation."
+  },
+  "packetEvidence": {
+    "status": "Implemented, synced, independently reviewed, native probe PASS; uncommitted.",
+    "helper": "src/server/Domain/SnapshotPacket.luau",
+    "pureTest": "tests/snapshot-packet.luau",
+    "nativeTests": [
+      "tests/studio-snapshot-packet.server.luau",
+      "tests/studio-snapshot-packet.client.luau"
+    ],
+    "fullStateTables": 152,
+    "fullStateEntries": 1669,
+    "rootFields": 19,
+    "avoidedNestedTablesPerSend": 151,
+    "probeEnvelopesPerTrial": 12000,
+    "actualDeepMs": [
+      2786.891,
+      2063.966,
+      2053.348
+    ],
+    "actualPacketMs": [
+      8.308,
+      7.541,
+      8.333
+    ],
+    "avoidedNestedTablesPerTrial": 1812000,
+    "native": "50 producers/96 Minis, real CFrame, client isolation, later Core commit and metadata PASS.",
+    "normalMainSmoke": {
+      "coinUnits": 20,
+      "producers": 0,
+      "minis": 0,
+      "HUD": "PASS"
+    },
+    "scope": "CLI assembly timing only: alternating order, no forced GC, excludes RemoteEvent serialization/Studio/GPU/native memory. Native probe establishes correctness, not FPS/memory gain. Core.snapshot remains deep for transactions."
+  },
+  "imagePersistenceRepair": {
+    "repairedJpgs": 11,
+    "decodedVerificationJpgs": 13,
+    "width": 1759,
+    "height": 567,
+    "status": "Root restored truncated saved JPGs from the original retained captures using smaller checked transfer chunks; System.Drawing decoded all verification JPGs and view_image displayed the repaired canopy.",
+    "provenance": "Includes the recovered original normal-flow capture. No new gameplay run, capture-date change, benchmark-metric change, or source-provenance change."
+  },
+  "hubCompositionEvidence": {
+    "status": "Synced, native environment/routes PASS; uncommitted.",
+    "routes": 6,
+    "clearanceChecks": 8664,
+    "bushes": 21,
+    "flowers": 51,
+    "logs": 6,
+    "addedParts": 12,
+    "decorativeFlags": "CanCollide/CanQuery/CanTouch false",
+    "captures": [
+      "docs/verification/hub-composition-before.jpg",
+      "docs/verification/hub-composition-after.jpg",
+      "docs/verification/hub-composition-ground.jpg"
+    ]
   }
 }

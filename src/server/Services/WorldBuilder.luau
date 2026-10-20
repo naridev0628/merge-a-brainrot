@@ -131,14 +131,14 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local booth=Instance.new('Model'); booth.Name='DepositBooth'; booth.Parent=root
     local boothFloor=Factory.part(booth,'BoothFoundation',Vector3.new(15,.45,8),CFrame.new(-30,.22,-3),Color3.fromRGB(106,119,176));boothFloor.TopSurface=Enum.SurfaceType.Studs
     for _,dx in {-6,6} do
-        Factory.part(booth,'BoothPost',Vector3.new(1,17,1),CFrame.new(-30+dx,8.5,-4),Color3.fromRGB(115,73,39))
-        for y=1,16,1.6 do Factory.part(booth,'PostStud',Vector3.new(.45,.45,.15),CFrame.new(-30+dx,y,-4.56),Color3.fromRGB(150,96,53)) end
+        Factory.part(booth,'BoothPost',Vector3.new(1.4,15,1.4),CFrame.new(-30+dx,7.5,-4),Color3.fromRGB(115,73,39))
+        for stud=1,10 do Factory.part(booth,'PostStud',Vector3.new(.45,.45,.15),CFrame.new(-30+dx,1+(stud-1)*1.4,-4.76),Color3.fromRGB(150,96,53)) end
     end
     for stripe=1,8 do
         local stripeColor=if stripe%2==0 then Color3.fromRGB(255,240,208) else Color3.fromRGB(239,52,46)
-        local awning=Factory.part(booth,'Awning',Vector3.new(1.7,.7,7),CFrame.new(-37.65+stripe*1.7,17,-3),stripeColor); awning.TopSurface=Enum.SurfaceType.Studs
-        Factory.part(booth,'AwningFringe',Vector3.new(1.7,1.4,.5),CFrame.new(-37.65+stripe*1.7,16.3,-6.3),stripeColor)
-        for _,y in {16,16.7} do Factory.part(booth,'AwningStud',Vector3.new(.65,.45,.18),CFrame.new(-37.65+stripe*1.7,y,-6.62),stripeColor:Lerp(Color3.new(1,1,1),.1)) end
+        local awning=Factory.part(booth,'Awning',Vector3.new(1.7,1.8,7),CFrame.new(-37.65+stripe*1.7,15,-3),stripeColor); awning.TopSurface=Enum.SurfaceType.Studs
+        Factory.part(booth,'AwningFringe',Vector3.new(1.7,2.4,.8),CFrame.new(-37.65+stripe*1.7,14.7,-6.15),stripeColor)
+        for _,y in {14,14.9} do Factory.part(booth,'AwningStud',Vector3.new(.65,.45,.18),CFrame.new(-37.65+stripe*1.7,y,-6.62),stripeColor:Lerp(Color3.new(1,1,1),.1)) end
     end
     Factory.part(booth,'Counter',Vector3.new(13,.6,3),CFrame.new(-30,5.2,-5),Color3.fromRGB(134,82,36))
     local farmer=Factory.prop(booth,'Shopkeeper',CFrame.new(-30,.45,-2))
@@ -146,17 +146,17 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
         farmer.Size*=(5.5/Map.PlotScale)/farmer.Size.Y
         farmer.CFrame=CFrame.new(-30,.45+farmer.Size.Y/2,-2)
     end
-    Factory.part(booth,'MiniSignFrame',Vector3.new(11.6,3.8,.6),CFrame.new(-30,13.5,-4.8),Color3.fromRGB(87,53,38))
-    Factory.part(booth,'MiniSignFace',Vector3.new(10.8,3.1,.1),CFrame.new(-30,13.5,-5.16),Color3.fromRGB(152,111,91))
+    Factory.part(booth,'MiniSignFrame',Vector3.new(11.6,3.8,.6),CFrame.new(-30,11.5,-4.8),Color3.fromRGB(87,53,38))
+    Factory.part(booth,'MiniSignFace',Vector3.new(10.8,3.1,.1),CFrame.new(-30,11.5,-5.16),Color3.fromRGB(152,111,91))
     for i,tier in {1,2,4} do
-        local icon=Factory.producer(booth,'SignMini',Catalog[string.format('tier_%02d',tier)],Vector3.new(-33+i*2.4,12.2,-5.5),true)
+        local icon=Factory.producer(booth,'SignMini',Catalog[string.format('tier_%02d',tier)],Vector3.new(-33+i*2.4,10.2,-5.5),true)
         icon:ScaleTo(1.1)
     end
     -- Raised brick arrow stays visible with the miniature models on the sign.
     local function arrowLayer(padding: number,color: Color3,depth: number)
-        Factory.part(booth,'DepositArrow',Vector3.new(.55+padding,1.8+padding,.1),CFrame.new(-34,13.6,depth),color)
+        Factory.part(booth,'DepositArrow',Vector3.new(.55+padding,1.8+padding,.1),CFrame.new(-34,11.6,depth),color)
         for _,side in {-1,1} do
-            Factory.part(booth,'DepositArrow',Vector3.new(.55+padding,1.2+padding,.1),CFrame.new(-34+side*.36,13,depth)*CFrame.Angles(0,0,-side*math.pi/4),color)
+            Factory.part(booth,'DepositArrow',Vector3.new(.55+padding,1.2+padding,.1),CFrame.new(-34+side*.36,11,depth)*CFrame.Angles(0,0,-side*math.pi/4),color)
         end
     end
     arrowLayer(.17,Color3.fromRGB(42,27,17),-5.38)

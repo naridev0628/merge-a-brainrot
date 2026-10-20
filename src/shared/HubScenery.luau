@@ -34,14 +34,25 @@ function Scenery.build(parent: Instance): Model
         end
         Factory.prop(garden,'BrickBush',cf*CFrame.new(5,0,-3),1.1)
         Factory.prop(garden,'BrickBush',cf*CFrame.new(8,0,-1),.7)
-        Factory.prop(garden,'BrickLog',cf*CFrame.new(1,0,-7)*CFrame.Angles(0,.35,0),.8)
+        if sector%2==0 then
+            -- Bring three existing logs into the open grass, with loose
+            -- flowers rather than another tree or a full garden ring.
+            local clearing=CFrame.new(math.sin(angle)*57,0,math.cos(angle)*57)*CFrame.Angles(0,angle,0)
+            Factory.prop(garden,'BrickLog',clearing*CFrame.new(-5,0,0)*CFrame.Angles(0,.35,0),1.1)
+            for _,flower in {{-1.7,-2.4,.9},{.1,-1.1,1.1},{1.6,-2.6,.85}} do
+                Factory.prop(garden,'BrickFlower',clearing*CFrame.new(flower[1],0,flower[2]),flower[3])
+            end
+        else
+            Factory.prop(garden,'BrickLog',cf*CFrame.new(1,0,-7)*CFrame.Angles(0,.35,0),.8)
+        end
         wheat(garden,cf*CFrame.new(-7,0,-6))
         for flower=1,4 do
             Factory.prop(garden,'BrickFlower',cf*CFrame.new(2+flower*1.25,0,-8+(flower%2)*1.1),.75+(flower%2)*.15)
         end
         -- Low accents near the plaza do not screen the leaderboard text.
         local inner=CFrame.new(math.sin(angle)*45,0,math.cos(angle)*45)*CFrame.Angles(0,angle,0)
-        Factory.prop(garden,'BrickBush',inner,.85)
+        Factory.prop(garden,'BrickBush',inner,if sector%2==1 then 1.45 else .85)
+        if sector%2==1 then Factory.prop(garden,'BrickBush',inner*CFrame.new(-3.6,0,1.2),.8) end
         Factory.prop(garden,'BrickGrass',inner*CFrame.new(3,0,1.4),1)
         for flower=1,3 do Factory.prop(garden,'BrickFlower',inner*CFrame.new(flower-2,0,-2.4),.7) end
     end

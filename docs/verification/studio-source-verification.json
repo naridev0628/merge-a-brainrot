@@ -1,7 +1,7 @@
 {
-  "recordedAtUTC": "2026-10-20 07:39:58 UTC",
-  "localCount": 78,
-  "studioProjectCount": 78,
+  "recordedAtUTC": "2026-10-20 08:15:56 UTC",
+  "localCount": 79,
+  "studioProjectCount": 79,
   "mismatches": [],
-  "scope": "Project sources in running server DataModel, normalized CRLF; excludes engine-injected scripts."
+  "scope": "Project sources in running Server DataModel, normalized CRLF; excludes engine-injected scripts."
 }

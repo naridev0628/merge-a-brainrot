@@ -1,12 +1,16 @@
-# Overnight engineering handoff — 2026-10-20, 07:50 UTC
+# Overnight engineering handoff — 2026-10-20, 08:16 UTC
 
 This is a live work checkpoint, not a completion or release report. The minimum work window continues until **13:30 UTC**. The continuation heartbeat now runs every **15 minutes**, as reported by root. See [machine-readable progress](OVERNIGHT_PROGRESS.json) for the current task pointer.
 
 ## Current Studio state
 
-The temporary capacity harness and previews are **fully removed** and **both production Main scripts are enabled**. Root inspected and saved the final blue/white-cap Lucky capture, then restarted Play. The server confirms **zero `BrainrotProducer` / zero `ConveyorMini` tags**; the client has **BrainrotHUD enabled**, **CameraType.Custom**, and no `OvernightNormalFarmFlow` test script. No temporary world or tray fixture remains. The prior batch is **committed as `58c7875` and pushed to `origin/codex/stacked-brainrot-farm`**; PR 2 remains open, draft, and unmerged. The new gameplay/allocation/Lucky/shelf batch is **verified and ready for root's commit, but uncommitted**. The benchmark below retains its earlier fixed-source provenance; it measured neither the complete `58c7875` build nor this new batch.
+The latest committed/pushed batch remains **`0059fb2`** on `origin/codex/stacked-brainrot-farm`; PR 2 remains open, draft, and unmerged. The current **canopy/hub/packet batch is synced and natively verified but uncommitted**. Root reports normal Play restored with server Main enabled, zero producer/Mini tags, BrainrotHUD enabled, CameraType.Custom, and the temporary packet test folder removed. The actual Main State/HUD smoke passed with **coinUnits=20, producers=0, Minis=0**.
 
-Root compiled all **78 source files**, passed **42 standalone Luau test files**, the actual-generator shelf CLI check, Rojo build, and whitespace checks. [Studio source verification](studio-source-verification.json), recorded at **07:39:58 UTC**, reports **78 local / 78 Studio project scripts and zero mismatches**, after CRLF normalization and excluding engine-injected scripts. The current compact record uses `localCount` and `studioProjectCount`; the earlier 76-file verification belongs to the prior batch.
+Current gates pass: **79 source files compile**, **43 standalone Luau tests**, Rojo build, and whitespace checks. The final [Studio source comparison](studio-source-verification.json) confirms **79 local / 79 Studio sources with zero mismatches at 08:15:56 UTC**, normalized for CRLF and excluding engine-injected scripts. Root commit is pending.
+
+The 07:56 physical Escape stop is historical: root ended UI inspection in that earlier turn and later completed the native/render checks below. No overnight cancellation was requested. The active 15-minute heartbeat and **13:30 UTC** minimum cutoff remain. Saved capacity benchmarks retain their earlier fixed-source provenance and measure neither the complete `0059fb2` build nor the current batch.
+
+Saved-image persistence is now repaired. Oversized transfer chunks had left 11 JPGs truncated; root restored all 11 from their original retained captures using smaller checked chunks and verified all 13 verification JPGs decode at 1759 × 567. The original normal-flow capture was recovered, so its date and source provenance remain unchanged. This repair does not represent a new gameplay run or change any benchmark measurement.
 
 The optimized 60-second settled, 600-second churn, and 60-second settled-return samples are saved, together with recovery-start/end memory snapshots. The snapshots span 186.744 seconds at the same full population while the camera route continued. Total memory stayed elevated; this is not full memory recovery or a resolved-leak finding. Later lighthouse and multiplier-cue work is outside the benchmark's fixed source.
 
@@ -40,7 +44,7 @@ The native pad-affordability fixture passed all assertions. The [production-cont
 
 PadLabels now passes its native fixture for all **15 local labels**, near/distance behavior, quote updates, hierarchy, geometry preservation, and teardown. The first fixture copied an already-managed source; correcting it to use an unmanaged plot then exposed a real `TextWrapped` cleanup omission, now fixed by capture/restore. [Before](fresh-hud-pad-spacing.jpg) and [after](pad-labels-after.jpg) show separated Buy costs. Auto Collect remains hidden while occluded by Merge and becomes readable on approach.
 
-## New verified batch, awaiting commit
+## Verified batch committed as 0059fb2
 
 The [normal farm interaction route](normal-farm-flow-raw.json), recorded at **07:30:29 UTC on source `58c7875`**, passed with **100 Minis deposited, 92 client-observed all-flight collection events while Lucky was held, 88 standing `Claim OK` responses, and two `Upgrade OK` responses**. The card remained visible and nonmodal ([capture](normal-flow-lucky-held.jpg)). The route started with the starter producer: an earlier four-second Buy attempt had timed out after 14 `TooFar` responses and purchased later. This is a successful gameplay route, not a fresh-entry result, and predates the new retry, preflight, and Lucky visuals.
 
@@ -51,6 +55,16 @@ The [normal farm interaction route](normal-farm-flow-raw.json), recorded at **07
 Lucky presentation now uses gold **Basic** for `baseTier <= 2` and blue for valid `baseTier >= 3`, consistently across ground block, held block, and card. This mapping is our adaptation; prices, odds, drops, and nonmodal behavior are unchanged. Blue blocks add **36 decorative Parts: 28 question-mark runs and eight white corner caps**. Updated server and client native fixtures pass. Root inspected and saved the final [blue/white-cap preview](blue-lucky-preview.jpg), then restored fresh normal Play. No code changed after the final 78-source / 42-test gate.
 
 Upper display rows now have a thin rear joining panel and two rear edge supports, closing the air bands for **12 extra Parts per full plot**: 221 on the first row and 224 on each upper row. The native fixture passed one live row plus five isolated scaled rows; peer review and actual-generator CLI checks pass. Visual comparisons are saved for [one](shelf-supports-1-rows.jpg), [two](shelf-supports-2-rows.jpg), and [five rows](shelf-supports-5-rows.jpg). Existing producer labels can still clip behind upper ledges at some angles. A synthetic-camera rendering probe could not verify an `AlwaysOnTop` change, so **ModelFactory is unchanged**; real-camera label readability remains follow-up work.
+
+## Current canopy, hub, and packet batch — native checks passed
+
+The canopy is live on all six plots with **68 Parts per stall**, preserving the existing count. The mirrored-plot native fixture passes; front and elevated views keep the farmer face visible. See [before](farmer-canopy-before.jpg), [after](farmer-canopy-after.jpg), and [elevated](farmer-canopy-elevated.jpg). The earlier local checks measured 0.688462 logical studs above the farmer head and 0.1 logical studs between sign and fringe. Native acceptance now supersedes the earlier unsynced/pending status.
+
+The hub composition passes the native environment fixture and **all six routes / 8,664 clearance checks**. It contains **21 bushes, 51 flowers, and six logs**, with decorative collision/query/touch flags false, for **12 additional Parts**. Saved views: [before](hub-composition-before.jpg), [overview after](hub-composition-after.jpg), and [ground view](hub-composition-ground.jpg). These are geometry/route checks, not a new capacity benchmark.
+
+`SnapshotPacket` now clones only the outbound root; deep `Core.snapshot` remains unchanged for transactions. The actual 50-producer/96-Mini state has 152 tables, so the helper avoids **151 nested table copies per send**. Eleven real Core transition checks, metadata/state parity, no-yield checks, strict analysis, and independent review pass. Root's native [server](../../tests/studio-snapshot-packet.server.luau) / [client](../../tests/studio-snapshot-packet.client.luau) probe passes the full **50/96 payload, real CFrame, client isolation, later Core commit, and metadata**. The normal Main State/HUD smoke also passes after cleanup.
+
+For **12,000 envelopes per trial**, actual-helper CLI timings were deep **2,786.891 / 2,063.966 / 2,053.348 ms** versus packet **8.308 / 7.541 / 8.333 ms**, avoiding **1,812,000 nested table copies per trial**. Order alternated and no GC was forced. These timings exclude RemoteEvent serialization, Studio rendering, GPU, and native memory; the native probe establishes correctness, not a native FPS or memory improvement. The earlier capacity/churn/recovery metrics remain unchanged.
 
 ## Saved baselines and current comparison
 
@@ -78,13 +92,15 @@ All benchmark samples use **one Studio client** and exclude production HUD/audio
 
 ## Source state and next actions
 
-The measured shelf refactor from `70786a3` used **221 Parts per row / 6,630 across six full farms**. The new uncommitted rear joins raise the current full-farm total to **6,702**, without changing the recorded benchmark inventory. The older 1,021-per-row estimate is historical. Cheap settled-Mini handling and conservative offscreen animation scheduling are already included in pushed `58c7875`; the original “no distance scheduling” observation is superseded.
+The measured shelf refactor from `70786a3` used **221 Parts per row / 6,630 across six full farms**. The rear joins committed in `0059fb2` raise the current full-farm total to **6,702**, without changing the recorded benchmark inventory. The older 1,021-per-row estimate is historical. Cheap settled-Mini handling and conservative offscreen animation scheduling are already included in pushed `58c7875`; the original “no distance scheduling” observation is superseded.
 
 The lighthouse native fixture now **passes**: **744 → 379 Parts**, with **365 hidden studs removed**, **328 visible studs retained**, and **51 body Parts / 22 colliders unchanged**. This is additional to the **557 hub studs** already removed and verified in Studio. The fixture's byte-quantization comparison was corrected while preserving the trees' fractional palette.
 
-Commit `58c7875` is pushed and PR 2 remains draft/unmerged. Final capture and fresh-Play restoration are complete; root will commit the new verified batch after the documentation handoff. Retain 96 Minis for the Studio preview with the measured memory, device, species, and multiplayer limits explicit; do not describe memory growth as resolved.
+Commit `0059fb2` is pushed and PR 2 remains draft/unmerged. Final blue/white-cap capture and fresh-Play restoration are complete. Retain 96 Minis for the Studio preview with the measured memory, device, species, and multiplayer limits explicit; do not describe memory growth as resolved.
 
-Next, improve the farmer canopy proportions: thicken existing roof/fringe/posts and prototype lowering the canopy/sign assembly about two logical studs, with zero added Parts and face/deposit-route clearance preserved. Then inspect 50-producer label readability through the real gameplay camera before choosing a fix. Follow with targeted native allocation profiling only for a specific hypothesis from the completed attribute/snapshot/render audit; do not repeat the completed long profile without a reason.
+The canopy/hub/packet batch has passed the final 79-file source comparison and awaits root commit. A board-face assessment is the next active visual task. Producer-label `AlwaysOnTop` capture remains inconclusive; no production `ModelFactory` label change was made. Review readability through the actual gameplay camera before selecting a fix.
+
+One small allocation candidate remains unimplemented: `World.render` writes `ConveyorEnd` twice on a newly created Mini. An existing-Mini-only outer update could remove one redundant write per creation, but must preserve attribute-before-tag ordering and pass creation/repack/removal lifecycle checks. Do not repeat the completed long benchmark without a specific changed hypothesis, or describe the new packet allocation result as resolved memory growth.
 
 The [additional reference research](../reference/ADDITIONAL_CHICKEN_FARM_RESEARCH.md#browser-follow-up--20-october-2026) remains the basis for visual comparisons. The newly completed Lucky identity pass does not establish exact reference economy rules.
 
