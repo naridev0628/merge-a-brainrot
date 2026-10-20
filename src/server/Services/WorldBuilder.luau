@@ -5,7 +5,6 @@ local Environment=require(Shared.EnvironmentArt)
 local Landmarks=require(Shared.FarmLandmarks)
 local ConveyorFacade=require(Shared.ConveyorFacade)
 local HubScenery=require(Shared.HubScenery)
-local HubStudOcclusion=require(Shared.HubStudOcclusion)
 local ObbyCourse=require(Shared.ObbyCourse)
 local Decor=require(Shared.StallDecor)
 local FarmerBooth=require(Shared.FarmerBooth)
@@ -327,28 +326,18 @@ function World.build()
     terrain.WaterWaveSize=.12;terrain.WaterWaveSpeed=9
     terrain:FillBlock(CFrame.new(0,-6.6,0),Vector3.new(1000,4,1000),Enum.Material.Water)
     Landmarks.buildHub(root)
-    local hubCovers: {HubStudOcclusion.Cover}={}
     for i=1,6 do
         local angle=(i-1)*math.pi/3
         local outward=Vector3.new(math.sin(angle),0,math.cos(angle))
         local walkCF=CFrame.lookAt(outward*65+Vector3.new(0,.08,0),outward*90+Vector3.new(0,.08,0))
         local walk=Factory.part(root,'LobbyWalkway',Vector3.new(14,.2,62),walkCF,Color3.fromRGB(245,204,123));walk.TopSurface=Enum.SurfaceType.Studs
-        table.insert(hubCovers,{kind='box',x=walk.Position.X,z=walk.Position.Z,
-            halfX=walk.Size.X/2,halfZ=walk.Size.Z/2,rightX=walk.CFrame.RightVector.X,rightZ=walk.CFrame.RightVector.Z,
-            bottom=walk.Position.Y-walk.Size.Y/2,top=walk.Position.Y+walk.Size.Y/2})
         for _,side in {-1,1} do
             local edge=Factory.part(root,'WalkwayBrickEdge',Vector3.new(.3,.15,62),walkCF*CFrame.new(side*7,.08,0),Color3.fromRGB(255,222,153));edge.CanQuery=false
         end
     end
     local circle=Factory.part(root,'GatheringCircle',Vector3.new(.3,68,68),CFrame.new(0,.15,0)*CFrame.Angles(0,0,math.pi/2),Color3.fromRGB(255,192,98),Enum.PartType.Cylinder,true)
     circle.TopSurface=Enum.SurfaceType.Studs
-    -- Derive occlusion from the actual opaque cover Parts. The cylinder's local
-    -- X axis is vertical; walkway rectangles are yawed around the world Y axis.
-    table.insert(hubCovers,{kind='circle',x=circle.Position.X,z=circle.Position.Z,radius=circle.Size.Y/2,
-        bottom=circle.Position.Y-circle.Size.X/2,top=circle.Position.Y+circle.Size.X/2})
-    Environment.octagon(root,CFrame.identity,96,1,Color3.fromRGB(115,210,38),function(x,z,width,bottom,top)
-        return HubStudOcclusion.isFullyCovered(x,z,width,bottom,top,hubCovers)
-    end)
+    Environment.octagon(root,CFrame.identity,96,1,Color3.fromRGB(115,210,38),nil,true)
     for i=1,16 do
         local angle=i*math.pi/8; local x,z=math.cos(angle)*37,math.sin(angle)*37
         local edging=Factory.part(root,'CircleEdging',Vector3.new(6,.4,1.1),CFrame.new(x,.3,z)*CFrame.Angles(0,-angle+math.pi/2,0),orange);edging.TopSurface=Enum.SurfaceType.Studs

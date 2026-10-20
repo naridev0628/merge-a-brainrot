@@ -30,6 +30,20 @@ Lawn: [raised overlay before](../../verification/lawn-overlay-before.jpg) / [nat
 
 These are isolated comparison scenes. Their cloned pad labels are not managed as the normal owned plot by `PadLabels`; visible label overlaps are not acceptance of the normal controller’s layout. Dense Crocodilo meshes still overlap at high counts. The images and Part counts make **no FPS, memory, device or multiplayer claim**. Historical benchmark provenance is unchanged.
 
+### Hub lawn: dense native studs on the existing foundation
+
+The [hub lawn comparison](index.html#comparison-hub-lawn) applies the dense open-lawn texture visible at [08:00](0480-08-00.jpg) to our hub. Five implementation images supplement the unchanged 14 source frames:
+
+| View | Before | After |
+| --- | --- | --- |
+| Ground level | [Sparse raised ornaments](../../verification/hub-lawn-before-ground.jpg) | [Dense native studs](../../verification/hub-lawn-after-ground.jpg) |
+| Oblique overview | [Earlier hub surface](../../verification/hub-lawn-before-oblique.jpg) | [Same island and routes](../../verification/hub-lawn-after-oblique.jpg) |
+| Path and plaza junction | — | [Native surface detail](../../verification/hub-lawn-after-seam.jpg) |
+
+Baseline is `6756b31`; this hub pass is **native-verified and pending commit**. It removes the remaining **1480 inert `SquareStud` Parts**, retaining all nine collision slabs, six paths, central plaza and its physical studs. The earlier 557 fully hidden ornaments were already culled from the original 2037 and are not counted again. Five rectangular top faces and four horizontal wedge faces now use native studs; their patterns follow the slabs’ orientations, rather than a seamless texture atlas.
+
+Actual-generator checks and native **864 foundation raycasts, six routes with 8664 prop-clearance checks, bridge grounding and environment checks passed**. The foundation sizes, transforms, colors, materials and collision flags remain unchanged. Live water and rendering differ between the paired captures; the images document surface appearance and preserved composition. The Part reduction is **not an FPS, memory-recovery, device or multiplayer measurement**. Raw evidence: [hub-native-studs.json](../../verification/hub-native-studs.json).
+
 ### Farm title: row-aware header and long-name wrapping
 
 The [title comparison section](index.html#comparison-title) adds two illustrated pairs while preserving the 14 source references and all nine earlier comparison pairs. It also links the other two matched title views:

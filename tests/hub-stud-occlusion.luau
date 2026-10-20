@@ -1,3 +1,5 @@
+-- Legacy raised-grid callback regression. The live hub now opts into native
+-- surfaces; these historical 2037/557/1480 counts are not its current inventory.
 local Occlusion=require('../src/shared/HubStudOcclusion')
 
 local circle={kind='circle',x=0,z=0,radius=5,bottom=0,top=.3}
@@ -57,11 +59,11 @@ for ix=-limit,limit do for iz=-limit,limit do
         if covered then culled+=1 else kept+=1 end
     end
 end end
-assert(before==2037 and culled==557 and kept==1480,'Current hub count changed unexpectedly')
+assert(before==2037 and culled==557 and kept==1480,'Historical raised-grid count changed unexpectedly')
 -- Exercise partial edges for different widths and shifted positions as well.
 for ix=-16,16 do for iz=-16,16 do for _,width2 in {.1,.55,1.7} do
     local x,z=ix*.4+.07,iz*.4-.13
     assert(Occlusion.isFullyCovered(x,z,width2,0,.14,{circle,rotated})
         ==oracle(x,z,width2,0,.14,{circle,rotated}))
 end end end
-print('PASS hub stud containment: independent corner oracle; 2037 -> 1480, 557 fully hidden studs culled; partial/rotated/vertical boundaries retained')
+print('PASS legacy hub stud containment: independent corner oracle; historical 2037 -> 1480; partial/rotated/vertical boundaries retained')

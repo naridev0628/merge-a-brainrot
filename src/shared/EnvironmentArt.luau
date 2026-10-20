@@ -238,7 +238,7 @@ function Environment.lighthouse(parent: Instance, cf: CFrame, scale: number): Mo
 end
 
 function Environment.octagon(parent: Instance, center: CFrame, radius: number, thickness: number, color: Color3,
-    skipStud: ((number,number,number,number,number) -> boolean)?): Model
+    skipStud: ((number,number,number,number,number) -> boolean)?, nativeStuds: boolean?): Model
     assert(radius > 0 and thickness > 0, 'Octagon radius and thickness must be positive')
     local model = Instance.new('Model')
     model.Name = 'StuddedOctagonalPlatform'
@@ -246,10 +246,12 @@ function Environment.octagon(parent: Instance, center: CFrame, radius: number, t
     model:SetAttribute('Radius', radius)
     local a = radius * (math.sqrt(2) - 1)
     local leg = radius - a
-    block(model, 'CenterSlab', Vector3.new(2 * a, thickness, 2 * a), CFrame.new(0, -thickness / 2, 0), color, true)
+    local middle=block(model, 'CenterSlab', Vector3.new(2 * a, thickness, 2 * a), CFrame.new(0, -thickness / 2, 0), color, true)
+    if nativeStuds then middle.TopSurface=Enum.SurfaceType.Studs end
     for side = 0, 3 do
         local turn = CFrame.Angles(0, side * math.pi / 2, 0)
-        block(model, 'StraightEdgeSlab', Vector3.new(leg, thickness, 2 * a), turn * CFrame.new(a + leg / 2, -thickness / 2, 0), color, true)
+        local edge=block(model, 'StraightEdgeSlab', Vector3.new(leg, thickness, 2 * a), turn * CFrame.new(a + leg / 2, -thickness / 2, 0), color, true)
+        if nativeStuds then edge.TopSurface=Enum.SurfaceType.Studs end
         -- A horizontal right triangular prism closes each corner exactly:
         -- (a,a), (radius,a), (a,radius). The top remains completely flat.
         local wedge = Instance.new('WedgePart')
@@ -263,8 +265,13 @@ function Environment.octagon(parent: Instance, center: CFrame, radius: number, t
         wedge.CanTouch = false
         wedge.TopSurface = Enum.SurfaceType.Smooth
         wedge.BottomSurface = Enum.SurfaceType.Smooth
+        -- This horizontal wedge's local +X (RightSurface) is world up.
+        if nativeStuds then wedge.RightSurface=Enum.SurfaceType.Studs end
         wedge.Parent = model
     end
+    -- The hub uses a uniform native grid. Omitted/false retains the raised
+    -- ornament grid and optional containment callback for other callers.
+    if nativeStuds then return finish(model,parent,center,1) end
     local pitch = math.max(2.0, radius / 25)
     local width = math.min(.55, pitch * .28)
     local budget: StudBudget = {remaining = 2500}

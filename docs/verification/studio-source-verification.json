@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-10-20 12:48:05 UTC",
+  "recordedAt": "2026-10-20 13:00:01 UTC",
   "algorithm": "DJB2 over UTF-8 source with CRLF normalized to LF",
   "sources": [
     {
@@ -263,8 +263,8 @@
     {
       "path": "src/server/Services/WorldBuilder.luau",
       "studioPath": "ServerScriptService.Services.WorldBuilder",
-      "bytes": 38925,
-      "hash": 2146652631
+      "bytes": 38070,
+      "hash": 1885269723
     },
     {
       "path": "src/shared/AnimationVisibility.luau",
@@ -317,8 +317,8 @@
     {
       "path": "src/shared/EnvironmentArt.luau",
       "studioPath": "ReplicatedStorage.Shared.EnvironmentArt",
-      "bytes": 14699,
-      "hash": 2066822974
+      "bytes": 15247,
+      "hash": 812183854
     },
     {
       "path": "src/shared/FarmCapacity.luau",

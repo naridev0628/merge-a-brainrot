@@ -1,10 +1,10 @@
-# Overnight engineering handoff — 2026-10-20, 12:50 UTC checkpoint
+# Overnight engineering handoff — 2026-10-20, 13:01 UTC checkpoint
 
 This is a live work checkpoint, not a completion or release report. The minimum work window continues until **13:30 UTC**. The continuation heartbeat now runs every **15 minutes**, as reported by root. See [machine-readable progress](OVERNIGHT_PROGRESS.json) for the current task pointer.
 
 ## Current Studio state
 
-The latest pushed checkpoint is **eb7bc2b**. The touch follow-up below is verified and pending commit. Studio is in fresh normal desktop Play, with both Main scripts enabled, normal HUD/Custom camera and health100; device emulation and disposable fixtures are removed. All **80 current sources match Studio**, and the separate [morning place](../../build/MergeABrainrot-Morning-2026-10-20.rbxlx) has an exact80-source XML match plus all47 bundled meshes. [Build proof](morning-build-verification.json) was recorded at12:48UTC. The existing FirstPlayable native document was last verified saved at11:51UTC; a latest native Ctrl+S save was not verified. PR2 remains draft/unmerged and nothing is published.
+The latest pushed checkpoint is **6756b31**, including the completed touch follow-up. The hub grid below is verified and pending commit. Studio is temporarily running a six-farm96-Mini churn harness, started13:00:31UTC; both production Main scripts are disabled for that disposable session and must be restored after sampling. Device emulation is stopped. All **80 current sources match Studio**, and the separate [morning place](../../build/MergeABrainrot-Morning-2026-10-20.rbxlx) has an exact80-source XML match plus all47 bundled meshes. [Build proof](morning-build-verification.json) was recorded at12:48UTC. The existing FirstPlayable native document was last verified saved at11:51UTC; a latest native Ctrl+S save was not verified. PR2 remains draft/unmerged and nothing is published.
 
 The last committed source passes **44 standalone Luau suites, 80-source compilation, scoped strict analysis, native regressions, Rojo build and diff check**. Saved earlier benchmarks retain their own frozen-source provenance. The last complete opened Edit analysis was **80 warnings / 0 errors**, with a later reopened context showing 79 warnings; neither is a globally clean result. The final committed PassService annotation has not received a settled native warning recheck because native desktop accessibility/paint became unreliable.
 
@@ -260,3 +260,11 @@ The native layout fixture passes full counts, text fit and Lucky/Settings scroll
 All44 pure suites,80 source compilations,2163 desktop layout scenarios,72 touch scenarios, actual cue/lifecycle helpers,40 UI action contexts, native cue teardown and five settled control checks pass. All80 project scripts match live Studio and the new morning build. The [Foltyn board](../reference/chicken-farm-foltyn-study/index.html#comparison-touch) adds14 implementation images separately from its14 timestamped source frames.
 
 The producer-nameplate trim/AOT trials were rejected or inconclusive; their diagnostic fixtures and before/rejected captures are retained for follow-up. No speculative ModelFactory/AOT change is included. Dense Crocodilo mesh overlap and lower stacked-label occlusion remain.
+
+## Dense hub lawn — native verified13:00UTC
+
+The center island now uses native square studs on five top faces and four upward-facing wedge sides, matching the regular plot lawns. All1480 remaining physical hub ornaments are removed; the earlier557 hidden-ornament cull is historical and is not counted again. All nine slabs retain exact geometry/material/physics flags. Default octagon and optional skip-callback behavior remain available to other callers. The now-unused cover setup is removed from WorldBuilder; plaza/path geometry is unchanged.
+
+Actual-generator RED→GREEN, independent review, all44pure/80compiles, fresh native864foundation raycasts, sixroutes/8664clearancechecks, sixbridgeseams, and environment assertions pass. [Raw native evidence](hub-native-studs.json), [ground before](hub-lawn-before-ground.jpg), [ground after](hub-lawn-after-ground.jpg), [oblique](hub-lawn-after-oblique.jpg), and [seam](hub-lawn-after-seam.jpg). Each slab retains its native texture orientation; this is not a claim of continuous atlas UVs. The removal is an instance-count result, not an FPS or memory benchmark.
+
+A new six-farm96-Mini route/churn soak is running on this frozen source. Its results will be saved separately from the earlier fixed-source benchmarks; they are not yet available at this checkpoint.

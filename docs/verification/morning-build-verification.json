@@ -1,28 +1,28 @@
 {
-  "artifact": "build/MergeABrainrot-Morning-2026-10-20.rbxlx",
+  "recordedAt": "2026-10-20T13:01:31.0507321Z",
+  "sourceMatches": 80,
+  "sha256": "5F1DF69FF360DD545D91447AEED1A041BFE8DCB970080AFA19E1DE221579B3B5",
   "sourceTotal": 80,
+  "scope": "Rojo-built local artifact source parity and bundled asset inventory; not a native Ctrl+S save of the existing FirstPlayable document",
   "assetFolders": [
     {
-      "descendants": 12,
       "children": 12,
+      "descendants": 12,
       "meshParts": 12,
       "folder": "CharacterModels"
     },
     {
-      "descendants": 22,
       "children": 22,
+      "descendants": 22,
       "meshParts": 22,
       "folder": "ExpansionModels"
     },
     {
-      "descendants": 13,
       "children": 13,
+      "descendants": 13,
       "meshParts": 13,
       "folder": "MapModels"
     }
   ],
-  "sha256": "26FA7E1989FDF1A1B5604D86E7BAFB2A31C49B2D7240CBE9CA714503FB0AA14F",
-  "recordedAt": "2026-10-20T12:48:41.1514811Z",
-  "sourceMatches": 80,
-  "scope": "Rojo-built local artifact source parity and bundled asset inventory; not a native Ctrl+S save of the existing FirstPlayable document"
+  "artifact": "build/MergeABrainrot-Morning-2026-10-20.rbxlx"
 }

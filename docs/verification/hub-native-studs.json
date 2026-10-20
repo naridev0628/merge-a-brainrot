@@ -1,0 +1,78 @@
+{
+  "recordedAt": "2026-10-20 12:58:42 UTC",
+  "baseline": "6756b31",
+  "status": "Native-verified pending commit",
+  "scope": "Visual/geometry and instance-count acceptance; no FPS or memory-recovery claim.",
+  "source": [
+    "src/shared/EnvironmentArt.luau",
+    "src/server/Services/WorldBuilder.luau"
+  ],
+  "counts": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"colliders\":9,\"studs\":0,\"parts\":9}"
+      }
+    ],
+    "isError": false
+  },
+  "fixtures": [
+    {
+      "file": "studio-hub-stud-occlusion.server.luau",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "PASS native hub: nine unchanged collision slabs; zero physical hub studs (1480 removed); six paths/plaza preserved; 864 foundation probes"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "file": "studio-hub-routes.server.luau",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "PASS: six open hub routes, 8664 prop clearance checks, ocean fallback"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "file": "studio-bridge-grounding.server.luau",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "PASS six visible bridge landings and walkable plot seams"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "file": "studio-environment.server.luau",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "nil"
+          }
+        ],
+        "isError": false
+      }
+    }
+  ],
+  "images": [
+    "hub-lawn-before-ground.jpg",
+    "hub-lawn-before-oblique.jpg",
+    "hub-lawn-after-ground.jpg",
+    "hub-lawn-after-oblique.jpg",
+    "hub-lawn-after-seam.jpg"
+  ],
+  "preserved": "Nine collider CFrames, sizes, colors, materials and flags; default octagon/callback semantics; six paths, plaza and side scenery. Native grass texture is oriented with each slab, not a guaranteed seamless UV atlas.",
+  "removedParts": 1480
+}

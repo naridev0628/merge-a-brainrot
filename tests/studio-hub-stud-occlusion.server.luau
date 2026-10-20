@@ -1,68 +1,103 @@
--- Read-only: run after rebuilding the world. Independently check every stud's
--- eight corners against actual opaque Parts, without using the cull helper.
+-- Read-only current hub acceptance after a fresh World.build().
+-- Historical raised-grid pass: 2037 candidates - 557 fully hidden = 1480 studs.
+-- The current native-grid pass removes those remaining 1480 inert ornaments.
+-- hub-stud-occlusion.luau still covers the legacy optional containment callback.
+-- Also run studio-hub-routes.server.luau and studio-bridge-grounding.server.luau.
 local root=assert(workspace:FindFirstChild('MergeABrainrotGenerated'))
 local hub=assert(root:FindFirstChild('StuddedOctagonalPlatform'))
-local covers={}
-for _,part in root:GetChildren() do
-    if part.Name=='LobbyWalkway' or part.Name=='GatheringCircle' then
-        assert(part:IsA('Part') and part.Transparency==0,'Only opaque cover Parts can hide grass studs')
-        table.insert(covers,part)
-    end
-end
-assert(#covers==7,'Expected six walkways and the plaza')
-local radius=hub:GetAttribute('Radius')
-assert(radius==96,'Update this fixture deliberately if the hub layout changes')
-local pitch,width=radius/25,.55
+assert(hub:GetAttribute('Radius')==96 and hub:GetScale()==1,'Hub dimensions must remain unchanged')
+local radius,thickness=96,1
 local a=radius*(math.sqrt(2)-1)
-local limit=math.floor((radius-width)/pitch)
-local actual={}
-local count,solids=0,0
-for _,part in hub:GetChildren() do
-    if part:IsA('BasePart') then
-        if part.Name=='SquareStud' then
-            local ix,iz=math.round(part.Position.X/pitch),math.round(part.Position.Z/pitch)
-            local key=ix..':'..iz
-            assert(not actual[key],'Duplicate hub stud')
-            assert((part.Position-Vector3.new(ix*pitch,.07,iz*pitch)).Magnitude<.0001,'Visible stud grid changed')
-            assert((part.Size-Vector3.new(width,.14,width)).Magnitude<.0001,'Visible stud size changed')
-            assert(not part.CanCollide and not part.CanQuery and not part.CanTouch)
-            actual[key]=part;count+=1
-        else
-            assert(part.CanCollide,'Preserve the solid octagonal foundation')
-            solids+=1
+local leg=radius-a
+local expected={{name='CenterSlab',class='Part',size=Vector3.new(2*a,thickness,2*a),cf=CFrame.new(0,-.5,0)}}
+for side=0,3 do
+    local turn=CFrame.Angles(0,side*math.pi/2,0)
+    table.insert(expected,{name='StraightEdgeSlab',class='Part',size=Vector3.new(leg,thickness,2*a),
+        cf=turn*CFrame.new(a+leg/2,-.5,0)})
+    table.insert(expected,{name='DiagonalCornerSlab',class='WedgePart',size=Vector3.new(thickness,leg,leg),
+        cf=turn*CFrame.fromMatrix(Vector3.new(a+leg/2,-.5,a+leg/2),Vector3.yAxis,Vector3.xAxis,-Vector3.zAxis)})
+end
+local function sameFrame(actual,wanted)
+    return (actual.Position-wanted.Position).Magnitude<.0001
+        and (actual.RightVector-wanted.RightVector).Magnitude<.0001
+        and (actual.UpVector-wanted.UpVector).Magnitude<.0001
+end
+local function sameColor(actual,wanted)
+    return math.abs(actual.R-wanted.R)<.0001 and math.abs(actual.G-wanted.G)<.0001 and math.abs(actual.B-wanted.B)<.0001
+end
+local parts=hub:GetChildren()
+assert(#parts==9,'Native hub must contain exactly nine slabs and zero SquareStuds')
+local used={}
+for _,entry in expected do
+    local found=nil
+    for _,part in parts do
+        if part.Name==entry.name and sameFrame(part.CFrame,entry.cf) then
+            assert(not found,'Duplicate original slab');found=part
         end
     end
-end
-local function fullyInside(x,z,cover)
-    for _,dx in {-width/2,width/2} do for _,dz in {-width/2,width/2} do for _,y in {0,.14} do
-        local point=cover.CFrame:PointToObjectSpace(Vector3.new(x+dx,y,z+dz))
-        local half=cover.Size/2
-        -- Tiny tolerance accounts only for Roblox's float CFrame storage.
-        if cover.Shape==Enum.PartType.Cylinder then
-            if math.abs(point.X)>half.X+.00001 or point.Y*point.Y+point.Z*point.Z>half.Y*half.Y+.00001 then return false end
-        elseif math.abs(point.X)>half.X+.00001 or math.abs(point.Y)>half.Y+.00001 or math.abs(point.Z)>half.Z+.00001 then
-            return false
-        end
-    end end end
-    return true
-end
-local culled,candidates=0,0
-for ix=-limit,limit do for iz=-limit,limit do
-    local x,z=ix*pitch,iz*pitch
-    if math.abs(x)+math.abs(z)+width<=radius+a then
-        candidates+=1
-        local covered=false
-        for _,cover in covers do if fullyInside(x,z,cover) then covered=true;break end end
-        local key=ix..':'..iz
-        if covered then
-            assert(not actual[key],'Fully hidden stud was retained: '..key)
-            culled+=1
-        else
-            assert(actual[key],'Visible or partly exposed stud was removed: '..key)
-        end
-        actual[key]=nil
+    local part=assert(found,'Missing original slab '..entry.name)
+    assert(not used[part] and part.ClassName==entry.class,'Slab identity changed');used[part]=true
+    assert((part.Size-entry.size).Magnitude<.0001,'Slab geometry changed')
+    assert(sameColor(part.Color,Color3.fromRGB(115,210,38)) and part.Material==Enum.Material.Plastic,'Slab color/material changed')
+    assert(part.Anchored and part.CanCollide and part.CanQuery and not part.CanTouch and part.Transparency==0,'Slab flags changed')
+    if part:IsA('WedgePart') then
+        assert((part.CFrame.RightVector-Vector3.yAxis).Magnitude<.0001,'Native wedge studs must face world up')
+        assert(part.RightSurface==Enum.SurfaceType.Studs and part.TopSurface==Enum.SurfaceType.Smooth,'Wedge surface changed incorrectly')
+    else
+        assert(part.Shape==Enum.PartType.Block and (part.CFrame.UpVector-Vector3.yAxis).Magnitude<.0001)
+        assert(part.TopSurface==Enum.SurfaceType.Studs and part.RightSurface==Enum.SurfaceType.Smooth,'Rectangular top surface changed incorrectly')
     end
-end end
-assert(next(actual)==nil,'Unexpected studs outside the original grid')
-assert(solids==9 and candidates==2037 and count==1480 and culled==557,'Unexpected geometry reduction')
-return 'PASS 557 fully enclosed hub studs removed; all 1480 visible/partial studs and 9 collision slabs preserved'
+    for _,face in {'BottomSurface','LeftSurface','FrontSurface','BackSurface'} do
+        assert(part[face]==Enum.SurfaceType.Smooth,'Side/bottom surface changed')
+    end
+end
+-- Native surface detail must not change the neighboring plaza or path slabs.
+local circle=assert(root:FindFirstChild('GatheringCircle'))
+assert(circle.Shape==Enum.PartType.Cylinder and (circle.Size-Vector3.new(.3,68,68)).Magnitude<.0001)
+assert(sameFrame(circle.CFrame,CFrame.new(0,.15,0)*CFrame.Angles(0,0,math.pi/2)))
+assert(sameColor(circle.Color,Color3.fromRGB(255,192,98)) and circle.Material==Enum.Material.Plastic)
+assert(circle.Anchored and circle.CanCollide and circle.CanQuery and not circle.CanTouch and circle.Transparency==0)
+assert(circle.TopSurface==Enum.SurfaceType.Studs and circle.RightSurface==Enum.SurfaceType.Smooth,'Plaza surface was changed')
+local walkways,plazaStuds=0,0
+for _,part in root:GetChildren() do
+    if part.Name=='LobbyWalkway' then
+        walkways+=1
+        local matches=0
+        for side=0,5 do
+            local angle=side*math.pi/3
+            local outward=Vector3.new(math.sin(angle),0,math.cos(angle))
+            local cf=CFrame.lookAt(outward*65+Vector3.new(0,.08,0),outward*90+Vector3.new(0,.08,0))
+            if sameFrame(part.CFrame,cf) then matches+=1 end
+        end
+        assert(matches==1 and (part.Size-Vector3.new(14,.2,62)).Magnitude<.0001,'Path geometry changed')
+        assert(sameColor(part.Color,Color3.fromRGB(245,204,123)) and part.Material==Enum.Material.Plastic)
+        assert(part.Anchored and not part.CanCollide and part.CanQuery and not part.CanTouch and part.Transparency==0)
+        assert(part.TopSurface==Enum.SurfaceType.Studs,'Path studs changed')
+    elseif part.Name=='PlazaStud' then
+        plazaStuds+=1
+        assert(part.Anchored and not part.CanCollide and not part.CanQuery and not part.CanTouch)
+        assert((part.Size-Vector3.new(.6,.14,.6)).Magnitude<.0001 and math.abs(part.Position.Y-.37)<.0001)
+    end
+end
+local expectedPlaza=0
+for x=-32,32,2 do for z=-32,32,2 do if x*x+z*z<33*33 then expectedPlaza+=1 end end end
+assert(walkways==6 and plazaStuds==expectedPlaza,'Path/plaza decoration count changed')
+-- Probe the actual collision foundation underneath all six public routes,
+-- including slab seams; native studs themselves contribute no collision.
+local params=RaycastParams.new()
+params.FilterType=Enum.RaycastFilterType.Include
+params.FilterDescendantsInstances={hub}
+params.RespectCanCollide=true
+local probes=0
+for sector=0,5 do
+    local angle=sector*math.pi/3
+    local outward=Vector3.new(math.sin(angle),0,math.cos(angle))
+    local right=Vector3.new(math.cos(angle),0,-math.sin(angle))
+    for distance=0,94,2 do for _,side in {-5,0,5} do
+        local start=outward*distance+right*side+Vector3.new(0,4,0)
+        local hit=workspace:Raycast(start,Vector3.new(0,-6,0),params)
+        assert(hit and hit.Instance.CanCollide and math.abs(hit.Position.Y)<.0001,'Hub route lost its original walkable top')
+        probes+=1
+    end end
+end
+return 'PASS native hub: nine unchanged collision slabs; zero physical hub studs (1480 removed); six paths/plaza preserved; '..probes..' foundation probes'

@@ -1,5 +1,5 @@
 {
-  "updatedAtUTC": "2026-10-20T12:50:26.809Z",
+  "updatedAtUTC": "2026-10-20T13:01:31.210Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
@@ -7,10 +7,10 @@
   "studioId": "bef730c2-c3be-48da-a77b-b19cd8746e97",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Fresh normal Play, desktop device simulation stopped",
-    "mainScripts": "Both enabled",
-    "productionSync": "80 of80 Edit sources exact; final touch observer included. Native-source proof and morning Rojo artifact XML80-source proof recorded12:48UTC.",
-    "currentTrial": "None; disposable touch/bootstrap/input observers removed by fresh Play"
+    "mode": "Disposable six-farm96-Mini churn soak, started13:00:31UTC",
+    "mainScripts": "Temporarily disabled inEdit for harness; must re-enable before morning handoff",
+    "productionSync": "80/80 frozen source match; morningRojoXML80source proof updated",
+    "currentTrial": "Two consecutive600-second route/churn samples planned; no results claimed yet"
   },
   "candidateConfig": {
     "producerSlots": 50,
@@ -86,7 +86,9 @@
     "eb7bc2b committed/pushed: processor-board count/reset, LuckyCarry guard and PassService scoped types.",
     "Touch follow-up verified: actual native controls preserved at five settled sizes; event-driven Jump-size observer reduces ~1.8s tablet update lag to one transient frame; actual-helper lifecycle and cue cleanup pass.",
     "Seeded actual-Humanoid normal flow passed Buy5/Buy10 immediate entry and standing repeats, then free Lucky pickup; same held ID survives Settings music35→45→35 and close. Short card wheel reaches Discard; no physicaltouch claim.",
-    "Final44pure/80compile, three layout/cue/lifecycle CLI suites plus40 actcontexts, native80source parity and morningRojoXML80source parity pass. Fresh normal desktop Play restored."
+    "Final44pure/80compile, three layout/cue/lifecycle CLI suites plus40 actcontexts, native80source parity and morningRojoXML80source parity pass. Fresh normal desktop Play restored.",
+    "6756b31 committed/pushed: native-control-safe touch HUD, Sprint/cue observer lifecycle and reference-board evidence.",
+    "Hub native grid accepted:1480 decorativeParts removed, same9slabs,864foundation probes,6routes/8664clearancechecks,6bridgelandings/environment pass;44pure/80compile plusactual-generator CLI/peer/build/parity pass."
   ],
   "benchmarkEvidence": {
     "baselineFiles": [
@@ -213,8 +215,8 @@
     }
   },
   "active": [
-    "Commit/push verified touch HUD and reference-board evidence",
-    "Continue bounded visual polish until13:30UTC"
+    "Complete current six-farm96-Mini churn sampling on frozen final source",
+    "Commit/push hub native grid and annotated comparison"
   ],
   "next": [
     "Finish final safe verification and handoff at13:30UTC",
@@ -242,7 +244,7 @@
     "artifactProof": "docs/verification/morning-build-verification.json",
     "nativeSave": "Existing FirstPlayable native document last verified at11:51UTC; latest source is live inStudio and in separate Rojo morning artifact. Native Ctrl+S not reverified."
   },
-  "latestVerifiedCommit": "eb7bc2b (touch follow-up verified, commit pending)",
+  "latestVerifiedCommit": "6756b31 (hub-native-grid follow-up verified, commit pending)",
   "newBatchEvidence": {
     "status": "Gameplay/allocation/Lucky/shelf batch committed/pushed as 0059fb2. Subsequent canopy/hub/packet batch committed/pushed as 4d4fd29, synced and natively verified.",
     "normalFarmFlow": {
@@ -739,5 +741,6 @@
   "sharedRowEvidence": "docs/verification/shared-row-types-native.json",
   "coreLeaderboardEvidence": "core-leaderboard-native.json",
   "touchHudEvidence": "docs/verification/touch-hud-native.json",
-  "morningBuildEvidence": "docs/verification/morning-build-verification.json"
+  "morningBuildEvidence": "docs/verification/morning-build-verification.json",
+  "hubNativeStudsEvidence": "docs/verification/hub-native-studs.json"
 }
