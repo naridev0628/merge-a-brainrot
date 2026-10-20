@@ -77,7 +77,7 @@ local ok,err=xpcall(function()
     assert(ui.panel.RebirthRewards.CashReward.CashBoost.Text=='x1.5 Cash','Visible Rebirth updates must remain live')
     ui:open('Index')
     latest=table.clone(latest);latest.eventHundredths=50;ui:update(latest)
-    assert(ui.panel.IndexProduction.Text:find('0.5 Minis/s',1,true),'Visible Index must react to production changes')
+    assert(ui.panel.IndexGrid.tier_01.MiniValue.Text=='0.5 / sec','Visible Index cards must react to production changes')
 
     latest=table.clone(latest);latest.lucky={id='hidden-fixture-lucky',held=true,baseTier=1}
     ui:update(latest);ui:open('Lucky')

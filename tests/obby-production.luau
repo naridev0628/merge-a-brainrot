@@ -31,25 +31,25 @@ local function produce(s,from,count)
 end
 local normal=session(100,25,false)
 local drops,credit=produce(normal,1,4)
-assert(drops=='1,1,1,2' and credit=='25,50,75,0','1.25x production must preserve exact quarter credits')
+assert(drops=='1,1,1,1' and credit=='0,0,0,0','Obby bonus must not inflate raw production')
 local pass=session(100,25,true)
 drops,credit=produce(pass,1,4)
-assert(drops=='2,3,2,3' and credit=='50,0,50,0','Mini pass must apply after the additive obby bonus')
+assert(drops=='2,2,2,2' and credit=='0,0,0,0','Mini pass independently doubles raw production')
 local low=session(50,25,false)
 drops,credit=produce(low,1,4)
-assert(drops=='0,1,1,1' and credit=='75,50,25,0','A 0.5x world event plus bonus must produce 0.75x')
+assert(drops=='1,1,1,1' and credit=='0,0,0,0','A low deposit multiplier must not slow raw production')
 local high=session(150,25,true)
 drops,credit=produce(high,1,4)
-assert(drops=='3,4,3,4' and credit=='50,0,50,0','(1.5+0.25)x with pass must be 3.5x, not 3.75x')
+assert(drops=='2,2,2,2' and credit=='0,0,0,0','Event and obby bonuses must not multiply raw production twice')
 assert(high.state.eventHundredths==150,'Obby bonus must not overwrite the shared world event')
 local maximum=session(150,100,true)
-assert(produce(maximum,1,1)=='5','Maximum validated bonus must retain bounded integer production')
+assert(produce(maximum,1,1)=='2','Maximum validated bonus must retain bounded integer production')
 
 local expiry=session(100,25,false)
 produce(expiry,1,2)
 assert(core:setObbyBonus(expiry,0),'Expiry must commit removal of the earned bonus')
 drops,credit=produce(expiry,3,4)
-assert(drops=='1,1,1,1' and credit=='50,50,50,50','Expiry stops new bonus without erasing already-earned fractional progress')
+assert(drops=='1,1,1,1' and credit=='0,0,0,0','Bonus expiry must not change raw production')
 local unchanged=expiry.state
 assert(not core:setObbyBonus(expiry,0) and expiry.state==unchanged,'An unchanged value must not create a revision or replace state')
 
@@ -85,7 +85,7 @@ assert(core:dispatch(rebirth,'Rebirth',{'rebirth'},
     {now=0,alive=true,position={x=0,y=0,z=Config.MergeZ}}).code=='OK')
 assert(rebirth.state.obbyBonusHundredths==25 and rebirth.state.miniMultiplier==2,
     'Rebirth must keep the earned bonus and pass while the external run owns its timer')
-assert(produce(rebirth,1,2)=='2,3')
+assert(produce(rebirth,1,2)=='2,2')
 
 -- Deposit must preserve base value, cash pass and rebirth math independently.
 local sale=session(150,25,true)
@@ -95,4 +95,4 @@ sale.state.bag={{speciesId='tier_01',baseCoinValue=2,count=1}}
 assert(core:dispatch(sale,'Deposit',{'deposit'},
     {now=0,alive=true,position={x=Config.SellX,y=0,z=Config.SellZ}}).code=='OK')
 assert(sale.state.saleQueue[1].units==2*(4+2)*4,'Production boost must never multiply each Mini sale value')
-print('PASS additive obby production, fixed-point credits, pass/event stacking, expiry, rebirth, legacy states, invalid inputs and unchanged cash value')
+print('PASS obby-independent raw production, Mini pass, expiry, rebirth, legacy states, invalid inputs and unchanged cash value')

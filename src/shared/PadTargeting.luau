@@ -20,11 +20,11 @@ function Targeting.resolve(config: any,catalog: any,map: any,state: any,position
         if state.soldUnits>0 then target.action='Claim' end
     elseif onPad('AutoMerge') then
         target.key='AutoMerge'
-        local seen: {[string]: boolean}={}
+        local seen: {[string]: number}={}
         for _,producer in state.producers do
             if catalog[producer.speciesId].nextId then
-                if seen[producer.speciesId] then target.action='AutoMerge'; break end
-                seen[producer.speciesId]=true
+                seen[producer.speciesId]=(seen[producer.speciesId] or 0)+1
+                if seen[producer.speciesId]>=config.MergeCount then target.action='AutoMerge'; break end
             end
         end
     elseif onPad('Upgrade') then target.key='Upgrade'; target.action='Upgrade'
@@ -43,13 +43,12 @@ function Targeting.resolve(config: any,catalog: any,map: any,state: any,position
     end
     for _,entry in {
         {kind='Deposit',point=map.Sell},{kind='Claim',point=map.Claim},{kind='Merge',point=map.Merge},
-        {kind='Upgrade',point=map.Upgrade},{kind='FinishNow',point=map.FinishNow},
+        {kind='Upgrade',point=map.Upgrade},
     } do
         local point=entry.point
         consider(entry.kind,point.X,point.Y,point.Z)
     end
     for quantity,x in config.BuyPads do consider('Buy',x,.15,config.BuyZ,quantity) end
-    for key,point in map.PassPads do consider('Pass',point.X,point.Y,point.Z,key) end
 
     -- Corners can be farther from their label than a nearby offer: the surface still wins.
     if target.key then

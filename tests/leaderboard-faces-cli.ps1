@@ -105,6 +105,10 @@ end
 local storage, shared = Instance.new('Folder'), Instance.new('Folder')
 shared.Name = 'Shared'; shared.Parent = storage
 local catalogModule = Instance.new('ModuleScript'); catalogModule.Name = 'CreatureCatalog'; catalogModule.Parent = shared
+local configModule = Instance.new('ModuleScript'); configModule.Name = 'Config'; configModule.Parent = shared
+local groundModule = Instance.new('ModuleScript'); groundModule.Name = 'GroundSurface'; groundModule.Parent = shared
+local panelCalls={}
+local GroundSurface
 local workspace = Instance.new('Folder')
 local environment = setmetatable({
     Instance = Instance, CFrame = CFrame, Color3 = Color3, Enum = Enum,
@@ -113,7 +117,11 @@ local environment = setmetatable({
     game = {GetService = function(_, name) return if name == 'Players' then Players else storage end},
     task = {spawn = function(callback) table.insert(pending, callback) end},
     workspace = workspace,
-    require = function(module) assert(module == catalogModule); return {small = {tier = 1}, large = {tier = 4}} end,
+    require = function(module)
+        if module==groundModule then return GroundSurface end
+        if module==configModule then return {MergeCount=3} end
+        assert(module == catalogModule); return {small = {tier = 1}, large = {tier = 4}}
+    end,
     typeof = function(value) return if type(value) == 'table' and value._type then value._type else type(value) end,
 }, {__index = getfenv()})
 local function compile(source)
@@ -124,15 +132,35 @@ end
 '@
 $display = Get-Content -LiteralPath (Join-Path $repo 'src/server/Services/LeaderboardDisplay.luau') -Raw
 $footer = Get-Content -LiteralPath (Join-Path $repo 'src/client/Controllers/LeaderboardFooter.luau') -Raw
-$scriptText = $runtime + "`nlocal Display = compile([====[`n" + $display + "`n]====])`nlocal Footer = compile([====[`n" + $footer + "`n]====])`n"
+$ground = Get-Content -LiteralPath (Join-Path $repo 'src/shared/GroundSurface.luau') -Raw
+$scriptText = $runtime + "`nlocal ActualGround = compile([====[`n" + $ground + "`n]====])`n"
+$scriptText += @'
+GroundSurface={panel=function(parent,frame,width,height,tone)
+    assert(tone=='Brown' and frame.Position.Z==-.52 and width==19.8 and (height==18.8 or height==3))
+    table.insert(panelCalls,{width=width,height=height})
+    local result=ActualGround.panel(parent,frame,width,height,tone)
+    assert(result:GetAttribute('TileCount')==(if height==18.8 then 4 else 2),'Actual tiling must stay bounded')
+    for _,tile in result:GetChildren() do
+        assert(tile.Anchored and not tile.CanCollide and not tile.CanTouch and not tile.CanQuery)
+    end
+    return result
+end}
+'@
+$scriptText += "`nlocal Display = compile([====[`n" + $display + "`n]====])`nlocal Footer = compile([====[`n" + $footer + "`n]====])`n"
 $scriptText += @'
 local root = Instance.new('Folder'); root.Name = 'MergeABrainrotGenerated'; root.Parent = workspace
+assert(Display.compact(0)=='0' and Display.compact(1250)=='1.25K')
+assert(Display.compact(7249674957000)=='7.25T' and Display.compact(2e15)=='2Qa',
+    'Largest current economy values must remain short and readable')
 local boards = {}
 local parts, rearPlanes = 0, 0
 for _, key in {'coins', 'time', 'count'} do
     local board = Display.new(root, key, key, Color3.fromRGB(255, 200, 100), CFrame.identity)
     assert(board.faces and #board.faces == 2, 'Each leaderboard needs two live faces')
     assert(board.rows == board.faces[1].rows and board.footer == board.faces[1].footer, 'Keep canonical front handles')
+    assert(board.rootModel:GetAttribute('LeaderboardScope')=='CurrentServer','Never label local preview standings as global')
+    assert(board.rows[1].avatar:FindFirstChild('UIStroke').Thickness==3 and board.rows[4].avatar:FindFirstChild('UIStroke').Thickness==2,
+        'Top three avatar frames must carry the medal emphasis')
     for _, instance in board.rootModel:GetDescendants() do
         if instance:IsA('BasePart') then
             parts += 1
@@ -144,7 +172,7 @@ for _, key in {'coins', 'time', 'count'} do
     end
     table.insert(boards, board)
 end
-assert(parts == 771 and rearPlanes == 6, 'Keep 765 existing Parts plus exactly six inert rear planes')
+assert(parts<771 and rearPlanes==6 and #panelCalls==6,'Use two reusable brown panels per board and preserve six inert rear planes')
 local entries = {
     {userId = 22, name = 'Second', coins = 2200, time = 7200, count = 20},
     {userId = 11, name = 'First', coins = 1100, time = 3600, count = 10},
@@ -178,13 +206,15 @@ end
 assert(thumbnailCalls[11] == 1 and thumbnailCalls[22] == 1, 'No duplicate avatar fetches across faces or boards')
 local state = {coinUnits = 13200, timePlayed = 10800, producers = {{speciesId = 'small'}, {speciesId = 'large'}}}
 Footer.update(state)
-local expected = {coins = '$3.3K', time = '3h 0m', count = '9'}
+local expected = {coins = '$3.3K', time = '3h 0m', count = '28'}
 for _, board in boards do
     for _, face in board.faces do
         assert(face.footer.Text:find('You are #1 on the leaderboard!', 1, true), 'Both personal footers need the local rank')
         assert(face.footer.Text:find('[' .. expected[board.key] .. ']', 1, true), 'Both personal footers need the local value')
     end
 end
+Footer.update({coinUnits=8e15})
+for _,face in boards[1].faces do assert(face.footer.Text:find('[$2Qa]',1,true),'Personal value must use the same large-value units') end
 -- Equal scores use stable user ID order; removed rows must clear on both faces.
 entries[1].coins = 3300; entries[1].time = 10800; entries[1].count = 30
 for _, board in boards do
@@ -202,7 +232,15 @@ end
 local oldText = boards[1].footer.Text
 root.Parent = nil
 local replacement = Instance.new('Folder'); replacement.Name = 'MergeABrainrotGenerated'; replacement.Parent = workspace
+local models=Instance.new('Folder');models.Name='MapModels';models.Parent=storage
+local brown=Instance.new('MeshPart');brown.Name='GroundBrownTile';brown.Parent=models
 local nextBoard = Display.new(replacement, 'coins', 'Net Worth', Color3.new(1, 1, 1), CFrame.identity)
+local meshTiles=0
+for _,item in nextBoard.rootModel:GetDescendants() do
+    if item:IsA('MeshPart') then meshTiles+=1 end
+    if item.Name=='AuthoredBrownPanel' then assert(not item:GetAttribute('MissingTemplate')) end
+end
+assert(meshTiles==6,'Imported brown Blender template must be reused on both insets')
 Display.update(nextBoard, {entries[2]})
 Footer.update({coinUnits = 80})
 assert(boards[1].footer.Text == oldText, 'Detached worlds must stop receiving personal footer updates')
@@ -218,7 +256,7 @@ Display.update(added, {{userId = 33, name = 'Leaving', time = 5}})
 added.rootModel:Destroy()
 pending[3]()
 print('PASS two-sided rows, sorting/ties/removal, one avatar fetch per user, delayed callbacks, personal values and world replacement')
-print('PASS source-derived total: 765 -> 771 Parts; exactly six added noninteractive rear planes')
+print('PASS brown Blender panel integration, larger medal rows, exact three-to-one counts, T/Qa formatting and six noninteractive rear planes')
 '@
 $target = Join-Path $repo '.tools/leaderboard-faces-cli.luau'
 [System.IO.File]::WriteAllText($target, $scriptText)

@@ -97,11 +97,13 @@ local function auditDividers(shelf,row)
             assert(math.abs(corner.X-x)>=4.76-1e-8,'Cap narrowed the producer/Mini center corridor')
         end end end
         for _,part in {divider,cap} do
-            assert(part.Anchored and not part.CanCollide and not part.CanTouch,'Divider decoration must not alter movement or Mini pickup physics')
+            assert(part.Anchored and not part.CanTouch,'Shelf geometry must stay anchored without touch events')
+            assert(part.CanCollide==(part==divider),'Stand dividers must block players; trim remains cosmetic')
         end
+        assert(plinth.CanCollide and back.CanCollide,'Producer stands need solid top and rear supports')
     end
 end
-local additions={RearRowJoin=true,RearRowSupport=true}
+local additions={RearRowJoin=true,RearRowSupport=true,FrontRowSupport=true}
 local first=Shelves.buildRow(1,layout)
 assert(#first.parts==221,'The ground row must retain its existing 221 parts')
 for _,part in first.parts do assert(not additions[part.Name],'Ground row has no preceding gap to fill') end
@@ -109,17 +111,19 @@ auditDividers(first,1)
 local extra=0
 for row=2,5 do
     local shelf=Shelves.buildRow(row,layout)
-    local panels,supports,retained={},{},{}
+    local panels,supports,fronts,retained={},{},{},{}
     for _,part in shelf.parts do
         if part.Name=='RearRowJoin' then table.insert(panels,part)
         elseif part.Name=='RearRowSupport' then table.insert(supports,part)
+        elseif part.Name=='FrontRowSupport' then table.insert(fronts,part)
         else table.insert(retained,part) end
     end
     assert(#panels==1,'Upper row '..row..' must close its rear air gap with one panel')
     assert(#supports==2,'Upper rows need exactly two rear edge supports')
-    assert(#shelf.parts==224 and #retained==221,'Upper rows may add only three parts')
+    assert(#fronts==11,'Every upper row needs both outside posts and all nine internal bay divisions')
+    assert(#shelf.parts==235 and #retained==221,'Upper rows add three rear pieces and eleven front pillars')
     auditDividers(shelf,row)
-    extra+=#panels+#supports
+    extra+=#panels+#supports+#fronts
     -- All original visible geometry must remain a pure vertical translation.
     for index,part in retained do
         local base=first.parts[index]
@@ -151,10 +155,25 @@ for row=2,5 do
         close(part.CFrame.Y-part.Size.Y/2,rowY-11,'Support must meet the previous shelf base')
         close(part.CFrame.Y+part.Size.Y/2,rowY+.45,'Support must meet the current shelf base')
     end
-    print('PASS row '..row..': continuous rear join, two inert supports, all 221 original parts preserved')
+    for index,part in fronts do
+        close(part.CFrame.X,50-(index-1)*10,'Front pillar must align with a bay boundary')
+        close(part.Size.X,.34,'Front pillar must remain narrow enough to reveal faces')
+        close(part.Size.Z,.38,'Front pillar depth must stay inside the front trim')
+        close(part.CFrame.Z,Config.DisplayZ-3.35,'Front pillars must remain ahead of the producer center')
+        close(part.CFrame.Y-part.Size.Y/2,rowY-11+Config.DisplayPlatformHeight,'Pillar must meet the lower platform floor')
+        close(part.CFrame.Y+part.Size.Y/2,rowY,'Pillar must meet the upper shelf underside')
+        assert(part.Anchored and part.CanCollide and part.CanQuery and not part.CanTouch and part.FrontSurface=='Studs',
+            'Visible structural pillars need solid physics and native studs')
+        for column=1,Config.Columns do
+            local center=layout:slotPosition((row-2)*Config.Columns+column)
+            assert(math.abs(part.CFrame.X-center.x)-part.Size.X/2>=4.8,
+                'Pillars must leave the producer and falling Mini center corridors open')
+        end
+    end
+    print('PASS row '..row..': continuous rear join, two rear supports, eleven front pillars, all 221 original parts preserved')
 end
-assert(extra==12,'Full 50-producer plot must add exactly twelve parts')
-print('PASS one/two/five-row support, rear join and sloped-divider clearance; unchanged 221/224 Parts per row, 1117 per full plot')
+assert(extra==56,'Full plot must retain twelve rear pieces and add exactly forty-four front pillars')
+print('PASS one/two/five-row support and open Mini corridors; 221/235 Parts per ground/upper row, 1161 per full plot')
 '@
 $target = Join-Path $repo '.tools/display-shelves-structure-cli.luau'
 [System.IO.File]::WriteAllText($target, $scriptText)

@@ -6,6 +6,7 @@ local Factory=require(Shared:WaitForChild('ModelFactory'))
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
 local LuckyVisuals=require(Shared:WaitForChild('LuckyBlockVisuals'))
 local ContentProvider=game:GetService('ContentProvider')
+local Icon3D=require(script.Parent.Icon3D)
 local Art={}
 local ink=Color3.fromRGB(31,27,23)
 local function rect(parent: Instance,pos: UDim2,size: UDim2,color: Color3,rotation: number?,border: number?): Frame
@@ -132,6 +133,8 @@ function Art.cardPortrait(entry: TextButton,speciesId: string)
     label.TextColor3=entry.TextColor3; label.Font=entry.Font; label.TextSize=16; label.TextWrapped=true; label.Parent=entry; Style.apply(label,16)
 end
 function Art.icon(parent: Instance,kind: string,pos: UDim2,size: UDim2)
+    local sculpture=Icon3D.create(parent,kind,pos,size)
+    if sculpture then return sculpture end
     local f=Instance.new('Frame'); f.Name='Icon'; f.Position=pos; f.Size=size; f.BackgroundTransparency=1; f.Parent=parent
     if kind=='book' then
         local book=rect(f,UDim2.fromScale(.18,.22),UDim2.fromScale(.64,.61),Color3.fromRGB(255,202,87),-27,4)
@@ -187,25 +190,59 @@ function Art.icon(parent: Instance,kind: string,pos: UDim2,size: UDim2)
     return f
 end
 function Art.basket(parent: GuiObject)
-    -- Broad character silhouettes sit above a rounded, woven basket.
-    for index=1,3 do
-        local face=Art.portrait(parent,if index==2 then 'tier_02' else 'tier_01',UDim2.fromScale((index-1)*.22-.04,if index==2 then -.13 else -.05),UDim2.fromScale(.64,.76))
-        face.ZIndex=1
+    local function rounded(object: GuiObject,radius: number)
+        local corner=Instance.new('UICorner');corner.CornerRadius=UDim.new(radius,0);corner.Parent=object
     end
-    local body=rect(parent,UDim2.fromScale(.08,.48),UDim2.fromScale(.84,.51),Color3.fromRGB(213,128,32),0,4); body.Name='WovenBody'; body.ClipsDescendants=true; body.ZIndex=2
-    local corner=Instance.new('UICorner'); corner.CornerRadius=UDim.new(.34,0); corner.Parent=body
-    local shade=Instance.new('UIGradient'); shade.Color=ColorSequence.new(Color3.fromRGB(255,232,167),Color3.fromRGB(188,100,23)); shade.Rotation=90; shade.Parent=body
-    for direction=-1,1,2 do
-        for i=-3,8 do
-            local slat=rect(body,UDim2.fromScale(i*.17,-.32),UDim2.fromScale(.045,1.65),if direction==1 then Color3.fromRGB(255,196,84) else Color3.fromRGB(163,79,20),direction*38)
-            slat.Name='CrossWeave'; slat.BackgroundTransparency=.15; slat.ZIndex=2
+    -- Crop the actual character models to their upper faces. Every viewport stays
+    -- inside the bag: no tall full-body portrait extends up over the avatar.
+    for _,spec in {{'tier_01',.07,.09,.34,.43},{'tier_01',.59,.09,.34,.43},{'tier_02',.31,.015,.38,.50}} do
+        local face=Art.portrait(parent,spec[1],UDim2.fromScale(spec[2],spec[3]),UDim2.fromScale(spec[4],spec[5]))
+        face.Name='BasketFace';face.ZIndex=1
+        local world=face:FindFirstChildOfClass('WorldModel')
+        local character=world and world:FindFirstChild('Portrait')
+        if character and character:IsA('Model') and face.CurrentCamera then
+            local cf,extent=character:GetBoundingBox()
+            local focus=cf.Position+Vector3.new(0,extent.Y*.23,0)
+            face.CurrentCamera.CFrame=CFrame.lookAt(focus+Vector3.new(extent.X*.07,extent.Y*.02,-extent.Y*.93),focus)
         end
     end
-    local rim=rect(parent,UDim2.fromScale(.02,.46),UDim2.fromScale(.96,.14),Color3.fromRGB(255,181,57),0,3); rim.Name='BasketRim'; rim.ZIndex=3
-    local r=Instance.new('UICorner'); r.CornerRadius=UDim.new(1,0); r.Parent=rim
-    local highlight=rect(rim,UDim2.fromScale(.04,.08),UDim2.fromScale(.92,.22),Color3.fromRGB(255,221,129)); highlight.ZIndex=3
-    local h=Instance.new('UICorner'); h.CornerRadius=UDim.new(1,0); h.Parent=highlight
-    local plate=rect(parent,UDim2.fromScale(.16,.64),UDim2.fromScale(.68,.30),Color3.fromRGB(255,234,177),0,2); plate.Name='CountInset'; plate.ZIndex=3
-    local p=Instance.new('UICorner'); p.CornerRadius=UDim.new(.4,0); p.Parent=plate
+    local body=rect(parent,UDim2.fromScale(.075,.46),UDim2.fromScale(.85,.525),Color3.fromRGB(242,161,51),0,4)
+    body.Name='WovenBody';body.ClipsDescendants=true;body.ZIndex=2;rounded(body,.38)
+    local shade=Instance.new('UIGradient')
+    shade.Color=ColorSequence.new({
+        ColorSequenceKeypoint.new(0,Color3.fromRGB(255,218,126)),
+        ColorSequenceKeypoint.new(.42,Color3.fromRGB(255,198,81)),
+        ColorSequenceKeypoint.new(1,Color3.fromRGB(183,91,22)),
+    })
+    shade.Rotation=90;shade.Parent=body
+    -- Short interlaced strips stay safely within the rounded silhouette.
+    -- Large diagonal stripes previously escaped the corners and read as a box.
+    for row=1,3 do
+        for column=1,6 do
+            local x=.075+(column-1)*.17
+            local y=.18+(row-1)*.29
+            if row==3 and (column==1 or column==6) then continue end
+            for _,direction in {-1,1} do
+                local strip=rect(body,UDim2.fromScale(x,y),UDim2.fromScale(.15,.045),
+                    if direction==1 then Color3.fromRGB(255,219,127) else Color3.fromRGB(175,86,22),direction*35)
+                strip.Name='CrossWeave';strip.AnchorPoint=Vector2.new(.5,.5);strip.ZIndex=2
+                strip.BackgroundTransparency=.12;rounded(strip,.5)
+            end
+        end
+    end
+    local underRim=rect(parent,UDim2.fromScale(.055,.52),UDim2.fromScale(.89,.115),Color3.fromRGB(146,67,16))
+    underRim.Name='RimDepth';underRim.ZIndex=3;rounded(underRim,.8)
+    local rim=rect(parent,UDim2.fromScale(.015,.44),UDim2.fromScale(.97,.16),Color3.fromRGB(255,185,64),0,3)
+    rim.Name='BasketRim';rim.ZIndex=3;rounded(rim,.8)
+    local rimShade=Instance.new('UIGradient');rimShade.Rotation=90
+    rimShade.Color=ColorSequence.new(Color3.fromRGB(255,229,144),Color3.fromRGB(224,128,30));rimShade.Parent=rim
+    local highlight=rect(rim,UDim2.fromScale(.045,.10),UDim2.fromScale(.91,.19),Color3.fromRGB(255,240,180))
+    highlight.Name='RimHighlight';highlight.ZIndex=3;rounded(highlight,1)
+    local plateShadow=rect(parent,UDim2.fromScale(.155,.652),UDim2.fromScale(.69,.305),Color3.fromRGB(153,75,20))
+    plateShadow.Name='CountInsetDepth';plateShadow.ZIndex=3;rounded(plateShadow,.42)
+    local plate=rect(parent,UDim2.fromScale(.16,.64),UDim2.fromScale(.68,.30),Color3.fromRGB(255,236,181),0,2)
+    plate.Name='CountInset';plate.ZIndex=3;rounded(plate,.42)
+    local plateShade=Instance.new('UIGradient');plateShade.Rotation=90
+    plateShade.Color=ColorSequence.new(Color3.fromRGB(255,248,210),Color3.fromRGB(255,221,137));plateShade.Parent=plate
 end
 return Art

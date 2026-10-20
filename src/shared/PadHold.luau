@@ -8,8 +8,9 @@ end
 function PadHold.ready(state: State,now: number): boolean
     if not state.key or state.stopped then return false end
     if state.retryAt then return now>=state.retryAt end
-    -- Entry is immediate. Holding repeats at a deliberate pace after two seconds.
-    return state.lastSent==nil or (now-state.enteredAt>=2 and now-state.lastSent>=.5)
+    -- Purchases repeat promptly while the player remains on the pad.
+    local initialDelay=if string.sub(state.key,1,3)=='Buy' then .5 else 2
+    return state.lastSent==nil or (now-state.enteredAt>=initialDelay and now-state.lastSent>=.5)
 end
 function PadHold.sent(state: State,now: number) state.lastSent=now;state.retryAt=nil end
 function PadHold.retry(state: State,now: number)

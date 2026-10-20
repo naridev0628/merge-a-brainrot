@@ -32,7 +32,7 @@ local fixture=workspace.MergeABrainrotGenerated.Plot2:Clone()
 fixture.Name='PadPieceIndexFixture'
 local metrics={}
 local stats
-local quantities={'1','5','10','50'}
+local quantities={'1','5','10','100'}
 local function close(a,b)
     return math.abs(a.R-b.R)<=1/255 and math.abs(a.G-b.G)<=1/255 and math.abs(a.B-b.B)<=1/255
 end
@@ -67,8 +67,7 @@ local ok,err=xpcall(function()
     local function expected()
         local result={}
         for _,q in quantities do
-            result['Buy'..q]=state.rebirths>=Config.BuyUnlocks[q]
-                and state.coinUnits>=Economy.buyCost(state.purchased,tonumber(q),1)
+            result['Buy'..q]=Economy.purchaseQuote(Config,state,q).code=='OK'
         end
         local cost=Config.ProcessorCosts[state.processorLevel+1]
         result.UpgradePad=cost~=nil and state.coinUnits>=cost
@@ -117,7 +116,7 @@ local ok,err=xpcall(function()
     end
     -- Preserve the existing native affordability fixture's 26 threshold/unlock/upgrade renders.
     for _,q in quantities do
-        local cost=Economy.buyCost(state.purchased,tonumber(q),1)
+        local cost=Economy.purchaseQuote(Config,state,q).cost
         for _,balance in {cost-1,cost,cost+1,0,cost} do
             state.coinUnits=balance;render('thresholds')
         end
@@ -135,8 +134,8 @@ local ok,err=xpcall(function()
     local oldStud=assert(fixture:FindFirstChild('Buy1Stud'))
     local replacement=oldStud:Clone();replacement.Color=sentinel;replacement.Parent=fixture;oldStud:Destroy()
     local added=fixture.Buy5Stud:Clone();added.Color=sentinel;added.Parent=fixture
-    local renamed=fixture.Buy10Edge;renamed.Name='Buy50Edge';renamed.Color=sentinel
-    local nonPart=Instance.new('Folder');nonPart.Name='Buy50Stud';nonPart.Parent=fixture
+    local renamed=fixture.Buy10Edge;renamed.Name='Buy100Edge';renamed.Color=sentinel
+    local nonPart=Instance.new('Folder');nonPart.Name='Buy100Stud';nonPart.Parent=fixture
     state.coinUnits=Economy.buyCost(state.purchased,10,1)
     render('renamed',{Buy1=true,Buy5=true})
     assert(replacement.Color==sentinel and added.Color==sentinel,

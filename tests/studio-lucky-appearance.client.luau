@@ -4,6 +4,8 @@ local Controllers=player.PlayerScripts.Controllers
 local UI=require(Controllers.FarmUI)
 local Lucky=require(Controllers.LuckyEffects)
 local Appearance=require(game.ReplicatedStorage.Shared.LuckyAppearance)
+local Rewards=require(game.ReplicatedStorage.Shared.LuckyRewards)
+local Config=require(game.ReplicatedStorage.Shared.Config)
 local ui=UI.new(player.PlayerGui);ui.gui.Name='LuckyAppearanceQA'
 local reveal=Instance.new('ScreenGui');reveal.Name='LuckyAppearanceRevealQA';reveal.Parent=player.PlayerGui
 local state={coinUnits=10000,rebirths=0,purchased=0,bag={},tokens={},saleQueue={},soldUnits=0,processorLevel=0,
@@ -13,7 +15,7 @@ local ok,err=xpcall(function()
     local portrait
     for _,size in {Vector2.new(390,440),Vector2.new(1440,900)} do
         ui.root.Size=UDim2.fromOffset(size.X,size.Y)
-        for _,tier in {2,3,6,2} do
+        for _,tier in {2,3,6,23,25,2} do
             state.lucky={id='private-'..tier,held=true,baseTier=tier}
             ui:update(state);ui:open('Lucky');task.wait()
             local content=ui.panel.LuckyViewport.LuckyPresentation
@@ -22,7 +24,7 @@ local ok,err=xpcall(function()
             assert(card:GetAttribute('LuckyAppearance')==palette.key and card.Title.Text==palette.title,'Card must follow authoritative baseTier')
             assert(card.Title.TextBounds.X<=card.Title.AbsoluteSize.X+1 and card.Title.TextBounds.Y<=card.Title.AbsoluteSize.Y+1,'Basic/Upgraded title must fit the compact header')
             assert(card.Rewards.BackgroundColor3==Color3.fromRGB(table.unpack(palette.rewards)))
-            assert(content.CostStripe.Cost.Text=='Cost: $60','Changing appearance must preserve the existing two-producer price')
+            assert(content.CostStripe.Cost.Text=='Cost: $'..UI.coins(Rewards.cost(Config,state)),'Displayed price must follow the actual reward pool')
             assert(ui:isLuckyOpen() and not ui:isOpen() and not ui.overlay.Active and ui.overlay.BackgroundTransparency==1,'The Lucky card must remain nonmodal')
             local current=card.LuckyBlockPortrait
             if portrait then assert(current==portrait,'Palette updates must reuse the existing portrait') end
@@ -30,10 +32,10 @@ local ok,err=xpcall(function()
             local block=current.WorldModel.LuckyBlock.PrimaryPart
             assert(block:GetAttribute('LuckyAppearance')==palette.key,'Portrait must match the card')
             if tier>=3 then assert(block.TextureID=='' and #block.LuckyQuestionMarks:GetChildren()==36,'Upgraded portraits need 28 glyph runs and eight white corner accents') end
-            if tier==6 then
-                assert(card.Rewards.Reward1.Probability.Text=='100%' and not card.Rewards.Reward2.Visible,'Clamped top-tier odds must remain aggregated')
-            else
-                assert(card.Rewards.Reward1.Probability.Text=='75%' and card.Rewards.Reward2.Probability.Text=='20%' and card.Rewards.Reward3.Probability.Text=='5%','Appearance must preserve actual reward odds')
+            assert(card.Rewards.Reward1.Probability.Text=='75%' and card.Rewards.Reward2.Probability.Text=='20%' and card.Rewards.Reward3.Probability.Text=='5%','Every appearance must preserve three distinct reward odds, including the capped pool')
+            for index,reward in Rewards.pool(Config,tier) do
+                local row=card.Rewards['Reward'..index]
+                assert(row.Visible and row.Tier.Text=='Tier '..reward.tier,'Actual displayed tiers must match the shared pool')
             end
             local stud=card.BrickTexture:FindFirstChild('Stud')
             assert(stud and stud.BackgroundColor3==Color3.fromRGB(table.unpack(palette.body)):Lerp(Color3.new(1,1,1),.14),'Existing card studs must recolor with the card')

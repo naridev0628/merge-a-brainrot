@@ -11,8 +11,8 @@ local pads={
 for quantity,x in Config.BuyPads do table.insert(pads,{action='Buy',quantity=quantity,x=x,z=Config.BuyZ,hx=5.35,hz=3.85}) end
 local function attempt(pad,dx,y,dz)
     local s=core:newSession(1,0,'pad')
-    s.state.coinUnits=1000000;s.state.soldUnits=40;s.state.rebirths=3;s.state.starterClaimed=true
-    s.state.producers={{id='a',speciesId='tier_01',slot=1,due=1},{id='b',speciesId='tier_01',slot=2,due=1}}
+    s.state.coinUnits=100000000;s.state.soldUnits=40;s.state.rebirths=3;s.state.starterClaimed=true
+    s.state.producers={{id='a',speciesId='tier_01',slot=1,due=1},{id='b',speciesId='tier_01',slot=2,due=1},{id='c',speciesId='tier_01',slot=3,due=1}}
     s.state.bag={{speciesId='tier_01',baseCoinValue=2,count=1}}
     return core:dispatch(s,pad.action,if pad.quantity then {'edge',pad.quantity} else {'edge'},
         {now=0,alive=true,position={x=pad.x+dx,y=y,z=pad.z+dz}})

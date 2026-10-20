@@ -1,0 +1,223 @@
+C:\Users\nehaa\.codex\worktrees\brainrot-first-playable\merge a brainrot\tools\build_expansion_a.py:21: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m=bpy.data.materials.new(k);m.diffuse_color=(*c,1);m.use_nodes=True;m.node_tree.nodes.get('Principled BSDF').inputs['Base Color'].default_value=(*c,1);MATS[k]=m
+C:\Users\nehaa\.codex\worktrees\brainrot-first-playable\merge a brainrot\tools\build_expansion_a.py:235: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  atlas=bpy.data.materials.new('ExpansionA_Atlas');atlas.use_nodes=True;nt=atlas.node_tree;tex=nt.nodes.new('ShaderNodeTexImage');tex.image=img;tex.interpolation='Closest';nt.links.new(tex.outputs['Color'],nt.nodes.get('Principled BSDF').inputs['Base Color']);nt.nodes.get('Principled BSDF').inputs['Roughness'].default_value=.56
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+10:37:51 | INFO: Starting glTF 2.0 export
+10:37:51 | INFO: Extracting primitive: Cube.001
+10:37:51 | INFO: Primitives created: 1
+10:37:51 | INFO: Finished glTF 2.0 export in 0.05761408805847168 s
+
+10:37:52 | INFO: Starting glTF 2.0 export
+10:37:52 | INFO: Extracting primitive: Cube.048
+10:37:52 | INFO: Primitives created: 1
+10:37:52 | INFO: Finished glTF 2.0 export in 0.0044269561767578125 s
+
+10:37:52 | INFO: Starting glTF 2.0 export
+10:37:52 | INFO: Extracting primitive: Cube.077
+10:37:52 | INFO: Primitives created: 1
+10:37:52 | INFO: Finished glTF 2.0 export in 0.007601737976074219 s
+
+10:37:52 | INFO: Starting glTF 2.0 export
+10:37:52 | INFO: Extracting primitive: Cube.128
+10:37:52 | INFO: Primitives created: 1
+10:37:52 | INFO: Finished glTF 2.0 export in 0.005640745162963867 s
+
+10:37:52 | INFO: Starting glTF 2.0 export
+10:37:52 | INFO: Extracting primitive: Cylinder
+10:37:52 | INFO: Primitives created: 1
+10:37:52 | INFO: Finished glTF 2.0 export in 0.006717205047607422 s
+
+10:37:52 | INFO: Starting glTF 2.0 export
+10:37:52 | INFO: Extracting primitive: Cylinder.007
+10:37:52 | INFO: Primitives created: 1
+10:37:52 | INFO: Finished glTF 2.0 export in 0.005399942398071289 s
+
+10:37:52 | INFO: Starting glTF 2.0 export
+10:37:52 | INFO: Extracting primitive: Cylinder.014
+10:37:52 | INFO: Primitives created: 1
+10:37:52 | INFO: Finished glTF 2.0 export in 0.007111072540283203 s
+
+10:37:52 | INFO: Starting glTF 2.0 export
+10:37:52 | INFO: Extracting primitive: Cylinder.017
+10:37:52 | INFO: Primitives created: 1
+10:37:52 | INFO: Finished glTF 2.0 export in 0.005803823471069336 s
+
+10:37:53 | INFO: Starting glTF 2.0 export
+10:37:53 | INFO: Extracting primitive: Cube.305
+10:37:53 | INFO: Primitives created: 1
+10:37:53 | INFO: Finished glTF 2.0 export in 0.00852203369140625 s
+
+10:37:53 | INFO: Starting glTF 2.0 export
+10:37:53 | INFO: Extracting primitive: Cube.356
+10:37:53 | INFO: Primitives created: 1
+10:37:53 | INFO: Finished glTF 2.0 export in 0.005842447280883789 s
+
+10:37:53 | INFO: Starting glTF 2.0 export
+10:37:53 | INFO: Extracting primitive: Cube.403
+10:37:53 | INFO: Primitives created: 1
+10:37:53 | INFO: Finished glTF 2.0 export in 0.008092403411865234 s
+
+10:37:53 | INFO: Starting glTF 2.0 export
+10:37:53 | INFO: Extracting primitive: Cube.440
+10:37:53 | INFO: Primitives created: 1
+10:37:53 | INFO: Finished glTF 2.0 export in 0.0055463314056396484 s
+
+10:37:53 | INFO: Starting glTF 2.0 export
+10:37:53 | INFO: Extracting primitive: Cube.477
+10:37:53 | INFO: Primitives created: 1
+10:37:53 | INFO: Finished glTF 2.0 export in 0.006783485412597656 s
+
+10:37:53 | INFO: Starting glTF 2.0 export
+10:37:53 | INFO: Extracting primitive: Cube.527
+10:37:53 | INFO: Primitives created: 1
+10:37:53 | INFO: Finished glTF 2.0 export in 0.005378246307373047 s
+
+10:37:54 | INFO: Starting glTF 2.0 export
+10:37:54 | INFO: Extracting primitive: Cube.560
+10:37:54 | INFO: Primitives created: 1
+10:37:54 | INFO: Finished glTF 2.0 export in 0.0072057247161865234 s
+
+10:37:54 | INFO: Starting glTF 2.0 export
+10:37:54 | INFO: Extracting primitive: Cube.609
+10:37:54 | INFO: Primitives created: 1
+10:37:54 | INFO: Finished glTF 2.0 export in 0.00555729866027832 s
+
+10:37:54 | INFO: Starting glTF 2.0 export
+10:37:54 | INFO: Extracting primitive: Cube.643
+10:37:54 | INFO: Primitives created: 1
+10:37:54 | INFO: Finished glTF 2.0 export in 0.009297370910644531 s
+
+10:37:54 | INFO: Starting glTF 2.0 export
+10:37:54 | INFO: Extracting primitive: Cube.702
+10:37:54 | INFO: Primitives created: 1
+10:37:54 | INFO: Finished glTF 2.0 export in 0.0065572261810302734 s
+
+10:37:55 | INFO: Starting glTF 2.0 export
+10:37:55 | INFO: Extracting primitive: Cube.735
+10:37:55 | INFO: Primitives created: 1
+10:37:55 | INFO: Finished glTF 2.0 export in 0.010297060012817383 s
+
+10:37:55 | INFO: Starting glTF 2.0 export
+10:37:55 | INFO: Extracting primitive: Cube.849
+10:37:55 | INFO: Primitives created: 1
+10:37:55 | INFO: Finished glTF 2.0 export in 0.005634307861328125 s
+
+REVIEW_STATS {"NoobiniSantanini": {"triangles": 1940, "vertices": 1064, "height": 5, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 148992}, "NoobiniSantanini_Mini": {"triangles": 348, "vertices": 232, "height": 2, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 26540}, "SvininaBombardino": {"triangles": 2052, "vertices": 1128, "height": 5, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 157344}, "SvininaBombardino_Mini": {"triangles": 396, "vertices": 264, "height": 2, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 29900}, "PipiKiwi": {"triangles": 1396, "vertices": 788, "height": 5, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 103096}, "PipiKiwi_Mini": {"triangles": 644, "vertices": 404, "height": 2, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 44848}, "Tartaragno": {"triangles": 1796, "vertices": 984, "height": 5, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 136604}, "Tartaragno_Mini": {"triangles": 484, "vertices": 312, "height": 2, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 35032}, "PipiCorni": {"triangles": 2292, "vertices": 1256, "height": 5, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 174136}, "PipiCorni_Mini": {"triangles": 676, "vertices": 440, "height": 2, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 48476}, "TrippiTroppi": {"triangles": 1500, "vertices": 824, "height": 5, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 115628}, "TrippiTroppi_Mini": {"triangles": 444, "vertices": 296, "height": 2, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 33260}, "GangsterFootera": {"triangles": 1944, "vertices": 1072, "height": 5, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 149016}, "GangsterFootera_Mini": {"triangles": 396, "vertices": 264, "height": 2, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 29912}, "BanditoBobritto": {"triangles": 1636, "vertices": 920, "height": 5, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 124140}, "BanditoBobritto_Mini": {"triangles": 464, "vertices": 304, "height": 2, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 34164}, "RaccooniJandelini": {"triangles": 2680, "vertices": 1478, "height": 5, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 203180}, "RaccooniJandelini_Mini": {"triangles": 576, "vertices": 374, "height": 2, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 41548}, "LiriliLarila": {"triangles": 4376, "vertices": 2416, "height": 5, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 332568}, "LiriliLarila_Mini": {"triangles": 624, "vertices": 416, "height": 2, "mesh_objects": 1, "material_slots": 1, "uv_layers": ["UVMap"], "glb_bytes": 45860}}
+00:08.296  render           | Saved: 'C:\Users\nehaa\.codex\worktrees\brainrot-first-playable\merge a brainrot\assets\characters\review_pack\NoobiniSantaniniPreview.png'
+00:08.687  render           | Saved: 'C:\Users\nehaa\.codex\worktrees\brainrot-first-playable\merge a brainrot\assets\characters\review_pack\SvininaBombardinoPreview.png'
+00:09.046  render           | Saved: 'C:\Users\nehaa\.codex\worktrees\brainrot-first-playable\merge a brainrot\assets\characters\review_pack\PipiKiwiPreview.png'
+00:09.406  render           | Saved: 'C:\Users\nehaa\.codex\worktrees\brainrot-first-playable\merge a brainrot\assets\characters\review_pack\TartaragnoPreview.png'
+00:09.765  render           | Saved: 'C:\Users\nehaa\.codex\worktrees\brainrot-first-playable\merge a brainrot\assets\characters\review_pack\PipiCorniPreview.png'
+00:10.125  render           | Saved: 'C:\Users\nehaa\.codex\worktrees\brainrot-first-playable\merge a brainrot\assets\characters\review_pack\TrippiTroppiPreview.png'
+00:10.484  render           | Saved: 'C:\Users\nehaa\.codex\worktrees\brainrot-first-playable\merge a brainrot\assets\characters\review_pack\GangsterFooteraPreview.png'
+00:10.843  render           | Saved: 'C:\Users\nehaa\.codex\worktrees\brainrot-first-playable\merge a brainrot\assets\characters\review_pack\BanditoBobrittoPreview.png'
+00:11.203  render           | Saved: 'C:\Users\nehaa\.codex\worktrees\brainrot-first-playable\merge a brainrot\assets\characters\review_pack\RaccooniJandeliniPreview.png'
+00:11.562  render           | Saved: 'C:\Users\nehaa\.codex\worktrees\brainrot-first-playable\merge a brainrot\assets\characters\review_pack\LiriliLarilaPreview.png'
+Info: Saved as "ReviewCharacters.blend"
+10:38:00 | INFO: Starting glTF 2.0 export
+10:38:00 | INFO: Extracting primitive: Cube.560
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.609
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.477
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.527
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.735
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.849
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.001
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.048
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.305
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.356
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cylinder
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cylinder.007
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.643
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.702
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.077
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.128
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cylinder.014
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cylinder.017
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.403
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.440
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Finished glTF 2.0 export in 0.06504702568054199 s
+
+10:38:00 | INFO: Data are loaded, start creating Blender stuff
+10:38:00 | INFO: Blender create Mesh node Cube.001
+10:38:00 | INFO: glTF import finished in 0.01s
+10:38:00 | INFO: Data are loaded, start creating Blender stuff
+10:38:00 | INFO: Blender create Mesh node Cube.038
+10:38:00 | INFO: glTF import finished in 0.01s
+10:38:00 | INFO: Data are loaded, start creating Blender stuff
+10:38:00 | INFO: Blender create Mesh node Cube.075
+10:38:00 | INFO: glTF import finished in 0.01s
+10:38:00 | INFO: Starting glTF 2.0 export
+10:38:00 | INFO: Extracting primitive: Cube.560
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.609
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.903
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.902
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.904
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.477
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.527
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.735
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.849
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.001
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.048
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.305
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.356
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cylinder
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cylinder.007
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.643
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.702
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.077
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.128
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cylinder.014
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cylinder.017
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.403
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Extracting primitive: Cube.440
+10:38:00 | INFO: Primitives created: 1
+10:38:00 | INFO: Finished glTF 2.0 export in 0.07164907455444336 s
+
+COMBINED_IMPORT {"mesh_count": 23, "material_count": 2, "image_count": 2, "names": ["BanditoBobritto", "BanditoBobritto_Mini", "BrainrotCoffeeKeeper", "BrainrotLogKeeper", "BrainrotMarketSign", "GangsterFootera", "GangsterFootera_Mini", "LiriliLarila", "LiriliLarila_Mini", "NoobiniSantanini", "NoobiniSantanini_Mini", "PipiCorni", "PipiCorni_Mini", "PipiKiwi", "PipiKiwi_Mini", "RaccooniJandelini", "RaccooniJandelini_Mini", "SvininaBombardino", "SvininaBombardino_Mini", "Tartaragno", "Tartaragno_Mini", "TrippiTroppi", "TrippiTroppi_Mini"], "bytes": 2261872}
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:37:04)
+
+Blender quit

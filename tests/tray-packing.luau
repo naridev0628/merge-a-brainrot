@@ -34,6 +34,7 @@ for _,mode in {'mixed','tier_06'} do
     for run=1,4 do
         local session=seed(mode,'wide-tray-'..mode..'-'..run)
         local saved=core:snapshot(session)
+        local totalQuantity=Economy.count(saved.tokens)
         local layers,seen,expected={},{},{}
         local minX,maxX,minZ,maxZ=math.huge,-math.huge,math.huge,-math.huge
         for _,token in saved.tokens do
@@ -46,7 +47,7 @@ for _,mode in {'mixed','tier_06'} do
                 'Jittered centers must stay clear of the enlarged tray rims')
             minX=math.min(minX,token.x);maxX=math.max(maxX,token.x)
             minZ=math.min(minZ,token.z);maxZ=math.max(maxZ,token.z)
-            expected[token.speciesId]=(expected[token.speciesId] or 0)+1
+            expected[token.speciesId]=(expected[token.speciesId] or 0)+(token.count or 1)
             assert(token.baseCoinValue==Catalog[token.speciesId].value)
             -- Ground nodes are before the front collider, outside all action pads.
             -- Check short/tall root heights without changing the existing aura.
@@ -96,13 +97,13 @@ for _,mode in {'mixed','tier_06'} do
             assert(result.code=='OK' or result.code=='NothingNearby')
             if result.code=='OK' then successful=x end
         end
-        assert(#session.state.tokens==0 and Economy.count(session.state.bag)==96)
+        assert(#session.state.tokens==0 and Economy.count(session.state.bag)==totalQuantity)
         for _,good in session.state.bag do
             assert(good.count==expected[good.speciesId] and good.baseCoinValue==Catalog[good.speciesId].value)
         end
         local revision=session.state.revision
         assert(successful and collectAt(session,'front-'..successful,successful,56).replayed)
-        assert(session.state.revision==revision and Economy.count(session.state.bag)==96)
+        assert(session.state.revision==revision and Economy.count(session.state.bag)==totalQuantity)
         assert(rolls==beforeRolls and core:validate(session.state,session.owner))
     end
 end
@@ -124,6 +125,7 @@ end
 -- enough intermediate points to catch survivors moving after a partial pickup.
 for _,mode in {'mixed','tier_06'} do
     local session=seed(mode,'wide-tray-route-'..mode)
+    local totalQuantity=Economy.count(session.state.tokens)
     local origin={x=-15,z=49}
     local serial,total,partial,repacked=0,0,false,false
     for _,node in route do
@@ -148,7 +150,7 @@ for _,mode in {'mixed','tier_06'} do
         end
         origin=node
     end
-    assert(total==96 and #session.state.tokens==0 and Economy.count(session.state.bag)==96)
+    assert(total==totalQuantity and #session.state.tokens==0 and Economy.count(session.state.bag)==totalQuantity)
     assert(partial and repacked,'The real walking route must exercise partial collection and settling')
 end
 local lucky=seed('mixed','wide-tray-lucky')

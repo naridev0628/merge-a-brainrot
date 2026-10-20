@@ -21,7 +21,7 @@ local ok, err = xpcall(function()
         for _, instance in board.rootModel:GetDescendants() do
             if instance:IsA('BasePart') then boardParts += 1 end
         end
-        assert(boardParts == 257, 'Preserve 255 existing Parts and add only two rear display planes')
+        assert(boardParts>=61 and boardParts<257, 'Blender tile panels must replace the dense individual-stud grid')
         parts += boardParts
         for _, name in {'LeaderboardHeader', 'LeaderboardBody'} do
             local front = assert(board.rootModel:FindFirstChild(name .. 'Plane'))
@@ -54,7 +54,7 @@ local ok, err = xpcall(function()
             assert(face.rows[1].username.Text == '' and face.rows[1].metric.Text == '' and face.rows[1].avatar.Image == '')
         end
     end
-    assert(parts == 771 and rearPlanes == 6, 'Three leaderboards may add exactly six noninteractive planes')
+    assert(parts<771 and rearPlanes == 6, 'Reuse brown panels and preserve exactly six noninteractive rear planes')
 
     -- Keep the actual task.spawn scheduling and UI Instances; control only the
     -- thumbnail provider so delayed responses and fetch counts are deterministic.
@@ -123,4 +123,4 @@ if asyncState then for worker in asyncState.workers do task.cancel(worker) end e
 if asyncModule then asyncModule:Destroy() end
 sandbox:Destroy()
 assert(ok, err)
-return 'PASS three two-sided native boards, matching rows/clear, six inert added Parts (765 -> 771); native async thumbnail coalescing, stale-row rejection, cache reuse and destroyed-row cleanup'
+return 'PASS three two-sided native boards, matching rows/clear, brown tile panels and six inert rear planes; native async thumbnail coalescing, stale-row rejection, cache reuse and destroyed-row cleanup'

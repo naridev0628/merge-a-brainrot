@@ -170,7 +170,8 @@ function Conveyor.update(self: any,now: number)
             rotation=record.rotation*CFrame.Angles(fall*math.pi*2,fall*.65,fall*1.2)
         elseif phase==2 then
             local slide=alpha
-            point=drop:Lerp(center,slide)
+            local startDistance=Vector3.new(drop.X-center.X,0,drop.Z-center.Z).Magnitude/scale
+            point=drop:Lerp(center,slide)+Vector3.new(0,MiniMotion.slideYOffset(startDistance,slide)*scale,0)
             rotation=fallen*CFrame.Angles(math.sin(slide*18)*.08,slide*.4,math.sin(slide*13)*.08)
         elseif phase==3 then
             local arc=alpha

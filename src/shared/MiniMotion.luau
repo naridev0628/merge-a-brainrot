@@ -2,6 +2,15 @@
 -- Logical trajectory shared by authoritative pickup and the visible conveyor.
 local Motion={}
 export type Position={x: number,y: number,z: number}
+function Motion.beltHeight(x: number): number
+    return 1.5+.0004*x*x
+end
+-- Difference between a curved slide and a straight interpolation of its ends.
+-- Horizontal distance is invariant under the plot's rotation, so the client
+-- can apply the same offset to the replicated world-space path.
+function Motion.slideYOffset(startDistance: number,alpha: number): number
+    return -.0004*startDistance*startDistance*alpha*(1-alpha)
+end
 function Motion.progress(now: number,spawnedAt: number,readyAt: number): number?
     if now<spawnedAt then return nil end
     if now>=readyAt then return 1 end
@@ -21,14 +30,15 @@ function Motion.position(config: any,token: any,now: number): Position?
     if not t then return nil end
     local phase,alpha,lift=Motion.phase(t)
     if phase==4 then return {x=token.x,y=token.y,z=token.z} end
-    local drop={x=token.startX,y=1.4+math.abs(token.startX)*.032,z=config.BeltZ}
-    local center={x=0,y=.75,z=config.BeltZ}
+    local drop={x=token.startX,y=Motion.beltHeight(token.startX),z=config.BeltZ}
+    local center={x=0,y=Motion.beltHeight(0),z=config.BeltZ}
     local from: Position
     local target: Position
     if phase==1 then
         from={x=token.startX,y=token.startY,z=token.startZ};target=drop
     elseif phase==2 then
         from=drop;target=center
+        lift=Motion.slideYOffset(token.startX,alpha)
     else
         from=center;target={x=token.x,y=token.y,z=token.z}
     end

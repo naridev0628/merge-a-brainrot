@@ -1,0 +1,58 @@
+{
+  "bundle": "GroundDetailImport.glb",
+  "sha256": "f5d8decf4c0772df255582560b873ce2fbc86523fd579d4b3b192a9630a19a8a",
+  "models": [
+    "GroundGreenTile",
+    "GroundGreenTriangle",
+    "GroundGoldTile",
+    "GroundGoldTriangle",
+    "GroundBrownTile",
+    "GroundBrownTriangle",
+    "GroundGreenEdge",
+    "ReviewBrickTree"
+  ],
+  "modelCount": 8,
+  "totalTriangles": 14872,
+  "squareTileTriangles": 1664,
+  "previousTileTriangles": 2432,
+  "recessOpeningLogical": 1.26,
+  "previousOpeningLogical": 0.84,
+  "reliefDepthLogical": 0.16,
+  "reliefTopAboveCollisionLogical": 0.18,
+  "minimumFacingNormalDot": 0.37190327048301697,
+  "greenTopFieldShadeRange": [
+    8.797553934598344,
+    14.100000000000001
+  ],
+  "greenTopFieldSRGBBounds": [
+    [
+      98,
+      157,
+      40
+    ],
+    [
+      150,
+      200,
+      60
+    ]
+  ],
+  "greenPaletteSRGBStops": [
+    [
+      26,
+      65,
+      26
+    ],
+    [
+      85,
+      146,
+      35
+    ],
+    [
+      159,
+      207,
+      63
+    ]
+  ],
+  "explicitSRGBPNG": true,
+  "skyIncluded": false
+}

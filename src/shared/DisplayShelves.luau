@@ -22,7 +22,7 @@ function Shelves.buildRow(row: number,layout: any): Model
     local dividerTilt=-math.atan2(dividerRise,dividerDepth)
     local base=Factory.part(shelf,'ShelfBase',
         Vector3.new(Config.Columns*Config.ColumnSpacing+1,.45,7),
-        CFrame.new(0,.225+rowY,Config.DisplayZ),orange)
+        CFrame.new(0,.225+rowY,Config.DisplayZ),orange,nil,true)
     base.TopSurface=Enum.SurfaceType.Studs
 
     if row>1 then
@@ -44,6 +44,19 @@ function Shelves.buildRow(row: number,layout: any): Model
                     (previousBottom+currentTop)/2,Config.DisplayZ+3.45),Color3.fromRGB(217,164,66))
             support.CanQuery=false
         end
+        -- Front posts make every stacked bay visibly supported. Boundaries sit
+        -- five studs away from each producer/drop center, keeping faces and
+        -- the falling Mini path open without adding individual stud instances.
+        local lowerFloor=rowY-Config.RowHeight+height
+        for boundary=0,Config.Columns do
+            local x=(Config.Columns/2-boundary)*Config.ColumnSpacing
+            local support=Factory.part(shelf,'FrontRowSupport',
+                Vector3.new(.34,rowY-lowerFloor,.38),
+                CFrame.new(x,(lowerFloor+rowY)/2,Config.DisplayZ-3.35),gold,nil,true)
+            support.FrontSurface=Enum.SurfaceType.Studs
+            support.LeftSurface=Enum.SurfaceType.Studs
+            support.RightSurface=Enum.SurfaceType.Studs
+        end
     end
 
     for column=1,Config.Columns do
@@ -52,7 +65,7 @@ function Shelves.buildRow(row: number,layout: any): Model
         local x=position.x
         local plinth=Factory.part(shelf,'DisplayPlatform',
             Vector3.new(Config.ColumnSpacing*.88,height,5.7),
-            CFrame.new(x,height/2+rowY,Config.DisplayZ),Color3.fromRGB(255,223,122))
+            CFrame.new(x,height/2+rowY,Config.DisplayZ),Color3.fromRGB(255,223,122),nil,true)
         plinth.TopSurface=Enum.SurfaceType.Studs
         -- These larger top studs preserve the raised brick silhouette. The
         -- dense smaller studs on flat faces become native surface decoration.
@@ -63,7 +76,7 @@ function Shelves.buildRow(row: number,layout: any): Model
             end
         end
         local back=Factory.part(shelf,'DisplayBack',Vector3.new(width,5.8,.25),
-            CFrame.new(x,3.1+lift+rowY,Config.DisplayZ+3.45),Color3.fromRGB(178,128,52))
+            CFrame.new(x,3.1+lift+rowY,Config.DisplayZ+3.45),Color3.fromRGB(178,128,52),nil,true)
         back.FrontSurface=Enum.SurfaceType.Studs
         -- A native wedge opens the front at the platform and rises to the
         -- unchanged rear wall. The gold cap shares its diagonal centerline.
@@ -74,7 +87,7 @@ function Shelves.buildRow(row: number,layout: any): Model
         divider.CFrame=dividerFrame
         divider.Color=Color3.fromRGB(217,164,66)
         divider.Material=Enum.Material.Plastic
-        divider.Anchored=true;divider.CanCollide=false;divider.CanTouch=false
+        divider.Anchored=true;divider.CanCollide=true;divider.CanTouch=false
         divider.TopSurface=Enum.SurfaceType.Smooth;divider.BottomSurface=Enum.SurfaceType.Smooth
         divider.LeftSurface=Enum.SurfaceType.Studs
         divider.RightSurface=Enum.SurfaceType.Studs
@@ -89,7 +102,7 @@ function Shelves.buildRow(row: number,layout: any): Model
         Factory.part(shelf,'BayTopTrim',Vector3.new(width,.25,.42),
             CFrame.new(x,h+6,Config.DisplayZ+3.45),gold)
         local front=Factory.part(shelf,'PlatformFrontTrim',Vector3.new(width,height,.4),
-            CFrame.new(x,rowY+height/2,Config.DisplayZ-3.4),Color3.fromRGB(255,195,42))
+            CFrame.new(x,rowY+height/2,Config.DisplayZ-3.4),Color3.fromRGB(255,195,42),nil,true)
         front.FrontSurface=Enum.SurfaceType.Studs
     end
     return shelf

@@ -5,6 +5,7 @@ local Shared=script.Parent
 local Factory=require(Shared.ModelFactory)
 local Map=require(Shared.MapSpec)
 local Catalog=require(Shared.CreatureCatalog)
+local Market=require(Shared.BrainrotMarket)
 local FarmerBooth={}
 
 function FarmerBooth.build(parent: Instance): Model
@@ -35,11 +36,7 @@ function FarmerBooth.build(parent: Instance): Model
     counterPanel('CounterFrontPanel',Vector3.new(13,panelHeight,.4),Vector3.new(-30,panelY,-6.3))
     counterPanel('CounterSidePanel',Vector3.new(.4,panelHeight,2.6),Vector3.new(-36.3,panelY,-4.8))
     counterPanel('CounterSidePanel',Vector3.new(.4,panelHeight,2.6),Vector3.new(-23.7,panelY,-4.8))
-    local farmer=Factory.prop(booth,'Shopkeeper',CFrame.new(-30,.45,-2))
-    if farmer then
-        farmer.Size*=(5.5/Map.PlotScale)/farmer.Size.Y
-        farmer.CFrame=CFrame.new(-30,.45+farmer.Size.Y/2,-2)
-    end
+    local farmer=Market.place(booth,'BrainrotLogKeeper',CFrame.new(-30,.45,-2),1.48)
     Factory.part(booth,'MiniSignFrame',Vector3.new(11.6,3.8,.6),CFrame.new(-30,11.5,-4.8),Color3.fromRGB(87,53,38))
     Factory.part(booth,'MiniSignFace',Vector3.new(10.8,3.1,.1),CFrame.new(-30,11.5,-5.16),Color3.fromRGB(152,111,91))
     for i,tier in {1,2,4} do
@@ -59,7 +56,7 @@ function FarmerBooth.build(parent: Instance): Model
     for _,part in booth:GetDescendants() do if part:IsA('BasePart') then
         local cf=part.CFrame;local pos=cf.Position
         part.CFrame=CFrame.new(-30+(pos.X+30)*1.25,pos.Y,-3+(pos.Z+3)*1.25)*cf.Rotation
-        if part.Parent==booth and part~=farmer then part.Size*=Vector3.new(1.25,1,1.25) end
+        if part.Parent==booth or part:IsDescendantOf(farmer) then part.Size*=Vector3.new(1.25,1,1.25) end
         part.CFrame=boothFrame*part.CFrame
     end end
     return booth

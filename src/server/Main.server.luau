@@ -7,6 +7,7 @@ local Shared=ReplicatedStorage:WaitForChild('Shared')
 local Config=require(Shared.Config)
 local Catalog=require(Shared.CreatureCatalog)
 local Map=require(Shared.MapSpec)
+local PadEntryWait=require(script.Parent.Domain.PadEntryWait)
 local MiniEvent=require(Shared.MiniEvent)
 local MultiplierDisplay=require(script.Parent.Services.MultiplierDisplay)
 local Core=require(script.Parent.Domain.FarmCore)
@@ -60,15 +61,22 @@ end
 local refreshPasses=Passes.start(function(player,owned)
     if sessions[player] then core:setPasses(sessions[player],owned); render(player); send(player) end
 end)
-local function context(player: Player)
+local function context(player: Player,action: string?,args: any?)
     local character=player.Character
     local humanoid=character and character:FindFirstChildOfClass('Humanoid')
     local root=character and character:FindFirstChild('HumanoidRootPart') :: BasePart?
     local world=worlds[player]
     local foot=if root and humanoid then root.Position-Vector3.new(0,humanoid.HipHeight+root.Size.Y/2+(if humanoid.RigType==Enum.HumanoidRigType.R6 then 2 else 0),0) else nil
     local pos=if foot and world then world.frame:PointToObjectSpace(foot)/Map.PlotScale else nil
+    local position=pos and {x=pos.X,y=pos.Y,z=pos.Z}
+    local padVelocity=nil
+    if position and action and root and world then
+        local velocity=world.frame:VectorToObjectSpace(root.AssemblyLinearVelocity)/Map.PlotScale
+        padVelocity={x=velocity.X,y=velocity.Y,z=velocity.Z}
+    end
     local pickupPos=if root and world then world.frame:PointToObjectSpace(root.Position)/Map.PlotScale else nil
-    return {now=os.clock(),alive=humanoid~=nil and humanoid.Health>0 and root~=nil,position=pos and {x=pos.X,y=pos.Y,z=pos.Z},
+    return {now=os.clock(),alive=humanoid~=nil and humanoid.Health>0 and root~=nil,position=position,
+        padVelocity=padVelocity,
         pickupPosition=pickupPos and {x=pickupPos.X,y=pickupPos.Y,z=pickupPos.Z},
         worldPosition=foot and {x=foot.X,y=foot.Y,z=foot.Z}}
 end
@@ -127,7 +135,12 @@ command.OnServerEvent:Connect(function(player: Player,action: any,args: any,...:
         return
     end
     -- Transport metadata belongs to this outgoing envelope, not the domain Result.
-    local response=table.clone(core:dispatch(session,action,args,context(player))) :: CommandResponse
+    local observed=context(player,action,args)
+    observed=PadEntryWait.resolve(Config,action,args,observed,
+        function() return context(player,action,args) end,function(seconds) task.wait(seconds) end,os.clock)
+    -- A recheck yields briefly; do not act on an owner who left or changed session.
+    if sessions[player]~=session or player.Parent~=Players then return end
+    local response=table.clone(core:dispatch(session,action,args,observed)) :: CommandResponse
     response.requestId=type(args)=='table' and type(args[1])=='string' and #args[1]<=128 and args[1] or nil
     response.action=action; result:FireClient(player,response)
     if response.code=='OK' and not response.replayed then render(player) end
@@ -181,7 +194,7 @@ task.spawn(function()
         if os.clock()>=nextBoards then
             nextBoards=os.clock()+3; local entries={}
             for player,session in sessions do
-                local total=0;for _,p in session.state.producers do total+=2^(Catalog[p.speciesId].tier-1) end
+                local total=0;for _,p in session.state.producers do total+=Config.MergeCount^(Catalog[p.speciesId].tier-1) end
                 table.insert(entries,{userId=player.UserId,name=player.Name,coins=session.state.coinUnits/4,count=total,time=math.floor(os.clock()-session.joinedAt)})
                 send(player)
             end

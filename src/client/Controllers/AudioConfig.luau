@@ -8,20 +8,30 @@ local assets: {[string]: string}={
     Notification='rbxassetid://17208361335', -- Roblox GUI - Notification High, Roblox.
     Aura='rbxassetid://17208327798', -- Roblox GUI - Aura, Roblox.
 }
-type Pattern={asset: string,cooldown: number,volume: number,notes: {number}}
+type Tone={at: number,pitch: number,length: number,gain: number?,asset: string?}
+type Pattern={asset: string,cooldown: number,volume: number,notes: {Tone},priority: number,group: string?}
 local patterns: {[string]: Pattern}={
-    Pickup={asset='Coin',cooldown=.10,volume=.17,notes={1.16}},
-    Buy={asset='Purchase',cooldown=.35,volume=.18,notes={1.00}},
-    Upgrade={asset='Select',cooldown=.40,volume=.19,notes={1.02,1.30}},
-    Deposit={asset='Bubble',cooldown=.60,volume=.19,notes={.88,1.08}},
-    Claim={asset='Coin',cooldown=.35,volume=.21,notes={1.03,1.27}},
-    Merge={asset='Aura',cooldown=.65,volume=.14,notes={1.12}},
-    AutoMerge={asset='Aura',cooldown=.65,volume=.14,notes={1.12}},
-    PickupLucky={asset='Notification',cooldown=.35,volume=.15,notes={1.18}},
-    OpenLucky={asset='Notification',cooldown=.80,volume=.18,notes={.94,1.24}},
-    Rebirth={asset='Aura',cooldown=1.50,volume=.18,notes={.95,1.25}},
+    Pickup={asset='Coin',cooldown=.12,volume=.12,priority=1,notes={{at=0,pitch=1.24,length=.18}}},
+    Buy={asset='Purchase',cooldown=.35,volume=.15,priority=2,notes={{at=0,pitch=1.16,length=.28}}},
+    Upgrade={asset='Select',cooldown=.45,volume=.15,priority=2,
+        notes={{at=0,pitch=1.08,length=.23},{at=.15,pitch=1.36,length=.28,gain=.82}}},
+    Deposit={asset='Bubble',cooldown=.60,volume=.14,priority=2,notes={{at=0,pitch=1.12,length=.29}}},
+    Claim={asset='Coin',cooldown=.35,volume=.17,priority=3,
+        notes={{at=0,pitch=1.12,length=.23},{at=1.05,pitch=1.42,length=.20,gain=.55,asset='Select'}}},
+    Merge={asset='Aura',cooldown=.65,volume=.11,priority=2,group='Merge',
+        notes={{at=0,pitch=1.30,length=.50},{at=.18,pitch=1.32,length=.23,gain=.55,asset='Select'}}},
+    AutoMerge={asset='Aura',cooldown=.65,volume=.11,priority=2,group='Merge',
+        notes={{at=0,pitch=1.30,length=.50},{at=.18,pitch=1.32,length=.23,gain=.55,asset='Select'}}},
+    PickupLucky={asset='Notification',cooldown=.35,volume=.13,priority=2,notes={{at=0,pitch=1.22,length=.34}}},
+    OpenLucky={asset='Notification',cooldown=.80,volume=.16,priority=3,
+        notes={{at=0,pitch=1.05,length=.36},{at=.20,pitch=1.35,length=.32,gain=.75}}},
+    Rebirth={asset='Aura',cooldown=1.50,volume=.15,priority=3,
+        notes={{at=0,pitch=1.15,length=.62},{at=.28,pitch=1.40,length=.30,gain=.70,asset='Select'}}},
 }
-for _,pattern in patterns do table.freeze(pattern.notes);table.freeze(pattern) end
+for _,pattern in patterns do
+    for _,tone in pattern.notes do table.freeze(tone) end
+    table.freeze(pattern.notes);table.freeze(pattern)
+end
 return table.freeze({
     Assets=table.freeze(assets),
     Patterns=table.freeze(patterns),

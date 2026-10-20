@@ -6,6 +6,7 @@ $runtime = @'
 local modules={
     Config=require('../src/shared/Config'),
     Economy=require('../src/shared/Economy'),
+    CountAnimation=require('../src/shared/CountAnimation'),
     Tutorial=require('../src/shared/Tutorial'),
     FarmCapacity=require('../src/shared/FarmCapacity'),
     PassConfig=require('../src/shared/PassConfig'),
@@ -19,6 +20,7 @@ local function require(name) return modules[name] or {} end
 local enumMT={__index=function(self,key) local value=setmetatable({},getmetatable(self));rawset(self,key,value);return value end}
 local Enum=setmetatable({},enumMT)
 local Color3={fromRGB=function(...) return {...} end,new=function(...) return {...} end}
+local ColorSequence={new=function(...) return {...} end}
 local Vector2={new=function(x,y) return {X=x,Y=y} end}
 local udimMT={}
 local UDim2={}
@@ -107,12 +109,15 @@ for _,size in {{320,480},{390,440},{360,568},{390,844},{600,280},{640,280},{640,
     for _,step in {1,2,4,6,7} do
         state.tutorialStep=step;ui:update(state);ui:setContext('Buy','1')
         assert(ui.homeButton.Visible,'A Ready farm must have Home before finishing the tutorial')
+        assert(ui.homeButton.Position.X.Scale==.5 and ui.homeButton.AnchorPoint.X==.5 and ui.homeButton.Position.Y.Offset==0,
+            'Home must remain top center during onboarding too')
         inside(ui.homeButton);inside(ui.cashPlus)
         assert(ui.cashPlus.Visible and ui.cashPlus.Active,'Compact onboarding must retain the Shop entry')
         local goal=modules.Tutorial.goal(state)
         assert(ui.objective.Text==goal.title and ui.hint.Text==goal.detail,'Home must not replace onboarding guidance')
         if step<7 then
             assert(ui.objective.Visible and ui.hint.Visible,'Onboarding goal and detail remain visible')
+            assert(rect(ui.objective).y>=rect(ui.homeButton).y+rect(ui.homeButton).h,'Tutorial must sit below Home')
             for _,key in {'objective','hint','actions','contextPanel'} do
                 assert(separate(ui.homeButton,ui[key]),'Home overlaps '..key)
             end
@@ -128,7 +133,8 @@ for _,size in {{320,480},{390,440},{360,568},{390,844},{600,280},{640,280},{640,
                 for _,key in {'mergeButton','indexButton','rebirthButton','settingsButton'} do inside(ui[key]) end
             end
         else
-            assert(ui.homeButton.Position.X.Scale==.5 and ui.homeButton.Position.Y.Offset==6,'Mature Home layout changed')
+            assert(ui.homeButton.Position.X.Scale==.5 and ui.homeButton.Position.Y.Offset==0,'Home must sit at the top center')
+            assert(ui.homeButton.Size.X.Offset<=132 and ui.homeButton.Size.Y.Offset==40,'Home must stay compact')
             assert(ui.boostButton.Visible and ui.boostPrice.Visible and ui.autoButton.Visible,'Promos must return after onboarding')
         end
         ui:open('Shop');assert(ui.mode=='Shop' and ui:isOpen(),'The retained Shop route must still open');ui:close()
@@ -203,6 +209,22 @@ ui:close();assert(ui:isLuckyOpen() and visible(ui.settingsButton))
 ui:unavailable('Waiting for a plot.')
 assert(ui.settingsButton.Parent==ui.actions and ui.settingsButton.Text=='Settings',
     'Unavailable must not leave a loose Settings entry')
+local onboardingSwept=0
+state.lucky=nil;state.tutorialStep=1;ui:close()
+for width=320,1600,20 do
+    for height=if width<600 then 440 else 280,960,20 do
+        ui.root.AbsoluteSize=Vector2.new(width,height);ui:update(state);ui:setContext('Buy','1')
+        assert(ui.homeButton.Position.X.Scale==.5 and ui.homeButton.AnchorPoint.X==.5 and ui.homeButton.Position.Y.Offset==0,
+            'Onboarding Home moved away from top center')
+        for _,key in {'homeButton','objective','hint','actions','contextPanel'} do inside(ui[key]) end
+        for _,pair in {{'homeButton','objective'},{'homeButton','hint'},{'objective','hint'},
+            {'objective','actions'},{'hint','actions'},{'objective','contextPanel'},{'hint','contextPanel'},{'contextPanel','actions'}} do
+            assert(separate(ui[pair[1]],ui[pair[2]]),'Onboarding '..pair[1]..' overlaps '..pair[2]..' at '..width..'x'..height)
+        end
+        onboardingSwept+=1
+    end
+end
+state.tutorialStep=7;state.lucky={id='held-settings',held=true,baseTier=2}
 -- Use the actual Cue constructor's watched obstacles with the actual layout
 -- helper. A short landscape event cue previously covered the relocated gear.
 local cue=Cue.new(ui)
@@ -283,6 +305,13 @@ for _,size in touchCases do
             assert(visible(ui.total) and visible(ui.bag) and visible(ui.hud),'Touch must retain all farm counts')
             assert(rect(ui.cashPlus).w>=40 and rect(ui.cashPlus).h>=40,'Touch Shop entry is too small')
             assert(separate(ui.hud,ui.bag) and separate(ui.total,ui.bag),'Touch farm counts overlap')
+            if mode=='Normal' and step==1 then
+                for _,key in {'objective','hint'} do
+                    inside(ui[key])
+                    assert(separate(ui[key],ui.homeButton) and separate(ui[key],ui.actions) and separate(ui[key],ui.contextPanel),
+                        'Touch onboarding text overlaps controls at '..size[1]..'x'..size[2])
+                end
+            end
             if mode~='Normal' then
                 for _,key in {'homeButton','settingsButton','bag','hud','total','contextPanel'} do
                     if key~='settingsButton' or mode=='Lucky' then
@@ -295,7 +324,7 @@ for _,size in touchCases do
     end
 end
 input.TouchEnabled=false
-print('PASS actual FarmUI/Cue/Sprint: early Home/guidance, held Settings/card restoration, '..swept..' desktop layouts and '..#touchCases..' touch layouts × onboarding/mature × normal/Lucky/Settings with native control separation')
+print('PASS actual FarmUI/Cue/Sprint: '..onboardingSwept..' centered-Home onboarding layouts, '..swept..' held desktop layouts and '..#touchCases..' touch layouts × onboarding/mature × normal/Lucky/Settings with native control separation')
 '@
 $scriptText=$scriptText.Replace('__SPRINT_LAYOUT__',$sprintLayout)
 $target = Join-Path $repo '.tools/home-layout-cli.luau'

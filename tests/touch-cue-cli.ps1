@@ -15,7 +15,8 @@ local modules={MultiplierCuePresentation=Presentation,MiniEvent={Minimum=50,Maxi
 local shared={WaitForChild=function(_,name) return name end}
 local game={GetService=function() return {WaitForChild=function() return shared end} end}
 local function require(name) return modules[name] end
-local Color3={fromRGB=function(...) return {...} end}
+local Color3={fromRGB=function(...) return {...} end,new=function(...) return {...} end}
+local ColorSequence={new=function(...) return {...} end}
 local enumMT={__index=function(self,key) local value=setmetatable({},getmetatable(self));rawset(self,key,value);return value end}
 local Enum=setmetatable({},enumMT)
 local UDim2={fromOffset=function(x,y)return {X={Offset=x},Y={Offset=y}}end}

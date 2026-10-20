@@ -17,12 +17,14 @@ local function audit(shelf,row,frame,scale)
     for _,part in shelf:GetChildren() do
         assert(part:IsA('BasePart'),'Rows should contain only their bounded native geometry')
         count+=1
-        assert(part.Anchored and not part.CanCollide and not part.CanTouch,'Shelf physics flags changed')
+        local structural=part.Name=='ShelfBase' or part.Name=='DisplayPlatform' or part.Name=='DisplayBack'
+            or part.Name=='DisplayDivider' or part.Name=='PlatformFrontTrim' or part.Name=='FrontRowSupport'
+        assert(part.Anchored and part.CanCollide==structural and not part.CanTouch,'Shelf structure must be solid and decorative studs inert')
         assert(not forbidden[part.Name],'Small repeated studs should use native surfaces: '..part.Name)
         byName[part.Name]=byName[part.Name] or {}
         table.insert(byName[part.Name],part)
     end
-    local expectedBudget=baseBudget+(if row>1 then 3 else 0)
+    local expectedBudget=baseBudget+(if row>1 then Config.Columns+4 else 0)
     assert(count==expectedBudget and count<=300,'Each shelf row must retain its geometry within 300 parts')
     assert(#byName.DisplayBrickStud==15*Config.Columns,'Keep the large physical plinth studs')
     local function at(name,x,size,position,color)
@@ -49,7 +51,7 @@ local function audit(shelf,row,frame,scale)
         Vector3.new(0,.225+rowY,Config.DisplayZ),Color3.fromRGB(255,174,22))
     assert(base.TopSurface==Enum.SurfaceType.Studs)
     if row==1 then
-        assert(not byName.RearRowJoin and not byName.RearRowSupport,'Ground row must not grow a rear skirt')
+        assert(not byName.RearRowJoin and not byName.RearRowSupport and not byName.FrontRowSupport,'Ground row must not grow stacked-row supports')
     else
         assert(#(byName.RearRowJoin or {})==1 and #(byName.RearRowSupport or {})==2,
             'Upper rows need one rear join and exactly two edge supports')
@@ -68,6 +70,20 @@ local function audit(shelf,row,frame,scale)
             assert(not support.CanQuery,'Rear supports must not intercept queries')
         end
         assert(not join.CanQuery,'Rear join must not intercept queries')
+        assert(#(byName.FrontRowSupport or {})==Config.Columns+1,'Every stacked bay boundary needs a visible front post')
+        local lowerFloor=rowY-Config.RowHeight+height
+        for boundary=0,Config.Columns do
+            local x=(Config.Columns/2-boundary)*Config.ColumnSpacing
+            local front=at('FrontRowSupport',x,Vector3.new(.34,rowY-lowerFloor,.38),
+                Vector3.new(x,(lowerFloor+rowY)/2,Config.DisplayZ-3.35),Color3.fromRGB(255,215,103))
+            assert(front.CanQuery and front.FrontSurface==Enum.SurfaceType.Studs
+                and front.LeftSurface==Enum.SurfaceType.Studs and front.RightSurface==Enum.SurfaceType.Studs,
+                'Front posts must retain their solid native-stud faces after scaling')
+            for column=1,Config.Columns do
+                local center=layout:slotPosition((row-2)*Config.Columns+column)
+                assert(math.abs(x-center.x)-.34/2>=4.8,'Front posts must leave falling Mini center paths clear')
+            end
+        end
     end
     for column=1,Config.Columns do
         local slot=(row-1)*Config.Columns+column
@@ -148,6 +164,7 @@ for row=1,rowCount do
     shelf:Destroy()
     assert(ok,err)
 end
-assert(totalParts-baseBudget*rowCount==3*(rowCount-1) and totalParts-baseBudget*rowCount<=12,
-    'The full producer display may add at most twelve rear structural parts')
-return string.format('PASS %d live rows; five-row support plane, diagonal divider/cap clearance, slot lookup, native surfaces, physics and %d/%d parts per ground/upper row after scaling',liveRows,baseBudget,baseBudget+3)
+assert(totalParts-baseBudget*rowCount==(Config.Columns+4)*(rowCount-1)
+    and (Config.Columns+1)*(rowCount-1)<=44,
+    'The full producer display must preserve rear structure and add at most forty-four front posts')
+return string.format('PASS %d live rows; five-row support plane, front posts, diagonal divider/cap clearance, slot lookup, native surfaces, physics and %d/%d parts per ground/upper row after scaling',liveRows,baseBudget,baseBudget+Config.Columns+4)

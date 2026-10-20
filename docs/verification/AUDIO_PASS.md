@@ -23,10 +23,14 @@ The soundtrack's store description identifies a carefree, cheerful orchestral pi
 - Every configured asset gets at most one preload attempt in a client session. Concurrent requests share the same result.
 - Failed or stalled loads become terminal failures after at most 12 seconds. No retry loop or application warning spam is used. Unavailable effect variants fall back to the existing Coin Collect cue if it loaded; unavailable music stays silent.
 - Preload uses a silent, unparented Sound holder to provide the audio content type. A Studio probe found that bare-ID string preloads could return `Failure` for an audio asset whose Sound preload returned `Success`. Each holder is destroyed on completion or after 12 seconds and is never played.
-- Effect playback has per-action cooldowns and a global 65 ms note interval. Delayed notes are invalidated on destruction, so they cannot play on replacement voices.
+- Effect playback has per-action cooldowns and a 45 ms note interval; higher-priority action feedback can interrupt that interval after a pickup. Pickups yield for 100 ms after action notes and cannot take an occupied action voice. Merge and automatic merge share one cooldown.
+- Action cues use short envelopes with a three-step, 60 ms tail fade. Purchases end after 280 ms, deposits after 290 ms, and merge/rebirth auras after 500/620 ms. Cash collection adds a quieter completion note at 1.05 seconds. Repeated claims cancel obsolete completion notes.
+- All notes share three reusable voices. Reusing a voice cancels its prior fade timers; destruction invalidates all scheduled notes so they cannot play on replacement voices.
 - Music has no frame loop or playlist allocations. Stop/destroy cancels its fade and prevents a pending preload completion from restarting it.
 
 ## Verification
+
+The latest envelope and priority revision passes `tests/feedback-audio-cli.ps1`, which executes the actual controller and configuration with a deterministic clock and sound stand-ins. It checks short cue endings, the quiet 1.05-second completion, repeated-claim cancellation, action priority immediately after pickups, protection from pickup interruption, bounded voices and timers, group assignment, and destruction/restart. The Studio results below establish the assets' earlier loading/playback success; this revision has not been subjectively auditioned or rechecked in Studio.
 
 In Studio client `ef89b65f-2f6a-4fe7-8272-bae9e8007fd1`, all seven selected assets returned `AssetFetchStatus.Success`; parented load probes reported `IsLoaded=true` and the durations above. All temporary probes were removed.
 

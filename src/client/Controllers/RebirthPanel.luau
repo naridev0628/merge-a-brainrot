@@ -37,16 +37,16 @@ function Panel.new(view: any,button: any,text: any,frame: any,Art: any,C: any)
         render=function(state: any)
             local cost=Config.RebirthBase+state.rebirths*Config.RebirthStep
             boostText.Text='x'..(1+math.min(state.rebirths+1,Config.MaxRebirths)*.25)..' Cash'
-            local buyTier=math.clamp(state.rebirths+1,1,Config.MaxTier)
-            bulkText.Text='Buy 50 - Tier '..buyTier
+            local buyTier=math.clamp(state.rebirths+1,1,math.min(Config.MaxTier,Config.BuyMaxTier or Config.MaxTier))
+            bulkText.Text='Buy 100 · Auto Merge · Tier '..buyTier
             if shownTier~=buyTier then
                 if bulkPortrait then bulkPortrait:Destroy() end
                 bulkPortrait=Art.portrait(bulk,string.format('tier_%02d',buyTier),UDim2.fromScale(.2,.32),UDim2.fromScale(.6,.66)); shownTier=buyTier
             end
             fill.Size=UDim2.fromScale(math.clamp(state.coinUnits/cost,0,1),1)
             amount.Text='$'..view.coins(state.coinUnits)..' / '..(if cost>=4000000 then string.format('%gM',cost/4000000) else view.coins(cost))
-            local top=false; for _,producer in state.producers do if Catalog[producer.speciesId].tier==6 then top=true end end
-            level.Text=(if top then '✓ ' else '')..'Own a Level 6 Brainrot'
+            local top=false; for _,producer in state.producers do if Catalog[producer.speciesId].tier>=(Config.RebirthTier or 6) then top=true end end
+            level.Text=(if top then '✓ ' else '')..'Own a Level '..(Config.RebirthTier or 6)..'+ Brainrot'
             view.eligible=top and state.coinUnits>=cost and state.rebirths<Config.MaxRebirths
             normal.BackgroundTransparency=if view.eligible then 0 else .35
             normal.Text=if view.pending then 'Please wait...' elseif state.rebirths>=Config.MaxRebirths then 'MAX REBIRTHS' else 'REBIRTH'

@@ -12,6 +12,7 @@ local MiniMotion=require(Shared:WaitForChild('MiniMotion'))
 local PadTargeting=require(Shared:WaitForChild('PadTargeting'))
 local PadHold=require(Shared:WaitForChild('PadHold'))
 local Economy=require(Shared:WaitForChild('Economy'))
+local LuckyRewards=require(Shared:WaitForChild('LuckyRewards'))
 local Map=require(Shared:WaitForChild('MapSpec'))
 local Tutorial=require(Shared:WaitForChild('Tutorial'))
 local PassConfig=require(Shared:WaitForChild('PassConfig'))
@@ -33,6 +34,8 @@ local MusicController=require(Controllers:WaitForChild('MusicController'))
 local ObbyHUD=require(Controllers:WaitForChild('ObbyHUD'))
 local MultiplierCue=require(Controllers:WaitForChild('MultiplierCue'))
 local PadLabels=require(Controllers:WaitForChild('PadLabels'))
+local PadFeedback=require(Controllers:WaitForChild('PadFeedback'))
+local CashPadCounter=require(Controllers:WaitForChild('CashPadCounter'))
 local Locale=require(Controllers:WaitForChild('Locale'))
 Locale.bind(workspace)
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
@@ -40,8 +43,10 @@ local player=Players.LocalPlayer
 local view=UI.new(player:WaitForChild('PlayerGui'))
 local multiplierCue=MultiplierCue.new(view)
 local padLabels=PadLabels.new()
+local padFeedback=PadFeedback.new()
+local cashPadCounter=CashPadCounter.new()
 local obbyHUD=ObbyHUD.new()
-view.gui.Destroying:Connect(function() obbyHUD:destroy(); padLabels:destroy() end)
+view.gui.Destroying:Connect(function() obbyHUD:destroy(); padLabels:destroy(); padFeedback:destroy(); cashPadCounter:destroy() end)
 MusicController.start()
 local guide=Guide.new()
 local conveyor=Conveyor.new()
@@ -71,7 +76,7 @@ local lastAuraAt=-10
 local lastLuckyAt=-10
 local droppedLucky: string?=nil
 local revealingLuckySpecies: string?=nil
-local messages={BadRequest='That action could not be read.',Unavailable='Your farm is unavailable.',MissingToken='Already collected.',BagFull='Bag full - deposit your Minis.',TooFar='Move closer to your own pad or Mini.',BagEmpty='Your bag is empty.',WalletFull='Wallet limit reached. Your Minis are still safe.',PlotFull='Maximum amount of Brainrots reached. Merge your Brainrots.',InsufficientFunds='Not enough Coins. Deposit Minis, wait, then collect cash.',Locked='Rebirth to unlock this purchase amount.',ClaimStarter='Buy your first Tung Tung at BUY 1.',SameProducer='Choose two different Brainrots.',MissingProducer='That pair changed. Choose again.',Mismatch='Choose two matching Brainrots.',MaxTier='Highest tier reached!',NotAlive='Wait until your character respawns.',RequestLimit='Session action limit reached. Restart this preview.',RequestConflict='Request already used. Try again.',InvalidState='Your farm could not update.',NeedTier6='You need to own a Level 6 Brainrot to rebirth.',MaxRebirths='Maximum rebirths reached.',QueueFull='Processor full. Wait for space before depositing.',NothingReady='Your Minis are still selling. Check the timer.',MaxProcessor='Processor fully upgraded.'}
+local messages={BadRequest='That action could not be read.',Unavailable='Your farm is unavailable.',MissingToken='Already collected.',BagFull='Bag full - deposit your Minis.',TooFar='Move closer to your own pad or Mini.',BagEmpty='Your bag is empty.',WalletFull='Wallet limit reached. Your Minis are still safe.',PlotFull='Maximum amount of Brainrots reached. Merge your Brainrots.',InsufficientFunds='Not enough Coins. Deposit Minis, wait, then collect cash.',Locked='Rebirth to unlock this purchase amount.',ClaimStarter='Buy your first Tung Tung at BUY 1.',SameProducer='Choose three different Brainrots.',MissingProducer='That group changed. Choose again.',Mismatch='Choose three matching Brainrots.',MaxTier='Highest tier reached!',NotAlive='Wait until your character respawns.',RequestLimit='Session action limit reached. Restart this preview.',RequestConflict='Request already used. Try again.',InvalidState='Your farm could not update.',NeedTier6='You need to own a Level 6 Brainrot to rebirth.',MaxRebirths='Maximum rebirths reached.',QueueFull='Processor full. Wait for space before depositing.',NothingReady='Your Minis are still selling. Check the timer.',MaxProcessor='Processor fully upgraded.'}
 local function send(action: string,values: {string}?)
     if not state or pending or state.status~='Ready' then return end
     local args={HttpService:GenerateGUID(false)}
@@ -79,7 +84,8 @@ local function send(action: string,values: {string}?)
     local miniSpecies={}; if action=='Deposit' then for _,mini in state.bag do for _=1,math.min(3,mini.count or 1) do table.insert(miniSpecies,mini.speciesId) end end end
     pending={action=action,args=args,sent=os.clock(),count=Economy.count(state.bag),miniSpecies=miniSpecies,discoveries=table.clone(state.discoveries),
         luckyBaseTier=if action=='OpenLucky' and state.lucky then state.lucky.baseTier else nil}
-    view:setPending(true); command:FireServer(action,args)
+    -- Dispatch before refreshing panels; UI work must not delay the request.
+    command:FireServer(action,args); pending.dispatchedAt=os.clock(); view:setPending(true)
 end
 view.onBuy=function(quantity) send('Buy',{quantity}) end
 view.onDeposit=function() send('Deposit') end
@@ -88,7 +94,7 @@ view.onMerge=function() view:notice('Walk onto the MERGE pad to combine matching
 view.onRebirth=function() send('Rebirth') end
 view.onUpgrade=function() send('Upgrade') end
 view.onLucky=function()
-    if state and state.lucky then send('OpenLucky',{state.lucky.id,tostring(Config.LuckyBaseUnits+#state.producers*Config.LuckyPerProducerUnits)}) end
+    if state and state.lucky then send('OpenLucky',{state.lucky.id,tostring(LuckyRewards.cost(Config,state))}) end
 end
 view.onDropLucky=function()
     if state and state.lucky and not pending then droppedLucky=state.lucky.id;send('DropLucky',{state.lucky.id}) end
@@ -134,6 +140,8 @@ snapshot.OnClientEvent:Connect(function(incoming)
     view:update(state)
     multiplierCue:receive(state,receivedAt)
     padLabels:setPlot(state.plotId)
+    padFeedback:setPlot(state.plotId)
+    cashPadCounter:setState(state)
     if state.lucky and state.lucky.held and state.lucky.id~=oldHeldId then view:open('Lucky')
     elseif view:isLuckyOpen() and (not state.lucky or not state.lucky.held) then view:close() end
     LeaderboardFooter.update(state)
@@ -147,7 +155,7 @@ result.OnClientEvent:Connect(function(response)
     if response.action=='Collect' or response.action=='CollectNearby' then
         if response.code=='OK' then
             PickupAudio.play()
-            for species,count in response.counts or {[response.speciesId or 'tier_01']=1} do pickupCounts[species]=(pickupCounts[species] or 0)+count end
+            for species,count in response.counts or {[response.speciesId or 'tier_01']=response.count or 1} do pickupCounts[species]=(pickupCounts[species] or 0)+count end
             if not pickupScheduled then
                 pickupScheduled=true
                 task.delay(.12,function()
@@ -160,10 +168,15 @@ result.OnClientEvent:Connect(function(response)
     end
     if not pending or response.requestId~=pending.args[1] then return end
     local completed=pending
+    if RunService:IsStudio() and completed.padDetectedAt then
+        view.gui:SetAttribute('LastPadServerConfirmationMs',(os.clock()-completed.padDetectedAt)*1000)
+    end
     pending=nil; view:setPending(false)
     if completed.holdKey and completed.holdKey==heldPad.key and response.code~='OK' then
-        -- Replication can briefly lag a new entry; other rejections stop held spending until reentry.
-        if response.code=='TooFar' then PadHold.retry(heldPad,os.clock()); return end
+        -- A moving boundary or newly earned cash must not require stepping off.
+        if response.code=='TooFar' or (response.code=='InsufficientFunds' and completed.action=='Buy') then
+            PadHold.retry(heldPad,os.clock()); return
+        end
         PadHold.stop(heldPad)
     end
     if response.code~='OK' then
@@ -172,10 +185,26 @@ result.OnClientEvent:Connect(function(response)
     end
     FeedbackAudio.play(response.action)
     if response.action=='Claim' then
+        if state then
+            local remaining=if state.revision>=(response.revision or 0) then state.soldUnits
+                else math.max(0,(state.soldUnits or 0)-(response.creditUnits or 0))
+            cashPadCounter:claim(state.plotId,response.creditUnits or 0,remaining,os.clock(),response.revision)
+        end
         CashEffects.play(view.gui,player.Character,UI.coins(response.creditUnits or 0))
     elseif response.action=='Deposit' then
         Effects.play(view.gui,player.Character,completed.miniSpecies)
-        view:notice('Deposited '..completed.count..' Minis! Watch the processor timer.')
+        local function grouped(value: number): string
+            local result=tostring(value)
+            while true do
+                local nextText,changed=result:gsub('^(%d+)(%d%d%d)','%1,%2')
+                result=nextText
+                if changed==0 then return result end
+            end
+        end
+        local inputCount=response.inputCount or completed.count
+        local depositedCount=response.depositedCount or inputCount
+        local multiplier=(response.multiplierHundredths or 100)/100
+        view:notice('Deposited '..grouped(inputCount)..' Minis ('..string.format('%.2f',multiplier)..'× → '..grouped(depositedCount)..')')
     elseif response.action=='Buy' then PurchaseEffects.play(view.gui,response.count or 1,response.speciesId or 'tier_01')
     elseif response.action=='Upgrade' then if state then UpgradeEffects.play(state.plotCFrame) end
     elseif response.action=='PickupLucky' then
@@ -188,7 +217,7 @@ result.OnClientEvent:Connect(function(response)
             showDiscovery(response.speciesId,not completed.discoveries[response.speciesId])
         end,completed.luckyBaseTier)
     elseif response.action=='Rebirth' then view:close(); view:clearSelection(); view:notice('Rebirth complete! Your earnings and bulk-buy unlocks increased.')
-    else view:clearSelection(); if not view:isLuckyOpen() and not view:isSettingsOpen() then view:close() end; view:notice('Merged '..(response.count or 1)..' pairs!') end
+    else view:clearSelection(); if not view:isLuckyOpen() and not view:isSettingsOpen() then view:close() end; view:notice('Merged '..(response.count or 1)..' groups of three!') end
 end)
 UserInputService.InputBegan:Connect(function(input,processed)
     if input.KeyCode==Enum.KeyCode.Escape and view:isSettingsOpen() then view:close(); return end
@@ -212,8 +241,38 @@ local function targetForGoal(pos: Vector3): Vector3?
     return state.plotCFrame:PointToWorldSpace(target*Map.PlotScale)
 end
 RunService.RenderStepped:Connect(function()
-    if state then conveyor:update(state.serverNow+os.clock()-receivedAt) end
     local char=player.Character; local root=char and char:FindFirstChild('HumanoidRootPart') :: BasePart?
+    local humanoid=char and char:FindFirstChildOfClass('Humanoid')
+    if state and root and humanoid and humanoid.Health>0 then
+        local foot=root.Position-Vector3.new(0,humanoid.HipHeight+root.Size.Y/2+(if humanoid.RigType==Enum.HumanoidRigType.R6 then 2 else 0),0)
+        local pos=state.plotCFrame:PointToObjectSpace(foot)/Map.PlotScale
+        local target=PadTargeting.resolve(Config,Catalog,Map,state,{x=pos.X,y=pos.Y,z=pos.Z})
+        PadHold.update(heldPad,target.key,os.clock())
+        if not pending and not view:isOpen() and PadHold.ready(heldPad,os.clock()) and target.action=='Buy' and Economy.purchaseQuote(Config,state,target.values[1]).code=='InsufficientFunds' then
+            -- Keep the physical hold alive while waiting for replicated income.
+            target.action=nil
+        end
+        if not view:isOpen() and not pending and target.action and PadHold.ready(heldPad,os.clock()) then
+            local detectedAt=os.clock()
+            -- Acknowledge locally on the entry frame; rewards still await server OK.
+            padFeedback:trigger(state.plotId,target.key,detectedAt)
+            local feedbackAt=os.clock()
+            view:setContext(target.kind,target.value)
+            send(target.action,target.values)
+            if pending then
+                pending.holdKey=heldPad.key;pending.padDetectedAt=detectedAt; PadHold.sent(heldPad,os.clock())
+                if RunService:IsStudio() then
+                    view.gui:SetAttribute('LastPadKey',heldPad.key)
+                    view.gui:SetAttribute('LastPadDispatchMs',(pending.dispatchedAt-detectedAt)*1000)
+                    view.gui:SetAttribute('LastPadFeedbackMs',(feedbackAt-detectedAt)*1000)
+                end
+            end
+        end
+    else PadHold.update(heldPad,nil,os.clock()) end
+    padFeedback:update(os.clock())
+    cashPadCounter:update(os.clock())
+    view:animateCounters(os.clock())
+    if state then conveyor:update(state.serverNow+os.clock()-receivedAt) end
     guide:update(root and root.Position,if root then targetForGoal(root.Position) else nil)
     guide:showStarter(if state and not state.starterClaimed and not view:isOpen() then state.plotCFrame:PointToWorldSpace(Vector3.new(Config.BuyPads['1'],0,Config.BuyZ)*Map.PlotScale) else nil)
 end)
@@ -233,13 +292,6 @@ task.spawn(function()
         local pos=state.plotCFrame:PointToObjectSpace(foot)/Map.PlotScale
         local footPosition={x=pos.X,y=pos.Y,z=pos.Z}
         local target=PadTargeting.resolve(Config,Catalog,Map,state,footPosition)
-        PadHold.update(heldPad,target.key,os.clock())
-        if not view:isOpen() and not pending then
-            if target.action and PadHold.ready(heldPad,os.clock()) then
-                send(target.action,target.values)
-                if pending then pending.holdKey=heldPad.key; PadHold.sent(heldPad,os.clock()) end
-            end
-        end
         if state.lucky and not state.lucky.held then
             local distance=(pos-Vector3.new(Config.LuckyX,1.6,Config.LuckyZ)).Magnitude
             if distance>Config.LuckyPickupRadius+2 then droppedLucky=nil end

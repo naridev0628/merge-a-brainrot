@@ -1,0 +1,13 @@
+{
+  "className": "Sky",
+  "properties": {
+    "SkyboxBk": "rbxassetid://74382985612211",
+    "SkyboxFt": "rbxassetid://74382985612211",
+    "SkyboxLf": "rbxassetid://74382985612211",
+    "SkyboxRt": "rbxassetid://74382985612211",
+    "SkyboxUp": "rbxassetid://79026701774965",
+    "SkyboxDn": "rbxassetid://117702440347561",
+    "CelestialBodiesShown": false,
+    "StarCount": 0
+  }
+}

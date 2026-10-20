@@ -2,6 +2,7 @@ local Service=require('../src/server/Services/ObbyService')
 local Core=require('../src/server/Domain/FarmCore')
 local Config=require('../src/shared/Config')
 local Catalog=require('../src/shared/CreatureCatalog')
+local Economy=require('../src/shared/Economy')
 local made=0
 local FakeRun={}
 function FakeRun.new()
@@ -37,7 +38,7 @@ local copy=service:snapshot('a');copy.checkpoint=99
 assert(service:snapshot('a').checkpoint==0,'Caller cannot mutate the run through snapshots')
 local expired=table.clone(finished);expired.bonusHundredths=0;expired.boostExpiresAt=0
 changed,bonusChanged=service:update('a',{now=310,result=expired})
-assert(changed and bonusChanged and first.state.obbyBonusHundredths==0,'Expiry removes the production bonus')
+assert(changed and bonusChanged and first.state.obbyBonusHundredths==0,'Expiry removes the deposit bonus')
 local running={phase='running',checkpoint=2,totalCheckpoints=10,bonusHundredths=0,boostExpiresAt=0,cooldownEndsAt=0}
 changed,bonusChanged=service:update('b',{now=20,result=running})
 assert(changed and not bonusChanged,'Checkpoint progress updates UI without economy commits')
@@ -51,9 +52,9 @@ assert(not service:step('a',{now=400,alive=false}),'Removed players cannot produ
 local Run=require('../src/server/Domain/ObbyRun')
 local ObbyConfig=require('../src/shared/ObbyConfig')
 for index,case in {
-    {offset=-.005,alive=true,drops=2,credit=0},
-    {offset=0,alive=false,drops=1,credit=75},
-    {offset=.04,alive=true,drops=1,credit=75},
+    {offset=-.005,alive=true,deposited=5},
+    {offset=0,alive=false,deposited=4},
+    {offset=.04,alive=true,deposited=4},
 } do
     local economy=Core.new(Config,Catalog,function() return 1 end)
     local bridge=Service.new(economy,Run,ObbyConfig)
@@ -76,17 +77,21 @@ for index,case in {
         now+=ObbyConfig.LandingHoldSeconds+.01
         sample(now,target)
     end
-    assert(farm.state.obbyBonusHundredths==25,'The real ordered run must award the production bonus')
+    assert(farm.state.obbyBonusHundredths==25,'The real ordered run must award the deposit bonus')
     local deadline=bridge:snapshot(index).boostExpiresAt
     local tick=deadline+case.offset
     sample(deadline-.01,ObbyConfig.Finish)
     assert(farm.state.obbyBonusHundredths==25,'The preceding independent poll still sees an active bonus')
     farm.state.producers[1].productionCredit=75
+    farm.state.autoCollect=true
+    farm.state.bag={{speciesId='tier_01',baseCoinValue=1,count=4}}
     farm.state.producers[1].due=tick
     local stateChanged,farmChanged=bridge:step(index,{now=tick,alive=case.alive,position=ObbyConfig.Finish})
     assert(stateChanged and farmChanged)
-    assert(#farm.state.tokens==case.drops and farm.state.producers[1].productionCredit==case.credit,
-        'Production at or after expiry must not earn the extra quarter credit or extra Mini')
+    assert(#farm.state.tokens==1 and farm.state.producers[1].productionCredit==0,
+        'Raw production stays unchanged before and after bonus expiry')
+    assert(Economy.count(farm.state.saleQueue)==case.deposited,
+        'Automatic deposits at or after expiry must not receive the expired bonus')
     assert(farm.state.tokens[1].spawnedAt==tick,'Run expiry and production must use the same server timestamp')
     assert(farm.state.obbyBonusHundredths==(if case.offset<0 then 25 else 0))
     local revisionAtTick=farm.state.revision
@@ -95,4 +100,4 @@ for index,case in {
         'A repeated production timestamp must not duplicate expiry commits or Minis')
     assert(economy:validate(farm.state,farm.owner))
 end
-print('PASS per-player reward bridge, no repeated commits, exact production expiry boundary, checkpoint updates, reset lifetime and detach')
+print('PASS per-player reward bridge, no repeated commits, exact deposit expiry boundary, checkpoint updates, reset lifetime and detach')

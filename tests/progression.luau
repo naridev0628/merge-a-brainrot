@@ -13,18 +13,31 @@ eq(Tutorial.goal(s.state).kind,'Buy')
 eq(command('Buy',{'starter'},0,Config.BuyPads['1'],Config.BuyZ).code,'OK')
 eq(Tutorial.goal(s.state).kind,'Collect')
 eq(s.state.coinUnits,0)
-for i=1,3 do
+for i=1,5 do
     core:step(s,i*Config.Interval); local t=s.state.tokens[1]
     eq(command('Collect',{t.id},i*Config.Interval,t.x,t.z).code,'OK')
 end
 eq(Tutorial.goal(s.state).kind,'Deposit')
 eq(command('Deposit',{'deposit'},18).code,'OK')
 eq(Tutorial.goal(s.state).kind,'Wait')
-core:step(s,20); eq(Tutorial.goal(s.state).kind,'Claim')
-eq(command('Claim',{'claim'},20,Config.ClaimX,Config.ClaimZ).code,'OK'); eq(s.state.coinUnits,24)
+core:step(s,21); eq(Tutorial.goal(s.state).kind,'Claim')
+eq(command('Claim',{'claim'},21,Config.ClaimX,Config.ClaimZ).code,'OK'); eq(s.state.coinUnits,20)
 eq(Tutorial.goal(s.state).kind,'Buy')
-eq(command('Buy',{'buy'},20,Config.BuyPads['1'],Config.BuyZ).code,'OK'); eq(Tutorial.goal(s.state).kind,'Merge')
-eq(command('Merge',{'merge',s.state.producers[1].id,s.state.producers[2].id},20).code,'OK')
+eq(command('Buy',{'buy'},21,Config.BuyPads['1'],Config.BuyZ).code,'OK'); eq(Tutorial.goal(s.state).kind,'Collect')
+for now=21,23 do
+    core:step(s,now)
+    while #s.state.tokens>0 do
+        local token=s.state.tokens[1]
+        eq(command('Collect',{token.id},now,token.x,token.z).code,'OK')
+    end
+end
+eq(Economy.count(s.state.bag),6)
+eq(command('Deposit',{'third-deposit'},23).code,'OK')
+core:step(s,26)
+eq(command('Claim',{'third-claim'},26,Config.ClaimX,Config.ClaimZ).code,'OK')
+eq(command('Buy',{'third-buy'},26,Config.BuyPads['1'],Config.BuyZ).code,'OK')
+eq(Tutorial.goal(s.state).kind,'Merge')
+eq(command('Merge',{'merge',s.state.producers[1].id,s.state.producers[2].id,s.state.producers[3].id},26).code,'OK')
 eq(Tutorial.goal(s.state).kind,'Done')
 s.state.coinUnits=1000
 s.state.bag={{speciesId='tier_02',baseCoinValue=5},{speciesId='tier_02',baseCoinValue=5}}

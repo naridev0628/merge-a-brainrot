@@ -39,11 +39,12 @@ local function aura(session,id,now,x,z)
 end
 local function speciesCounts(tokens)
     local counts={}
-    for _,token in tokens do counts[token.speciesId]=(counts[token.speciesId] or 0)+1 end
+    for _,token in tokens do counts[token.speciesId]=(counts[token.speciesId] or 0)+(token.count or 1) end
     return counts
 end
 local function checkBag(session,expected)
-    assert(Economy.count(session.state.bag)==96)
+    local total=0; for _,quantity in expected do total+=quantity end
+    assert(Economy.count(session.state.bag)==total)
     for _,good in session.state.bag do
         assert(good.count==expected[good.speciesId] and good.baseCoinValue==Catalog[good.speciesId].value,
             'Every species keeps its count and captured cash value, including Crocodilo')
@@ -60,6 +61,7 @@ for farm=1,6 do
     assert(core:step(full,2) and #full.state.tokens==96)
     for _,token in full.state.tokens do assert(token.readyAt>2,'The global cap includes all airborne reservations') end
     assert(core:step(full,3) and #full.state.tokens==96,'Production must stop at the common transit/resting cap')
+    local totalQuantity=Economy.count(full.state.tokens)
     local expected=speciesCounts(full.state.tokens)
     for tier=1,6 do assert(expected[string.format('tier_%02d',tier)]>0,'Full farms must include every species') end
     local seen,origins,layers={},{},{}
@@ -96,7 +98,7 @@ for farm=1,6 do
     local previous={}
     for _,token in full.state.tokens do previous[token.id]=table.clone(token) end
     local partial=aura(full,'left-edge',10,-18,config.TrayZ)
-    assert(partial.code=='OK' and partial.count>0 and partial.count<96)
+    assert(partial.code=='OK' and partial.count>0 and partial.count<totalQuantity and #full.state.tokens>0)
     local lowered=false
     for _,token in full.state.tokens do
         local old=previous[token.id]
@@ -113,11 +115,11 @@ for farm=1,6 do
         assert(final.code=='OK' or final.code=='NothingNearby')
         if final.code=='OK' then finalCount+=final.count;replayId=id end
     end
-    assert(finalCount+partial.count==96 and #full.state.tokens==0)
+    assert(finalCount+partial.count==totalQuantity and #full.state.tokens==0)
     checkBag(full,expected)
     local revision=full.state.revision
     assert(replayId and aura(full,replayId,10.2,0,config.TrayZ-11).replayed)
-    assert(Economy.count(full.state.bag)==96 and full.state.revision==revision,'Aura replay must not duplicate inventory')
+    assert(Economy.count(full.state.bag)==totalQuantity and full.state.revision==revision,'Aura replay must not duplicate inventory')
 end
 
 -- Mixed airborne and landed Minis share the same cap and remain collectible by
@@ -128,17 +130,17 @@ local expectedAir=speciesCounts(airborne.state.tokens)
 assert(aura(airborne,'too-early',2,0,config.TrayZ-11).code=='NothingNearby')
 local highest=airborne.state.tokens[#airborne.state.tokens]
 assert(core:dispatch(airborne,'Collect',{highest.id},context(2,0,config.TrayZ-11)).code=='TooFar')
-local moving,landed,eligible=0,0,0
+local moving,landed,eligible,eligibleQuantity=0,0,0,0
 local collectAt=5.6
 local center=context(collectAt,0,config.TrayZ-11).pickupPosition
 for _,token in airborne.state.tokens do
     if token.readyAt>collectAt then moving+=1 else landed+=1 end
     local position=Motion.position(config,token,collectAt)
-    if position and Pickup.contains(center,position,config.PickupRadius) then eligible+=1 end
+    if position and Pickup.contains(center,position,config.PickupRadius) then eligible+=1;eligibleQuantity+=token.count or 1 end
 end
 assert(moving>0 and landed>0 and eligible>0,'Fixture must cover both the final airborne arc and the settled pile')
 local caught=aura(airborne,'catch-arc',collectAt,0,config.TrayZ-11)
-assert(caught.code=='OK' and caught.count==eligible and #airborne.state.tokens==96-eligible)
+assert(caught.code=='OK' and caught.count==eligibleQuantity and #airborne.state.tokens==96-eligible)
 for index,node in walkNodes do aura(airborne,'finish-arc-'..index,10,node.x,node.z) end
 assert(#airborne.state.tokens==0)
 checkBag(airborne,expectedAir)
@@ -154,8 +156,9 @@ for _,count in {6,12,50} do
     core:step(capped,10000)
     assert(#capped.state.tokens==expectedTotal)
     for _,producer in capped.state.producers do assert(producer.due==10001) end
+    local expectedQuantity=Economy.count(capped.state.tokens)
     local removed=aura(capped,'clear-stall',10000,0,config.TrayZ)
-    assert(removed.code=='OK' and removed.count==expectedTotal and #capped.state.tokens==0)
+    assert(removed.code=='OK' and removed.count==expectedQuantity and #capped.state.tokens==0)
     assert(not core:step(capped,10000.5) and #capped.state.tokens==0,'Clearing capacity must not release blocked work')
     assert(core:step(capped,10001) and #capped.state.tokens==count,'Only one new drop per producer follows a blocked stall')
     assert(core:validate(capped.state,capped.owner))

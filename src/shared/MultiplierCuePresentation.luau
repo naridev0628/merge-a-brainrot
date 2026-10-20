@@ -22,11 +22,11 @@ function Presentation.receive(self: any,snapshot: any,receivedAt: number): boole
         self.cue=nil
     elseif value~=self.value then
         local direction=if value>self.value then 'rise' else 'fall'
-        local verb=if direction=='rise' then 'grew' else 'dropped'
+        local verb=if direction=='rise' then 'rose' else 'dropped'
         local formatted=string.format('%.2f',value/100):gsub('0+$',''):gsub('%.$','')
         self.cue={direction=direction,hundredths=value,expiresAt=receivedAt+Presentation.Duration,
-            text='Mini multiplier '..verb..' to '..formatted..'x!',
-            compactText='Mini multiplier\n'..verb..' to '..formatted..'x!'}
+            text='Mini Multiplier '..verb..' to '..formatted..'×!',
+            compactText='Mini Multiplier\n'..verb..' to '..formatted..'×!'}
     end
     self.value=value;self.sessionKey=snapshot.sessionKey;self.revision=snapshot.revision
     self.serverNow=snapshot.serverNow;self.receivedAt=receivedAt;self.initialized=true
@@ -53,7 +53,7 @@ end
 function Presentation.layout(width: number,height: number,bag: Rect,obstacles: {Rect},pickups: boolean): any
     if width<40 or height<60 or #obstacles>18 then return nil end
     local compact=width<600 or height<500
-    local w,h=math.min(if compact then 224 else 520,width-16),if compact then 44 else 42
+    local w,h=math.min(if compact then 260 else 720,width-16),if compact then 52 else 56
     local desiredX=math.clamp(bag.x+bag.width/2-w/2,8,width-8-w)
     local desiredY=bag.y-h-8
     local regions={bag}
@@ -79,7 +79,7 @@ function Presentation.layout(width: number,height: number,bag: Rect,obstacles: {
             if score<bestScore then best=candidate;bestScore=score end
         end
     end end
-    if best then best.compact=compact;best.fontSize=if compact then 19 else 30 end
+    if best then best.compact=compact;best.fontSize=if compact then 23 else 42 end
     return best
 end
 return table.freeze(Presentation)

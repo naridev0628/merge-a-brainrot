@@ -2,6 +2,7 @@
 -- Authored scenery stays between the six bridge approaches.
 local Factory=require(script.Parent.ModelFactory)
 local Environment=require(script.Parent.EnvironmentArt)
+local Market=require(script.Parent.BrainrotMarket)
 local Scenery={}
 
 local function ornament(parent: Instance,name: string,size: Vector3,cf: CFrame,color: Color3)
@@ -56,7 +57,23 @@ function Scenery.build(parent: Instance): Model
         Factory.prop(garden,'BrickGrass',inner*CFrame.new(3,0,1.4),1)
         for flower=1,3 do Factory.prop(garden,'BrickFlower',inner*CFrame.new(flower-2,0,-2.4),.7) end
     end
-    Environment.lighthouse(root,CFrame.new(-62,0,-62)*CFrame.Angles(0,math.pi/4,0),.7)
+    -- Two compact market clearings sit between approaches, leaving the plaza
+    -- and all six radial walking routes open.
+    for index,spec in {
+        {key='BrainrotLogKeeper',angle=math.pi/6},
+        {key='BrainrotCoffeeKeeper',angle=7*math.pi/6},
+    } do
+        local position=Vector3.new(math.sin(spec.angle)*51,0,math.cos(spec.angle)*51)
+        local facing=CFrame.lookAt(position,Vector3.zero)
+        local stall=Instance.new('Model');stall.Name='BrainrotMarket'..index;stall.Parent=root
+        local base=Factory.part(stall,'MarketStand',Vector3.new(10,.5,7),facing*CFrame.new(0,.25,0),Color3.fromRGB(255,205,128),nil,true)
+        base.TopSurface=Enum.SurfaceType.Studs
+        Market.place(stall,spec.key,facing*CFrame.new(0,.5,.6),1.2)
+        Market.place(stall,'BrainrotMarketSign',facing*CFrame.new(0,0,3.6),.9)
+        local counter=Factory.part(stall,'MarketCounter',Vector3.new(7,2.2,1.6),facing*CFrame.new(0,1.35,-2.2),Color3.fromRGB(55,142,118),nil,true)
+        counter.FrontSurface=Enum.SurfaceType.Studs
+        Factory.prop(stall,'CoolTralalero',facing*CFrame.new(2.4,2.5,-2.2),.22)
+    end
     for _,position in {Vector3.new(-76,0,0),Vector3.new(76,0,0)} do
         local facing=CFrame.lookAt(position,Vector3.new(0,0,0))
         Factory.prop(root,'BrickBarn',facing,.75)

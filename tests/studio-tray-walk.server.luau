@@ -45,14 +45,16 @@ core:step(session,1);core:step(session,2)
 assert(#session.state.tokens==96)
 local expected={}
 local settled=core:snapshot(session)
+local expectedQuantity=Economy.count(settled.tokens)
 for _,token in settled.tokens do
-    expected[token.speciesId]=(expected[token.speciesId] or 0)+1
+    expected[token.speciesId]=(expected[token.speciesId] or 0)+(token.count or 1)
     token.spawnedAt=os.clock()-10;token.readyAt=os.clock()-6
 end
 for _,producer in settled.producers do producer.due=os.clock()+10000 end
 assert(core:commit(session,settled))
 if SPECIES_MODE=='tier_06' then
-    assert(expected.tier_06==96 and Catalog.tier_06.value==170,'Crocodilo variant requires 96 highest-tier Minis at base value 170')
+    assert(expected.tier_06==96*Catalog.tier_06.production and Catalog.tier_06.value==1,
+        'Crocodilo variant requires 96 counted bundles at $1 per individual Mini')
 end
 local verifiedMeshIds={}
 local function verifyMiniMeshes(tokens)
@@ -183,12 +185,12 @@ remote.OnServerInvoke=function(who,action)
         local checked,problem=pcall(function()
             assert(status:GetAttribute('Status')=='Running','Fixture did not remain running')
             assert(visited==#route and walked>=20,'Every actual walking waypoint must be visited')
-            assert(total==96 and result.bag==96 and result.remaining==0 and result.cloneMiniModels==0,
-                'All 96 real Mini models must be collected and accounted for')
+            assert(total==expectedQuantity and result.bag==expectedQuantity and result.remaining==0 and result.cloneMiniModels==0,
+                'All 96 real Mini bundles and their complete quantities must be collected')
             assert(partial and repacked,'A partial pickup must visibly repack surviving upper-layer Minis')
             if SPECIES_MODE=='mixed' then
                 for tier=1,6 do assert((expected[string.format('tier_%02d',tier)] or 0)>0) end
-            else assert(expected.tier_06==96) end
+            else assert(expected.tier_06==96*Catalog.tier_06.production) end
             local counts={}
             for _,good in session.state.bag do
                 assert(good.baseCoinValue==Catalog[good.speciesId].value,'Collection changed cash value')
@@ -240,6 +242,7 @@ task.spawn(function()
             local old={}
             for _,token in session.state.tokens do old[token.id]=token.y end
             local before=#session.state.tokens
+            local beforeQuantity=Economy.count(session.state.tokens)
             serial+=1
             local result=core:dispatch(session,'CollectNearby',{'tray-walk-'..serial},{
                 now=now,alive=true,position={x=pos.X,y=pos.Y,z=pos.Z},
@@ -247,14 +250,14 @@ task.spawn(function()
             })
             if result.code=='OK' then
                 local after=#session.state.tokens
-                assert(result.count==before-after and result.count>0)
+                assert(result.count==beforeQuantity-Economy.count(session.state.tokens) and result.count>0 and before>after)
                 total+=result.count
                 partial=partial or after>0
                 for _,token in session.state.tokens do
                     assert(token.y<=old[token.id],'Repack unexpectedly raised a survivor')
                     repacked=repacked or token.y<old[token.id]
                 end
-                assert(Economy.count(session.state.bag)+after==96,'A pickup lost or duplicated Minis')
+                assert(Economy.count(session.state.bag)+Economy.count(session.state.tokens)==expectedQuantity,'A pickup lost or duplicated Minis')
                 boundedPush(events,{count=result.count,remaining=after,x=pos.X,z=pos.Z},96)
                 World.render(world,session.state)
                 assert(verifyMiniMeshes(world.tokens)==after,'Repacked survivors must retain their imported meshes')

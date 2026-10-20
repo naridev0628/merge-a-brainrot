@@ -2,6 +2,7 @@
 -- This label is personal: client writes never overwrite another player's footer.
 local Players = game:GetService('Players')
 local Catalog = require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('CreatureCatalog'))
+local Config = require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('Config'))
 local Footer = {}
 local currentRoot: Instance? = nil
 local addedConnection: RBXScriptConnection? = nil
@@ -9,7 +10,9 @@ local boards: {[Instance]: boolean} = {}
 
 local function compact(value: number): string
     local amount, suffix = value, ''
-    if math.abs(value) >= 1e9 then amount, suffix = value / 1e9, 'B'
+    if math.abs(value) >= 1e15 then amount, suffix = value / 1e15, 'Qa'
+    elseif math.abs(value) >= 1e12 then amount, suffix = value / 1e12, 'T'
+    elseif math.abs(value) >= 1e9 then amount, suffix = value / 1e9, 'B'
     elseif math.abs(value) >= 1e6 then amount, suffix = value / 1e6, 'M'
     elseif math.abs(value) >= 1e3 then amount, suffix = value / 1e3, 'K' end
     return string.format('%.2f', amount):gsub('%.?0+$', '') .. suffix
@@ -50,7 +53,7 @@ function Footer.update(state: any)
     local total = 0
     for _, producer in state.producers or {} do
         local species = Catalog[producer.speciesId]
-        if species then total += 2 ^ (species.tier - 1) end
+        if species then total += Config.MergeCount ^ (species.tier - 1) end
     end
     local values = {
         coins = '$' .. compact((state.coinUnits or 0) / 4),

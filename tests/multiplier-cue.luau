@@ -7,7 +7,7 @@ assert(cue:receive(snapshot(1,100),500),'Accept the first world event baseline')
 assert(cue:read(500)==nil,'Initial join must be quiet')
 assert(cue:receive(snapshot(2,110),501))
 local rise=assert(cue:read(501))
-assert(rise.direction=='rise' and rise.hundredths==110 and rise.text=='Mini multiplier grew to 1.1x!')
+assert(rise.direction=='rise' and rise.hundredths==110 and rise.text=='Mini Multiplier rose to 1.1×!')
 assert(rise.expiresAt==504,'Use client elapsed time, not the server clock epoch')
 assert(not cue:receive(snapshot(2,110,20),502),'A replay must not renew the cue')
 assert(cue:read(503).expiresAt==504)
@@ -15,13 +15,13 @@ assert(cue:receive(snapshot(3,110,21),503),'A newer same-value snapshot is valid
 assert(cue:read(503).expiresAt==504,'Unrelated farm updates must not renew the cue')
 assert(cue:receive(snapshot(4,75,22),503.5))
 local fall=assert(cue:read(503.5))
-assert(fall.direction=='fall' and fall.text=='Mini multiplier dropped to 0.75x!')
+assert(fall.direction=='fall' and fall.text=='Mini Multiplier dropped to 0.75×!')
 assert(fall~=rise and fall.expiresAt==506.5,'Rapid updates replace the single transient')
 assert(not cue:receive(snapshot(3,150,23),504),'Old revisions must not reverse the cue')
 assert(not cue:receive(snapshot(5,150,21),504),'Old server times must not reverse the cue')
 assert(cue:read(506.49)==fall and cue:read(506.5)==nil,'The replacement expires at its own deadline')
 assert(cue:receive(snapshot(5,100,24),507))
-assert(cue:read(507).text=='Mini multiplier grew to 1x!','Format whole multipliers without fake hundredths')
+assert(cue:read(507).text=='Mini Multiplier rose to 1×!','Format whole multipliers without fake hundredths')
 cue:clear()
 assert(cue:read(507)==nil and not cue:receive(snapshot(5,100,24),508),'Clearing must retain replay protection')
 assert(cue:receive(snapshot(6,120,25),508) and cue:read(508)==nil,'Resuming after unavailable must establish a quiet baseline')
@@ -48,12 +48,17 @@ end
 for _,size in {{320,480},{390,440},{360,568},{390,844},{640,280},{640,450},{1440,900}} do
     local w,h=size[1],size[2]
     local phone=w<600
-    local bw=if phone then math.clamp(w-214,106,138) elseif h<500 then 138 else 204
-    local bh=if phone then bw*116/138 elseif h<500 then 116 else 170
-    local bag={x=if phone then w-12-bw else w*(if h<500 then .51 else .5)-bw/2,y=h-(if phone then 36 else 24)-bh,width=bw,height=bh}
+    local bw=if phone then math.clamp(w-214,96,116) elseif h<500 then 116 else 172
+    local bh=bw*.77
+    local bag={x=if phone then w-12-bw else w*(if h<500 then .51 else .5)-bw/2,y=h-(if phone then 30 else 20)-bh,width=bw,height=bh}
     local plain=assert(checkLayout(w,h,bag,{},false),'A plain layout must have room for the cue')
     assert(math.abs(plain.y+plain.height-(bag.y-8))<.001,'Prefer the reference placement immediately above the basket')
-    local withPickup=assert(checkLayout(w,h,bag,{},true),'Pickup feedback must leave another placement')
+    local withPickup=checkLayout(w,h,bag,{},true)
+    if h==280 then
+        assert(withPickup==nil,'Very short screens defer the larger cue while pickups occupy the available height')
+        continue
+    end
+    assert(withPickup,'Pickup feedback must leave another placement '..w..'x'..h)
     local envelope={x=bag.x+bag.width/2-112,y=bag.y-160,width=224,height=168}
     assert(not (withPickup.x<envelope.x+envelope.width and withPickup.x+withPickup.width>envelope.x
         and withPickup.y<envelope.y+envelope.height and withPickup.y+withPickup.height>envelope.y),'Keep clear of the full pickup animation')

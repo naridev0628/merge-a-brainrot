@@ -34,7 +34,7 @@ for _,session in full.sessions do
 end
 
 -- Due production is real work even when either physical cap blocks every drop.
--- Fractional credits and Lucky rolls must retain their original due-time order.
+-- Raw production and Lucky rolls must retain their original due-time order.
 for _,limit in {'global','origin'} do
     local config=table.clone(Config)
     config.GroundCap=if limit=='global' then 1 else 96
@@ -53,8 +53,8 @@ for _,limit in {'global','origin'} do
     commit(core,session,function(state) state.eventHundredths=50 end)
     unchanged(core,session,1.75)
     assert(rolls==1)
-    assert(core:step(session,2),'A capped producer must still advance fractional credit')
-    assert(session.state.producers[1].productionCredit==50 and session.state.producers[1].due==3 and rolls==1)
+    assert(core:step(session,2),'A capped producer must still perform its raw-production Lucky roll')
+    assert(session.state.producers[1].productionCredit==0 and session.state.producers[1].due==3 and rolls==2)
     unchanged(core,session,2.75)
     assert(core:step(session,3),'A capped drop must still perform its Lucky roll')
     assert(#session.state.tokens==1 and session.state.lucky and rolls==2)
@@ -96,9 +96,10 @@ commit(full.core,collect,function(state)
     for _,producer in state.producers do producer.due=200 end
     for _,token in state.tokens do token.readyAt=105 end
 end)
+local collectedQuantity=Economy.count(collect.state.tokens)
 unchanged(full.core,collect,104.999)
 assert(full.core:step(collect,105),'Ready tokens must wake Auto Collect without due production')
-assert(#collect.state.tokens==0 and #collect.state.bag==0 and Economy.count(collect.state.saleQueue)==96)
+assert(#collect.state.tokens==0 and #collect.state.bag==0 and Economy.count(collect.state.saleQueue)==collectedQuantity)
 
 -- A conservative guard may enter the old path for work that turns out blocked.
 -- Once a later state/quote permits it, that work must be retried immediately.
@@ -117,4 +118,4 @@ local invalid=core:newSession(5,0,'invalid')
 for _,now in {math.huge,-math.huge,0/0} do unchanged(core,invalid,now) end
 invalid.phase='Closing'
 unchanged(core,invalid,1)
-print('PASS step preflight avoids idle copies and preserves sales, Auto Collect/Sell, capped credits, Lucky RNG and due boundaries')
+print('PASS step preflight avoids idle copies and preserves sales, Auto Collect/Sell, capped production, Lucky RNG and due boundaries')

@@ -1,0 +1,1189 @@
+{
+  "className": "Model",
+  "children": [
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          1.0746938634135235,
+          0.34918920364369055,
+          0,
+          0.9510565400123596,
+          -0.3090168833732605,
+          0.0,
+          0.3090168833732605,
+          0.9510565400123596,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          0.9977307799305875,
+          0.5305028659480565,
+          0,
+          0.882947564125061,
+          -0.46947163343429565,
+          0.0,
+          0.46947163343429565,
+          0.882947564125061,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          0.8904521515755957,
+          0.6956974671179939,
+          0,
+          0.7880107164382935,
+          -0.6156615018844604,
+          0.0,
+          0.6156615018844604,
+          0.7880107164382935,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          0.7561175851855098,
+          0.8397536527894555,
+          0,
+          0.6691305637359619,
+          -0.7431448698043823,
+          0.0,
+          0.7431448698043823,
+          0.6691305637359619,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          0.5988087685835215,
+          0.9582943486567613,
+          0,
+          0.5299190878868103,
+          -0.848048210144043,
+          0.0,
+          0.848048210144043,
+          0.5299190878868103,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          0.4233054505599805,
+          1.0477177556604698,
+          0,
+          0.3746064007282257,
+          -0.9271839261054993,
+          0.0,
+          0.9271839261054993,
+          0.3746064007282257,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          0.23494021062406817,
+          1.1053067888292003,
+          0,
+          0.20791153609752655,
+          -0.9781476259231567,
+          0.0,
+          0.9781476259231567,
+          0.20791153609752655,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          0.03943643127382622,
+          1.1293116345315781,
+          0,
+          0.03489937633275986,
+          -0.9993908405303955,
+          0.0,
+          0.9993908405303955,
+          0.03489937633275986,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -0.15726560408487383,
+          1.1190029176779743,
+          0,
+          -0.13917319476604462,
+          -0.9902680516242981,
+          0.0,
+          0.9902680516242981,
+          -0.13917319476604462,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -0.34918920364369044,
+          1.0746938634135235,
+          0,
+          -0.30901703238487244,
+          -0.9510564804077148,
+          0.0,
+          0.9510564804077148,
+          -0.30901703238487244,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -0.5305028659480567,
+          0.9977307799305872,
+          0,
+          -0.4694715738296509,
+          -0.882947564125061,
+          0.0,
+          0.882947564125061,
+          -0.4694715738296509,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -0.6956974671179939,
+          0.8904521515755958,
+          0,
+          -0.6156614422798157,
+          -0.7880107760429382,
+          0.0,
+          0.7880107760429382,
+          -0.6156614422798157,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -0.8397536527894552,
+          0.7561175851855099,
+          0,
+          -0.7431448101997375,
+          -0.6691306233406067,
+          0.0,
+          0.6691306233406067,
+          -0.7431448101997375,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "WedgePart",
+      "name": "Arrow head prism",
+      "properties": {
+        "Size": [
+          0.45,
+          0.75,
+          0.45
+        ],
+        "CFrame": [
+          -0.5962530162739742,
+          0.7772596204280852,
+          -0.03,
+          -6.538310515225021e-08,
+          -0.4999998211860657,
+          -0.8660255074501038,
+          3.7748936421166945e-08,
+          -0.8660255074501038,
+          0.4999998211860657,
+          -1.0,
+          0.0,
+          7.549790126404332e-08
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "WedgePart",
+      "name": "Arrow head prism",
+      "properties": {
+        "Size": [
+          0.45,
+          0.75,
+          0.45
+        ],
+        "CFrame": [
+          -0.9859645005869854,
+          1.0022595250606536,
+          -0.03,
+          3.7855176771017796e-08,
+          -0.4999998211860657,
+          0.8660255074501038,
+          -2.1855687037941607e-08,
+          -0.8660255074501038,
+          -0.4999998211860657,
+          1.0,
+          0.0,
+          -4.371138828673793e-08
+        ],
+        "Color": [
+          1,
+          0.1,
+          0.5
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -1.0746938634135235,
+          -0.3491892036436904,
+          0,
+          -0.9510566592216492,
+          0.3090165853500366,
+          0.0,
+          -0.3090165853500366,
+          -0.9510566592216492,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -0.9977307799305872,
+          -0.5305028659480566,
+          0,
+          -0.8829478025436401,
+          0.46947115659713745,
+          0.0,
+          -0.46947115659713745,
+          -0.8829478025436401,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -0.8904521515755958,
+          -0.6956974671179936,
+          0,
+          -0.7880110740661621,
+          0.615661084651947,
+          0.0,
+          -0.615661084651947,
+          -0.7880110740661621,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -0.7561175851855096,
+          -0.8397536527894556,
+          0,
+          -0.6691306829452515,
+          0.7431448101997375,
+          0.0,
+          -0.7431448101997375,
+          -0.6691306829452515,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -0.5988087685835216,
+          -0.9582943486567612,
+          0,
+          -0.5299197435379028,
+          0.8480477929115295,
+          0.0,
+          -0.8480477929115295,
+          -0.5299197435379028,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -0.42330545055998087,
+          -1.0477177556604695,
+          0,
+          -0.3746071457862854,
+          0.9271836280822754,
+          0.0,
+          -0.9271836280822754,
+          -0.3746071457862854,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -0.23494021062406853,
+          -1.1053067888292003,
+          0,
+          -0.20791232585906982,
+          0.9781474471092224,
+          0.0,
+          -0.9781474471092224,
+          -0.20791232585906982,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          -0.03943643127382586,
+          -1.1293116345315781,
+          0,
+          -0.03489922359585762,
+          0.9993908405303955,
+          0.0,
+          -0.9993908405303955,
+          -0.03489922359585762,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          0.15726560408487397,
+          -1.1190029176779743,
+          0,
+          0.13917334377765656,
+          0.9902680516242981,
+          0.0,
+          -0.9902680516242981,
+          0.13917334377765656,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          0.3491892036436903,
+          -1.0746938634135235,
+          0,
+          0.3090171813964844,
+          0.9510564804077148,
+          0.0,
+          -0.9510564804077148,
+          0.3090171813964844,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          0.5305028659480561,
+          -0.9977307799305876,
+          0,
+          0.4694717228412628,
+          0.8829475045204163,
+          0.0,
+          -0.8829475045204163,
+          0.4694717228412628,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          0.6956974671179941,
+          -0.8904521515755955,
+          0,
+          0.6156615614891052,
+          0.7880106568336487,
+          0.0,
+          -0.7880106568336487,
+          0.6156615614891052,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Flowing arc",
+      "properties": {
+        "Size": [
+          0.3,
+          0.43,
+          0.4
+        ],
+        "CFrame": [
+          0.8397536527894555,
+          -0.7561175851855096,
+          0,
+          0.7431448698043823,
+          0.6691305041313171,
+          0.0,
+          -0.6691305041313171,
+          0.7431448698043823,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "WedgePart",
+      "name": "Arrow head prism",
+      "properties": {
+        "Size": [
+          0.45,
+          0.75,
+          0.45
+        ],
+        "CFrame": [
+          0.5962529566693291,
+          -0.7772594565153127,
+          -0.03,
+          6.538309804682285e-08,
+          0.5000001192092896,
+          0.8660253286361694,
+          -3.77489612901627e-08,
+          0.8660253286361694,
+          -0.5000001192092896,
+          -1.0,
+          0.0,
+          7.549790126404332e-08
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "WedgePart",
+      "name": "Arrow head prism",
+      "properties": {
+        "Size": [
+          0.45,
+          0.75,
+          0.45
+        ],
+        "CFrame": [
+          0.9859643515753731,
+          -1.0022594952583317,
+          -0.03,
+          -3.785516966559044e-08,
+          0.5000001192092896,
+          -0.8660253286361694,
+          2.1855699472439483e-08,
+          0.8660253286361694,
+          0.5000001192092896,
+          1.0,
+          0.0,
+          -4.371138828673793e-08
+        ],
+        "Color": [
+          0.12,
+          0.86,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Arc highlight",
+      "properties": {
+        "Size": [
+          0.11,
+          0.53,
+          0.035
+        ],
+        "CFrame": [
+          0.5650000000000001,
+          0.9786087062764155,
+          -0.225,
+          0.4999999701976776,
+          -0.866025447845459,
+          0.0,
+          0.866025447845459,
+          0.4999999701976776,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.99,
+          0.91
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Arc highlight",
+      "properties": {
+        "Size": [
+          0.11,
+          0.53,
+          0.035
+        ],
+        "CFrame": [
+          -0.5650000000000005,
+          -0.9786087062764154,
+          -0.225,
+          -0.49999985098838806,
+          0.8660255074501038,
+          0.0,
+          -0.8660255074501038,
+          -0.49999985098838806,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.24,
+          0.68,
+          1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    }
+  ]
+}

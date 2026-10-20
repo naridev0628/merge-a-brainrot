@@ -11,4 +11,19 @@ assert(not Input.shouldClaim(state,{x=Config.BuyPads['1']+7,y=3,z=Config.BuyZ},C
 assert(not Input.shouldClaim(state,{x=Config.BuyPads['1'],y=20,z=Config.BuyZ},Config),'Do not claim while flying above it')
 state.starterClaimed=true
 assert(not Input.shouldClaim(state,{x=Config.BuyPads['1'],y=3,z=Config.BuyZ},Config),'Never auto-buy a paid producer')
-print('PASS walk-on starter purchase intent, bounds and one-time claim')
+state.producers={{speciesId='tier_01'},{speciesId='tier_01'}}
+assert(Tutorial.goal(state).kind~='Merge','Two matching Brainrots must not trigger the three-to-one tutorial')
+table.insert(state.producers,{speciesId='tier_02'})
+assert(Tutorial.goal(state).kind~='Merge','Different species cannot complete a matching triple')
+table.insert(state.producers,{speciesId='tier_01'})
+local merge=Tutorial.goal(state)
+assert(merge.kind=='Merge' and merge.title=='Merge three matching Brainrots!')
+assert(merge.detail=='Walk onto MERGE. Three matching Brainrots become one!')
+local maxId=string.format('tier_%02d',Config.MaxTier)
+state.producers={{speciesId=maxId},{speciesId=maxId},{speciesId=maxId}}
+assert(Tutorial.goal(state).kind~='Merge','Max-tier triples must not prompt an impossible merge')
+state.producers={{speciesId='tier_01'},{speciesId='tier_01'}}
+state.coinUnits=1000
+assert(Tutorial.goal(state).kind=='Buy' and Tutorial.goal(state).detail:find('three matching Brainrots',1,true),
+    'A player with only a pair must be guided to obtain a third match')
+print('PASS starter bounds and one-time claim; tutorial matching triples, pair/max-tier rejection and third-match purchase guidance')

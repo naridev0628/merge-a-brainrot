@@ -14,7 +14,7 @@ local upgraded=table.freeze({
 })
 local Appearance={}
 function Appearance.forTier(baseTier: number?)
-    if baseTier and baseTier%1==0 and baseTier>=3 and baseTier<=6 then return upgraded end
+    if baseTier and baseTier%1==0 and baseTier>=3 and baseTier<math.huge then return upgraded end
     return basic
 end
 return table.freeze(Appearance)

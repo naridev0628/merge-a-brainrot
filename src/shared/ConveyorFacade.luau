@@ -2,6 +2,7 @@
 -- Architectural trim only. Build in logical plot coordinates before PlotScale.
 local Config=require(script.Parent.Config)
 local Factory=require(script.Parent.ModelFactory)
+local Map=require(script.Parent.MapSpec)
 local Facade={}
 
 local gold=Color3.fromRGB(255,180,25)
@@ -15,7 +16,8 @@ local function part(parent: Instance,name: string,size: Vector3,cf: CFrame,color
     local result=Factory.part(parent,name,size,cf,color)
     result.CanQuery=false
     result.CanTouch=false
-    result.CanCollide=false
+    result.CanCollide=name=='DisplayFoundation' or name=='DisplayFascia'
+    if result.CanCollide then result.CanQuery=true end
     return result
 end
 
@@ -52,7 +54,7 @@ function Facade.build(parent: Instance): Model
     root.Parent=parent
 
     local displayWidth=Config.Columns*Config.ColumnSpacing+1
-    local width=displayWidth+3
+    local width=Map.ConveyorWidth
     local platformHeight=Config.DisplayPlatformHeight
     local fasciaFront=Config.BeltZ+5.25
     local fasciaBack=Config.DisplayZ-3.7
@@ -62,7 +64,7 @@ function Facade.build(parent: Instance): Model
     local trayFront=Config.TrayZ-halfDepth
     local rimBack=math.min(Config.TrayZ+halfDepth,Config.BeltZ-4)
     local rimDepth,rimCenter=rimBack-trayFront,(rimBack+trayFront)/2
-    local laneOuter=Config.Columns*Config.ColumnSpacing/2+2
+    local laneOuter=Map.ConveyorWidth/2
     local laneWidth=laneOuter-halfWidth
     local laneCenter=(laneOuter+halfWidth)/2
 
@@ -100,12 +102,21 @@ function Facade.build(parent: Instance): Model
             laneCF*CFrame.new(0,.25,0),goldLight)
         part(root,'ConveyorRedReveal',Vector3.new(laneWidth,.16,.1),
             laneCF*CFrame.new(0,-.37,-.5),red)
+        for course=0,2 do
+            local seam=part(root,'SkirtBrickCourse',Vector3.new(laneWidth,.045,.025),
+                laneCF*CFrame.new(0,-.55-course*.65,-.485),goldShade)
+            seam.Transparency=.35
+            for x=-laneWidth/2+1.5+(course%2)*1.5,laneWidth/2-1,3 do
+                part(root,'SkirtBrickJoint',Vector3.new(.045,.60,.025),
+                    laneCF*CFrame.new(x,-.85-course*.65,-.485),goldShade)
+            end
+        end
         for x=-laneWidth/2+2,laneWidth/2-2,4 do
             part(root,'SkirtBrickStud',Vector3.new(.55,.5,.12),
                 laneCF*CFrame.new(x,-.75,-.54),creamLight)
         end
 
-        local endX=side*(displayWidth/2+1.9)
+        local endX=side*(Map.ConveyorWidth/2-.6)
         part(root,'OuterConveyorEnd',Vector3.new(1.1,2.25,10.5),
             CFrame.new(endX,1.125,Config.BeltZ),cream)
         part(root,'OuterConveyorCap',Vector3.new(1.4,.38,10.7),

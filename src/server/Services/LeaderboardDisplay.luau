@@ -1,6 +1,7 @@
 --!strict
 -- Original native wood boards. Rankings describe this server's current players.
 local Players = game:GetService('Players')
+local GroundSurface = require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('GroundSurface'))
 local Display = {}
 local wood = Color3.fromRGB(146, 98, 76)
 local trim = Color3.fromRGB(76, 47, 31)
@@ -73,7 +74,9 @@ end
 
 function Display.compact(value: number): string
     local amount, suffix = value, ''
-    if math.abs(value) >= 1e9 then amount, suffix = value / 1e9, 'B'
+    if math.abs(value) >= 1e15 then amount, suffix = value / 1e15, 'Qa'
+    elseif math.abs(value) >= 1e12 then amount, suffix = value / 1e12, 'T'
+    elseif math.abs(value) >= 1e9 then amount, suffix = value / 1e9, 'B'
     elseif math.abs(value) >= 1e6 then amount, suffix = value / 1e6, 'M'
     elseif math.abs(value) >= 1e3 then amount, suffix = value / 1e3, 'K' end
     local number = string.format('%.2f', amount):gsub('%.?0+$', '')
@@ -113,13 +116,10 @@ function Display.new(parent: Instance, key: string, title: string, color: Color3
             part(model, 'RailPeg', Vector3.new(.48, .28, .16), CFrame.new(x, y, -.98), Color3.fromRGB(168, 113, 61))
         end
     end
-    for y = -10.7, 11.3, 1.5 do
-        for x = -9.9, 9.9, 1.5 do
-            if y < 7.1 or y > 8.7 then
-                part(model, 'SquareWoodStud', Vector3.new(.64, .64, .22), CFrame.new(x, y, -.61), Color3.fromRGB(166, 115, 89))
-            end
-        end
-    end
+    -- Reuse the original Blender brown stud tile on the two wooden insets.
+    -- Relief ends at Z=-.66, safely behind the text planes at Z=-1.15.
+    GroundSurface.panel(model,CFrame.new(0,-2,-.52),19.8,18.8,'Brown')
+    GroundSurface.panel(model,CFrame.new(0,10,-.52),19.8,3,'Brown')
 
     local function surface(name: string, size: Vector3, position: Vector3, canvas: Vector2): SurfaceGui
         -- Keep text physically in front of every stud and peg. AlwaysOnTop is
@@ -164,7 +164,7 @@ function Display.new(parent: Instance, key: string, title: string, color: Color3
         frame:SetAttribute('Rank', rank)
         frame.Parent = rowHolder
         local rankColor = rankColors[rank] or (if rank % 2 == 0 then Color3.fromRGB(201, 251, 255) else Color3.fromRGB(255, 255, 245))
-        text(frame, 'Rank', '#' .. rank, UDim2.fromOffset(0, 0), UDim2.fromOffset(58, 54), 31, rankColor)
+        text(frame, 'Rank', '#' .. rank, UDim2.fromOffset(0, 0), UDim2.fromOffset(58, 54), 34, rankColor)
         local avatar = Instance.new('ImageLabel')
         avatar.Name = 'Avatar'
         avatar.Position = UDim2.fromOffset(62, 2)
@@ -175,22 +175,22 @@ function Display.new(parent: Instance, key: string, title: string, color: Color3
         avatar.Parent = frame
         rounded(avatar, UDim.new(.5, 0))
         local border = Instance.new('UIStroke')
-        border.Color = ink
-        border.Thickness = 2
+        border.Color = rankColors[rank] or ink
+        border.Thickness = if rank<=3 then 3 else 2
         border.Parent = avatar
-        local username = text(frame, 'Username', '', UDim2.fromOffset(122, 0), UDim2.fromOffset(335, 54), 29, rankColor)
+        local username = text(frame, 'Username', '', UDim2.fromOffset(122, 0), UDim2.fromOffset(335, 54), 31, rankColor)
         username.TextXAlignment = Enum.TextXAlignment.Left
         username.TextScaled = true
         local usernameSize = Instance.new('UITextSizeConstraint')
-        usernameSize.MaxTextSize = 29
-        usernameSize.MinTextSize = 17
+        usernameSize.MaxTextSize = 31
+        usernameSize.MinTextSize = 20
         usernameSize.Parent = username
-        local metric = text(frame, 'Metric', '', UDim2.fromOffset(461, 0), UDim2.fromOffset(207, 54), 30, rankColor)
+        local metric = text(frame, 'Metric', '', UDim2.fromOffset(461, 0), UDim2.fromOffset(207, 54), 32, rankColor)
         metric.TextXAlignment = Enum.TextXAlignment.Right
         metric.TextScaled = true
         local metricSize = Instance.new('UITextSizeConstraint')
-        metricSize.MaxTextSize = 30
-        metricSize.MinTextSize = 18
+        metricSize.MaxTextSize = 32
+        metricSize.MinTextSize = 20
         metricSize.Parent = metric
         table.insert(rows, {frame = frame, avatar = avatar, username = username, metric = metric})
     end

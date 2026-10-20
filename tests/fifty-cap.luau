@@ -17,8 +17,9 @@ assert(core:slotPosition(50).y==Config.DisplayPlatformHeight+4*Config.RowHeight,
 s.state.lucky={id='held',baseTier=2,held=true}
 assert(command('OpenLucky',{'full-lucky','held','2160'}).code=='PlotFull','Lucky rewards cannot exceed the placed cap')
 assert(s.state.lucky.id=='held' and s.state.coinUnits==before,'Full-plot Lucky opening must preserve the block and cash')
-assert(command('Merge',{'merge',s.state.producers[1].id,s.state.producers[2].id}).code=='OK')
-assert(#s.state.producers==49)
+assert(command('Merge',{'merge',s.state.producers[1].id,s.state.producers[2].id,s.state.producers[3].id}).code=='OK')
+assert(#s.state.producers==48)
+assert(command('Buy',{'refill','1'}).code=='OK');before=s.state.coinUnits
 assert(command('OpenLucky',{'room-lucky','held','2120'}).code=='OK')
 assert(#s.state.producers==50 and not s.state.lucky and s.state.coinUnits==before-2120)
 assert(command('Buy',{'still-full','5'}).code=='PlotFull')

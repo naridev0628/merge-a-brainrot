@@ -18,6 +18,9 @@ return table.freeze({
         autoCollect=Vector3.new(0,.15,Config.AutoCollectZ),autoSell=Vector3.new(15,.15,5),
         cash4=Vector3.new(35,.15,-15),cash8=Vector3.new(35,.15,-27),
     }),
+    FrontWidth = 108,
+    RearWidth = 120,
+    ConveyorWidth = 116,
     GroundSize = Vector3.new(240,1,200),
-    PlotSize = Vector3.new(112,0.18,Config.PlotBackZ+38),
+    PlotSize = Vector3.new(120,0.18,Config.PlotBackZ+38),
 })

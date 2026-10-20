@@ -4,6 +4,7 @@ local Config=require(Shared:WaitForChild('Config'))
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
 local Style=require(Shared:WaitForChild('TextStyle'))
 local Appearance=require(Shared:WaitForChild('LuckyAppearance'))
+local Rewards=require(Shared:WaitForChild('LuckyRewards'))
 local Panel={Width=248,Height=452,MinContentHeight=252}
 function Panel.new(view: any,button: any,text: any,frame: any,Art: any,C: any)
     local viewport=Instance.new('ScrollingFrame'); viewport.Name='LuckyViewport'; viewport.Size=UDim2.fromScale(1,1); viewport.BackgroundTransparency=1; viewport.BorderSizePixel=0; viewport.ScrollBarThickness=3; viewport.ScrollingDirection=Enum.ScrollingDirection.Y; viewport.CanvasSize=UDim2.new(); viewport.Parent=view.panel
@@ -93,18 +94,11 @@ function Panel.new(view: any,button: any,text: any,frame: any,Art: any,C: any)
             applyAppearance(if state.lucky then state.lucky.baseTier else nil)
             discard.Active=held and not view.pending or false; discard.AutoButtonColor=discard.Active
             if not held then costText.Text='Pick up a Lucky Block'; unlock.Text='Unlock!'; unlock.Active=false; unlock.AutoButtonColor=false; view.eligible=false; return end
-            local odds={}
-            for index,chance in {75,20,5} do
-                local tier=math.min(Config.MaxTier,state.lucky.baseTier+index-1); odds[tier]=(odds[tier] or 0)+chance
+            for index,reward in Rewards.pool(Config,state.lucky.baseTier) do
+                local row=rows[index]; local species=Catalog[reward.speciesId]
+                row.root.Visible=true; row.name.Text=species.name; row.name.TextColor3=Color3.fromRGB(table.unpack(species.color)); row.tier.Text='Tier '..reward.tier; row.odds.Text=reward.chance..'%'
             end
-            local index=0
-            for tier=1,Config.MaxTier do
-                if odds[tier] then
-                    index+=1; local row=rows[index]; local species=Catalog[string.format('tier_%02d',tier)]
-                    row.root.Visible=true; row.name.Text=species.name; row.name.TextColor3=Color3.fromRGB(table.unpack(species.color)); row.tier.Text='Tier '..tier; row.odds.Text=odds[tier]..'%'
-                end
-            end
-            local cost=Config.LuckyBaseUnits+#state.producers*Config.LuckyPerProducerUnits
+            local cost=Rewards.cost(Config,state)
             costText.Text='Cost: $'..view.coins(cost)
             view.eligible=state.coinUnits>=cost and #state.producers<Config.Slots
             unlock.Text=if view.pending then 'Please wait...' elseif #state.producers>=Config.Slots then 'Stack Full' elseif state.coinUnits<cost then 'Need $'..view.coins(cost-state.coinUnits) else 'Unlock!'

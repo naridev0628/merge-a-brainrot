@@ -3,7 +3,8 @@ local Shared=game:GetService('ReplicatedStorage'):WaitForChild('Shared')
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
 local Config=require(Shared:WaitForChild('Config'))
 local Economy=require(Shared:WaitForChild('Economy'))
-local FarmCapacity=require(Shared:WaitForChild('FarmCapacity'))
+local CountAnimation=require(Shared:WaitForChild('CountAnimation'))
+local ProductionInfo=require(Shared:WaitForChild('ProductionInfo'))
 local Tutorial=require(Shared:WaitForChild('Tutorial'))
 local PassConfig=require(Shared:WaitForChild('PassConfig'))
 local Style=require(Shared:WaitForChild('TextStyle'))
@@ -150,8 +151,9 @@ function UI.new(parent: Instance)
     self.rebirthButton=button(self.actions,'Rebirth','Rebirth',C.pink)
     self.settingsButton=button(self.actions,'Settings','Settings',C.blue)
     for i,b in {self.mergeButton,self.indexButton,self.rebirthButton,self.settingsButton} do
-        b.TextYAlignment=Enum.TextYAlignment.Bottom; b.TextColor3=C.cream; b.TextStrokeTransparency=1; b.BackgroundTransparency=1
-        b:FindFirstChildOfClass('UIStroke').Transparency=1
+        b.TextYAlignment=Enum.TextYAlignment.Bottom; b.TextColor3=Color3.new(1,1,1); b.TextStrokeTransparency=1
+        b.BackgroundColor3=Color3.fromRGB(9,14,18);b.BackgroundTransparency=.46
+        local border=b:FindFirstChildOfClass('UIStroke');border.Color=Color3.fromRGB(0,0,0);border.Transparency=.3;border.Thickness=2
         Art.icon(b,({'merge','book','rebirth','gear'})[i],UDim2.fromScale(.1,.01),UDim2.fromScale(.8,.73))
     end
     self.rebirthBadge=frame(self.rebirthButton,'ReadyBadge',Color3.fromRGB(255,62,69)); self.rebirthBadge.Size=UDim2.fromOffset(28,28); self.rebirthBadge.Position=UDim2.fromOffset(-9,-9); self.rebirthBadge.ZIndex=6; self.rebirthBadge.Visible=false
@@ -255,7 +257,7 @@ function UI.resize(self: any)
         self.root:SetAttribute('TouchControlReserve',0); self.root:SetAttribute('TouchHudStacked',false)
     end
     local tutorialVisible=self.state~=nil and Tutorial.goal(self.state).kind~='Done' and not self:isLuckyOpen() and not self:isSettingsOpen()
-    local compactTutorial=tutorialVisible and (phone or short)
+    local compactTutorial=tutorialVisible and (phone or short or (touch and stackedTouch))
     local compactCash=touch or phone or (short and size.X<900)
     self.stats.TextSize=if compactCash then 30 elseif short then 40 else 52
     local amountWidth=if touch then math.min(96,size.X-262) else math.min(if phone then 100 elseif compactCash then 116 else 270,math.max(if compactCash then 66 else 96,game:GetService('TextService'):GetTextSize(self.stats.Text,self.stats.TextSize,self.stats.Font,Vector2.new(1000,80)).X+14))
@@ -269,15 +271,15 @@ function UI.resize(self: any)
     self.cashPlus.Position=UDim2.new(0,amountWidth+14,.5,-plusSize/2); self.cashPlus.Size=UDim2.fromOffset(plusSize,plusSize)
     self.multiplier.Position=UDim2.new(0,amountWidth+plusSize+22,0,0); self.multiplier.Size=UDim2.new(0,multiplierWidth,1,0); self.multiplier.TextSize=if compactCash then 16 else 24; self.multiplier.Visible=true
     self.cashFog.Position=self.multiplier.Position; self.cashFog.Size=self.multiplier.Size
-    local bagWidth=if touch then 106 elseif phone then math.clamp(size.X-214,106,138) elseif short then 138 else 204
-    self.bag.Size=UDim2.fromOffset(bagWidth,if phone then bagWidth*116/138 elseif short then 116 else 170); self.bag.AnchorPoint=Vector2.new(.5,1); self.bag.Position=if phone then UDim2.new(1,-12-bagWidth/2,1,-36) else UDim2.new(if short then .51 else .5,0,1,-24)
+    local bagWidth=if touch then 96 elseif phone then math.clamp(size.X-214,96,116) elseif short then 116 else 172
+    self.bag.Size=UDim2.fromOffset(bagWidth,bagWidth*.77); self.bag.AnchorPoint=Vector2.new(.5,1); self.bag.Position=if phone then UDim2.new(1,-12-bagWidth/2,1,-30) else UDim2.new(if short then .51 else .5,0,1,-20)
     self.total.AnchorPoint=Vector2.new(if phone then 0 else 1,1); self.total.Position=UDim2.new(if phone then 0 else 1,if phone then 12 else -12,1,if phone then -30 else -25); self.total.Size=UDim2.fromOffset(if phone then 210 elseif short then 230 else 330,30); self.total.TextSize=if phone then 18 elseif short then 20 else 25
     self.total.Visible=not (short and (self:isLuckyOpen() or self:isSettingsOpen()))
     local w=math.min(size.X-(if phone then 24 else 300),520)
     for _,l in {self.title,self.objective,self.hint} do l.AnchorPoint=Vector2.new(.5,0); l.Size=UDim2.fromOffset(w,if l==self.hint then 34 else 36) end
     if self.state then
         for _,label in {self.title,self.objective,self.hint} do label.Visible=tutorialVisible end
-        self.title.Visible=tutorialVisible and not compactTutorial
+        self.title.Visible=false
     end
     self.title.Position=UDim2.new(.5,0,0,0); self.objective.Position=UDim2.new(.5,0,0,34); self.hint.Position=UDim2.new(.5,0,0,70)
     self.title.TextSize=if short then 23 else 28; self.objective.TextSize=if phone or short then 19 else 24; self.hint.TextSize=if phone or short then 13 else 16
@@ -294,21 +296,18 @@ function UI.resize(self: any)
     self.permanent.TextSize=if phone or short then 17 else 23
     self.boostPrice.Position=self.boostButton.Position+UDim2.fromOffset(-4,self.boostButton.Size.Y.Offset+9); self.boostPrice.Size=UDim2.fromOffset(self.boostButton.Size.X.Offset+8,if short then 24 else 30); self.boostPrice.TextSize=if phone or short then 17 else 25
     self.autoButton.Position=UDim2.fromOffset(if short then 128 else 12,if short then 145 else 310); self.autoButton.Size=UDim2.fromOffset(if phone or short then 90 else 130,if short then 36 else 44)
-    self.homeButton.AnchorPoint=Vector2.new(.5,0); self.homeButton.Position=UDim2.new(.5,0,0,6); self.homeButton.Size=UDim2.fromOffset(if short then 154 elseif phone then 190 else 252,if touch or short then 40 elseif phone then 50 else 66); self.homeButton.TextSize=if touch or phone or short then 30 else 39; self.homeButton.Visible=self.state~=nil
+    self.homeButton.AnchorPoint=Vector2.new(.5,0); self.homeButton.Position=UDim2.new(.5,0,0,0); self.homeButton.Size=UDim2.fromOffset(if phone or short then 112 else 132,40); self.homeButton.TextSize=26; self.homeButton.Visible=self.state~=nil
     if tutorialVisible then
-        -- Home is an escape route during onboarding; keep the goal alongside it.
-        self.homeButton.AnchorPoint=Vector2.new(0,0); self.homeButton.Position=UDim2.fromOffset(12,6)
-        self.homeButton.Size=UDim2.fromOffset(96,40); self.homeButton.TextSize=26
+        -- Home keeps one stable top-center position. Onboarding sits below it.
+        self.objective.Position=UDim2.new(.5,0,0,48)
+        self.hint.Position=UDim2.new(.5,0,0,84)
         if compactTutorial then
-            self.objective.AnchorPoint=Vector2.new(0,0); self.hint.AnchorPoint=Vector2.new(0,0)
-            self.objective.Position=UDim2.fromOffset(120,0); self.objective.TextSize=16
-            self.objective.Size=UDim2.fromOffset(size.X-(if phone then 132 else 296),if phone then 44 else 32)
-            self.hint.Position=UDim2.fromOffset(if phone then 12 else 120,if phone then 50 else 34)
-            self.hint.Size=UDim2.fromOffset(size.X-(if phone then 24 else 296),if phone then 34 else 30)
-        end
-        if phone and short then
+            self.objective.Position=UDim2.new(.5,0,0,44); self.objective.TextSize=16
+            self.objective.Size=UDim2.fromOffset(size.X-24,22)
+            self.hint.Position=UDim2.new(.5,0,0,66); self.hint.TextSize=13
+            self.hint.Size=UDim2.fromOffset(size.X-24,30)
             local width=math.min(72,(size.X-48)/4)
-            self.actions.Size=UDim2.fromOffset(width*4+24,52); self.actions.Position=UDim2.new(1,-width*4-36,0,92)
+            self.actions.Size=UDim2.fromOffset(width*4+24,52); self.actions.Position=UDim2.new(1,-width*4-36,0,108)
             for i,b in {self.mergeButton,self.indexButton,self.rebirthButton,self.settingsButton} do
                 b.Size=UDim2.fromOffset(width,52); b.Position=UDim2.fromOffset((i-1)*(width+8),0)
             end
@@ -316,7 +315,7 @@ function UI.resize(self: any)
     end
     -- The cash-bar plus still opens Shop when the smallest onboarding HUD
     -- temporarily omits promotional controls to leave room for guidance.
-    local showPromos=not (tutorialVisible and phone and short) and not (touch and size.Y<(if phone then 650 else 720))
+    local showPromos=not compactTutorial and not (touch and size.Y<(if phone then 650 else 720))
     self.boostButton.Visible=showPromos; self.boostPrice.Visible=showPromos; self.autoButton.Visible=showPromos
     self.contextPanel.Position=UDim2.new(if short then .42 else .5,0,1,if phone then -200 elseif short then -150 else -226); self.contextPanel.Size=UDim2.fromOffset(if short then 230 else math.min(320,size.X-36),62); self.contextButton.TextSize=if phone or short then 18 else 20
     if touch then
@@ -334,10 +333,20 @@ function UI.resize(self: any)
         if not narrowTouch then self.contextPanel.Size=UDim2.fromOffset(230,62) end
         if phone then
             local width=math.min(72,(size.X-48)/4)
-            self.actions.Size=UDim2.fromOffset(width*4+24,52); self.actions.Position=UDim2.new(1,-width*4-36,0,if tutorialVisible then 92 else 70)
+            self.actions.Size=UDim2.fromOffset(width*4+24,52); self.actions.Position=UDim2.new(1,-width*4-36,0,if tutorialVisible then 108 else 70)
             for i,b in {self.mergeButton,self.indexButton,self.rebirthButton,self.settingsButton} do
                 b.Size=UDim2.fromOffset(width,52); b.Position=UDim2.fromOffset((i-1)*(width+8),0)
             end
+        end
+    end
+    if compactTutorial and not phone then
+        local contextTop=size.Y*self.contextPanel.Position.Y.Scale+self.contextPanel.Position.Y.Offset-self.contextPanel.Size.Y.Offset
+        if contextTop<168 then
+            -- Short landscape puts the pad information beside the action row.
+            local left=if touch and not stackedTouch then 106 else 12
+            local width=math.min(230,size.X-self.actions.Size.X.Offset-24-left)
+            self.contextPanel.Position=UDim2.fromOffset(left+width/2,170)
+            self.contextPanel.Size=UDim2.fromOffset(width,62)
         end
     end
     self.toast.Position=UDim2.new(.5,0,0,if short then 104 else 108); self.toast.Size=UDim2.fromOffset(math.min(size.X-32,410),44); self.toastText.TextSize=if phone or short then 14 else 16
@@ -421,7 +430,7 @@ function UI.resize(self: any)
     self.settingsButton.Icon.Size=if heldSettings then UDim2.fromScale(.8,.8) else UDim2.fromScale(.8,.73)
     if heldSettings then
         self.settingsButton.Size=UDim2.fromOffset(44,44)
-        self.settingsButton.Position=self.homeButton.Position+UDim2.fromOffset(self.homeButton.Size.X.Offset/2+12,(self.homeButton.Size.Y.Offset-44)/2)
+        self.settingsButton.Position=self.homeButton.Position+UDim2.fromOffset(self.homeButton.Size.X.Offset/2+12,math.max(0,(self.homeButton.Size.Y.Offset-44)/2))
     end
     self.preview.Size=UDim2.new(1,-24,0,if short then 44 else 76); self.preview.TextSize=if short then 14 else 16
     self.list.Position=UDim2.fromOffset(12,if short then 112 else 144); self.list.Size=UDim2.new(1,-24,1,if short then -180 else -212)
@@ -452,23 +461,19 @@ function UI.pickup(self: any,count: number,speciesId: string?)
     if not entry then
         for _,candidate in self.pickupPool do if not candidate.root.Visible then entry=candidate; break end end
         if not entry and #self.pickupPool<6 then
-            local root=Instance.new('Frame'); root.Name='PickupGain'; root.BackgroundTransparency=1; root.Size=UDim2.fromOffset(144,58); root.AnchorPoint=Vector2.new(.5,1); root.ZIndex=9; root.Parent=self.bag
+            local root=Instance.new('Frame'); root.Name='PickupGain'; root.BackgroundTransparency=1; root.Size=UDim2.fromOffset(144,40); root.AnchorPoint=Vector2.new(.5,1); root.ZIndex=9; root.Parent=self.bag
             local amount=text(root,'Amount',38,Style.Gold); amount.Size=UDim2.new(1,0,0,40); amount.ZIndex=10
-            local species=text(root,'Species',14,Style.Cream); species.Position=UDim2.fromOffset(0,39); species.Size=UDim2.new(1,0,0,18); species.ZIndex=10
-            species.TextScaled=true; local limit=Instance.new('UITextSizeConstraint'); limit.MinTextSize=12; limit.MaxTextSize=14; limit.Parent=species
-            entry={root=root,amount=amount,species=species,index=#self.pickupPool+1,version=0}; table.insert(self.pickupPool,entry)
+            amount.TextScaled=true; local limit=Instance.new('UITextSizeConstraint'); limit.MinTextSize=18; limit.MaxTextSize=38; limit.Parent=amount
+            entry={root=root,amount=amount,index=#self.pickupPool+1,version=0}; table.insert(self.pickupPool,entry)
         end
         if not entry then
-            -- All six lanes are occupied: fold into the newest gain, preserving count.
+            -- Retire the oldest visual rather than mix different species' colors.
             entry=self.pickupPool[1]
-            for _,candidate in self.pickupPool do if candidate.started>entry.started then entry=candidate end end
-            entry.speciesId=nil; entry.species.Text='Minis'; entry.species.TextColor3=Style.Cream
-        else
-            entry.count=0; entry.speciesId=speciesId
-            local species=speciesId and Catalog[speciesId]
-            entry.species.Text=if species then species.name else 'Minis'
-            entry.species.TextColor3=if species then Color3.fromRGB(table.unpack(species.color)) else Style.Cream
+            for _,candidate in self.pickupPool do if candidate.started<entry.started then entry=candidate end end
         end
+        entry.count=0; entry.speciesId=speciesId
+        local species=speciesId and Catalog[speciesId]
+        entry.amount.TextColor3=if species then Color3.fromRGB(table.unpack(species.color)) else Style.Gold
     end
     entry.count+=count; entry.version+=1; local version=entry.version
     entry.started=now; entry.root.Visible=true; entry.root:SetAttribute('Count',entry.count); entry.amount.Text='+'..entry.count
@@ -520,54 +525,30 @@ function UI.act(self: any)
 end
 function UI.setContext(self: any,kind: string?,quantity: string?)
     self.context=kind; self.quantity=quantity or '1'
-    self.contextPanel.Visible=kind~=nil and self.state~=nil and not self:isOpen() and not (kind=='Lucky' and self:isLuckyOpen())
-    self.contextButton.Active=kind=='Pass' or kind=='Lucky' or kind=='FinishNow'
+    -- Automatic pad actions need no proximity overlay; the world labels suffice.
+    self.contextPanel.Visible=kind=='Pass' and self.state~=nil and not self:isOpen()
+    self.contextButton.Active=kind=='Pass'
     if not self.contextPanel.Visible then return end
-    local s=self.state
-    if kind=='FinishNow' then self.contextText.Text='Finish all queued sales'; self.contextButton.Text='Coming soon'
-    elseif kind=='Deposit' then self.contextText.Text=Economy.count(s.bag)..' Minis | '..Economy.count(s.saleQueue)..' in processor'; self.contextButton.Text='Walk onto the deposit pad'
-    elseif kind=='Claim' then
-        local nextSale=s.saleQueue[1]
-        self.contextText.Text=if nextSale then Economy.count(s.saleQueue)..' selling | Next in '..math.max(0,math.ceil(nextSale.due-(self.estimatedServerNow or s.serverNow)))..'s' else 'All sales complete'
-        self.contextButton.Text='Walk onto the cash pad'
-    elseif kind=='Upgrade' then
-        local cost=Config.ProcessorCosts[s.processorLevel+1]
-        self.contextText.Text='Processor Lv '..s.processorLevel..' | '..Config.ProcessorRates[s.processorLevel+1]..' / s'
-        self.contextButton.Text=if cost then 'Step on pad - $'..UI.coins(cost) else 'Fully upgraded!'
-    elseif kind=='Pass' then
-        local pass=PassConfig[self.quantity]; local info=self.shopInfo[self.quantity]
-        self.contextText.Text=pass.name
-        self.contextButton.Text=if info and info.forSale then 'View pass - '..info.price..' Robux' else 'Coming soon'
-    elseif kind=='Lucky' then
-        self.contextText.Text='A rare Lucky Block dropped!'
-        self.contextButton.Text='See rewards and price'
-    elseif kind=='Merge' then self.contextText.Text='Two matching Brainrots become one'; self.contextButton.Text='Step on pad to merge automatically'
-    else
-        local unlock=Config.BuyUnlocks[self.quantity]
-        local quote=Economy.purchaseQuote(Config,s,self.quantity)
-        self.contextText.Text=if quote.code=='Locked' then 'Unlocks at rebirth '..unlock else FarmCapacity.hint(Config,s)
-        self.contextButton.Text=if quote.code=='Locked' then 'LOCKED - Rebirth '..unlock
-            elseif quote.code=='ClaimStarter' then 'Buy your first Brainrot on the $5 pad'
-            elseif quote.code=='PlotFull' then 'Not enough space - merge!'
-            elseif quote.code=='BadRequest' then 'Unavailable'
-            else 'Step on pad - $'..UI.coins(quote.cost)
-    end
-    if self.pending then self.contextButton.Text='Waiting for server...' end
+    local pass=PassConfig[self.quantity]; local info=self.shopInfo[self.quantity]
+    self.contextText.Text=pass.name
+    self.contextButton.Text=if info and info.forSale then 'View pass - '..info.price..' Robux' else 'Coming soon'
 end
 function UI.update(self: any,state: any)
     self.state=state
-    local coins=state.coinUnits/4
-    self.stats.Text='$'..(if coins>=1e9 then string.format('%.2fB',coins/1e9) elseif coins>=1e6 then string.format('%.2fM',coins/1e6) elseif coins>=1e4 then string.format('%.1fK',coins/1e3) else UI.coins(state.coinUnits))
+    self.cashCounter=self.cashCounter or CountAnimation.new()
+    self.cashCounter:set(state.coinUnits,os.clock())
     self.detail.Text=#state.producers..' / '..Config.Slots..' Brainrots'
     self.rebirthCount.Text='Rebirth '..state.rebirths
     local total=0; local top=false
     for _,producer in state.producers do
-        local tier=Catalog[producer.speciesId].tier; total+=2^(tier-1); if tier==Config.MaxTier then top=true end
+        local tier=Catalog[producer.speciesId].tier; total+=Config.MergeCount^(tier-1); if tier>=(Config.RebirthTier or 6) then top=true end
     end
     self.total.Text='Total Brainrots: '..total
     self.rebirthBadge.Visible=top and state.coinUnits>=Config.RebirthBase+state.rebirths*Config.RebirthStep and state.rebirths<Config.MaxRebirths
     self.multiplier.Text='x'..((1+state.rebirths*.25)*state.cashMultiplier)..' Cash'
-    self.bagText.Text=tostring(Economy.count(state.bag))
+    self.bagCounter=self.bagCounter or CountAnimation.new()
+    self.bagCounter:set(Economy.count(state.bag),os.clock())
+    self:animateCounters(os.clock())
     self.bagValue.Visible=false
     local goal=Tutorial.goal(state); self.title.Text=if goal.kind=='Done' then 'MERGE A BRAINROT' else 'Tutorial'
     self.objective.Text=goal.title; self.hint.Text=goal.detail
@@ -577,6 +558,28 @@ function UI.update(self: any,state: any)
     local owned={}; for _,p in state.producers do owned[p.id]=true end
     local keep={}; for _,id in self.selected do if owned[id] then table.insert(keep,id) end end; self.selected=keep
     self:resize(); self:setContext(self.context,self.quantity); self:drawMerge()
+end
+function UI.animateCounters(self: any,now: number)
+    if self.mode=='Index' and self.overlay.Visible and self.indexView and self.indexView.animate then self.indexView.animate(now) end
+    if self.cashCounter then
+        local units=self.cashCounter:read(now)
+        if units~=self.lastCashDisplay then
+            self.lastCashDisplay=units
+            local coins=units/4
+            self.stats.Text='$'..(if coins>=1e15 then string.format('%.2fQa',coins/1e15) elseif coins>=1e12 then string.format('%.2fT',coins/1e12) elseif coins>=1e9 then string.format('%.2fB',coins/1e9) elseif coins>=1e6 then string.format('%.2fM',coins/1e6) elseif coins>=1e4 then string.format('%.1fK',coins/1e3) else UI.coins(units))
+        end
+    end
+    if not self.bagCounter then return end
+    local value=self.bagCounter:read(now)
+    if value==self.lastBagDisplay then return end
+    self.lastBagDisplay=value
+    local label=tostring(value)
+    while true do
+        local grouped,changed=label:gsub('^(%d+)(%d%d%d)','%1,%2')
+        label=grouped
+        if changed==0 then break end
+    end
+    self.bagText.Text=label
 end
 function UI.drawMerge(self: any)
     -- open() invalidates the signature and renders the latest state on demand.
@@ -647,17 +650,22 @@ function UI.drawMerge(self: any)
             local entry=card('Producer_'..p.slot,(if selected then '[ '..selected..' ] ' else '')..species.name..'\nLevel '..species.tier..' | Row '..math.ceil(p.slot/Config.Columns),if selected then C.violet else C.cream,order,function()
                 if self.pending then return end
                 local index=table.find(self.selected,p.id)
-                if index then table.remove(self.selected,index) elseif #self.selected<2 then table.insert(self.selected,p.id) else self.selected={p.id} end
+                if index then table.remove(self.selected,index) elseif #self.selected<Config.MergeCount then table.insert(self.selected,p.id) else self.selected={p.id} end
                 self.signature=nil; self:drawMerge()
             end)
             Art.cardPortrait(entry,p.speciesId)
         end
-        self.preview.Text='Select two matching Brainrots.\nMerging is free and makes room in your stack.'
-        if #pair==2 then
+        self.preview.Text='Select three matching Brainrots.\nMerging is free and makes room in your stack.'
+        if #pair==Config.MergeCount then
             local first=Catalog[pair[1].speciesId]
-            if pair[1].speciesId~=pair[2].speciesId then self.preview.Text='These Brainrots do not match.'
+            local matching=true
+            for _,producer in pair do if producer.speciesId~=pair[1].speciesId then matching=false end end
+            if not matching then self.preview.Text='These Brainrots do not match.'
             elseif not first.nextId then self.preview.Text='Highest tier! Keep this Brainrot or rebirth.'
-            else self.eligible=true; self.preview.Text=first.name..' x2 -> '..Catalog[first.nextId].name..'\n'..s.miniMultiplier..' Mini'..(if s.miniMultiplier==2 then 's' else '')..' / '..Config.Interval..'s each · $'..UI.coins(Catalog[first.nextId].value*(4+s.rebirths)*s.cashMultiplier)..' per Mini after merge' end
+            else
+                local nextSpecies=Catalog[first.nextId]
+                self.eligible=true; self.preview.Text=first.name..' x3 → '..nextSpecies.name..'\n'..string.format('%g',ProductionInfo.rate(Config,s,nextSpecies))..' Minis/s · $'..UI.coins(ProductionInfo.saleUnits(nextSpecies.value,s))..' per Mini after merge'
+            end
         end
         self.confirm.Text='Confirm merge'
     end

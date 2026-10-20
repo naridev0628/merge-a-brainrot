@@ -69,22 +69,26 @@ function Factory.characterLabel(part: BasePart,species: any,offset: number)
         local constraint=Instance.new('UITextSizeConstraint');constraint.MinTextSize=if name=='Name' then 6 else 5;constraint.MaxTextSize=fontSize;constraint.Parent=label
     end
     local displayName=if #species.name>13 then (species.name:gsub(' ','\n',1)) else species.name
-    -- Brighten the two muted names against tan shelves without recoloring meshes.
-    local nameColor=if species.tier==1 then Color3.fromRGB(255,204,143)
-        elseif species.tier==6 then Color3.fromRGB(177,236,112)
-        else Color3.fromRGB(table.unpack(species.color))
+    -- Use the same catalog palette as the number-only pickup feedback.
+    local nameColor=Color3.fromRGB(table.unpack(species.color))
     line('Name',displayName,0,.72,24,nameColor)
     line('Level','Level '..species.tier,.76,.24,16,Color3.fromRGB(255,244,222))
 end
 function Factory.producer(parent: Instance,id: string,species: any,position: Vector3,mini: boolean?): Model
     local m=Instance.new('Model'); m.Name=id
     m:SetAttribute('SpeciesId',string.format('tier_%02d',species.tier));m:SetAttribute('Tier',species.tier)
-    local templates=game:GetService('ReplicatedStorage'):FindFirstChild('CharacterModels')
-    local key=string.format('tier_%02d',species.tier)..(if mini then '_Mini' else '')
+    local templates=game:GetService('ReplicatedStorage'):FindFirstChild(if species.modelKey then 'ExpansionModels' else 'CharacterModels')
+    local key=(species.modelKey or string.format('tier_%02d',species.tier))..(if mini then '_Mini' else '')
     local template=templates and templates:FindFirstChild(key)
     if template and template:IsA('MeshPart') then
         local mesh=template:Clone(); mesh.Name='Character'; mesh.Anchored=true; mesh.CanCollide=false; mesh.CanTouch=false
-        mesh.Size*=if mini then .42 else 1
+        mesh.Size*=if mini and not species.modelKey then .42 else 1
+        if not mini then
+            -- Normalize visible height against a standard avatar, while wide
+            -- silhouettes still fit within their ten-stud display bay.
+            local scale=math.min((3.15/Config.PlotScale)/mesh.Size.Y,(Config.ColumnSpacing*.88)/mesh.Size.X)
+            mesh.Size*=scale
+        end
         mesh.CFrame=CFrame.new(position+Vector3.new(0,mesh.Size.Y/2,0))
         mesh.Parent=m; m.PrimaryPart=mesh; m:SetAttribute('BasePosition',position)
         if not mini then

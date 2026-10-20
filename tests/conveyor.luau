@@ -36,8 +36,7 @@ local pile=core:newSession(13,0,'pile')
 pile.state.coinUnits=1000000; pile.state.rebirths=3
 local buyContext={now=0,alive=true,position={x=Config.BuyPads['1'],y=3,z=Config.BuyZ}}
 assert(core:dispatch(pile,'Buy',{'starter'},buyContext).code=='OK')
-buyContext.position.x=Config.BuyPads['50']
-assert(core:dispatch(pile,'Buy',{'full','50'},buyContext).code=='OK')
+for index=1,49 do assert(core:dispatch(pile,'Buy',{'full-'..index,'1'},buyContext).code=='OK') end
 for index,producer in pile.state.producers do producer.speciesId=string.format('tier_%02d',(index-1)%6+1) end
 local fillCycles=math.ceil(Config.GroundCap/#pile.state.producers)
 for cycle=1,fillCycles do core:step(pile,cycle*Config.Interval) end

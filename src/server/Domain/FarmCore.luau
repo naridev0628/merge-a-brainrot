@@ -3,16 +3,16 @@
 export type Position = {x: number, y: number, z: number}
 export type Producer = {id: string, speciesId: string, slot: number, due: number, productionCredit: number?}
 export type Good = {speciesId: string, baseCoinValue: number, count: number?}
-export type Token = {id: string, owner: number, origin: string, speciesId: string, baseCoinValue: number, x: number, y: number, z: number, startX: number, startY: number, startZ: number, spawnedAt: number, readyAt: number}
+export type Token = {id: string, owner: number, origin: string, speciesId: string, baseCoinValue: number, count: number?, x: number, y: number, z: number, startX: number, startY: number, startZ: number, spawnedAt: number, readyAt: number}
 export type State = {
     coinUnits: number, rebirths: number, revision: number, tutorialStep: number, purchased: number, eventHundredths: number,
-    obbyBonusHundredths: number?,
+    obbyBonusHundredths: number?,depositCarry: number?,
     producers: {Producer}, bag: {Good}, tokens: {Token}, discoveries: {[string]: boolean},
     starterClaimed: boolean, saleQueue: {{units: number,due: number,count: number?,interval: number?}}, soldUnits: number,
     cashMultiplier: number, autoCollect: boolean, autoSell: boolean, miniMultiplier: number, processorLevel: number,
     lucky: {id: string,baseTier: number,held: boolean?}?,
 }
-export type Result = {code: string, revision: number?, creditUnits: number?, replayed: boolean?, speciesId: string?, count: number?, counts: {[string]: number}?}
+export type Result = {code: string, revision: number?, creditUnits: number?, replayed: boolean?, speciesId: string?, count: number?, mergedCount: number?,counts: {[string]: number}?,inputCount: number?,depositedCount: number?,multiplierHundredths: number?}
 export type Context = {now: number, alive: boolean, position: Position?, pickupPosition: Position?}
 export type Session = {owner: number, key: string, phase: string, sequence: number, state: State, cache: {[string]: any}, cacheCount: number, productionCursor: number, pickupCache: {[string]: any}, pickupOrder: {string}}
 local env: any=getfenv()
@@ -24,6 +24,8 @@ local MiniMotion: any
 if env.script then MiniMotion=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.MiniMotion) else MiniMotion=(require :: (string) -> unknown)('../../shared/MiniMotion') end
 local PadGeometry: any
 if env.script then PadGeometry=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.PadGeometry) else PadGeometry=(require :: (string) -> unknown)('../../shared/PadGeometry') end
+local LuckyRewards: any
+if env.script then LuckyRewards=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.LuckyRewards) else LuckyRewards=(require :: (string) -> unknown)('../../shared/LuckyRewards') end
 local Core = {}
 Core.__index = Core
 local function finite(n: any): boolean
@@ -63,7 +65,7 @@ end
 function Core.newSession(self: any, owner: number, now: number, key: string): Session
     local s: Session = {
         owner=owner,key=key,phase="Ready",sequence=0,cache={},cacheCount=0,productionCursor=1,pickupCache={},pickupOrder={},
-        state={coinUnits=self.config.StartingUnits,purchased=0,eventHundredths=100,obbyBonusHundredths=0,rebirths=0,revision=0,tutorialStep=1,producers={},bag={},tokens={},discoveries={},
+        state={coinUnits=self.config.StartingUnits,purchased=0,eventHundredths=100,obbyBonusHundredths=0,depositCarry=0,rebirths=0,revision=0,tutorialStep=1,producers={},bag={},tokens={},discoveries={},
             starterClaimed=false,saleQueue={},soldUnits=0,cashMultiplier=1,autoCollect=false,autoSell=false,miniMultiplier=1,processorLevel=0},
     }
     return s
@@ -72,13 +74,14 @@ function Core.validate(self: any, st: State, owner: number): boolean
     local c=self.config
     if not integer(st.coinUnits,0,c.CoinCap) or not integer(st.rebirths,0,20) or not integer(st.eventHundredths,50,150)
         or (st.obbyBonusHundredths~=nil and not integer(st.obbyBonusHundredths,0,100))
+        or (st.depositCarry~=nil and not integer(st.depositCarry,0,99))
         or not integer(st.revision,0,2^52) or #st.producers>c.Slots
         or not integer(st.purchased,0,2^31-1) or Economy.count(st.bag)>c.BagCap or #st.tokens>c.GroundCap or Economy.count(st.saleQueue)>c.SaleCapacity
         or not integer(st.soldUnits,0,c.CoinCap) then return false end
     if (st.starterClaimed and #st.producers==0) or (not st.starterClaimed and #st.producers>0) then return false end
     if st.cashMultiplier~=1 and st.cashMultiplier~=2 and st.cashMultiplier~=4 and st.cashMultiplier~=8 then return false end
     if not integer(st.processorLevel,0,#c.ProcessorCosts) or not integer(st.miniMultiplier,1,2) then return false end
-    if st.lucky and (not validString(st.lucky.id) or not integer(st.lucky.baseTier,2,6)
+    if st.lucky and (not validString(st.lucky.id) or not integer(st.lucky.baseTier,2,c.MaxTier)
         or (st.lucky.held~=nil and type(st.lucky.held)~='boolean')) then return false end
     local reserved=st.coinUnits+st.soldUnits
     local lastDue=-math.huge
@@ -97,7 +100,7 @@ function Core.validate(self: any, st: State, owner: number): boolean
     end
     for _,t in st.tokens do
         if not validString(t.id) or ids[t.id] or not validString(t.origin) or t.owner~=owner
-            or not self.catalog[t.speciesId] or not integer(t.baseCoinValue,1,170) or not validPosition(t)
+            or not self.catalog[t.speciesId] or not integer(t.baseCoinValue,1,c.CoinCap) or not integer(t.count or 1,1,c.CoinCap) or not validPosition(t)
             or not finite(t.spawnedAt) or not finite(t.readyAt) or t.readyAt<t.spawnedAt
             or not finite(t.startX) or not finite(t.startY) or not finite(t.startZ) then return false end
         ids[t.id]=true
@@ -105,7 +108,7 @@ function Core.validate(self: any, st: State, owner: number): boolean
         if counts[t.origin]>c.GroundPerProducer then return false end
     end
     for _,g in st.bag do
-        if not self.catalog[g.speciesId] or not integer(g.baseCoinValue,1,170) or not integer(g.count or 1,1,c.BagCap) then return false end
+        if not self.catalog[g.speciesId] or not integer(g.baseCoinValue,1,c.CoinCap) or not integer(g.count or 1,1,c.BagCap) then return false end
     end
     return true
 end
@@ -126,6 +129,15 @@ end
 function Core.commit(self: any, s: Session, candidate: State): boolean
     candidate.revision=s.state.revision+1
     if not self:validate(candidate,s.owner) then return false end
+    -- Slot 1 is the viewer's left. Rank the authoritative display slots after
+    -- every valid transition, retaining previous slot order among equal tiers.
+    -- Sort references only: storage order drives the round-robin scheduler.
+    local displayOrder=table.clone(candidate.producers)
+    table.sort(displayOrder,function(a: Producer,b: Producer): boolean
+        local aTier,bTier=self.catalog[a.speciesId].tier,self.catalog[b.speciesId].tier
+        return if aTier==bTier then a.slot<b.slot else aTier>bTier
+    end)
+    for slot,producer in displayOrder do producer.slot=slot end
     -- Pack all surviving minis after every state change. The server stores the
     -- same resting centers that clients animate towards, including after pickup.
     local tray=self.config.Tray
@@ -169,15 +181,11 @@ local function drainSales(st: State,now: number,c: any): boolean
     end
     return changed
 end
-local function deposit(c: any,st: State,now: number): string
-    if #st.bag==0 then return 'BagEmpty' end
-    if Economy.count(st.bag)+Economy.count(st.saleQueue)>c.SaleCapacity then return 'QueueFull' end
-    local total=st.coinUnits+st.soldUnits
-    for _,sale in st.saleQueue do total+=sale.units*(sale.count or 1) end
-    for _,g in st.bag do total+=g.baseCoinValue*(4+st.rebirths)*st.cashMultiplier*(g.count or 1) end
-    if total>c.CoinCap then return 'WalletFull' end
+local function deposit(c: any,st: State,now: number): (string,any?)
+    local quote=Economy.depositQuote(c,st)
+    if quote.code~='OK' then return quote.code,nil end
     local interval=if c.ProcessorRates then 1/c.ProcessorRates[st.processorLevel+1] else c.SaleSeconds
-    for _,g in st.bag do
+    for _,g in quote.goods do
         local units=g.baseCoinValue*(4+st.rebirths)*st.cashMultiplier
         local tail=st.saleQueue[#st.saleQueue]
         if tail and tail.units==units then
@@ -187,8 +195,9 @@ local function deposit(c: any,st: State,now: number): string
             table.insert(st.saleQueue,{units=units,count=g.count or 1,due=math.max(now,previousEnd)+interval,interval=interval})
         end
     end
+    st.depositCarry=quote.nextCarry
     st.bag={}; st.tutorialStep=math.max(st.tutorialStep,3)
-    return 'OK'
+    return 'OK',quote
 end
 local function hasStepWork(st: State,now: number): boolean
     if st.saleQueue[1] and st.saleQueue[1].due<=now then return true end
@@ -218,21 +227,21 @@ function Core.step(self: any, s: Session, now: number): boolean
         if p.due>now then continue end
         changed=true
         local cycles=math.min(c.CatchupCap,math.floor((now-p.due)/c.Interval)+1)
-        local credit=(p.productionCredit or 0)+cycles*(st.eventHundredths+(st.obbyBonusHundredths or 0))*st.miniMultiplier
-        local drops=math.floor(credit/100);p.productionCredit=credit%100
+        local drops=cycles*st.miniMultiplier
+        p.productionCredit=0
         for _=1,drops do
             -- Lucky rolls belong to production ticks, even when the physical tray is full.
             if not st.lucky and self.random()<c.LuckyChance then
                 local best=1
                 for _,producer in st.producers do best=math.max(best,self.catalog[producer.speciesId].tier) end
-                st.lucky={id=self:id(s),baseTier=math.min(6,best+1)}
+                st.lucky={id=self:id(s),baseTier=math.min(c.MaxTier-2,best+1)}
             end
             if #st.tokens>=c.GroundCap or (counts[p.id] or 0)>=c.GroundPerProducer then continue end
             local tokenId=self:id(s)
             local source=self:slotPosition(p.slot)
             table.insert(st.tokens,{
                 id=tokenId,owner=s.owner,origin=p.id,speciesId=p.speciesId,
-                baseCoinValue=self.catalog[p.speciesId].value,
+                baseCoinValue=self.catalog[p.speciesId].value,count=self.catalog[p.speciesId].production or 1,
                 x=0,z=c.TrayZ,y=c.Tray.BaseY,
                 startX=source.x,startY=source.y+1,startZ=source.z-2,
                 spawnedAt=now,readyAt=now+(c.TransitSeconds or 0),
@@ -246,8 +255,8 @@ function Core.step(self: any, s: Session, now: number): boolean
     if st.autoCollect then
         for index=#st.tokens,1,-1 do
             local t=st.tokens[index]
-            if t.readyAt<=now and Economy.count(st.bag)<c.BagCap then
-                table.remove(st.tokens,index); Economy.add(st.bag,t.speciesId,t.baseCoinValue); changed=true
+            if t.readyAt<=now and Economy.count(st.bag)+(t.count or 1)<=c.BagCap then
+                table.remove(st.tokens,index); Economy.add(st.bag,t.speciesId,t.baseCoinValue,t.count); changed=true
             end
         end
         if deposit(c,st,now)=='OK' then changed=true end
@@ -259,7 +268,7 @@ end
 function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, ctx: Context): Result
     local function reject(code: string): Result return {code=code,revision=s.state.revision} end
     if s.phase~="Ready" then return reject("Unavailable") end
-    local sizes: {[string]: number}={Collect=1,CollectNearby=1,AutoMerge=1,Deposit=1,Claim=1,Buy=2,Merge=3,Rebirth=1,Upgrade=1,OpenLucky=3,PickupLucky=2,DropLucky=2,DiscardLucky=2}
+    local sizes: {[string]: number}={Collect=1,CollectNearby=1,AutoMerge=1,Deposit=1,Claim=1,Buy=2,Merge=(self.config.MergeCount or 3)+1,Rebirth=1,Upgrade=1,OpenLucky=3,PickupLucky=2,DropLucky=2,DiscardLucky=2}
     if type(requestedAction)~='string' then return reject('BadRequest') end
     local action: string=tostring(requestedAction)
     local size=sizes[action]
@@ -297,9 +306,10 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
         for index=#st.tokens,1,-1 do
             local t=st.tokens[index]
             local current=MiniMotion.position(c,t,ctx.now)
-            if picked<room and t.owner==s.owner and current and PickupGeometry.contains(center,current,c.PickupRadius) then
-                table.remove(st.tokens,index); Economy.add(st.bag,t.speciesId,t.baseCoinValue)
-                counts[t.speciesId]=(counts[t.speciesId] or 0)+1; picked+=1
+            local miniCount=t.count or 1
+            if picked+miniCount<=room and t.owner==s.owner and current and PickupGeometry.contains(center,current,c.PickupRadius) then
+                table.remove(st.tokens,index); Economy.add(st.bag,t.speciesId,t.baseCoinValue,miniCount)
+                counts[t.speciesId]=(counts[t.speciesId] or 0)+miniCount; picked+=miniCount
             end
         end
         if picked==0 then return reject('NothingNearby') end
@@ -308,22 +318,29 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
         if not PadGeometry.contains(c,action,ctx.position :: Position) then return reject('TooFar') end
         local merged=0
         while true do
-            local seen: {[string]: number}={}; local a: number?=nil; local b: number?=nil
+            local seen: {[string]: {number}}={}
+            local group: {number}?=nil
             for index,p in st.producers do
                 if self.catalog[p.speciesId].nextId then
-                    if seen[p.speciesId] then a=seen[p.speciesId]; b=index; break end
-                    seen[p.speciesId]=index
+                    local matches=seen[p.speciesId] or {}
+                    seen[p.speciesId]=matches;table.insert(matches,index)
+                    if #matches==(c.MergeCount or 3) then group=matches;break end
                 end
             end
-            if not a or not b then break end
-            local first=st.producers[a]; local nextId=self.catalog[first.speciesId].nextId
-            table.remove(st.producers,b); table.remove(st.producers,a)
-            table.insert(st.producers,{id=self:id(s),speciesId=nextId,slot=first.slot,due=ctx.now+c.Interval})
-            st.discoveries[nextId]=true; merged+=1
+            if not group then break end
+            local first=st.producers[group[1]]
+            local nextId=self.catalog[first.speciesId].nextId
+            local slot=first.slot
+            for index=#group,1,-1 do
+                slot=math.min(slot,st.producers[group[index]].slot)
+                table.remove(st.producers,group[index])
+            end
+            table.insert(st.producers,{id=self:id(s),speciesId=nextId,slot=slot,due=ctx.now+c.Interval})
+            st.discoveries[nextId]=true;merged+=1
         end
         if merged==0 then return reject('NoPairs') end
         table.sort(st.producers,function(a: Producer,b: Producer) return a.slot<b.slot end)
-        for slot,p in st.producers do p.slot=slot end
+        for packedSlot,p in st.producers do p.slot=packedSlot end
         st.tutorialStep=7; result.count=merged
     elseif action=="Collect" then
         local index: number?=nil
@@ -333,16 +350,17 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
         local current=MiniMotion.position(c,t,ctx.now)
         if not current then return reject('InTransit') end
         if distance(ctx.position :: Position,current)>c.CollectDistance then return reject("TooFar") end
-        if Economy.count(st.bag)>=c.BagCap then return reject("BagFull") end
+        if Economy.count(st.bag)+(t.count or 1)>c.BagCap then return reject("BagFull") end
         table.remove(st.tokens,index)
-        Economy.add(st.bag,t.speciesId,t.baseCoinValue)
-        result.speciesId=t.speciesId
+        Economy.add(st.bag,t.speciesId,t.baseCoinValue,t.count)
+        result.speciesId=t.speciesId; result.count=t.count or 1
         st.tutorialStep=math.max(st.tutorialStep,2)
     elseif action=="Deposit" or action=="Claim" or action=="Buy" then
         if not PadGeometry.contains(c,action,ctx.position :: Position,quantity) then return reject("TooFar") end
         if action=="Deposit" then
-            local code=deposit(c,st,ctx.now)
+            local code,quote=deposit(c,st,ctx.now)
             if code~='OK' then return reject(code) end
+            result.inputCount=quote.inputCount;result.depositedCount=quote.depositedCount;result.multiplierHundredths=quote.multiplierHundredths
         elseif action=="Claim" then
             if st.soldUnits==0 then return reject('NothingReady') end
             result.creditUnits=st.soldUnits; st.coinUnits+=st.soldUnits; st.soldUnits=0
@@ -352,14 +370,30 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
             if quote.code~='OK' then return reject(quote.code) end
             local amount,tier,cost=quote.amount,quote.tier,quote.cost
             local speciesId=string.format('tier_%02d',tier)
-            local used: {[number]: boolean}={}
-            for _,p in st.producers do used[p.slot]=true end
-            local slot=1
-            st.coinUnits-=cost; st.purchased+=amount*2^(tier-1); result.count=amount; result.speciesId=speciesId; st.starterClaimed=true; st.discoveries[speciesId]=true
-            for _=1,amount do
-                while used[slot] do slot+=1 end
-                table.insert(st.producers,{id=self:id(s),speciesId=speciesId,slot=slot,due=ctx.now+c.Interval})
-                used[slot]=true
+            st.coinUnits-=cost; st.purchased+=amount*(c.MergeCount or 3)^(tier-1); result.count=amount; result.speciesId=speciesId; st.starterClaimed=true; st.discoveries[speciesId]=true
+            if quote.mergePlan then
+                local previous: {[string]: Producer}={}
+                for _,producer in st.producers do previous[producer.id]=producer end
+                local final: {Producer}={}
+                for slot,item in quote.mergePlan do
+                    local source=if item.sourceId then previous[item.sourceId] else nil
+                    local unchanged=source and source.speciesId==item.speciesId
+                    table.insert(final,{id=if source then source.id else self:id(s),speciesId=item.speciesId,slot=slot,
+                        due=if source and unchanged then source.due else ctx.now+c.Interval,
+                        productionCredit=if source and unchanged then source.productionCredit else 0})
+                end
+                st.producers=final
+                for _,discovered in quote.discoveries do st.discoveries[discovered]=true end
+                result.mergedCount=quote.mergedCount
+            else
+                local used: {[number]: boolean}={}
+                for _,p in st.producers do used[p.slot]=true end
+                local slot=1
+                for _=1,amount do
+                    while used[slot] do slot+=1 end
+                    table.insert(st.producers,{id=self:id(s),speciesId=speciesId,slot=slot,due=ctx.now+c.Interval})
+                    used[slot]=true
+                end
             end
             st.tutorialStep=if #st.producers>=2 then math.max(st.tutorialStep,6) else st.tutorialStep
         end
@@ -377,13 +411,12 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
         local lucky=st.lucky
         if not lucky or lucky.id~=args[2] then return reject('MissingLucky') end
         if not lucky.held then return reject('NotHoldingLucky') end
-        local cost=c.LuckyBaseUnits+#st.producers*c.LuckyPerProducerUnits
+        local cost=LuckyRewards.cost(c,st)
         if args[3]~=tostring(cost) then return reject('PriceChanged') end
         if #st.producers>=c.Slots then return reject('PlotFull') end
         if st.coinUnits<cost then return reject('InsufficientFunds') end
         local roll=self.random()
-        local tier=math.min(6,lucky.baseTier+(if roll<.75 then 0 elseif roll<.95 then 1 else 2))
-        local speciesId=string.format('tier_%02d',tier)
+        local speciesId=LuckyRewards.choose(c,lucky.baseTier,roll).speciesId
         st.coinUnits-=cost; st.lucky=nil
         table.insert(st.producers,{id=self:id(s),speciesId=speciesId,slot=#st.producers+1,due=ctx.now+c.Interval})
         st.discoveries[speciesId]=true; result.speciesId=speciesId
@@ -398,29 +431,36 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
     elseif action=="Rebirth" then
         if st.rebirths>=c.MaxRebirths then return reject("MaxRebirths") end
         local ownsTop=false
-        for _,p in st.producers do if self.catalog[p.speciesId].tier==c.MaxTier then ownsTop=true; break end end
+        for _,p in st.producers do if self.catalog[p.speciesId].tier>=(c.RebirthTier or c.MaxTier) then ownsTop=true; break end end
         if not ownsTop then return reject("NeedTier6") end
         if st.coinUnits<c.RebirthBase+st.rebirths*c.RebirthStep then return reject("InsufficientFunds") end
-        st.rebirths+=1; st.purchased=0; st.coinUnits=0; st.bag={}; st.tokens={}; st.saleQueue={}; st.soldUnits=0; st.processorLevel=0; st.lucky=nil
+        st.rebirths+=1; st.purchased=0; st.coinUnits=0; st.bag={}; st.tokens={}; st.saleQueue={}; st.soldUnits=0; st.processorLevel=0; st.lucky=nil;st.depositCarry=0
         st.producers={{id=self:id(s),speciesId="tier_01",slot=1,due=ctx.now+c.Interval}}
     else
-        if args[2]==args[3] then return reject("SameProducer") end
-        local a: number?=nil; local b: number?=nil
-        for i,p in st.producers do
-            if p.id==args[2] then a=i end
-            if p.id==args[3] then b=i end
+        local selected: {[string]: boolean}={}
+        for index=2,size do
+            if selected[args[index]] then return reject("SameProducer") end
+            selected[args[index]]=true
         end
-        if not a or not b then return reject("MissingProducer") end
-        local ai,bi=a :: number,b :: number
-        local first,second=st.producers[ai],st.producers[bi]
-        if first.speciesId~=second.speciesId then return reject("Mismatch") end
+        local indexes: {number}={}
+        for index,p in st.producers do
+            if selected[p.id] then table.insert(indexes,index) end
+        end
+        if #indexes~=(c.MergeCount or 3) then return reject("MissingProducer") end
+        local first=st.producers[indexes[1]]
+        local slot=first.slot
+        for _,index in indexes do
+            if st.producers[index].speciesId~=first.speciesId then return reject("Mismatch") end
+            slot=math.min(slot,st.producers[index].slot)
+        end
         local nextId=self.catalog[first.speciesId].nextId
         if not nextId then return reject("MaxTier") end
-        local output: Producer={id=self:id(s),speciesId=nextId :: string,slot=math.min(first.slot,second.slot),due=ctx.now+c.Interval}
-        table.remove(st.producers,math.max(ai,bi)); table.remove(st.producers,math.min(ai,bi))
+        local output: Producer={id=self:id(s),speciesId=nextId :: string,slot=slot,due=ctx.now+c.Interval}
+        for index=#indexes,1,-1 do table.remove(st.producers,indexes[index]) end
         table.insert(st.producers,output)
+        result.count=1
         table.sort(st.producers,function(a: Producer,b: Producer) return a.slot<b.slot end)
-        for slot,p in st.producers do p.slot=slot end
+        for packedSlot,p in st.producers do p.slot=packedSlot end
         st.discoveries[nextId]=true
         st.tutorialStep=7
     end

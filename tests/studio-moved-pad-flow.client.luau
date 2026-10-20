@@ -23,8 +23,8 @@ task.spawn(function()
     local connections={}
     local controls,character,humanoid,root,original,speed,autoRotate,enabled,fixture,control
     local state,phase,activeCycle=nil,'startup',nil
-    local report={scope='Synthetic funds/Lucky; shipped Main purchases/pickup, one staging move then actual walking.',
-        responses={},cycles={},waypoints={},walkedWorldStuds=0}
+    local report={scope='Synthetic funds/Lucky; shipped Main purchases/pickup, one staging move then actual walking around Merge.',
+        responses={},cycles={},waypoints={},walkedWorldStuds=0,enteredMerge=false}
     local receivedAt=0
     local deadline=os.clock()+130
     local config,plot,offset
@@ -85,8 +85,9 @@ task.spawn(function()
         end
         waitUntil(function() return gui:FindFirstChild('BrainrotHUD')~=nil end,10,'Client Main did not create its HUD')
         config=require(Replicated.Shared.Config)
-        assert(config.BuyPads['5']==22 and config.BuyPads['10']==-22 and config.AutoCollectZ==52 and config.LuckyZ==65,
-            'Use the accepted wider-tray sources')
+        assert(config.BuyPads['5']==22 and config.BuyPads['10']==-22
+            and config.BuyZ==67.5 and config.MergeZ==52 and config.LuckyZ==65,
+            'Use the reviewed adjacent-buy-row and moved-Merge sources')
         assert(math.abs(config.LuckyPickupRadius*config.PlotScale-6)<1e-6)
         table.insert(connections,net.StateSnapshot.OnClientEvent:Connect(function(value)
             if value.status=='Ready' then state=value;receivedAt=os.clock() end
@@ -127,16 +128,30 @@ task.spawn(function()
         original=character:GetPivot();speed=humanoid.WalkSpeed;autoRotate=humanoid.AutoRotate;enabled=controls.controlsEnabled
         offset=humanoid.HipHeight+root.Size.Y/2+(if humanoid.RigType==Enum.HumanoidRigType.R6 then 2 else 0)
         plot=assert(workspace.MergeABrainrotGenerated:FindFirstChild('Plot'..state.plotId))
+        assert(not plot:FindFirstChild('FinishNowPad'),'Reviewed map must remove Finish Now')
+        for _,child in plot:GetChildren() do
+            assert(not child.Name:match('^Pass_'),'Reviewed map must remove paid placeholder pads')
+        end
+        -- The cross-lane stays below Merge's complete rendered base (Z48.15).
+        -- Purchase approaches remain at X +/-22 or44, outside the Lucky radius.
+        local crossZ=43
+        local exitZ=config.BuyZ-9
         controls:Disable();humanoid.WalkSpeed=16;humanoid.AutoRotate=true
         -- Allow shipped moveHome to finish before the sole staging teleport.
         task.wait(.5)
-        character:PivotTo(state.plotCFrame*CFrame.new(Vector3.new(44,0,48)*config.PlotScale+Vector3.new(0,offset+.2,0)))
+        character:PivotTo(state.plotCFrame*CFrame.new(Vector3.new(44,0,crossZ)*config.PlotScale+Vector3.new(0,offset+.2,0)))
         root.AssemblyLinearVelocity=Vector3.zero;root.AssemblyAngularVelocity=Vector3.zero
         task.wait(.3)
         local lastPosition,lastAt=root.Position,os.clock()
         table.insert(connections,RunService.Heartbeat:Connect(function()
             if character~=player.Character or not root.Parent then return end
             sampleEntry()
+            local logical=logicalFoot()
+            if math.abs(logical.X-config.MergeX)<=5.35
+                and math.abs(logical.Z-config.MergeZ)<=3.85
+                and logical.Y>=-.1 and logical.Y<=7 then
+                report.enteredMerge=true
+            end
             local p,now=root.Position,os.clock()
             local delta=p-lastPosition
             if delta.Magnitude>math.max(5,(now-lastAt)*28+2) then report.unexpectedTeleport=true end
@@ -144,22 +159,23 @@ task.spawn(function()
             lastPosition=p;lastAt=now
         end))
         setPhase('starter')
-        walk(44,56)
+        walk(44,config.BuyZ)
         waitUntil(function() return #state.producers==1 end,2,'Starter walk-up failed')
-        walk(44,48)
+        walk(44,exitZ)
+        walk(44,crossZ)
         local function buyCycle(quantity)
             local x=config.BuyPads[quantity]
             setPhase('buy-'..quantity..'-approach')
-            walk(x,48)
+            walk(x,crossZ)
             local before=#state.producers
             local cycle={quantity=quantity,successes={},tooFar=0}
             table.insert(report.cycles,cycle);activeCycle=cycle
             setPhase('buy-'..quantity..'-hold')
-            walk(x,56)
+            walk(x,config.BuyZ)
             waitUntil(function() return #cycle.successes>=3 end,6,'Expected entry and two standing purchases')
             -- Leave before the fourth .5-second repeat; the pad front is only
             -- 2.51 world studs from its center, traversed at normal WalkSpeed.
-            walk(x,48);activeCycle=nil
+            walk(x,exitZ);activeCycle=nil
             waitUntil(function() return #state.producers==before+3*tonumber(quantity) end,2,'Wrong batch count')
             assert(#cycle.successes==3,'Unexpected extra standing purchase')
             assert(cycle.enteredAt,'Never entered the rendered pad base')
@@ -170,31 +186,27 @@ task.spawn(function()
             cycle.repeatInterval=third.at-second.at
             -- Broad scheduling tolerance; still rejects delayed first-entry,
             -- old .1s spam, missing two-second hold and three-second pending retry.
-            assert(cycle.entryLatency>=-.1 and cycle.entryLatency<1,'Entry was not immediate: '..cycle.entryLatency)
+            assert(cycle.tooFar==0,'Walking entry was rejected as TooFar: '..cycle.tooFar)
+            assert(cycle.entryLatency>=-.1 and cycle.entryLatency<.35,'Entry was not immediate: '..cycle.entryLatency)
             assert(cycle.firstRepeatAfterEntry>=1.75 and cycle.firstRepeatAfterEntry<3.25,
                 'First repeat did not honor the two-second hold: '..cycle.firstRepeatAfterEntry)
             assert(cycle.repeatInterval>=.35 and cycle.repeatInterval<1.25,
                 'Standing repeat did not follow the half-second cadence: '..cycle.repeatInterval)
+            walk(x,crossZ)
         end
         buyCycle('5')
-        walk(0,48)
         buyCycle('10')
-        walk(0,48)
         assert(#state.producers==46 and state.coinUnits==5120,'Unexpected completed purchase accounting')
-        setPhase('auto-collect-walkup')
-        walk(0,52)
         local hud=assert(gui:FindFirstChild('BrainrotHUD'))
-        local action=hud.SafeArea.PadAction
-        waitUntil(function()
-            return action.Visible and action.Summary.Text=='Auto Collect + Deposit' and action.Act.Text=='Coming soon'
-        end,2,'Moved Auto Collect context did not appear')
-        assert(action.Act.Active and not state.autoCollect and not state.autoSell,'Offer granted automation or became inactive')
-        report.autoCollect={summary=action.Summary.Text,button=action.Act.Text,x=logicalFoot().X,z=logicalFoot().Z}
         setPhase('lucky-outside')
-        walk(0,55);task.wait(.25)
+        -- Circle the left end of Merge, then approach Lucky sideways above it.
+        -- Never use the old X0/Z52 offer waypoint: it now performs a real merge.
+        walk(-14,crossZ)
+        walk(-14,58);task.wait(.25)
         local outside=logicalFoot()
         report.luckyOutside=(outside-Vector3.new(config.LuckyX,1.6,config.LuckyZ)).Magnitude*config.PlotScale
         assert(report.luckyOutside>6 and state.lucky and not state.lucky.held,'Lucky picked up outside six world studs')
+        assert(outside.Z>config.MergeZ+3.85,'Sideways Lucky approach must remain above the Merge base')
         local coins=state.coinUnits
         setPhase('lucky-inside')
         -- MoveTo can stop nearly one world stud short. At goal Z57.5 even
@@ -213,8 +225,11 @@ task.spawn(function()
         local overlay=hud.SafeArea.PanelOverlay
         assert(overlay.Visible and not overlay.Active and overlay.BackgroundTransparency==1,'Lucky card became modal')
         setPhase('held-lucky-walk')
-        walk(0,52)
+        walk(-14,57.5)
+        walk(-14,crossZ)
         assert(state.lucky and state.lucky.held and overlay.Visible,'Walking closed or dropped the held Lucky')
+        assert(not report.enteredMerge,'Walking route crossed the active Merge pad')
+        assert(#state.producers==46 and state.coinUnits==5120,'Lucky route changed the completed purchase accounting')
         assert(not report.unexpectedTeleport and report.walkedWorldStuds>50,'Route must be real walking after the initial stage')
         report.producers=#state.producers;report.coinUnits=state.coinUnits;report.snapshotAge=os.clock()-receivedAt
         control:FireServer('Complete')

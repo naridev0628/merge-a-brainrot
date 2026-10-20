@@ -11,27 +11,40 @@ local ok,err=pcall(function()
     for _,size in {Vector2.new(320,480),Vector2.new(640,280),Vector2.new(1440,900)} do
         ui.root.Size=UDim2.fromOffset(size.X,size.Y)
         ui:update(state);ui:setContext('Buy','1')
-        assert(ui.contextText.Text==(Config.Slots-1)..' spaces left')
+        assert(not ui.contextPanel.Visible,'Automatic pads must not show a proximity panel')
         state.tokens=table.create(Config.GroundCap,{id='visual-only'})
         ui:update(state)
-        assert(ui.contextText.Text=='Tray full • Collect Minis','Full tray must explain why drops stop')
+        assert(not ui.contextPanel.Visible,'Full tray must not restore the removed proximity panel')
         task.wait()
-        assert(ui.contextText.TextBounds.Y<=ui.contextText.AbsoluteSize.Y,'Capacity hint must fit on a small display')
         state.tokens={};ui:update(state)
-        assert(ui.contextText.Text==(Config.Slots-1)..' spaces left','The tray hint must clear after collection')
+        for _,kind in {'Buy','Deposit','Claim','Upgrade','Merge','Lucky','FinishNow'} do
+            ui:setContext(kind,'1');ui:setPending(true)
+            assert(not ui.contextPanel.Visible,'Removed proximity panel reappeared for '..kind)
+            ui:setPending(false)
+        end
         ui:open('Index')
         task.wait()
         local note=ui.panel.IndexProduction
-        assert(string.find(note.Text,'1.27 Minis/s',1,true),'Index must include the active world event')
+        local rate=ui.panel.IndexGrid.tier_01.MiniValue
+        assert(rate.Text=='1 / sec','Card must show raw production; the event applies at deposit')
+        assert(note.Text=='$1.25 per Mini · Each card shows Minis / second','Index must separate rebirth cash value from tier production')
         assert(note.TextBounds.Y<=note.AbsoluteSize.Y,'Production explanation must fit its allocated text area')
         state.eventHundredths=50;ui:update(state)
-        assert(string.find(note.Text,'0.5 Minis/s',1,true),'Event-only snapshots must refresh the Index')
+        assert(rate.Text=='1 / sec','Event must not multiply displayed production twice')
         state.obbyBonusHundredths=25;ui:update(state)
-        assert(string.find(note.Text,'0.75 Minis/s',1,true),'Obby-only snapshots must refresh the Index')
+        assert(rate.Text=='1 / sec','Obby multiplier belongs to deposit, not raw production')
         ui:close()
         state.eventHundredths=127;state.obbyBonusHundredths=0
+    end
+    local catalog=require(Shared.CreatureCatalog)
+    for tier=1,8 do ui:pickup(tier*10,string.format('tier_%02d',tier)) end
+    assert(#ui.pickupPool==6,'Pickup visuals must remain bounded')
+    for _,entry in ui.pickupPool do
+        assert(not entry.root:FindFirstChild('Species'),'Pickup subtitle must be removed')
+        assert(entry.amount.Text=='+'..entry.count,'Pickup must show only its numeric gain')
+        assert(entry.amount.TextColor3==Color3.fromRGB(table.unpack(catalog[entry.speciesId].color)),'Pickup must use the producer name color')
     end
 end)
 ui.gui:Destroy()
 assert(ok,err)
-return 'PASS live capacity hints, collection recovery, small-screen fit and event/obby-only Index refresh'
+return 'PASS hidden proximity panels, colored number-only bounded pickups, small-screen Index and event/obby-only refresh'

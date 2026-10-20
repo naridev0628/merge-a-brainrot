@@ -47,14 +47,17 @@ for id=1,Config.PlotCount do
     assert(math.abs(rearHi.Z-Config.PlotBackZ*s)<.01 and math.abs(frontLo.Z+38*s)<.01,'Expanded plot must retain its front edge and reach the back wall')
     assert(Config.BuyZ-Map.Spawn.Position.Z>=35,'Purchase row must leave an open forecourt')
     local chuteLo,chuteHi=footprint(plot.ConveyorCenter,frame)
+    for _,part in plot:GetChildren() do if part.Name=='ConveyorChuteSlope' then
+        local lo,hi=footprint(part,frame);chuteLo=chuteLo:Min(lo);chuteHi=chuteHi:Max(hi)
+    end end
     local beltLo=footprint(plot.ConveyorBelt,frame)
     assert(chuteLo.Z<=trayHi.Z+.01 and chuteHi.Z>=beltLo.Z-.01,'Tray and conveyor must have a continuous center chute')
-    for _,quantity in {'1','5','10','50'} do
+    for _,quantity in {'1','5','10','100'} do
         local title=plot['Buy'..quantity].Label.Text
         assert(title.Font==Enum.Font.FredokaOne and title.TextSize>=30 and title:FindFirstChildOfClass('UIStroke'),'Purchase title needs a bold rounded outline')
         assert(title.Parent.Price.Position.Y.Offset>=title.Size.Y.Offset-2,'Purchase price must remain below its title')
     end
-    for _,name in {'Buy1','Buy5','Buy10','Buy50','UpgradePad','CoinPad'} do
+    for _,name in {'Buy1','Buy5','Buy10','Buy100','UpgradePad','CoinPad'} do
         local gui=plot[name].Label
         local title,price=gui.Text,assert(gui:FindFirstChild('Price'),name..' needs a separate value line')
         assert(title.TextColor3==TextStyle.Cream,name..' action must remain cream')
@@ -76,7 +79,7 @@ for id=1,Config.PlotCount do
     assert(not groupDisplay.AlwaysOnTop and groupDisplay.Adornee==plot.GroupRewardTextFace,'Group board must use the verified world-space render path')
     local groupFront=group.CFrame:PointToObjectSpace(groupDisplay.Adornee.Position)
     assert(groupFront.Z<-group.Size.Z/2-.16*s,'Group board text must clear every raised wood stud')
-    for _,name in {'Buy1','Buy5','Buy10','Buy50','UpgradePad'} do
+    for _,name in {'Buy1','Buy5','Buy10','Buy100','UpgradePad'} do
         local pad=plot[name]
         local affordable=pad:GetAttribute('Affordable')
         if affordable~=nil then
@@ -88,8 +91,8 @@ for id=1,Config.PlotCount do
             end
         end
     end
-    local farmer=assert(plot.DepositBooth:FindFirstChild('Shopkeeper'))
-    assert(math.abs(farmer.Size.Y-5.5)<.01,'Farmer must be avatar height in world studs')
+    local farmer=assert(plot.DepositBooth:FindFirstChild('BrainrotLogKeeper'))
+    assert(math.abs(farmer:GetExtentsSize().Y-5.5)<.1,'Blender merchant must remain about avatar height in world studs')
     for _,row in plot.StackRows:GetChildren() do for _,part in row:GetChildren() do
         if part.Name=='DisplayPlatform' then
             assert(math.abs(part.Size.Y-Config.DisplayPlatformHeight*s)<.01,'Producer stands must retain their raised thickness')

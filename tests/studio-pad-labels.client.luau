@@ -16,8 +16,7 @@ local sandbox=Instance.new('Folder')
 local world=Instance.new('Folder');world.Name='MergeABrainrotGenerated';world.Parent=sandbox
 local plot=Instance.new('Model');plot.Name='Plot1';plot.Parent=world
 local otherPlot=Instance.new('Model');otherPlot.Name='Plot2';otherPlot.Parent=world
-local names={'Buy1','Buy5','Buy10','Buy50','DepositPad','CoinPad','UpgradePad','MergePad','FinishNowPad',
-    'Pass_autoCollect','Pass_autoSell','Pass_mini2','Pass_cash2','Pass_cash4','Pass_cash8'}
+local names={'Buy1','Buy5','Buy10','Buy100','DepositPad','CoinPad','UpgradePad','MergePad'}
 local before={}
 local function remember(object,properties)
     local values={}
@@ -37,7 +36,7 @@ for index,name in names do
 end
 local viewport=camera.ViewportSize
 local spacing=math.min(120,viewport.X/4)
-for index,name in {'Buy1','Buy5','Pass_autoCollect'} do
+for index,name in {'Buy1','Buy5','UpgradePad'} do
     place(plot[name],viewport.X/2+(index-2)*spacing,viewport.Y/2,45)
 end
 local foreign=source.Buy1:Clone();foreign.Parent=otherPlot
@@ -58,7 +57,7 @@ local ok,err=xpcall(function()
     assert(foreign.Label.Size==foreignSize and foreign.Label.Enabled==foreignEnabled,'Only the assigned plot may change')
     local count=0
     for _ in controller.records do count+=1 end
-    assert(count==15,'Cache only the fifteen static local pad labels')
+    assert(count==8,'Cache only the eight active local pad labels')
     for _,name in names do
         local part=plot[name]
         for property,value in before[part] do assert(part[property]==value,'Interaction geometry changed: '..name..'.'..property) end
@@ -69,11 +68,11 @@ local ok,err=xpcall(function()
     controller:update(1.2,camera,camera.CFrame.Position)
     assert(price.Text=='$1,234,567','Never restore or replace a live quote')
     -- Force a projected collision and approach the Buy pad.
-    plot.Pass_autoCollect.Position=plot.Buy1.Position
+    plot.UpgradePad.Position=plot.Buy1.Position
     controller:update(1.4,camera,plot.Buy1.Position)
     assert(plot.Buy1.Label.Enabled and plot.Buy1.Label.Size==before[plot.Buy1.Label].Size,'The nearby buy label keeps full size')
-    assert(not plot.Pass_autoCollect.Label.Enabled,'A crowded offer must not cover the nearby price')
-    plot.Pass_autoCollect.CFrame=before[plot.Pass_autoCollect].CFrame
+    assert(not plot.UpgradePad.Label.Enabled,'A crowded utility label must not cover the nearby buy price')
+    plot.UpgradePad.CFrame=before[plot.UpgradePad].CFrame
     controller:clear()
     for object,properties in before do
         for key,value in properties do assert(object[key]==value,'Teardown failed to restore '..object.Name..'.'..key) end
@@ -92,4 +91,4 @@ local ok,err=xpcall(function()
 end,debug.traceback)
 controller:destroy();sandbox:Destroy()
 assert(ok,err)
-return 'PASS fifteen local pad labels, distance shrink, near full size, quote/hierarchy/geometry preservation and exact teardown/plot-change restoration'
+return 'PASS eight active local pad labels, distance shrink, near full size, quote/hierarchy/geometry preservation and exact teardown/plot-change restoration'

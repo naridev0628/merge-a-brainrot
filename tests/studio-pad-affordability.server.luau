@@ -9,7 +9,7 @@ local fixture=workspace.MergeABrainrotGenerated.Plot2:Clone()
 local world={root=fixture,frame=fixture:GetPivot(),producers=fixture.Producers,tokens=fixture.Minis,rows=fixture.StackRows,
     badgePart=fixture.OwnerBadgeAnchor,ownerLabel=fixture.OwnerSign.Label.Text,pads={},saleLabel={},processorLabel={},processorRate={},
     upgradeLabel=fixture.UpgradePad.Label.Text,upgradePrice=fixture.UpgradePad.Label.Price}
-for _,q in {'1','5','10','50'} do world.pads[q]=fixture['Buy'..q].Label.Text end
+for _,q in {'1','5','10','100'} do world.pads[q]=fixture['Buy'..q].Label.Text end
 local state=Core.new(Config,Catalog):newSession(999,0,'pad-test').state
 state.starterClaimed=true;state.purchased=58;state.rebirths=1
 local function check(name,affordable)
@@ -24,15 +24,15 @@ local function check(name,affordable)
     end
 end
 local ok,err=pcall(function()
-    for _,q in {'1','5','10','50'} do
-        local cost=Economy.buyCost(state.purchased,tonumber(q),1)
+    for _,q in {'1','5','10','100'} do
+        local cost=Economy.purchaseQuote(Config,state,q).cost
         for _,balance in {cost-1,cost,cost+1,0,cost} do
             state.coinUnits=balance;World.render(world,state)
             check('Buy'..q,balance>=cost)
         end
     end
-    state.coinUnits=400000;state.rebirths=0;World.render(world,state);check('Buy50',false)
-    state.rebirths=1;World.render(world,state);check('Buy50',true)
+    state.coinUnits=400000;state.rebirths=0;World.render(world,state);check('Buy100',false)
+    state.rebirths=1;World.render(world,state);check('Buy100',true)
     for _,balance in {Config.ProcessorCosts[1]-1,Config.ProcessorCosts[1],0} do
         state.coinUnits=balance;World.render(world,state);check('UpgradePad',balance>=Config.ProcessorCosts[1])
     end
@@ -40,4 +40,4 @@ local ok,err=pcall(function()
 end)
 fixture:Destroy()
 assert(ok,err)
-print('PASS live renderer: Buy 1/5/10/50 threshold crossings, studs, trim, unlock and upgrade colors')
+print('PASS live renderer: Buy 1/5/10/100 threshold crossings, studs, trim, unlock and upgrade colors')

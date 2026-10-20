@@ -6,7 +6,7 @@ local Layout=require(game:GetService('ReplicatedStorage'):WaitForChild('Shared')
 local Labels={};Labels.__index=Labels
 local owners: {[Instance]: any}={}
 local names={
-    Buy1=1,Buy5=1,Buy10=1,Buy50=1,
+    Buy1=1,Buy5=1,Buy10=1,Buy100=1,
     DepositPad=2,CoinPad=2,UpgradePad=2,MergePad=2,FinishNowPad=3,
     Pass_autoCollect=3,Pass_autoSell=3,Pass_mini2=3,Pass_cash2=3,Pass_cash4=3,Pass_cash8=3,
 }

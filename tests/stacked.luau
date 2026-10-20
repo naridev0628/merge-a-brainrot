@@ -14,16 +14,18 @@ local function buy(c,s,id,quantity)
     return c:dispatch(s,'Buy',{id,quantity},{now=0,alive=true,position={x=x,y=3,z=Config.BuyZ}})
 end
 local c,s=fixture(); s.state.coinUnits=4000000
-eq(buy(c,s,'locked','50').code,'Locked')
+eq(buy(c,s,'locked','100').code,'Locked')
 eq(s.state.coinUnits,4000000); eq(#s.state.producers,1)
 s.state.rebirths=3
-eq(buy(c,s,'fifty','50').code,'OK')
-eq(#s.state.producers,50); eq(s.state.coinUnits,4000000-Economy.buyCost(1,49,3))
-eq(buy(c,s,'fifty','50').replayed,true)
-eq(#s.state.producers,50)
-eq(buy(c,s,'fifty','10').code,'RequestConflict')
-eq(buy(c,s,'capacity','50').code,'PlotFull'); eq(s.state.coinUnits,4000000-Economy.buyCost(1,49,3))
-eq(buy(c,s,'forged','99').code,'BadRequest')
+local quote=Economy.purchaseQuote(Config,s.state,'100')
+eq(buy(c,s,'hundred','100').code,'OK')
+eq(#s.state.producers,#quote.mergePlan); eq(s.state.coinUnits,4000000-Economy.buyCost(1,100,3))
+eq(buy(c,s,'hundred','100').replayed,true)
+eq(buy(c,s,'hundred','10').code,'RequestConflict')
+eq(buy(c,s,'forged','50').code,'BadRequest')
+-- Keep fifty placed producers for the independent shelf/merge geometry checks.
+c,s=fixture();s.state.coinUnits=4000000
+for index=1,49 do eq(buy(c,s,'single'..index,'1').code,'OK') end
 local one=c:slotPosition(1); local ten=c:slotPosition(10); local eleven=c:slotPosition(11)
 assert(ten.x<one.x); eq(eleven.x,one.x); assert(eleven.y>one.y); eq(eleven.z,one.z)
 assert(one.x-ten.x>=90,'Ten producer bays must span the broad rear bank')
@@ -32,10 +34,10 @@ for slot=2,Config.Columns do
     eq(c:slotPosition(slot-1).x-c:slotPosition(slot).x,10)
 end
 local due=s.state.producers[4].due; local survivor=s.state.producers[4].id
-eq(c:dispatch(s,'Merge',{'merge',s.state.producers[2].id,s.state.producers[3].id},{now=2,alive=true,position={x=0,y=3,z=36}}).code,'OK')
+eq(c:dispatch(s,'Merge',{'merge',s.state.producers[1].id,s.state.producers[2].id,s.state.producers[3].id},{now=2,alive=true,position={x=0,y=3,z=36}}).code,'OK')
 local seen={}
 for _,p in s.state.producers do seen[p.slot]=true; if p.id==survivor then eq(p.due,due) end end
-for i=1,49 do assert(seen[i]) end
+for i=1,48 do assert(seen[i]) end
 c:step(s,6)
 for _,t in s.state.tokens do assert(t.y>0 and t.y<8); assert(t.z<one.z) end
 local r,rs=fixture()

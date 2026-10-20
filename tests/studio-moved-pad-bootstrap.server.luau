@@ -31,6 +31,7 @@ local player=Players:GetPlayers()[1]
 local Core=require(Server.Domain.FarmCore)
 local Config=require(Replicated.Shared.Config)
 local Map=require(Replicated.Shared.MapSpec)
+assert(Config.BuyZ==67.5 and Config.MergeZ==52,'Use the reviewed buy row and moved Merge geometry')
 local status=Instance.new('Folder')
 status.Name='MovedPadFixture'
 status:SetAttribute('OwnerId',player.UserId)
@@ -38,6 +39,8 @@ status:SetAttribute('Status','WaitingForSession')
 status:SetAttribute('SyntheticCoinUnits',10000)
 status:SetAttribute('LuckyId','moved-pad-'..Http:GenerateGUID(false))
 status:SetAttribute('WrapperRestored',false)
+status:SetAttribute('BuyZ',Config.BuyZ)
+status:SetAttribute('MergeZ',Config.MergeZ)
 local result=Instance.new('StringValue');result.Name='ServerResult';result.Value='running';result.Parent=status
 local control=Instance.new('RemoteEvent');control.Name='Control';control.Parent=status
 status.Parent=Replicated
@@ -124,10 +127,12 @@ table.insert(connections,control.OnServerEvent:Connect(function(who,action)
         assert(state.coinUnits==5120,'Expected 20 starter units + 4860 batch units, with free Lucky pickup')
         assert(state.lucky and state.lucky.id==status:GetAttribute('LuckyId') and state.lucky.held,'Expected the same held Lucky')
         assert(not state.autoCollect and not state.autoSell and state.processorLevel==0 and state.rebirths==0,
-            'Walking onto the offer must not grant passes or change unrelated progression')
+            'The purchase/Lucky walking route must not change unrelated progression')
         local counts={['1']=0,['5']=0,['10']=0}
         local seen,pickups={},0
         for _,request in requests do
+            assert(request.action~='AutoMerge' and request.action~='Merge',
+                'Walking fixture crossed Merge instead of following its safe route')
             local cached=session.cache[request.id]
             if cached and cached.result.code=='OK' and not seen[request.id] then
                 seen[request.id]=true

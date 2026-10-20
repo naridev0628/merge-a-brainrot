@@ -1,0 +1,14 @@
+{
+  "SkyBottom": {
+    "mesh": "rbxassetid://85943815001977",
+    "texture": "rbxassetid://117702440347561"
+  },
+  "SkySide": {
+    "mesh": "rbxassetid://121601752655913",
+    "texture": "rbxassetid://74382985612211"
+  },
+  "SkyTop": {
+    "mesh": "rbxassetid://75624788107392",
+    "texture": "rbxassetid://79026701774965"
+  }
+}

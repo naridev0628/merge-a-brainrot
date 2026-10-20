@@ -2,6 +2,7 @@
 -- Local collection celebration. Text has no panel; all 3D accents are native parts.
 local TweenService=game:GetService('TweenService')
 local Debris=game:GetService('Debris')
+local RunService=game:GetService('RunService')
 local Style=require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('TextStyle'))
 local CashEffects={}
 local bursts: {{folder: Folder,count: number,expires: number}}={}
@@ -38,6 +39,7 @@ local function celebrateCharacter(character: Model?)
     local bundles=if repeatClaim then 3 else 6
     local rays=if repeatClaim then 3 else 6
     local segments=if repeatClaim then 3 else 5
+    local returning={}
     for index=1,bundles do
         local angle=index*math.pi*2/bundles+.17;local radius=2.2+(index%3)*.8
         local target=CFrame.new(origin+Vector3.new(math.cos(angle)*radius,.2,math.sin(angle)*radius))*CFrame.Angles(0,angle,0)
@@ -49,9 +51,32 @@ local function celebrateCharacter(character: Model?)
         } do
             local cash=neon(burst,piece.name,piece.size,start*piece.offset,piece.color);cash.Material=Enum.Material.SmoothPlastic
             TweenService:Create(cash,TweenInfo.new(.5,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{CFrame=target*piece.offset}):Play()
-            task.delay(.95,function()if cash.Parent then TweenService:Create(cash,TweenInfo.new(.65),{Transparency=1,CFrame=target*piece.offset+Vector3.new(0,.35,0)}):Play() end end)
+            table.insert(returning,{part=cash,size=piece.size})
         end
     end
+    task.delay(.7,function()
+        if not burst.Parent or not root.Parent then return end
+        for _,item in returning do item.start=item.part.CFrame end
+        local began=os.clock()
+        local connection
+        connection=RunService.RenderStepped:Connect(function()
+            if not burst.Parent or not root.Parent then connection:Disconnect();return end
+            local alpha=math.clamp((os.clock()-began)/.45,0,1)
+            local eased=alpha*alpha
+            local target=CFrame.new(root.Position+Vector3.new(0,.25,0))
+            for _,item in returning do
+                if item.part.Parent then
+                    item.part.CFrame=item.start:Lerp(target,eased)
+                    item.part.Size=item.size*(1-.92*eased)
+                    item.part.Transparency=math.max(0,(alpha-.75)*4)
+                end
+            end
+            if alpha>=1 then
+                connection:Disconnect()
+                for _,item in returning do item.part:Destroy() end
+            end
+        end)
+    end)
     for ray=1,rays do
         local angle=ray*math.pi*2/rays
         local direction=Vector3.new(math.cos(angle),0,math.sin(angle))

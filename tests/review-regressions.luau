@@ -7,7 +7,7 @@ local core=Core.new(Config,Catalog,function() return 1 end)
 local s=core:newSession(1,0,'fair')
 core:dispatch(s,'Buy',{'free'},{now=0,alive=true,position={x=Config.BuyPads['1'],y=3,z=Config.BuyZ}})
 s.state.rebirths=3; s.state.coinUnits=1000000
-core:dispatch(s,'Buy',{'bulk','50'},{now=0,alive=true,position={x=Config.BuyPads['50'],y=3,z=Config.BuyZ}})
+for index=1,49 do assert(core:dispatch(s,'Buy',{'full-'..index,'1'},{now=0,alive=true,position={x=Config.BuyPads['1'],y=3,z=Config.BuyZ}}).code=='OK') end
 core:setPasses(s,{mini2=true})
 local finalId=s.state.producers[50].id
 local produced={}

@@ -6,7 +6,7 @@ local Style=require(Shared:WaitForChild('TextStyle'))
 local Cue={}
 Cue.__index=Cue
 local owners: {[ScreenGui]: any}={}
-local colors={rise=Style.Price,fall=Color3.fromRGB(255,151,132)}
+local colors={rise=Color3.fromRGB(255,185,142),fall=Color3.fromRGB(255,185,142)}
 
 local function visible(object: GuiObject,root: GuiObject): boolean
     local current: Instance?=object
@@ -30,8 +30,10 @@ function Cue.new(view: any)
     local label=Instance.new('TextLabel');label.Name='MiniMultiplierChange'
     label.BackgroundTransparency=1;label.Text='';label.Visible=false
     label.Active=false;label.Selectable=false;label.RichText=false;label.TextWrapped=true;label.TextScaled=true
-    label.ZIndex=8;Style.apply(label,30,Style.Price,3)
-    local size=Instance.new('UITextSizeConstraint');size.MinTextSize=17;size.MaxTextSize=30;size.Parent=label
+    label.ZIndex=8;Style.apply(label,42,colors.rise,4)
+    local gradient=Instance.new('UIGradient');gradient.Rotation=90
+    gradient.Color=ColorSequence.new(Color3.new(1,1,1),Color3.fromRGB(255,181,175));gradient.Parent=label
+    local size=Instance.new('UITextSizeConstraint');size.MinTextSize=17;size.MaxTextSize=42;size.Parent=label
     label.Parent=view.root;self.label=label;self.textSize=size
     local function connect(signal: RBXScriptSignal,callback: (...any)->())
         local connection=signal:Connect(callback)

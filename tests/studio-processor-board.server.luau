@@ -86,9 +86,9 @@ local ok,err=xpcall(function()
     table.insert(metrics,nextOwner)
     check(nextOwner.queued=='1' and nextOwner.affordable==false,'Reused plot did not show fresh state')
     check(title.Text=='Processing Minis','Board needs the short mixed-case heading')
-    check(queued.TextScaled and queued:FindFirstChildWhichIsA('UITextSizeConstraint').MaxTextSize>=90,
+    check(queued.TextScaled and queued:FindFirstChildWhichIsA('UITextSizeConstraint').MaxTextSize==100,
         'Count must retain scaling with a larger font cap')
-    check(queued.Size.Y.Offset>=110,'Count needs the larger existing cell')
+    check(queued.Size.Y.Offset==150,'Count needs the large reference-proportioned cell')
     check(title.Position.Y.Offset+title.Size.Y.Offset<=queued.Position.Y.Offset
         and queued.Position.Y.Offset+queued.Size.Y.Offset<=rate.Position.Y.Offset
         and rate.Position.Y.Offset+rate.Size.Y.Offset<=display.CanvasSize.Y,'Board rows overlap or exceed the canvas')
@@ -98,7 +98,7 @@ local ok,err=xpcall(function()
         check(part:IsDescendantOf(board),'Board Part was replaced')
         for key,value in properties do check(part[key]==value,'Board geometry/appearance changed: '..part.Name..'.'..key) end
     end
-    check(display.SizingMode==Enum.SurfaceGuiSizingMode.FixedSize and display.CanvasSize==Vector2.new(690,300)
+    check(display.SizingMode==Enum.SurfaceGuiSizingMode.FixedSize and display.CanvasSize==Vector2.new(690,375)
         and not display.AlwaysOnTop,'Keep the existing canvas and scene occlusion')
 end,debug.traceback)
 fixture:Destroy();module:Destroy()

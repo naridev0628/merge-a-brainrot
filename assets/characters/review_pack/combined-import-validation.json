@@ -1,0 +1,31 @@
+{
+  "mesh_count": 23,
+  "material_count": 2,
+  "image_count": 2,
+  "names": [
+    "BanditoBobritto",
+    "BanditoBobritto_Mini",
+    "BrainrotCoffeeKeeper",
+    "BrainrotLogKeeper",
+    "BrainrotMarketSign",
+    "GangsterFootera",
+    "GangsterFootera_Mini",
+    "LiriliLarila",
+    "LiriliLarila_Mini",
+    "NoobiniSantanini",
+    "NoobiniSantanini_Mini",
+    "PipiCorni",
+    "PipiCorni_Mini",
+    "PipiKiwi",
+    "PipiKiwi_Mini",
+    "RaccooniJandelini",
+    "RaccooniJandelini_Mini",
+    "SvininaBombardino",
+    "SvininaBombardino_Mini",
+    "Tartaragno",
+    "Tartaragno_Mini",
+    "TrippiTroppi",
+    "TrippiTroppi_Mini"
+  ],
+  "bytes": 2261872
+}

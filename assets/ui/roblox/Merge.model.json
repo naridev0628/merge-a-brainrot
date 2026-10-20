@@ -1,0 +1,1115 @@
+{
+  "className": "Model",
+  "children": [
+    {
+      "className": "Part",
+      "name": "Tung Tung log",
+      "properties": {
+        "Size": [
+          0.651,
+          0.9555000000000001,
+          0.441
+        ],
+        "CFrame": [
+          -0.9,
+          -0.95,
+          0,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.65,
+          0.31,
+          0.105
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Eye white",
+      "properties": {
+        "Size": [
+          0.231,
+          0.273,
+          0.06825
+        ],
+        "CFrame": [
+          -1.068,
+          -0.8344999999999999,
+          -0.24675,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.99,
+          0.91
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Pupil",
+      "properties": {
+        "Size": [
+          0.10500000000000001,
+          0.1575,
+          0.042
+        ],
+        "CFrame": [
+          -1.068,
+          -0.8554999999999999,
+          -0.29190000000000005,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.025,
+          0.018,
+          0.025
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Eye white",
+      "properties": {
+        "Size": [
+          0.231,
+          0.273,
+          0.06825
+        ],
+        "CFrame": [
+          -0.732,
+          -0.8344999999999999,
+          -0.24675,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.99,
+          0.91
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Pupil",
+      "properties": {
+        "Size": [
+          0.10500000000000001,
+          0.1575,
+          0.042
+        ],
+        "CFrame": [
+          -0.732,
+          -0.8554999999999999,
+          -0.29190000000000005,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.025,
+          0.018,
+          0.025
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Smile",
+      "properties": {
+        "Size": [
+          0.2625,
+          0.07350000000000001,
+          0.052500000000000005
+        ],
+        "CFrame": [
+          -0.9,
+          -1.1915,
+          -0.273,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.025,
+          0.018,
+          0.025
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Wood grain",
+      "properties": {
+        "Size": [
+          0.036750000000000005,
+          0.273,
+          0.0315
+        ],
+        "CFrame": [
+          -1.1520000000000001,
+          -1.1704999999999999,
+          -0.24150000000000002,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.3,
+          0.12,
+          0.045
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Tung Tung log",
+      "properties": {
+        "Size": [
+          0.651,
+          0.9555000000000001,
+          0.441
+        ],
+        "CFrame": [
+          0,
+          -0.95,
+          0,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.65,
+          0.31,
+          0.105
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Eye white",
+      "properties": {
+        "Size": [
+          0.231,
+          0.273,
+          0.06825
+        ],
+        "CFrame": [
+          -0.168,
+          -0.8344999999999999,
+          -0.24675,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.99,
+          0.91
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Pupil",
+      "properties": {
+        "Size": [
+          0.10500000000000001,
+          0.1575,
+          0.042
+        ],
+        "CFrame": [
+          -0.168,
+          -0.8554999999999999,
+          -0.29190000000000005,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.025,
+          0.018,
+          0.025
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Eye white",
+      "properties": {
+        "Size": [
+          0.231,
+          0.273,
+          0.06825
+        ],
+        "CFrame": [
+          0.168,
+          -0.8344999999999999,
+          -0.24675,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.99,
+          0.91
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Pupil",
+      "properties": {
+        "Size": [
+          0.10500000000000001,
+          0.1575,
+          0.042
+        ],
+        "CFrame": [
+          0.168,
+          -0.8554999999999999,
+          -0.29190000000000005,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.025,
+          0.018,
+          0.025
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Smile",
+      "properties": {
+        "Size": [
+          0.2625,
+          0.07350000000000001,
+          0.052500000000000005
+        ],
+        "CFrame": [
+          0,
+          -1.1915,
+          -0.273,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.025,
+          0.018,
+          0.025
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Wood grain",
+      "properties": {
+        "Size": [
+          0.036750000000000005,
+          0.273,
+          0.0315
+        ],
+        "CFrame": [
+          -0.252,
+          -1.1704999999999999,
+          -0.24150000000000002,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.3,
+          0.12,
+          0.045
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Tung Tung log",
+      "properties": {
+        "Size": [
+          0.651,
+          0.9555000000000001,
+          0.441
+        ],
+        "CFrame": [
+          0.9,
+          -0.95,
+          0,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.65,
+          0.31,
+          0.105
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Eye white",
+      "properties": {
+        "Size": [
+          0.231,
+          0.273,
+          0.06825
+        ],
+        "CFrame": [
+          0.732,
+          -0.8344999999999999,
+          -0.24675,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.99,
+          0.91
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Pupil",
+      "properties": {
+        "Size": [
+          0.10500000000000001,
+          0.1575,
+          0.042
+        ],
+        "CFrame": [
+          0.732,
+          -0.8554999999999999,
+          -0.29190000000000005,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.025,
+          0.018,
+          0.025
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Eye white",
+      "properties": {
+        "Size": [
+          0.231,
+          0.273,
+          0.06825
+        ],
+        "CFrame": [
+          1.068,
+          -0.8344999999999999,
+          -0.24675,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.99,
+          0.91
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Pupil",
+      "properties": {
+        "Size": [
+          0.10500000000000001,
+          0.1575,
+          0.042
+        ],
+        "CFrame": [
+          1.068,
+          -0.8554999999999999,
+          -0.29190000000000005,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.025,
+          0.018,
+          0.025
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Smile",
+      "properties": {
+        "Size": [
+          0.2625,
+          0.07350000000000001,
+          0.052500000000000005
+        ],
+        "CFrame": [
+          0.9,
+          -1.1915,
+          -0.273,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.025,
+          0.018,
+          0.025
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Wood grain",
+      "properties": {
+        "Size": [
+          0.036750000000000005,
+          0.273,
+          0.0315
+        ],
+        "CFrame": [
+          0.648,
+          -1.1704999999999999,
+          -0.24150000000000002,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.3,
+          0.12,
+          0.045
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Upgrade arrow shaft",
+      "properties": {
+        "Size": [
+          0.26,
+          0.52,
+          0.3
+        ],
+        "CFrame": [
+          0,
+          0.01,
+          -0.1,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "WedgePart",
+      "name": "Arrow head prism",
+      "properties": {
+        "Size": [
+          0.45,
+          0.65,
+          0.4
+        ],
+        "CFrame": [
+          -0.20000000298023224,
+          0.16500001192092895,
+          -0.03,
+          7.549790126404332e-08,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          -1.0,
+          0.0,
+          7.549790126404332e-08
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "WedgePart",
+      "name": "Arrow head prism",
+      "properties": {
+        "Size": [
+          0.45,
+          0.65,
+          0.4
+        ],
+        "CFrame": [
+          0.20000000298023224,
+          0.16500001192092895,
+          -0.03,
+          -4.371138828673793e-08,
+          0.0,
+          -1.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          -4.371138828673793e-08
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Upgraded green head",
+      "properties": {
+        "Size": [
+          1.05,
+          0.92,
+          0.52
+        ],
+        "CFrame": [
+          0,
+          1.1,
+          0,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.31,
+          0.8,
+          0.1
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Banana crown",
+      "properties": {
+        "Size": [
+          1.28,
+          0.24,
+          0.52
+        ],
+        "CFrame": [
+          0,
+          1.68,
+          0,
+          0.9950041770935059,
+          0.09983332455158234,
+          0.0,
+          -0.09983332455158234,
+          0.9950041770935059,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.77,
+          0.075
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Cream face",
+      "properties": {
+        "Size": [
+          0.82,
+          0.64,
+          0.12
+        ],
+        "CFrame": [
+          0,
+          1.1,
+          -0.3,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.9,
+          0.62
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Upgraded eye",
+      "properties": {
+        "Size": [
+          0.14,
+          0.18,
+          0.06
+        ],
+        "CFrame": [
+          -0.23,
+          1.2,
+          -0.38,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.025,
+          0.018,
+          0.025
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Upgraded eye",
+      "properties": {
+        "Size": [
+          0.14,
+          0.18,
+          0.06
+        ],
+        "CFrame": [
+          0.23,
+          1.2,
+          -0.38,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.025,
+          0.018,
+          0.025
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Upgrade grin",
+      "properties": {
+        "Size": [
+          0.36,
+          0.09,
+          0.06
+        ],
+        "CFrame": [
+          0,
+          0.94,
+          -0.38,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.43,
+          0.012,
+          0.035
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    }
+  ]
+}

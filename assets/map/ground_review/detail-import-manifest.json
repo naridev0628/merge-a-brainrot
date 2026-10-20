@@ -1,0 +1,82 @@
+[
+  {
+    "size": [
+      6.453498840332031,
+      12.053500175476074,
+      5.3535003662109375
+    ],
+    "mesh": "rbxassetid://102808681711825",
+    "name": "BrickTree",
+    "texture": "rbxassetid://134365510718406"
+  },
+  {
+    "size": [
+      16.000001907348633,
+      0.1599999964237213,
+      16
+    ],
+    "mesh": "rbxassetid://99835272165602",
+    "name": "GroundBrownTile",
+    "texture": "rbxassetid://134365510718406"
+  },
+  {
+    "size": [
+      16.000003814697266,
+      0.1599999964237213,
+      16
+    ],
+    "mesh": "rbxassetid://128885941595781",
+    "name": "GroundBrownTriangle",
+    "texture": "rbxassetid://134365510718406"
+  },
+  {
+    "size": [
+      16,
+      0.1599999964237213,
+      16.000001907348633
+    ],
+    "mesh": "rbxassetid://126902064689612",
+    "name": "GroundGoldTile",
+    "texture": "rbxassetid://134365510718406"
+  },
+  {
+    "size": [
+      16,
+      0.1599999964237213,
+      16
+    ],
+    "mesh": "rbxassetid://123480021398195",
+    "name": "GroundGoldTriangle",
+    "texture": "rbxassetid://134365510718406"
+  },
+  {
+    "size": [
+      16,
+      0.1599999964237213,
+      8
+    ],
+    "mesh": "rbxassetid://136974451343004",
+    "name": "GroundGreenEdge",
+    "texture": "rbxassetid://134365510718406"
+  },
+  {
+    "size": [
+      16.000001907348633,
+      0.1599999964237213,
+      16.000001907348633
+    ],
+    "mesh": "rbxassetid://96666806570565",
+    "name": "GroundGreenTile",
+    "texture": "rbxassetid://134365510718406"
+  },
+  {
+    "size": [
+      16,
+      0.1599999964237213,
+      16
+    ],
+    "mesh": "rbxassetid://75744430962676",
+    "name": "GroundGreenTriangle",
+    "texture": "rbxassetid://134365510718406"
+  }
+]

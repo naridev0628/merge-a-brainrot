@@ -20,14 +20,14 @@ for _,action in {'CollectNearby','Collect'} do
     assert(#s.state.tokens==0 and s.state.bag[1].count==1)
 end
 -- Halfway through falling, the animation has traversed one quarter of its fall.
-local dropY=1.4+29.25*.032
+local dropY=1.5+.0004*29.25^2
 local falling=session()
 assert(at(falling,'CollectNearby','fall',10+.11*4,29.25,30+(dropY-30)*.25,Config.DisplayZ+(Config.BeltZ-Config.DisplayZ)*.25,preciseCore).code=='OK')
 -- Sliding halfway along the red lane is also eligible before the tray is reached.
 local sliding=session()
-assert(at(sliding,'CollectNearby','slide',10+(.22+.55/2)*4,29.25/2,(dropY+.75)/2,Config.BeltZ,preciseCore).code=='OK')
+assert(at(sliding,'CollectNearby','slide',10+(.22+.55/2)*4,29.25/2,1.5+.0004*(29.25/2)^2,Config.BeltZ,preciseCore).code=='OK')
 local arc=session()
-assert(at(arc,'CollectNearby','arc',10+(.77+.23/2)*4,0,(.75+1.3)/2+3,(Config.BeltZ+Config.TrayZ)/2,preciseCore).code=='OK')
+assert(at(arc,'CollectNearby','arc',10+(.77+.23/2)*4,0,(1.5+1.3)/2+3,(Config.BeltZ+Config.TrayZ)/2,preciseCore).code=='OK')
 for _,action in {'CollectNearby','Collect'} do
     local s=session()
     local result=at(s,action,if action=='Collect' then 'mini' else 'remote',10,0,1.3,Config.TrayZ)

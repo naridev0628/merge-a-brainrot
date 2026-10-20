@@ -130,6 +130,33 @@ assert(next(c.groups)==nil and next(c.models)==nil and next(c.producers)==nil)
 collection.added.ConveyorMini:emit(mini)
 assert(next(c.groups)==nil,'Destroyed controller must not regain a plot group')
 print('PASS shared plot registration, duplicate tags, final-tag release and disconnected controller destruction')
+-- Execute the actual slide renderer against authoritative MiniMotion for
+-- rotated plots. This catches missing scale/rotation compensation in the client.
+local motion,config=modules.MiniMotion,modules.Config
+for _,yaw in {0,.7,math.pi} do
+    local world=CFrame.new(120,0,-70)*CFrame.Angles(0,yaw,0)
+    local scale=config.PlotScale
+    local function point(x,y,z) return world:PointToWorldSpace(Vector3.new(x,y,z)*scale) end
+    for _,startX in {-45,-5,5,45} do
+        local token={startX=startX,startY=25,startZ=config.DisplayZ,x=3,y=1.3,z=config.TrayZ,spawnedAt=10,readyAt=14}
+        local attrs={ConveyorStart=point(startX,25,config.DisplayZ),ConveyorDrop=point(startX,motion.beltHeight(startX),config.BeltZ),
+            ConveyorCenter=point(0,motion.beltHeight(0),config.BeltZ),ConveyorEnd=point(3,1.3,config.TrayZ),
+            SpawnedAt=10,ReadyAt=14,PlotScale=scale,FinalRotation=CFrame.identity,RestingLift=Vector3.zero}
+        local visual={Parent=true,pose=CFrame.new(attrs.ConveyorStart)}
+        function visual:GetAttribute(key) return attrs[key] end
+        function visual:GetPivot() return self.pose end
+        function visual:PivotTo(pose) self.pose=pose end
+        local controller={models={[visual]={rotation=CFrame.identity,settled=false,landed=false}},producers={}}
+        for _,progress in {.23,.33,.495,.66,.76} do
+            local now=10+4*progress
+            modules.Conveyor.update(controller,now)
+            local logical=motion.position(config,token,now)
+            assert((visual.pose.Position-point(logical.x,logical.y,logical.z)).Magnitude<1e-7,
+                'Rendered curved slide must match pickup geometry on every rotated plot')
+        end
+    end
+end
+print('PASS actual curved Conveyor renderer matches authoritative pickup on rotated plots')
 '@
 $target = Join-Path $repo '.tools/conveyor-visibility-cli.luau'
 [System.IO.File]::WriteAllText($target, $scriptText)
