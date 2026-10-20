@@ -464,8 +464,9 @@ function World.render(world: any,state: any)
         game:GetService('CollectionService'):AddTag(mini,'ConveyorMini')
         local producer=world.producers:FindFirstChild(t.origin)
         if producer then producer:SetAttribute('ProducedAt',t.spawnedAt) end
+        else
+            mini:SetAttribute('ConveyorEnd',point(world,Vector3.new(t.x,t.y,t.z)))
         end
-        mini:SetAttribute('ConveyorEnd',point(world,Vector3.new(t.x,t.y,t.z)))
     end
     for _,child in world.tokens:GetChildren() do if not present[child.Name] then child:Destroy() end end
     for quantity,label in world.pads do
