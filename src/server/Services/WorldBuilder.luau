@@ -34,6 +34,13 @@ end
 local function point(world: any,value: Vector3): Vector3
     return world.frame:PointToWorldSpace(value*Map.PlotScale)
 end
+local function positionOwnerTitle(world: any,rowCount: number)
+    local gui=world.ownerLabel.Parent
+    -- OwnerSign stays at logical Y4; the header belongs above the highest row.
+    -- World Y keeps the title out of the shelf when the camera tilts.
+    local offset=Vector3.new(0,(12+(rowCount-1)*Config.RowHeight)*Map.PlotScale,0)
+    if gui.StudsOffsetWorldSpace~=offset then gui.StudsOffsetWorldSpace=offset end
+end
 local function pad(parent: Instance,name: string,size: Vector3,cf: CFrame,color: Color3)
     Factory.part(parent,name..'Base',size+Vector3.new(.7,.25,.7),cf-Vector3.new(0,.22,0),Color3.fromRGB(112,65,30))
     for _,side in {-1,1} do
@@ -186,6 +193,11 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local mergeLabel=Factory.label(merge,'Merge',160,44);TextStyle.apply(mergeLabel,32,TextStyle.Cream,2.6)
     local sign=Factory.part(root,'OwnerSign',Vector3.new(14,4,1),CFrame.new(0,4,Config.PlotBackZ-2),Color3.fromRGB(157,91,31))
     local ownerLabel=Factory.label(sign,'BRAINROT FARM',260,58)
+    ownerLabel.Parent.Size=UDim2.fromScale(32,4)
+    ownerLabel.Parent.StudsOffset=Vector3.zero
+    ownerLabel.Parent.StudsOffsetWorldSpace=Vector3.new(0,12,0)
+    ownerLabel.TextScaled=true
+    local ownerTitleSize=Instance.new('UITextSizeConstraint');ownerTitleSize.MinTextSize=1;ownerTitleSize.MaxTextSize=22;ownerTitleSize.Parent=ownerLabel
     local badgePart=Factory.part(root,'OwnerBadgeAnchor',Vector3.one,CFrame.new(0,44,Config.DisplayZ),orange); badgePart.Transparency=1
     local badge=Instance.new('BillboardGui'); badge.Name='OwnerBadge'; badge.Size=UDim2.fromOffset(220,120); badge.MaxDistance=500; badge.AlwaysOnTop=true; badge.Parent=badgePart
     local portrait=Instance.new('ImageLabel'); portrait.Name='Portrait'; portrait.BackgroundColor3=Color3.fromRGB(80,160,250); portrait.Size=UDim2.fromOffset(76,76); portrait.Position=UDim2.new(.5,-38,0,0); portrait.Parent=badge
@@ -398,6 +410,7 @@ function World.render(world: any,state: any)
     end
     for _,child in world.producers:GetChildren() do if not present[child.Name] then child:Destroy() end end
     local rowCount=math.max(1,math.ceil(#state.producers/Config.Columns))
+    positionOwnerTitle(world,rowCount)
     world.badgePart.CFrame=world.frame*CFrame.new(Vector3.new(0,44+(rowCount-1)*Config.RowHeight,Config.DisplayZ)*Map.PlotScale)
     for row=1,rowCount do
         if not world.rows:FindFirstChild(tostring(row)) then
@@ -466,6 +479,7 @@ function World.clear(world: any)
     world.producers:ClearAllChildren(); world.tokens:ClearAllChildren(); world.rows:ClearAllChildren(); world.ownerLabel.Text='BRAINROT FARM'
     world.ownerId=nil; world.ownerName.Text='Available plot'; world.portrait.Visible=false; world.portrait.Image=''
     world.ownerName.Position=UDim2.fromOffset(0,40);world.badgePart.CFrame=world.frame*CFrame.new(Vector3.new(0,44,Config.DisplayZ)*Map.PlotScale)
+    positionOwnerTitle(world,1)
     world.saleLabel.Text='$0'
 end
 return World

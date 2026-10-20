@@ -1,5 +1,5 @@
 {
-  "updatedAtUTC": "2026-10-20T10:32:53Z",
+  "updatedAtUTC": "2026-10-20T10:47:24Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
@@ -7,12 +7,12 @@
   "studioId": "ef89b65f-2f6a-4fe7-8272-bae9e8007fd1",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Normal Play: 699931c plus verified wider tray, sloped dividers, native lawn and brighter producer-name palette working tree.",
+    "mode": "Normal Play: ea5de16 plus verified rear title working tree.",
     "mainScripts": "Both production Main scripts are enabled (Disabled=false), confirmed by root.",
     "temporaryScripts": [],
-    "harnessCleanup": "No ReferenceLayoutPreview, ProducerPalettePreview, TrayWalkPlot or TrayWalkFixture; HUD enabled, Custom camera. Normal Main scripts enabled.",
-    "productionSync": "80/80 source hashes match at 10:20:48 UTC. 44 standalone suites, all80 source compilations, strictCore, native map/walk checks, peer review, Rojo and diff pass.",
-    "currentTrial": "Map batch fully verified, including normal-client moved-pad and Lucky smoke; ready to commit. Fresh normal Play restored.",
+    "harnessCleanup": "OwnerTitlePreview removed; normal Main scripts and HUD enabled, Custom camera, character health100.",
+    "productionSync": "80/80 source hashes match at10:47:24UTC;44 suites,80 sources,seven fixtures,native owner title/affordability/endpoint checks,peer,Rojo pass.",
+    "currentTrial": "Owner title verified and ready to commit; next producer label camera anchoring.",
     "sourceFreeze": "Historical capacity samples remain fixed earlier source based on 70786a3. The completed snapshot-toggle probe froze production cbbd765 before the counter and DepositEffects changes were synced. The historical harness uses deep Core.snapshot rather than production SnapshotPacket; its saved metrics and source scope are unchanged.",
     "console": "Final cleanup and source parity are saved in counter-deposit-native.json and studio-source-verification.json. Native regression results are GREEN. This checkpoint makes no broader full-Studio-Script-Analysis claim; external plugin errors are not reclassified as project defects.",
     "computerUse": "Physical Escape stopped UI work in the earlier 07:56 turn. Root subsequently completed native/render checks; no overnight cancellation was requested."
@@ -84,7 +84,9 @@
     "Home/booth batch: Home visible from accepted Ready state during onboarding; compact guidance/Shop preserved. Native12-viewport text/separation and Lucky/Settings regressions pass after two boundary overlaps reproduced and fixed. Observed actual Home click returns early-tutorial avatar to plot. Paired390x440 captures saved. Exact previous booth constructor compares426 parts across6 plots with unchanged geometry/material/flags/assets. Sources80/80; no performance claim. Raw home-booth-native.json.",
     "699931c committed/pushed: Home available during onboarding,12 viewport native/CLI layout checks and426-part FarmerBooth extraction parity.",
     "Foltyn study:14 timestamped selected frames,8key views,nine annotated native pairs; old100-frame board preserved.",
-    "Working-tree map batch:24x16tray,96 Minis in3layers, six-plot geometry/trajectory checks, mixed/allCroc96 actual-Humanoid pickups, same-count sloped dividers,−5064 lawn Parts, unchanged77colliders/plot and18slabs, brighter name-only tier1/6 palette."
+    "Working-tree map batch:24x16tray,96 Minis in3layers, six-plot geometry/trajectory checks, mixed/allCroc96 actual-Humanoid pickups, same-count sloped dividers,−5064 lawn Parts, unchanged77colliders/plot and18slabs, brighter name-only tier1/6 palette.",
+    "ea5de16 committed and pushed: wider tray, same-count sloped bays, native lawn, brighter tier1/6 name palette,14 new annotated Foltyn references, normal moved-pad and Lucky smoke.",
+    "Rear owner title native RED/GREEN passed:1/2/5rows,shrink/empty/clear,actualspeciesidentities,long20Wfit,four paired views."
   ],
   "benchmarkEvidence": {
     "baselineFiles": [
@@ -211,12 +213,11 @@
     }
   },
   "active": [
-    "Commit and push the verified Foltyn map batch to draft PR2.",
-    "Next code improvement: raise the clipped rear farm title above its highest occupied shelf row, with clear/reset and native long-name checks."
+    "Commit verified rear owner-title batch.",
+    "Investigate remaining lower-row producer-name clipping with clone A/B views."
   ],
   "next": [
-    "Commit current verified map batch.",
-    "Implement and test the prepared rear farm-title fix.",
+    "Continue producer-label anchoring and UI audit.",
     "Continue authorized overnight coding until13:30UTC."
   ],
   "constraints": [
@@ -230,20 +231,20 @@
   "heartbeatIntervalMinutes": 15,
   "heartbeatStatus": "Root confirms the 15-minute continuation heartbeat remains active.",
   "verification": {
-    "sourceFilesCompiled": 79,
-    "standaloneLuauTestFilesPassed": 43,
+    "sourceFilesCompiled": 80,
+    "standaloneLuauTestFilesPassed": 44,
     "rojoBuild": "PASS",
-    "finalScopedFix": "Counter/deposit batch is synced, natively verified and committed in 4ae9a52: final mirrored fixture, eight deposit cases, existing effects regression, 43 pure suites, actual-module Deposit CLI, changed source/fixture compilation, peer review, Rojo and diff checks pass. At 09:30:30 UTC all 79 running-Server project sources match. Main.server full Studio Script Analysis was not re-read; earlier isolated type probes remain the warning evidence.",
+    "finalScopedFix": "Owner title native RED/GREEN,44pure suites,80source/sevenfixture compiles,affordability/endpoint regressions,peer,Rojo,eightJPEGs and diff PASS.",
     "studioSourceFile": "docs/verification/studio-source-verification.json",
-    "studioSourceMatched": 79,
-    "studioSourceLocalCount": 79,
+    "studioSourceMatched": 80,
+    "studioSourceLocalCount": 80,
     "studioSourceMismatchCount": 0,
-    "studioSourceRecordedAtUTC": "2026-10-20T09:30:30Z",
-    "studioSourceTimestampStatus": "Final counter/deposit source parity recorded at 09:30:30 UTC. Endpoint evidence separately retains its corrected 08:59:42 UTC timestamp.",
+    "studioSourceRecordedAtUTC": "2026-10-20T10:47:24Z",
+    "studioSourceTimestampStatus": "Latest title batch recorded10:47:24UTC; earlier fixed-source benchmark evidence remains unchanged.",
     "studioSourceScope": "Project sources in running Server DataModel, normalized CRLF, DJB2 bytes; excludes engine-injected scripts.",
     "padLabelsBefore": "docs/verification/fresh-hud-pad-spacing.jpg",
     "padLabelsAfter": "docs/verification/pad-labels-after.jpg",
-    "commitStatus": "4ae9a5282da8b8135284d1add925b2d461d32a6e is the latest verified, committed and pushed production checkpoint, including counter/deposit and profiling evidence. PR 2 remains open, draft and unmerged. The local Home/onboarding UI fix is in progress and not yet natively accepted.",
+    "commitStatus": "ea5de16 pushed; title batch ready to commit. PR2 remains draft/unmerged.",
     "shelfStructureCLI": "PASS red/green regression and unchanged original geometry",
     "diffCheck": "PASS",
     "priorExcludedEngineScripts": 6,
@@ -263,7 +264,7 @@
     "leaderboardFacesCLI": "PASS",
     "frozenSnapshotProbeSourceFile": "docs/verification/capacity-96-snapshot-toggle-2026-10-20.json"
   },
-  "latestVerifiedCommit": "699931c",
+  "latestVerifiedCommit": "ea5de16",
   "newBatchEvidence": {
     "status": "Gameplay/allocation/Lucky/shelf batch committed/pushed as 0059fb2. Subsequent canopy/hub/packet batch committed/pushed as 4d4fd29, synced and natively verified.",
     "normalFarmFlow": {
@@ -745,5 +746,6 @@
     "movedPad": "docs/verification/moved-pad-native.json",
     "capture": "docs/verification/moved-pad-normal-owned-plot.jpg",
     "cleanup": "Fresh normal Play, both Main scripts enabled, HUD/Custom camera restored, synthetic session and runtime bootstrap removed."
-  }
+  },
+  "ownerTitleEvidence": "docs/verification/owner-title-native.json"
 }

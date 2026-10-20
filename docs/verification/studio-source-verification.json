@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-10-20 10:20:48 UTC",
+  "recordedAt": "2026-10-20 10:47:24 UTC",
   "algorithm": "DJB2 UTF-8, CRLF normalized to LF",
   "sources": [
     {
@@ -263,8 +263,8 @@
     {
       "path": "src/server/Services/WorldBuilder.luau",
       "studioPath": "ServerScriptService.Services.WorldBuilder",
-      "bytes": 36843,
-      "hash": 13418556
+      "bytes": 37681,
+      "hash": 2952780471
     },
     {
       "path": "src/shared/AnimationVisibility.luau",
@@ -483,11 +483,11 @@
       "hash": 3606643184
     }
   ],
-  "verification": {
+  "result": {
     "content": [
       {
         "type": "text",
-        "text": "{\"total\":80,\"mismatches\":[],\"matched\":80}"
+        "text": "PASS 80 of 80 source hashes"
       }
     ],
     "isError": false

@@ -45,6 +45,9 @@ local ok,err=xpcall(function()
         saleLabel=make('TextLabel','Sale',fixture),processorLabel=make('TextLabel','Queue',fixture),
         processorRate=make('TextLabel','Rate',fixture)}
     make('Model','1',world.rows) -- Existing shelf avoids a construction yield.
+    local ownerSign=make('Part','OwnerSign',fixture)
+    local ownerGui=make('BillboardGui','Label',ownerSign)
+    world.ownerLabel=make('TextLabel','Text',ownerGui)
     local upgrade=make('Part','UpgradePad',fixture)
     local label=make('BillboardGui','Label',upgrade)
     world.upgradeLabel=make('TextLabel','Text',label)

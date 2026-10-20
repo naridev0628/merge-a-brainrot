@@ -7,7 +7,7 @@ local Core=require(game.ServerScriptService.Domain.FarmCore)
 local World=require(game.ServerScriptService.Services.WorldBuilder)
 local fixture=workspace.MergeABrainrotGenerated.Plot2:Clone()
 local world={root=fixture,frame=fixture:GetPivot(),producers=fixture.Producers,tokens=fixture.Minis,rows=fixture.StackRows,
-    badgePart=fixture.OwnerBadgeAnchor,pads={},saleLabel={},processorLabel={},processorRate={},
+    badgePart=fixture.OwnerBadgeAnchor,ownerLabel=fixture.OwnerSign.Label.Text,pads={},saleLabel={},processorLabel={},processorRate={},
     upgradeLabel=fixture.UpgradePad.Label.Text,upgradePrice=fixture.UpgradePad.Label.Price}
 for _,q in {'1','5','10','50'} do world.pads[q]=fixture['Buy'..q].Label.Text end
 local state=Core.new(Config,Catalog):newSession(999,0,'pad-test').state

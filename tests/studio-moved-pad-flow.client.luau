@@ -1,4 +1,7 @@
--- Run after studio-moved-pad-bootstrap.server.luau in its fresh disposable Play.
+-- Run on Client after studio-moved-pad-bootstrap.server.luau has been installed
+-- as an actual runtime Script in ServerScriptService in fresh disposable Play.
+-- Executing the server bootstrap body directly in execute_luau does not share
+-- the normal Script require context; wait for its fixture Status='Seeded'.
 -- Prefer both Main scripts Disabled before Play. This starts client Main once
 -- after the server is ready; it never restarts an already-running LocalScript.
 -- Returns immediately; poll PlayerGui.MovedPadFlowResult.Value / Status.

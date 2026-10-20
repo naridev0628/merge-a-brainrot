@@ -1,0 +1,144 @@
+{
+  "recordedAtUTC": "2026-10-20T10:47:24Z",
+  "baselineCommit": "ea5de16",
+  "scope": "Only WorldBuilder owner title positioning/scaling changes in production; renderer fixture records now include required ownerLabel. Local cloned scenes preserve normal depth occlusion and the native 65-world-stud title cutoff.",
+  "red": {
+    "content": [
+      {
+        "type": "text",
+        "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:116: AssistantCommand:42: Title must not swing into the shelf when the camera tilts\nAssistantCommand:42 function audit\nAssistantCommand:103\nAssistantCommand:86\n"
+      }
+    ],
+    "isError": true
+  },
+  "green": {
+    "content": [
+      {
+        "type": "text",
+        "text": "PASS owner header: actual render 1/2/5 rows, shrink/empty/clear, long-name preservation, producer-label and wall clearance, unchanged sign/portrait and occlusion"
+      }
+    ],
+    "isError": false
+  },
+  "longNameFit": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"visible\":true,\"bounds\":[343.5299987792969,40.061805725097659],\"canvas\":[347,43],\"text\":\"WWWWWWWWWWWWWWWWWWWW's BRAINROT FARM\",\"maxDistance\":65}"
+      }
+    ],
+    "isError": false
+  },
+  "regressions": {
+    "affordability": {
+      "content": [
+        {
+          "type": "text",
+          "text": "nil"
+        }
+      ],
+      "isError": false
+    },
+    "endWrites": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"result\":\"PASS endpoint call counts, before-tag/parent initialization, unchanged identity, Core repack, removal and recreation\",\"writes\":{\"remove\":0,\"repack\":5,\"unchanged\":6,\"create\":6,\"recreate\":6}}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "sourceParity": {
+    "content": [
+      {
+        "type": "text",
+        "text": "PASS 80 of 80 source hashes"
+      }
+    ],
+    "isError": false
+  },
+  "cleanup": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"camera\":\"Enum.CameraType.Custom\",\"hud\":true,\"health\":100,\"preview\":false}"
+      }
+    ],
+    "isError": false
+  },
+  "views": [
+    {
+      "count": 1,
+      "name": "one-front",
+      "camera_position": [
+        0,
+        2010,
+        33
+      ],
+      "look_at_position": [
+        0,
+        2006,
+        57
+      ]
+    },
+    {
+      "count": 11,
+      "name": "two-oblique",
+      "camera_position": [
+        25,
+        2024,
+        32
+      ],
+      "look_at_position": [
+        0,
+        2011,
+        58
+      ]
+    },
+    {
+      "count": 50,
+      "name": "five-front",
+      "camera_position": [
+        0,
+        2044,
+        13
+      ],
+      "look_at_position": [
+        0,
+        2018,
+        58
+      ]
+    },
+    {
+      "count": 50,
+      "name": "long-front",
+      "long": true,
+      "camera_position": [
+        0,
+        2043,
+        37
+      ],
+      "look_at_position": [
+        0,
+        2037,
+        58
+      ]
+    }
+  ],
+  "validation": [
+    "44 standalone Luau suites passed",
+    "80 production sources compile",
+    "Seven changed fixtures compile",
+    "Rojo build passes; ignored local rbxlx saved",
+    "Eight native JPEGs decode at 1759x567",
+    "Peer review clean"
+  ],
+  "limitations": [
+    "One Studio client, cloned plots, sampled camera views; not a universal readability/device/FPS result.",
+    "Lower producer labels can still clip behind upper fascia; this change fixes the owner title.",
+    "Cloned pad labels are unmanaged by the owned-plot PadLabels controller.",
+    "Distant/short-viewport title and portrait overlap remains possible; title respects ordinary occlusion and existing cutoff.",
+    "Sources synced to existing Studio project; local Rojo place saved. No game publishing or Studio document Save action."
+  ]
+}

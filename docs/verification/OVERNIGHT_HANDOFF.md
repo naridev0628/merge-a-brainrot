@@ -1,10 +1,10 @@
-# Overnight engineering handoff — 2026-10-20, 10:33 UTC
+# Overnight engineering handoff — 2026-10-20, 10:47 UTC
 
 This is a live work checkpoint, not a completion or release report. The minimum work window continues until **13:30 UTC**. The continuation heartbeat now runs every **15 minutes**, as reported by root. See [machine-readable progress](OVERNIGHT_PROGRESS.json) for the current task pointer.
 
 ## Current Studio state
 
-The latest pushed checkpoint is **699931c**, containing the verified Home/onboarding fix and FarmerBooth extraction. Studio currently runs that baseline plus the verified Foltyn map working tree: wider tray, sloped dividers, native lawn and brighter two-species labels. All 80 source hashes match at **10:20:48 UTC**. The detailed native evidence and limits are recorded in the latest section below. The relocated-pad normal-client smoke now passes; the verified batch is ready to commit. Both production Main scripts are enabled; temporary visual and walking clones have been removed. PR 2 remains draft and unmerged; nothing is published.
+The latest pushed checkpoint is **ea5de16**, containing the verified Foltyn map batch. Studio currently runs that baseline plus the verified rear farm-title fix below. All 80 source hashes match at **10:47:24 UTC**. Both production Main scripts are enabled; temporary visual and walking clones are removed. The title batch is ready to commit. PR 2 remains draft and unmerged; nothing is published.
 
 The current source passes **44 standalone Luau suites, 80-source compilation, strict Core analysis, native map/collection checks, Rojo build and diff check**. Saved earlier benchmarks retain their own frozen-source provenance and are not measurements of this map batch. The full Studio Script Analysis panel has not been re-read.
 
@@ -193,3 +193,13 @@ The route walks **92.7728 world studs**, ends at **46 producers / 5,120 coin uni
 Synthetic setup is explicitly limited to 10,000 coin units and one tier-2 Lucky through Core snapshot/commit. The first direct-executor bootstrap did not intercept normal Main's module context, so that Play was discarded. The successful attempt uses an actual disposable runtime Script and restores its one-shot wrapper before returning the created session. Both Main scripts are re-enabled in Edit afterward, normal fresh Play is restored, and the temporary fixture/progress are removed. No production source was changed for seeding.
 
 Final 44 standalone suites, four new native-fixture compilations, shelf CLI and image decode checks pass. The map batch is ready to commit. The unattributed asset-type warning for audio ID 203785492 predates this work and has no repository/live-game reference found; all configured farm audio voices load. Its external caller is unresolved, and the game audio was not replaced.
+
+## Rear farm title above stacked rows — verified 10:47 UTC
+
+The rear title follows the highest occupied row, uses a world-aligned vertical offset, and wraps within a scaled canvas. The existing font, outline, sign, portrait, ordinary depth occlusion, and 65-world-stud cutoff remain. Native RED reproduced shelf clipping; GREEN covers 1 → 11 → 50 → 11 → 1 → 0 → 50 producers and clear/reset. Actual species model identities are checked after every transition. Four paired camera views are saved in the [Foltyn board](../reference/chicken-farm-foltyn-study/index.html#comparison-owner-title).
+
+A 20-W display name plus suffix measured 343.53 × 40.06 pixels inside a 347 × 43 canvas at the recorded close five-row view. [Raw title evidence](owner-title-native.json) records the checks and scope. Lower producer names can still clip behind upper fascia; distant or short-screen portrait/title overlap remains possible. Cloned pad labels in these geometry comparisons are not managed by the normal owned-plot controller.
+
+All 44 standalone suites, 80 source compilations, seven affected fixture compilations, native affordability and endpoint lifecycle regressions, peer review, Rojo build, eight full-size JPEG decodes, and diff check pass. All 80 running-Server source hashes match. Temporary previews are gone; normal HUD and Custom camera are restored, with character health 100. Sources are synced to Studio and the local Rojo place is saved; no Studio document Save or game publishing action was performed.
+
+The previous Foltyn map batch was committed and pushed as **ea5de16**. This title batch is ready to commit. Next: test a bounded producer-label anchor correction at real front, oblique and elevated views, then continue the highest-value UI/map work through the 13:30 UTC minimum.

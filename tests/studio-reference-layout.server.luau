@@ -24,7 +24,7 @@ if lucky then lucky:Destroy() end
 clone:PivotTo(CFrame.new(0,2000,0))
 local world={
     root=clone,frame=clone:GetPivot(),producers=clone.Producers,tokens=clone.Minis,
-    rows=clone.StackRows,badgePart=clone.OwnerBadgeAnchor,pads={},
+    rows=clone.StackRows,badgePart=clone.OwnerBadgeAnchor,ownerLabel=clone.OwnerSign.Label.Text,pads={},
     saleLabel={},processorLabel={},processorRate={},
     upgradeLabel=clone.UpgradePad.Label.Text,upgradePrice=clone.UpgradePad.Label.Price,
 }

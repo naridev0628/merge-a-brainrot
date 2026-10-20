@@ -1,9 +1,14 @@
 -- Disposable single-player Studio Play only. Before Play, disable server Main
 -- and StarterPlayerScripts.Main. This fixture enables server Main; the matching
 -- client fixture starts its untouched client Main after FarmNetwork is ready.
--- Run this on Server promptly, then studio-moved-pad-flow.client.luau on Client.
+-- In Play, install this exact source as an enabled disposable Script beneath
+-- ServerScriptService; do not execute its body directly through execute_luau.
+-- The executor's require context did not share Core.newSession with normal Main
+-- in native QA. An actual runtime Script shares Main's module context.
+-- Then run studio-moved-pad-flow.client.luau on Client and poll both results.
 -- Do not restart an already timed-out client Main; use fresh Play instead.
--- No shipped source or Config is changed. Re-enable both in Edit after stopping.
+-- No shipped source or Config is changed. Stop Play, remove any retained fixture
+-- Script, and re-enable both Main scripts in Edit after inspection.
 -- Synthetic setup: 10,000 coin units and an unheld tier-2 Lucky; all purchases
 -- and pickup afterward must come from the shipped client walking the real avatar.
 -- Results remain in ReplicatedStorage.MovedPadFixture. End Play after inspection;

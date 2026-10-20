@@ -136,7 +136,7 @@ local ok,err=xpcall(function()
     end
     fixture:PivotTo(CFrame.new(0,2000,0))
     world={root=fixture,frame=fixture:GetPivot(),producers=fixture.Producers,tokens=fixture.Minis,
-        rows=fixture.StackRows,badgePart=fixture.OwnerBadgeAnchor,pads={},
+        rows=fixture.StackRows,badgePart=fixture.OwnerBadgeAnchor,ownerLabel=fixture.OwnerSign.Label.Text,pads={},
         saleLabel={},processorLabel={},processorRate={},
         upgradeLabel=fixture.UpgradePad.Label.Text,upgradePrice=fixture.UpgradePad.Label.Price}
     -- Render the real imported meshes and shelf geometry before publishing.
