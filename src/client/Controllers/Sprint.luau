@@ -11,11 +11,14 @@ function Sprint.start(command: RemoteEvent,gui: ScreenGui)
     local safe=gui:WaitForChild('SafeArea') :: Frame
     button.Parent=safe
     local function resize()
-        local portrait=safe.AbsoluteSize.X<600
-        button.AnchorPoint=if portrait then Vector2.new(0,1) else Vector2.new(1,1)
-        button.Position=if portrait then UDim2.new(0,12,1,-250) else UDim2.new(1,-140,1,-66)
+        local portrait=safe:GetAttribute('TouchHudStacked')==true or safe.AbsoluteSize.X<600
+        local reserve=safe:GetAttribute('TouchControlReserve') or (if math.min(safe.AbsoluteSize.X,safe.AbsoluteSize.Y)>500 then 230 else 110)
+        button.AnchorPoint=if portrait then Vector2.new(.5,1) else Vector2.new(0,1)
+        button.Position=if portrait then UDim2.new(.5,0,1,-18) else UDim2.new(0,12,1,-reserve-8)
     end
     safe:GetPropertyChangedSignal('AbsoluteSize'):Connect(resize);resize()
+    safe:GetAttributeChangedSignal('TouchControlReserve'):Connect(resize)
+    safe:GetAttributeChangedSignal('TouchHudStacked'):Connect(resize)
     Input:GetPropertyChangedSignal('TouchEnabled'):Connect(function()button.Visible=Input.TouchEnabled end)
     local function set(value: boolean)
         if active==value then return end

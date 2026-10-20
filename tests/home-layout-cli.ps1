@@ -28,7 +28,10 @@ function UDim2.fromScale(x,y) return UDim2.new(x,0,y,0) end
 udimMT.__add=function(a,b) return UDim2.new(a.X.Scale+b.X.Scale,a.X.Offset+b.X.Offset,a.Y.Scale+b.Y.Scale,a.Y.Offset+b.Y.Offset) end
 local shared={WaitForChild=function(_,name) return name end}
 local script={Parent=shared}
+local input={TouchEnabled=false}
+local workspace={CurrentCamera=nil}
 local game={GetService=function(_,name)
+    if name=='UserInputService' then return input end
     if name=='ReplicatedStorage' then return {WaitForChild=function() return shared end} end
     if name=='TextService' then return {GetTextSize=function(_,value,size) return {X=#value*size*.5} end} end
     return {}
@@ -39,6 +42,9 @@ local function object(parent)
         Position=UDim2.fromOffset(0,0),Size=UDim2.fromOffset(0,0),AnchorPoint=Vector2.new(0,0),
         FindFirstChildOfClass=function() return {} end,FindFirstChild=function() return nil end,
         GetPropertyChangedSignal=function() return signal end,GetChildren=function() return {} end,
+        GetAttributeChangedSignal=function() return signal end,
+        GetAttribute=function(self,key) return rawget(self,'attribute_'..key) end,
+        SetAttribute=function(self,key,value) rawset(self,'attribute_'..key,value) end,
         Destroying=signal,AncestryChanged=signal,ChildAdded=signal,
         Destroy=function(self) self.Parent=nil end}
 end
@@ -52,6 +58,9 @@ foreach ($panel in @(@('LuckyPanel','__LUCKY_HEIGHT__'),@('SettingsPanel','__SET
 }
 $source = [System.IO.File]::ReadAllText((Join-Path $repo 'src/client/Controllers/FarmUI.luau'))
 $cueSource = [System.IO.File]::ReadAllText((Join-Path $repo 'src/client/Controllers/MultiplierCue.luau'))
+$sprintSource = [System.IO.File]::ReadAllText((Join-Path $repo 'src/client/Controllers/Sprint.luau'))
+$sprintLayout = [regex]::Match($sprintSource, '(?s)local function resize\(\)(.*?)\r?\n    end\r?\n    safe:GetPropertyChangedSignal').Groups[1].Value
+if (-not $sprintLayout) { throw 'Could not read actual Sprint resize body' }
 $scriptText = $runtime + "`nlocal UI=(function()`n" + $source + "`nend)()`nlocal Cue=(function()`n" + $cueSource + "`nend)()`n" + @'
 local ui=setmetatable({mode='Merge',selected={},shopInfo={},quantity='1'},UI)
 ui.gui=object();ui.root=object(ui.gui)
@@ -215,8 +224,80 @@ for _,size in {{320,480},{320,568},{390,440},{360,568},{390,844},{600,280},{640,
     end
 end
 cue:destroy()
-print('PASS actual FarmUI/Cue: early Home/guidance, held-Lucky Settings reachability, card/rail restoration, event-cue separation and '..swept..' supported viewport bounds/separation checks')
+-- Reproduce the actual simulator control rectangles, plus short portrait and
+-- the large tablet controls. These are safe-area coordinates, not viewport
+-- coordinates: Roblox's touch controls and our HUD share the same origin.
+input.TouchEnabled=true
+local placeSprint=function(safe,button)
+__SPRINT_LAYOUT__
+end
+local nativeJumpSide=70
+ui.gui.Parent={FindFirstChild=function(_,name)
+    if name=='TouchGui' then return {FindFirstChild=function()
+        return {IsA=function(_,class) return class=='GuiObject' end,AbsoluteSize=Vector2.new(nativeJumpSide,nativeJumpSide)}
+    end} end
+    return nil
+end}
+local touchCases={
+    {750,323,655,233,70,29,230,74},
+    {705,280,610,190,70,29,187,74},
+    {401,720,306,630,70,29,627,74},
+    {1375,974,1205,764,120,58,788,148},
+    {320,440,225,350,70,29,347,74},
+    {360,568,265,478,70,29,475,74},
+    {600,280,505,190,70,29,187,74},
+    {580,760,410,550,120,58,574,148},
+    {600,558,430,348,120,58,372,148},
+    {600,500,430,290,120,58,314,148},
+    {579,759,409,549,120,58,573,148},
+    {568,500,398,290,120,58,314,148},
+}
+local function control(x,y,side)
+    local value=object(ui.root);value.Position=UDim2.fromOffset(x,y);value.Size=UDim2.fromOffset(side,side)
+    return value
+end
+for _,size in touchCases do
+    ui.root.AbsoluteSize=Vector2.new(size[1],size[2])
+    nativeJumpSide=size[5]
+    local jump=control(size[3],size[4],size[5])
+    local thumb=control(size[6],size[7],size[8])
+    local sprint=control(0,0,44);sprint.Size=UDim2.fromOffset(82,44)
+    for _,step in {1,7} do
+        state.tutorialStep=step;state.lucky=nil;ui:close();ui:update(state);ui:setContext('Buy','1')
+        for _,mode in {'Normal','Lucky','Settings'} do
+            if mode~='Normal' then
+                state.lucky={id='touch-held',held=true,baseTier=2};ui:update(state);ui:open(mode)
+            end
+            placeSprint(ui.root,sprint);inside(sprint)
+            assert(separate(sprint,jump) and separate(sprint,thumb),'Sprint covers native touch controls')
+            for _,key in {'hud','bag','total','homeButton','actions','contextPanel','cashPlus','settingsButton','boostButton','autoButton','panel'} do
+                local item=ui[key]
+                if visible(item) and (key~='panel' or mode~='Normal') then
+                    inside(item)
+                    for _,touch in {jump,thumb} do
+                        assert(separate(item,touch),key..' covers touch movement at '..size[1]..'x'..size[2]..' '..mode)
+                    end
+                    assert(separate(item,sprint),key..' covers Sprint at '..size[1]..'x'..size[2]..' '..mode)
+                end
+            end
+            assert(visible(ui.total) and visible(ui.bag) and visible(ui.hud),'Touch must retain all farm counts')
+            assert(rect(ui.cashPlus).w>=40 and rect(ui.cashPlus).h>=40,'Touch Shop entry is too small')
+            assert(separate(ui.hud,ui.bag) and separate(ui.total,ui.bag),'Touch farm counts overlap')
+            if mode~='Normal' then
+                for _,key in {'homeButton','settingsButton','bag','hud','total','contextPanel'} do
+                    if key~='settingsButton' or mode=='Lucky' then
+                        assert(separate(ui.panel,ui[key]),'Touch '..mode..' covers '..key..' at '..size[1]..'x'..size[2])
+                    end
+                end
+                assert(ui.panel.Size.Y.Offset>=106,'Touch side panel must retain a usable scroll viewport')
+            end
+        end
+    end
+end
+input.TouchEnabled=false
+print('PASS actual FarmUI/Cue/Sprint: early Home/guidance, held Settings/card restoration, '..swept..' desktop layouts and '..#touchCases..' touch layouts × onboarding/mature × normal/Lucky/Settings with native control separation')
 '@
+$scriptText=$scriptText.Replace('__SPRINT_LAYOUT__',$sprintLayout)
 $target = Join-Path $repo '.tools/home-layout-cli.luau'
 [System.IO.File]::WriteAllText($target, $scriptText)
 & (Join-Path $repo '.tools/luau/luau.exe') $target

@@ -1,6 +1,6 @@
 {
-  "recordedAt": "2026-10-20T11:51:38.8371176Z",
-  "algorithm": "DJB2 UTF-8, CRLF normalized to LF",
+  "recordedAt": "2026-10-20 12:48:05 UTC",
+  "algorithm": "DJB2 over UTF-8 source with CRLF normalized to LF",
   "sources": [
     {
       "path": "src/client/Controllers/AudioConfig.luau",
@@ -53,8 +53,8 @@
     {
       "path": "src/client/Controllers/FarmUI.luau",
       "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.FarmUI",
-      "bytes": 51529,
-      "hash": 2101360183
+      "bytes": 57854,
+      "hash": 3763669627
     },
     {
       "path": "src/client/Controllers/FeedbackAudio.luau",
@@ -101,8 +101,8 @@
     {
       "path": "src/client/Controllers/MultiplierCue.luau",
       "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.MultiplierCue",
-      "bytes": 6403,
-      "hash": 64153503
+      "bytes": 8670,
+      "hash": 2878261328
     },
     {
       "path": "src/client/Controllers/MusicController.luau",
@@ -155,8 +155,8 @@
     {
       "path": "src/client/Controllers/Sprint.luau",
       "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Sprint",
-      "bytes": 2397,
-      "hash": 3237135792
+      "bytes": 2735,
+      "hash": 2525695521
     },
     {
       "path": "src/client/Controllers/TierEffects.luau",
@@ -239,8 +239,8 @@
     {
       "path": "src/server/Services/LuckyCarry.luau",
       "studioPath": "ServerScriptService.Services.LuckyCarry",
-      "bytes": 1234,
-      "hash": 1619090280
+      "bytes": 1258,
+      "hash": 768944354
     },
     {
       "path": "src/server/Services/MultiplierDisplay.luau",
@@ -257,14 +257,14 @@
     {
       "path": "src/server/Services/PassService.luau",
       "studioPath": "ServerScriptService.Services.PassService",
-      "bytes": 1669,
-      "hash": 1521537439
+      "bytes": 1755,
+      "hash": 2375413918
     },
     {
       "path": "src/server/Services/WorldBuilder.luau",
       "studioPath": "ServerScriptService.Services.WorldBuilder",
-      "bytes": 38544,
-      "hash": 223261390
+      "bytes": 38925,
+      "hash": 2146652631
     },
     {
       "path": "src/shared/AnimationVisibility.luau",
@@ -483,5 +483,9 @@
       "hash": 3606643184
     }
   ],
-  "studioResult": "PASS 80/80 native Server source hashes"
+  "studioResult": {
+    "total": 80,
+    "mismatches": [],
+    "matched": 80
+  }
 }

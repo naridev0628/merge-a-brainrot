@@ -15,6 +15,76 @@ local function separate(a,b)
     assert(ap.X+as.X<=bp.X or bp.X+bs.X<=ap.X or ap.Y+as.Y<=bp.Y or bp.Y+bs.Y<=ap.Y,
         a.Name..' overlaps '..b.Name..' at '..tostring(ui.root.AbsoluteSize)..' ('..ui.mode..')')
 end
+if game:GetService('UserInputService').TouchEnabled then
+    -- Keep the real simulator viewport/control size. The desktop section below
+    -- uses virtual root sizes, which cannot resize Roblox's native controls.
+    local touchOK,touchError=xpcall(function()
+        local touch=player.PlayerGui:FindFirstChild('TouchGui')
+        local jump=touch and touch:FindFirstChild('JumpButton',true)
+        local thumb=touch and touch:FindFirstChild('ThumbstickStart',true)
+        assert(jump and thumb,'Wait for the native touch controls before this fixture')
+        local function visible(item)
+            while item and item~=ui.gui do
+                if item:IsA('GuiObject') and not item.Visible then return false end
+                item=item.Parent
+            end
+            return true
+        end
+        local function reveal(viewport,item)
+            viewport.CanvasPosition=Vector2.new(0,math.clamp(
+                item.AbsolutePosition.Y-viewport.AbsolutePosition.Y+viewport.CanvasPosition.Y,
+                0,math.max(0,viewport.AbsoluteCanvasSize.Y-viewport.AbsoluteSize.Y)))
+            task.wait();inside(item,viewport)
+        end
+        local drops=0;ui.onDropLucky=function() drops+=1 end
+        for _,step in {1,7} do
+            state.tutorialStep=step;state.lucky=nil;ui:close();ui:update(state);ui:setContext('Buy','1')
+            for _,mode in {'Normal','Lucky','Settings'} do
+                if mode~='Normal' then
+                    state.lucky={id='touch-layout',held=true,baseTier=1};ui:update(state);ui:open(mode)
+                end
+                task.wait()
+                for _,item in {ui.hud,ui.bag,ui.total,ui.homeButton,ui.actions,ui.contextPanel,
+                    ui.cashPlus,ui.settingsButton,ui.boostButton,ui.autoButton,ui.panel} do
+                    if visible(item) and (item~=ui.panel or mode~='Normal') then
+                        inside(item,ui.root);separate(item,jump);separate(item,thumb)
+                    end
+                end
+                assert(ui.total.Visible and ui.bag.Visible and ui.hud.Visible,'Touch must retain farm counts')
+                assert(ui.bagText.Text=='1000000','Touch must retain the complete Mini count')
+                assert(ui.cashPlus.AbsoluteSize.X>=40 and ui.cashPlus.AbsoluteSize.Y>=40,'Touch Shop target is too small')
+                for _,label in {ui.stats,ui.rebirthCount,ui.multiplier,ui.total,ui.bagText} do
+                    assert(label.TextBounds.X<=label.AbsoluteSize.X+1 and label.TextBounds.Y<=label.AbsoluteSize.Y+1,
+                        label.Name..' text does not fit the touch layout')
+                end
+                if mode~='Normal' then
+                    for _,item in {ui.homeButton,ui.hud,ui.bag,ui.total,ui.contextPanel} do separate(ui.panel,item) end
+                    assert(not ui:isOpen() and not ui.overlay.Active,'Touch side panels must remain nonmodal')
+                    if mode=='Lucky' then
+                        separate(ui.panel,ui.settingsButton)
+                        local viewport=ui.panel.LuckyViewport
+                        local content=viewport.LuckyPresentation
+                        for index=1,3 do reveal(viewport,content.GoldCard.Rewards['Reward'..index]) end
+                        reveal(viewport,content.Unlock);reveal(viewport,content.Discard)
+                    else
+                        local viewport=ui.panel.SettingsViewport
+                        for _,row in viewport.SettingsContent:GetChildren() do
+                            if row:IsA('GuiObject') and row:FindFirstChild('Increase') then
+                                reveal(viewport,row.Increase);reveal(viewport,row.Decrease)
+                            end
+                        end
+                        ui:close()
+                        assert(ui:isLuckyOpen() and state.lucky.id=='touch-layout' and state.lucky.held and drops==0,
+                            'Settings must restore the same held block without dropping it')
+                    end
+                end
+            end
+        end
+    end,debug.traceback)
+    ui.gui:Destroy()
+    if not touchOK then error(touchError) end
+    return 'PASS native touch HUD: actual Jump/Thumbstick separation, counts/text fit, Shop target and reachable Lucky/Settings scroll actions'
+end
 local Tutorial=require(game.ReplicatedStorage.Shared.Tutorial)
 local onboarding=table.clone(state)
 onboarding.status='Ready';onboarding.bag={};onboarding.producers={};onboarding.starterClaimed=false

@@ -14,6 +14,7 @@ local IndexPanel=require(script.Parent:WaitForChild('IndexPanel'))
 local LuckyPanel=require(script.Parent:WaitForChild('LuckyPanel'))
 local SettingsPanel=require(script.Parent:WaitForChild('SettingsPanel'))
 local TweenService=game:GetService('TweenService')
+local Input=game:GetService('UserInputService')
 local UI={}; UI.__index=UI
 local C={navy=Color3.fromRGB(26,37,49),cream=Style.Cream,green=Style.Price,blue=Color3.fromRGB(32,191,243),amber=Color3.fromRGB(255,204,36),violet=Color3.fromRGB(172,94,235),pink=Color3.fromRGB(248,120,174)}
 function UI.coins(units: number): string
@@ -49,6 +50,57 @@ local function button(parent: Instance,name: string,label: string,color: Color3)
     b.InputEnded:Connect(function(input) if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then pressed=false; animate() end end)
     Style.apply(b,22,C.cream)
     return b
+end
+local function observeTouchLayout(gui: ScreenGui,resize: ()->())
+    local owner=gui.Parent
+    if not owner then return end
+    local stopped=false; local queued=false
+    local connections: {RBXScriptConnection}={}
+    local jump: GuiObject?=nil
+    local jumpConnection: RBXScriptConnection?=nil
+    local queue: ()->()
+    local function bindJump()
+        local touch=owner:FindFirstChild('TouchGui')
+        local candidate=if touch then touch:FindFirstChild('JumpButton',true) else nil
+        local nextJump: GuiObject?=nil
+        if candidate and candidate:IsA('GuiObject') then nextJump=candidate end
+        if nextJump==jump then return end
+        local old=jumpConnection
+        if old then old:Disconnect() end
+        jump=nextJump; jumpConnection=nil
+        if nextJump then jumpConnection=nextJump:GetPropertyChangedSignal('AbsoluteSize'):Connect(function() queue() end) end
+    end
+    local function stop()
+        if stopped then return end
+        stopped=true
+        local old=jumpConnection
+        if old then old:Disconnect() end
+        jumpConnection=nil; jump=nil
+        for _,connection in connections do connection:Disconnect() end
+        table.clear(connections)
+    end
+    queue=function()
+        if stopped or queued then return end
+        queued=true
+        -- Removal signals precede detachment. Defer once so replacement lookup
+        -- sees the final hierarchy, and coalesce a native layout event burst.
+        task.defer(function()
+            queued=false
+            if stopped or gui.Parent~=owner then return end
+            bindJump(); resize()
+        end)
+    end
+    local function controlsChanged(child: Instance)
+        if child.Name=='TouchGui' or child.Name=='JumpButton' then queue() end
+    end
+    table.insert(connections,owner.DescendantAdded:Connect(controlsChanged))
+    table.insert(connections,owner.DescendantRemoving:Connect(controlsChanged))
+    table.insert(connections,Input:GetPropertyChangedSignal('TouchEnabled'):Connect(queue))
+    table.insert(connections,gui.Destroying:Connect(stop))
+    table.insert(connections,gui.AncestryChanged:Connect(function()
+        if gui.Parent~=owner then stop() end
+    end))
+    bindJump()
 end
 function UI.new(parent: Instance)
     local self: any=setmetatable({selected={},pending=false,state=nil,context=nil,quantity='1',mode='Merge',shopInfo={},onBuy=function() end,onDeposit=function() end,onClaim=function() end,onMerge=function() end,onRebirth=function() end,onHome=function() end,onPass=function() end,onLucky=function() end,onDropLucky=function() end,onDiscardLucky=function() end},UI)
@@ -181,26 +233,43 @@ function UI.new(parent: Instance)
     root:GetPropertyChangedSignal('AbsoluteSize'):Connect(function() self:resize() end)
     self.layout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function() self.list.CanvasSize=UDim2.fromOffset(0,self.layout.AbsoluteContentSize.Y+8) end)
     Locale.bind(gui)
+    observeTouchLayout(gui,function() self:resize() end)
     self:resize(); self:drawMerge(); return self
 end
 function UI.resize(self: any)
     local size=self.root.AbsoluteSize; local short=size.Y<500; local phone=size.X<600
+    local touch=Input.TouchEnabled
+    -- Use the actual native control size when it exists; narrow tablets can
+    -- have the large controls too. Native changes also trigger the observer above.
+    local touchGui=if touch and self.gui.Parent then self.gui.Parent:FindFirstChild('TouchGui') else nil
+    local jump=if touchGui then touchGui:FindFirstChild('JumpButton',true) else nil
+    local viewport=if touch and workspace.CurrentCamera then workspace.CurrentCamera.ViewportSize else size
+    local largeTouch=if jump and jump:IsA('GuiObject') and jump.AbsoluteSize.Y>0 then jump.AbsoluteSize.Y>70 else math.min(viewport.X,viewport.Y)>500
+    local touchReserve=if largeTouch then 230 else 110
+    local stackedTouch=phone or (largeTouch and size.X<768)
+    local narrowTouch=size.X<568
+    if touch then
+        if self.root:GetAttribute('TouchControlReserve')~=touchReserve then self.root:SetAttribute('TouchControlReserve',touchReserve) end
+        if self.root:GetAttribute('TouchHudStacked')~=stackedTouch then self.root:SetAttribute('TouchHudStacked',stackedTouch) end
+    elseif self.root:GetAttribute('TouchControlReserve')~=nil and self.root:GetAttribute('TouchControlReserve')~=0 then
+        self.root:SetAttribute('TouchControlReserve',0); self.root:SetAttribute('TouchHudStacked',false)
+    end
     local tutorialVisible=self.state~=nil and Tutorial.goal(self.state).kind~='Done' and not self:isLuckyOpen() and not self:isSettingsOpen()
     local compactTutorial=tutorialVisible and (phone or short)
-    local compactCash=phone or (short and size.X<900)
+    local compactCash=touch or phone or (short and size.X<900)
     self.stats.TextSize=if compactCash then 30 elseif short then 40 else 52
-    local amountWidth=math.min(if phone then 100 elseif compactCash then 116 else 270,math.max(if compactCash then 66 else 96,game:GetService('TextService'):GetTextSize(self.stats.Text,self.stats.TextSize,self.stats.Font,Vector2.new(1000,80)).X+14))
-    local plusSize=if compactCash then 26 else 38; local multiplierWidth=if compactCash then 64 else 118
-    local cashWidth=amountWidth+plusSize+multiplierWidth+32; local cashHeight=if phone then 50 elseif short then 42 else 76
+    local amountWidth=if touch then math.min(96,size.X-262) else math.min(if phone then 100 elseif compactCash then 116 else 270,math.max(if compactCash then 66 else 96,game:GetService('TextService'):GetTextSize(self.stats.Text,self.stats.TextSize,self.stats.Font,Vector2.new(1000,80)).X+14))
+    local plusSize=if touch then 40 elseif compactCash then 26 else 38; local multiplierWidth=if touch then 48 elseif compactCash then 64 else 118
+    local cashWidth=amountWidth+plusSize+multiplierWidth+32; local cashHeight=if touch then 44 elseif phone then 50 elseif short then 42 else 76
     self.hud.Size=UDim2.fromOffset(cashWidth,cashHeight+29); self.hud.Position=UDim2.new(0,12,1,-cashHeight-(if phone then 132 else 49))
     self.cashBar.Position=UDim2.fromOffset(0,29); self.cashBar.Size=UDim2.fromOffset(cashWidth,cashHeight)
     self.stats.Position=UDim2.fromOffset(8,0); self.stats.Size=UDim2.new(0,amountWidth,1,0); self.stats.TextScaled=true
-    local constraint=self.stats:FindFirstChildOfClass('UITextSizeConstraint') or Instance.new('UITextSizeConstraint',self.stats); constraint.MaxTextSize=self.stats.TextSize; constraint.MinTextSize=20
+    local constraint=self.stats:FindFirstChildOfClass('UITextSizeConstraint') or Instance.new('UITextSizeConstraint',self.stats); constraint.MaxTextSize=self.stats.TextSize; constraint.MinTextSize=if touch then 14 else 20
     self.rebirthCount.Position=UDim2.fromOffset(0,0); self.rebirthCount.Size=UDim2.fromOffset(cashWidth,28); self.rebirthCount.TextSize=if phone then 20 else 24
     self.cashPlus.Position=UDim2.new(0,amountWidth+14,.5,-plusSize/2); self.cashPlus.Size=UDim2.fromOffset(plusSize,plusSize)
     self.multiplier.Position=UDim2.new(0,amountWidth+plusSize+22,0,0); self.multiplier.Size=UDim2.new(0,multiplierWidth,1,0); self.multiplier.TextSize=if compactCash then 16 else 24; self.multiplier.Visible=true
     self.cashFog.Position=self.multiplier.Position; self.cashFog.Size=self.multiplier.Size
-    local bagWidth=if phone then math.clamp(size.X-214,106,138) elseif short then 138 else 204
+    local bagWidth=if touch then 106 elseif phone then math.clamp(size.X-214,106,138) elseif short then 138 else 204
     self.bag.Size=UDim2.fromOffset(bagWidth,if phone then bagWidth*116/138 elseif short then 116 else 170); self.bag.AnchorPoint=Vector2.new(.5,1); self.bag.Position=if phone then UDim2.new(1,-12-bagWidth/2,1,-36) else UDim2.new(if short then .51 else .5,0,1,-24)
     self.total.AnchorPoint=Vector2.new(if phone then 0 else 1,1); self.total.Position=UDim2.new(if phone then 0 else 1,if phone then 12 else -12,1,if phone then -30 else -25); self.total.Size=UDim2.fromOffset(if phone then 210 elseif short then 230 else 330,30); self.total.TextSize=if phone then 18 elseif short then 20 else 25
     self.total.Visible=not (short and (self:isLuckyOpen() or self:isSettingsOpen()))
@@ -215,7 +284,7 @@ function UI.resize(self: any)
     local compactRail=phone or size.Y<650
     local actionWidth=if compactRail then 72 else 92
     local actionHeight=if short then 52 elseif compactRail then 62 else 86
-    local actionColumns=if phone or short then 2 else 1
+    local actionColumns=if touch or phone or short then 2 else 1
     local actionsWidth=actionColumns*actionWidth+(actionColumns-1)*8
     self.actions.Size=UDim2.fromOffset(actionsWidth,math.ceil(4/actionColumns)*(actionHeight+8)); self.actions.Position=UDim2.new(1,-actionsWidth-12,0,if short then 48 elseif compactRail and not phone then 70 else 140)
     for i,b in {self.mergeButton,self.indexButton,self.rebirthButton,self.settingsButton} do b.Size=UDim2.fromOffset(actionWidth,actionHeight); b.Position=UDim2.fromOffset(((i-1)%actionColumns)*(actionWidth+8),math.floor((i-1)/actionColumns)*(actionHeight+8)); b.TextSize=if compactRail then 16 else 23 end
@@ -225,7 +294,7 @@ function UI.resize(self: any)
     self.permanent.TextSize=if phone or short then 17 else 23
     self.boostPrice.Position=self.boostButton.Position+UDim2.fromOffset(-4,self.boostButton.Size.Y.Offset+9); self.boostPrice.Size=UDim2.fromOffset(self.boostButton.Size.X.Offset+8,if short then 24 else 30); self.boostPrice.TextSize=if phone or short then 17 else 25
     self.autoButton.Position=UDim2.fromOffset(if short then 128 else 12,if short then 145 else 310); self.autoButton.Size=UDim2.fromOffset(if phone or short then 90 else 130,if short then 36 else 44)
-    self.homeButton.AnchorPoint=Vector2.new(.5,0); self.homeButton.Position=UDim2.new(.5,0,0,6); self.homeButton.Size=UDim2.fromOffset(if short then 154 elseif phone then 190 else 252,if short then 40 elseif phone then 50 else 66); self.homeButton.TextSize=if phone or short then 30 else 39; self.homeButton.Visible=self.state~=nil
+    self.homeButton.AnchorPoint=Vector2.new(.5,0); self.homeButton.Position=UDim2.new(.5,0,0,6); self.homeButton.Size=UDim2.fromOffset(if short then 154 elseif phone then 190 else 252,if touch or short then 40 elseif phone then 50 else 66); self.homeButton.TextSize=if touch or phone or short then 30 else 39; self.homeButton.Visible=self.state~=nil
     if tutorialVisible then
         -- Home is an escape route during onboarding; keep the goal alongside it.
         self.homeButton.AnchorPoint=Vector2.new(0,0); self.homeButton.Position=UDim2.fromOffset(12,6)
@@ -247,9 +316,30 @@ function UI.resize(self: any)
     end
     -- The cash-bar plus still opens Shop when the smallest onboarding HUD
     -- temporarily omits promotional controls to leave room for guidance.
-    local showPromos=not (tutorialVisible and phone and short)
+    local showPromos=not (tutorialVisible and phone and short) and not (touch and size.Y<(if phone then 650 else 720))
     self.boostButton.Visible=showPromos; self.boostPrice.Visible=showPromos; self.autoButton.Visible=showPromos
     self.contextPanel.Position=UDim2.new(if short then .42 else .5,0,1,if phone then -200 elseif short then -150 else -226); self.contextPanel.Size=UDim2.fromOffset(if short then 230 else math.min(320,size.X-36),62); self.contextButton.TextSize=if phone or short then 18 else 20
+    if touch then
+        -- Keep information above the phone controls, or in the landscape gap
+        -- between them. The native movement controls remain untouched.
+        local bottom=if stackedTouch then size.Y-touchReserve else size.Y-18
+        local left=if stackedTouch then 12 else (size.X-cashWidth-12-bagWidth)/2
+        self.hud.Size=UDim2.fromOffset(cashWidth,66); self.hud.Position=UDim2.fromOffset(left,bottom-66)
+        self.cashBar.Position=UDim2.fromOffset(0,22)
+        self.rebirthCount.Size=UDim2.fromOffset(cashWidth,22); self.rebirthCount.TextSize=18
+        self.bag.Size=UDim2.fromOffset(bagWidth,89); self.bag.Position=UDim2.fromOffset(if stackedTouch then size.X-12-bagWidth/2 else left+cashWidth+12+bagWidth/2,bottom)
+        self.total.AnchorPoint=Vector2.new(0,0); self.total.Position=UDim2.fromOffset(left,bottom-92)
+        self.total.Size=UDim2.fromOffset(cashWidth,22); self.total.TextSize=16; self.total.Visible=true
+        self.contextPanel.Position=UDim2.new(if narrowTouch then .5 else .42,0,0,bottom-98)
+        if not narrowTouch then self.contextPanel.Size=UDim2.fromOffset(230,62) end
+        if phone then
+            local width=math.min(72,(size.X-48)/4)
+            self.actions.Size=UDim2.fromOffset(width*4+24,52); self.actions.Position=UDim2.new(1,-width*4-36,0,if tutorialVisible then 92 else 70)
+            for i,b in {self.mergeButton,self.indexButton,self.rebirthButton,self.settingsButton} do
+                b.Size=UDim2.fromOffset(width,52); b.Position=UDim2.fromOffset((i-1)*(width+8),0)
+            end
+        end
+    end
     self.toast.Position=UDim2.new(.5,0,0,if short then 104 else 108); self.toast.Size=UDim2.fromOffset(math.min(size.X-32,410),44); self.toastText.TextSize=if phone or short then 14 else 16
     self.panel.Size=UDim2.fromOffset(math.min(size.X-24,640),math.min(size.Y-24,620))
     self.panel.AnchorPoint=Vector2.new(.5,.5); self.panel.Position=UDim2.fromScale(.5,.5); self.panel.BackgroundColor3=C.navy; self.panel.BackgroundTransparency=if self.mode=='Rebirth' then .25 elseif self.mode=='Index' then .28 else 0
@@ -261,7 +351,7 @@ function UI.resize(self: any)
         -- Native pixels keep odds and actions legible, including short landscape.
         local width=if phone then math.min(200,size.X-132) elseif short then 208 else math.clamp(size.X/6,220,280)
         local top=self.homeButton.Position.Y.Offset+self.homeButton.Size.Y.Offset+12
-        local contextTop=size.Y+self.contextPanel.Position.Y.Offset-self.contextPanel.Size.Y.Offset
+        local contextTop=size.Y*self.contextPanel.Position.Y.Scale+self.contextPanel.Position.Y.Offset-self.contextPanel.Size.Y.Offset
         local height=if phone then math.min(432,contextTop-top-12) elseif short then size.Y-28 else math.min(LuckyPanel.Height,size.Y-120)
         local aboveHud=phone
         if short and not phone and size.X-12-width<size.X/2+self.homeButton.Size.X.Offset/2+64 then
@@ -298,7 +388,7 @@ function UI.resize(self: any)
     if self.mode=='Settings' then
         local aboveHud=phone or (not short and size.X<864)
         local top=self.homeButton.Position.Y.Offset+self.homeButton.Size.Y.Offset+12
-        local contextTop=size.Y+self.contextPanel.Position.Y.Offset-self.contextPanel.Size.Y.Offset
+        local contextTop=size.Y*self.contextPanel.Position.Y.Scale+self.contextPanel.Position.Y.Offset-self.contextPanel.Size.Y.Offset
         local width=if aboveHud then math.min(292,size.X-24) elseif short then math.min(224,math.floor(size.X*.49-93)) else 300
         local height=if aboveHud then math.min(SettingsPanel.Height,contextTop-top-12) else math.min(SettingsPanel.Height,size.Y-24)
         local upper=(size.Y-height)/2
@@ -311,6 +401,16 @@ function UI.resize(self: any)
         self.panel.Position=if aboveHud then UDim2.new(1,-12,0,top) else UDim2.new(1,-12,.5,0)
         self.panel.BackgroundTransparency=.08
         self.closeButton.Size=UDim2.fromOffset(40,40);self.closeButton.Position=UDim2.new(1,-46,0,5)
+    end
+    if touch and (self:isLuckyOpen() or self:isSettingsOpen()) then
+        local top=self.homeButton.Position.Y.Offset+self.homeButton.Size.Y.Offset+12
+        local bottom=if narrowTouch then self.contextPanel.Position.Y.Offset-self.contextPanel.Size.Y.Offset-6
+            elseif stackedTouch then self.total.Position.Y.Offset-6 else size.Y-touchReserve
+        if not narrowTouch and self:isSettingsOpen() then
+            self.panel.Size=UDim2.fromOffset(math.min(292,math.floor(size.X*.58-128)),self.panel.Size.Y.Offset)
+        end
+        self.panel.Size=UDim2.fromOffset(self.panel.Size.X.Offset,math.min(if self:isLuckyOpen() then LuckyPanel.Height else SettingsPanel.Height,bottom-top))
+        self.panel.AnchorPoint=Vector2.new(1,0); self.panel.Position=UDim2.new(1,-12,0,top)
     end
     -- Keep the existing Settings entry reachable while the held card hides its rail.
     local heldSettings=self:isLuckyOpen()

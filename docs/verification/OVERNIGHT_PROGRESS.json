@@ -1,16 +1,16 @@
 {
-  "updatedAtUTC": "2026-10-20T11:37:06Z",
+  "updatedAtUTC": "2026-10-20T12:50:26.809Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
   "branch": "codex/stacked-brainrot-farm",
-  "studioId": "ef89b65f-2f6a-4fe7-8272-bae9e8007fd1",
+  "studioId": "bef730c2-c3be-48da-a77b-b19cd8746e97",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Fresh normal Play with verified shared row types",
+    "mode": "Fresh normal Play, desktop device simulation stopped",
     "mainScripts": "Both enabled",
-    "productionSync": "80/80 native and saved XML source hashes",
-    "currentTrial": "Prototype shelf text revised after rejected trim test"
+    "productionSync": "80 of80 Edit sources exact; final touch observer included. Native-source proof and morning Rojo artifact XML80-source proof recorded12:48UTC.",
+    "currentTrial": "None; disposable touch/bootstrap/input observers removed by fresh Play"
   },
   "candidateConfig": {
     "producerSlots": 50,
@@ -82,7 +82,11 @@
     "Working-tree map batch:24x16tray,96 Minis in3layers, six-plot geometry/trajectory checks, mixed/allCroc96 actual-Humanoid pickups, same-count sloped dividers,−5064 lawn Parts, unchanged77colliders/plot and18slabs, brighter name-only tier1/6 palette.",
     "ea5de16 committed and pushed: wider tray, same-count sloped bays, native lawn, brighter tier1/6 name palette,14 new annotated Foltyn references, normal moved-pad and Lucky smoke.",
     "Rear owner title native RED/GREEN passed:1/2/5rows,shrink/empty/clear,actualspeciesidentities,long20Wfit,four paired views.",
-    "Native async leaderboard coalescing/stale/cache/destroyed-row fixture PASS; same Edit context85->80 warnings and0errors. All44pure/80compile/bothsolvers/peer/Rojo gates pass,80native+80savedXMLsources exact at11:51:39UTC. Pending commit of narrow Core/leaderboard types."
+    "Native async leaderboard coalescing/stale/cache/destroyed-row fixture PASS; same Edit context85->80 warnings and0errors. All44pure/80compile/bothsolvers/peer/Rojo gates pass,80native+80savedXMLsources exact at11:51:39UTC. Pending commit of narrow Core/leaderboard types.",
+    "eb7bc2b committed/pushed: processor-board count/reset, LuckyCarry guard and PassService scoped types.",
+    "Touch follow-up verified: actual native controls preserved at five settled sizes; event-driven Jump-size observer reduces ~1.8s tablet update lag to one transient frame; actual-helper lifecycle and cue cleanup pass.",
+    "Seeded actual-Humanoid normal flow passed Buy5/Buy10 immediate entry and standing repeats, then free Lucky pickup; same held ID survives Settings music35→45→35 and close. Short card wheel reaches Discard; no physicaltouch claim.",
+    "Final44pure/80compile, three layout/cue/lifecycle CLI suites plus40 actcontexts, native80source parity and morningRojoXML80source parity pass. Fresh normal desktop Play restored."
   ],
   "benchmarkEvidence": {
     "baselineFiles": [
@@ -209,12 +213,12 @@
     }
   },
   "active": [
-    "FarmUI warning cleanup and remaining highest-value polish through13:30UTC"
+    "Commit/push verified touch HUD and reference-board evidence",
+    "Continue bounded visual polish until13:30UTC"
   ],
   "next": [
-    "Commit verified shared row types",
-    "Native review revised producer label placement",
-    "Remaining targeted source cleanup and reference polish until13:30UTC"
+    "Finish final safe verification and handoff at13:30UTC",
+    "Pause overnight heartbeat only after minimum window"
   ],
   "constraints": [
     "User permits expanding former 50 limits if performance supports it; producer count remains 50.",
@@ -227,40 +231,18 @@
   "heartbeatIntervalMinutes": 15,
   "heartbeatStatus": "Root confirms the 15-minute continuation heartbeat remains active.",
   "verification": {
-    "sourceFilesCompiled": 80,
-    "standaloneLuauTestFilesPassed": 44,
-    "rojoBuild": "PASS",
-    "finalScopedFix": "Owner title native RED/GREEN,44pure suites,80source/sevenfixture compiles,affordability/endpoint regressions,peer,Rojo,eightJPEGs and diff PASS.",
-    "studioSourceFile": "docs/verification/studio-source-verification.json",
-    "studioSourceMatched": 80,
-    "studioSourceLocalCount": 80,
-    "studioSourceMismatchCount": 0,
-    "studioSourceRecordedAtUTC": "2026-10-20T10:47:24Z",
-    "studioSourceTimestampStatus": "Latest title batch recorded10:47:24UTC; earlier fixed-source benchmark evidence remains unchanged.",
-    "studioSourceScope": "Project sources in running Server DataModel, normalized CRLF, DJB2 bytes; excludes engine-injected scripts.",
-    "padLabelsBefore": "docs/verification/fresh-hud-pad-spacing.jpg",
-    "padLabelsAfter": "docs/verification/pad-labels-after.jpg",
-    "commitStatus": "ea5de16 pushed; title batch ready to commit. PR2 remains draft/unmerged.",
-    "shelfStructureCLI": "PASS red/green regression and unchanged original geometry",
-    "diffCheck": "PASS",
-    "priorExcludedEngineScripts": 6,
-    "priorWhitespaceOnlyDifferences": 11,
-    "previousStudioSourceVerification": {
-      "studioSourceMatched": 78,
-      "studioSourceLocalCount": 78,
-      "studioSourceMismatchCount": 0,
-      "studioSourceRecordedAtUTC": "2026-10-20T07:39:58Z"
-    },
-    "baselineStudioSourceVerification": {
-      "studioSourceMatched": 79,
-      "studioSourceLocalCount": 79,
-      "studioSourceMismatchCount": 0,
-      "studioSourceRecordedAtUTC": "2026-10-20T08:15:56Z"
-    },
-    "leaderboardFacesCLI": "PASS",
-    "frozenSnapshotProbeSourceFile": "docs/verification/capacity-96-snapshot-toggle-2026-10-20.json"
+    "pureSuites": 44,
+    "compiledSources": 80,
+    "nativeSourceMatches": 80,
+    "builtXMLSourceMatches": 80,
+    "touchSettledSizes": 5,
+    "layoutCLI": "2163 desktop layouts +72 touch combinations",
+    "native": "touch HUD/control separation; full-count text fit; scroll action reachability; cue lifecycle; actual held-block Settings mouse and short-card wheel input",
+    "artifact": "build/MergeABrainrot-Morning-2026-10-20.rbxlx",
+    "artifactProof": "docs/verification/morning-build-verification.json",
+    "nativeSave": "Existing FirstPlayable native document last verified at11:51UTC; latest source is live inStudio and in separate Rojo morning artifact. Native Ctrl+S not reverified."
   },
-  "latestVerifiedCommit": "96332d2",
+  "latestVerifiedCommit": "eb7bc2b (touch follow-up verified, commit pending)",
   "newBatchEvidence": {
     "status": "Gameplay/allocation/Lucky/shelf batch committed/pushed as 0059fb2. Subsequent canopy/hub/packet batch committed/pushed as 4d4fd29, synced and natively verified.",
     "normalFarmFlow": {
@@ -755,6 +737,7 @@
   },
   "farmUIStrictEvidence": "docs/verification/farm-ui-strict-native.json",
   "sharedRowEvidence": "docs/verification/shared-row-types-native.json",
-  "lastUpdatedUtc": "2026-10-20T11:52:55.666Z",
-  "coreLeaderboardEvidence": "core-leaderboard-native.json"
+  "coreLeaderboardEvidence": "core-leaderboard-native.json",
+  "touchHudEvidence": "docs/verification/touch-hud-native.json",
+  "morningBuildEvidence": "docs/verification/morning-build-verification.json"
 }

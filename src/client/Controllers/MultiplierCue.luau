@@ -45,6 +45,9 @@ function Cue.new(view: any)
     for _,object in {view.root,view.bag} do
         for _,property in {'AbsoluteSize','AbsolutePosition','Visible'} do connect(object:GetPropertyChangedSignal(property),dirty) end
     end
+    for _,attribute in {'TouchControlReserve','TouchHudStacked'} do
+        connect(view.root:GetAttributeChangedSignal(attribute),dirty)
+    end
     -- These are the existing HUD regions; their geometry/visibility signals
     -- coalesce into one layout pass on the caller's next regular update.
     for _,name in {'panel','contextPanel','actions','hud','total','homeButton','settingsButton','boostButton',
@@ -56,6 +59,29 @@ function Cue.new(view: any)
         end
     end
     if view.overlay then connect(view.overlay:GetPropertyChangedSignal('Visible'),dirty) end
+    -- Main creates Sprint after this controller. Track only that direct child,
+    -- releasing its small subscription set if it is removed or replaced.
+    local sprintConnections: {RBXScriptConnection}={}
+    local function clearSprint()
+        for _,connection in sprintConnections do disconnect(connection) end
+        table.clear(sprintConnections);self.sprint=nil;dirty()
+    end
+    local function sprint(child: Instance)
+        if child.Name~='Sprint' or not child:IsA('GuiObject') or self.sprint==child then return end
+        clearSprint();self.sprint=child
+        for _,property in {'AbsoluteSize','AbsolutePosition','Visible'} do
+            table.insert(sprintConnections,connect(child:GetPropertyChangedSignal(property),dirty))
+        end
+        table.insert(sprintConnections,connect(child.Destroying,function()
+            if self.sprint==child then clearSprint() end
+        end))
+        table.insert(sprintConnections,connect(child.AncestryChanged,function()
+            if self.sprint==child and child.Parent~=view.root then clearSprint() end
+        end))
+    end
+    local existingSprint=view.root:FindFirstChild('Sprint')
+    if existingSprint then sprint(existingSprint) end
+    connect(view.root.ChildAdded,sprint)
     local function pickup(child: Instance)
         if child.Name~='PickupGain' or not child:IsA('GuiObject') or self.pickups[child] then return end
         local record: any={}
@@ -89,11 +115,23 @@ function Cue.update(self: any,now: number)
         for _,object in self.obstacles do
             if object.Parent and visible(object,view.root) then table.insert(obstacles,rectangle(object,origin)) end
         end
+        if self.sprint and self.sprint.Parent==view.root and visible(self.sprint,view.root) then
+            table.insert(obstacles,rectangle(self.sprint,origin))
+        end
         local pickups=false
         for object in self.pickups do
             if object.Parent==view.bag and object.Visible then pickups=true;break end
         end
         local size=view.root.AbsoluteSize
+        local reserve=view.root:GetAttribute('TouchControlReserve')
+        if type(reserve)=='number' and reserve>0 then
+            -- FarmUI measures native control size on resize; no TouchGui scan
+            -- occurs here. At most two reserved rectangles keep the same bound.
+            local height=math.min(reserve,size.Y)
+            local width=if view.root:GetAttribute('TouchHudStacked') then size.X else math.min(size.X,if reserve>110 then 220 else 110)
+            table.insert(obstacles,{x=0,y=size.Y-height,width=width,height=height})
+            if width<size.X then table.insert(obstacles,{x=size.X-width,y=size.Y-height,width=width,height=height}) end
+        end
         self.layout=if visible(view.bag,view.root) then Presentation.layout(size.X,size.Y,rectangle(view.bag,origin),obstacles,pickups) else nil
     end
     local layout=self.layout
@@ -125,7 +163,7 @@ function Cue.destroy(self: any)
     self.destroyed=true;self.presentation:destroy()
     if owners[self.view.gui]==self then owners[self.view.gui]=nil end
     for connection in self.connections do connection:Disconnect() end
-    table.clear(self.connections);table.clear(self.pickups);table.clear(self.obstacles)
+    table.clear(self.connections);table.clear(self.pickups);table.clear(self.obstacles);self.sprint=nil
     self.label:Destroy()
 end
 return table.freeze(Cue)

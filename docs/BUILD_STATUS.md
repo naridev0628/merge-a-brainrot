@@ -1,6 +1,18 @@
 # Build status — 2026-10-20
 
-Current engineering checkpoint: [overnight handoff at 08:16 UTC](verification/OVERNIGHT_HANDOFF.md) and [progress JSON](verification/OVERNIGHT_PROGRESS.json). **`0059fb2` remains the latest committed/pushed batch**; PR 2 is open, draft, and unmerged. The current canopy/hub/packet changes are synced and natively verified, **uncommitted pending root commit**. All **79 source files compile**, **43 standalone Luau test files**, Rojo build, and whitespace checks pass. The saved source comparison confirms all **79 local/Studio project sources match**, with zero mismatches at **08:15:56 UTC**, after CRLF normalization and excluding engine-injected scripts. Normal Play is restored: server Main enabled, zero producer/Mini tags, HUD enabled, camera Custom, temporary packet test folder removed. Actual Main State/HUD smoke passes at coinUnits=20, zero producers/Minis. Earlier capacity measurements do not measure this full batch.
+## Current checkpoint
+
+**`eb7bc2b` is the latest committed and pushed batch**, including the processor-board presentation/reset fix and scoped LuckyCarry/PassService annotations. The committed source passes **44 standalone Luau suites, 80-source compilation, Rojo build, scoped analysis and native regressions**. PR 2 remains draft and unmerged; no live experience has been published. Use the [current overnight handoff](verification/OVERNIGHT_HANDOFF.md) and [progress JSON](verification/OVERNIGHT_PROGRESS.json) for the latest verification, Studio state and commit status, and the [Foltyn comparison board](reference/chicken-farm-foltyn-study/index.html) for annotated reference and implementation images.
+
+**The touch HUD/Sprint and transient multiplier-cue follow-up is verified and pending commit.** Five actual device-simulator sizes preserve native movement/jump controls; layout text/counts, scroll actions, observer lifecycle and the actual held-block Settings/mouse flow pass. All80 Studio sources match the working tree and the separate morning Rojo artifact matches all80 sources. A latest native save of the existing FirstPlayable document is not verified; physical-device acceptance and globally clean Script Analysis are not claimed. The minimum overnight window remains 13:30 UTC; the handoff records continuation status.
+
+Capacity remains **50 producers and 96 preview Minis**. Mixed-species and all-Crocodilo isolated Humanoid pickup routes passed, while dense mesh overlap, some stacked producer-name occlusion, real multiplayer/device load and long-run memory behavior remain limitations. Historical performance measurements below retain their original fixed-source scope and do not benchmark the complete current build. Progress is still memory-only; the pending release integrations listed below remain open.
+
+## Historical overnight record — through 08:16 UTC
+
+The following paragraphs preserve that earlier checkpoint, its measurements and its then-current plans. They are **historical, not the current build, save, test-count or backlog status**.
+
+At that checkpoint, `0059fb2` was the latest committed/pushed batch and canopy/hub/packet changes were synced and natively verified but awaiting commit. All **79 source files compiled**, **43 standalone Luau test files**, Rojo build, and whitespace checks passed. The saved source comparison confirmed all **79 local/Studio project sources matched**, with zero mismatches at **08:15:56 UTC**, after CRLF normalization and excluding engine-injected scripts. Normal Play was restored: server Main enabled, zero producer/Mini tags, HUD enabled, camera Custom, temporary packet test folder removed. Actual Main State/HUD smoke passed at coinUnits=20, zero producers/Minis. Earlier capacity measurements did not measure that full batch.
 
 **GroundCap=96 remains a Studio-preview setting; producer Slots=50 remains unchanged.** The native Humanoid tray walk passed all 96 mixed Minis, all six species, partial repacking, and five waypoints over 52.0936 world studs. The updated ten-checkpoint obby driver and finish award passed again; Home separately preserved the award.
 
@@ -16,7 +28,7 @@ The canopy now passes native mirrored-plot checks on all six plots at the unchan
 
 The outbound packet helper avoids **151 nested table copies per full-farm send**, preserving deep transaction snapshots. Its native probe passes the full **50 producers / 96 Minis**, CFrame, client isolation, later Core commit, and metadata. The CLI allocation timings are local packet-assembly results, not native FPS/memory gains. Next: commit the verified batch, assess board faces, and verify producer-label readability through the real camera before any change; the earlier AlwaysOnTop capture remains inconclusive. Do not invent reference economy rules or repeat the completed profile without a reason. The minimum overnight work window continues until **13:30 UTC**, with an active **15-minute** continuation heartbeat. Nothing is merged or published, and the window is not complete. The records below describe earlier checkpoints and do not override this current status.
 
-## Chicken Farm reference implementation
+## Historical Chicken Farm reference implementation
 
 The annotated [reference board](reference/chicken-farm-video/index.html) now maps all twelve captured moments to concrete applied changes and includes four implementation previews. Shared rounded typography, separate pad title/price labels, a larger woven Mini basket, responsive nonmodal Lucky odds and two real rebirth reward tiles follow the reference hierarchy. Small-phone Lucky content scrolls when necessary, keeping both actions reachable.
 
@@ -24,7 +36,7 @@ The rear display spans about 90% of the conveyor width; character names wrap and
 
 Verification: all 46 source files compile, all 22 standalone Luau test files pass, and Rojo builds the place. Studio checks pass for ten HUD sizes (including short portrait and landscape), reachable Lucky actions, pickup aggregation/expiry, mirrored environment, pad affordability, producer grounding, cash/deposit/tier effect budgets and cleanup, and the three-voice audio pool. Populated-row, Lucky, rebirth, farmer/deposit and utility-board views were inspected. These are Studio checks, not physical-device or multiplayer certification. See [verification details](verification/CHICKEN_FARM_REFERENCE_PASS.md).
 
-## Prior refactor and reference preparation
+## Historical refactor and reference preparation
 
 Client pad targeting now lives in the pure `Shared/PadTargeting` module. `Main.client` retains the interaction scheduler, remote handling, Lucky pickup and aura. The extraction preserves action precedence, full-pad corner ownership, exact Buy quantities, merge eligibility, immediate entry and the existing two-second/half-second repeat. No balance or visual behavior changed in this preparation pass.
 

@@ -47,7 +47,7 @@ This fixes the farm title’s shelf clipping. Lower-row producer names can still
 
 ### Processor board: count first, with reliable empty-state reset
 
-The [processor comparison section](index.html#comparison-processor) uses the matched **96-count pair** as its main comparison. The reference at 03:22 informs the heading/count/rate hierarchy; “Processing Minis”, numeric formatting and dimensions are our adaptation. The font, economy, physical board and existing three text cells remain unchanged. Baseline source is `977b29e`; this processor change is native-verified and uncommitted at this checkpoint.
+The [processor comparison section](index.html#comparison-processor) uses the matched **96-count pair** as its main comparison. The reference at 03:22 informs the heading/count/rate hierarchy; “Processing Minis”, numeric formatting and dimensions are our adaptation. The font, economy, physical board and existing three text cells remain unchanged. Baseline source is `977b29e`; this processor change was native-verified and committed in `eb7bc2b`.
 
 | View | Before | After |
 | --- | --- | --- |
@@ -63,6 +63,24 @@ Matched close views were visually accepted. The approach count is clearer, but u
 The farmer’s visible shirt and sleeves at [01:36](0096-01-36.jpg) and [03:22](0202-03-22.jpg) support the already implemented waist-height blue counter. Thick island foundations, square silo, two-rail fences, basket, shrubs, plank bridges and tutorial ground guidance are also already present. They are comparison points, not missing-feature claims. Existing tree variants should be assessed before adding scenery.
 
 **Nests are excluded by the user’s direction.** They remain visible in reference images and are described only as source evidence. This study does not propose adding them or copying character assets.
+
+## Touch HUD: space for movement, Jump and the held card
+
+The [touch HUD comparison](index.html#comparison-touch) adds five before/after layout pairs and four held-card/settings views. These are **14 implementation images**, separate from the unchanged **14 source-video frames**. They document our responsive adaptation, not a mobile layout established by the reference video.
+
+| Emulator layout | Before | After |
+| --- | --- | --- |
+| Phone landscape, safe area 750×323 | [Overlapping bottom HUD](../../verification/touch-phone-landscape-before.jpg) | [Central count strip](../../verification/touch-phone-landscape-after.jpg) |
+| Phone portrait, safe area 401×720 | [Basket over Jump](../../verification/touch-phone-portrait-before.jpg) | [Counts above controls](../../verification/touch-phone-portrait-after.jpg) |
+| Short landscape, safe area 705×280 | [Cash and total overlap controls](../../verification/touch-galaxy-landscape-before.jpg) | [Compact HUD and clear controls](../../verification/touch-galaxy-landscape-after.jpg) |
+| Tablet landscape, safe area 1375×974 | [Cash and Sprint meet larger controls](../../verification/touch-tablet-landscape-before.jpg) | [Large-control clearance](../../verification/touch-tablet-landscape-after.jpg) |
+| Narrow tablet, safe area 579×759 | [Large Jump overlaps basket](../../verification/touch-medium-portrait-before.jpg) | [Clearance follows actual control size](../../verification/touch-medium-portrait-after.jpg) |
+
+[Held Lucky in portrait](../../verification/touch-actual-held-portrait.jpg) and [Settings while carrying](../../verification/touch-actual-settings-portrait.jpg) show the block, farm counts and native controls together. The short landscape card keeps its existing scrolling: [upper content](../../verification/touch-actual-lucky-short-top.jpg) / [cost, Unlock and Discard](../../verification/touch-actual-lucky-short-bottom.jpg). The two short-card screenshots use different camera positions; they demonstrate scroll states, not a matched before/after scene.
+
+Five settled emulator layouts passed native bounds, count/text-fit and reachable Lucky/Settings scroll-action checks. The actual-module CLI also covered 2,163 desktop layouts and 72 touch layout/state combinations. A native-size observer follows Jump resizing and replacement; the measured Galaxy→iPad and reverse transition each retained one sampled mismatching render frame before correction, versus approximately 1.8 seconds and 0.2 seconds before the observer. This is event-response evidence, not an FPS improvement.
+
+Validation used the **Studio device emulator, mouse-driven interaction and native UI checks**. No physical touchscreen, device performance or multiplayer certification is claimed. The recorded comparisons preserve Home, counts, the Shop route and the nonmodal held card; compact promotional controls yield space. Source observations, source frame counts and existing comparison evidence remain unchanged. Raw evidence: [touch-hud-native.json](../../verification/touch-hud-native.json).
 
 ## Evidence files
 

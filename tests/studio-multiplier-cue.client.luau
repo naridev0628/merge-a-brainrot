@@ -45,6 +45,18 @@ local function verify()
     for _,child in ui.bag:GetChildren() do
         if child.Name=='PickupGain' and child.Visible then assert(separate(label,child),'Cue overlaps pickup feedback') end
     end
+    local sprint=ui.root:FindFirstChild('Sprint')
+    if sprint and visible(sprint) then assert(separate(label,sprint),'Cue overlaps Sprint') end
+    local reserve=ui.root:GetAttribute('TouchControlReserve')
+    if type(reserve)=='number' and reserve>0 then
+        local height=math.min(reserve,rs.Y)
+        local width=if ui.root:GetAttribute('TouchHudStacked') then rs.X else math.min(rs.X,if reserve>110 then 220 else 110)
+        local function free(x)
+            return p.X+s.X<=x or p.X>=x+width or p.Y+s.Y<=rp.Y+rs.Y-height
+        end
+        assert(free(rp.X),'Cue overlaps reserved left/stacked touch area')
+        if width<rs.X then assert(free(rp.X+rs.X-width),'Cue overlaps reserved right touch area') end
+    end
     return true
 end
 local ok,err=xpcall(function()
