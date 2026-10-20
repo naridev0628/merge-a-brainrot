@@ -15,7 +15,7 @@ return table.freeze({
     FarmerAlcoveSize = Vector3.new(24,1,14),
     PassPads = table.freeze({
         mini2=Vector3.new(-13,.15,-28),cash2=Vector3.new(-20,.15,-12),
-        autoCollect=Vector3.new(0,.15,Config.BuyZ),autoSell=Vector3.new(15,.15,5),
+        autoCollect=Vector3.new(0,.15,Config.AutoCollectZ),autoSell=Vector3.new(15,.15,5),
         cash4=Vector3.new(35,.15,-15),cash8=Vector3.new(35,.15,-27),
     }),
     GroundSize = Vector3.new(240,1,200),

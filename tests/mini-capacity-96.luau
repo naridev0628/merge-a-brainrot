@@ -50,9 +50,9 @@ local function checkBag(session,expected)
     end
 end
 
--- All nodes lie on the ground in front of the tray's front rim (z = TrayZ-6).
+-- All nodes lie on the ground in front of the tray's front rim (z = TrayZ-8).
 -- They avoid walking through the pile or requiring a jump onto its top layer.
-local walkNodes={{x=-6,z=config.TrayZ-9},{x=0,z=config.TrayZ-9},{x=6,z=config.TrayZ-9}}
+local walkNodes={{x=-8,z=config.TrayZ-11},{x=0,z=config.TrayZ-11},{x=8,z=config.TrayZ-11}}
 local furthest=0
 for farm=1,6 do
     local full=seed(50)
@@ -70,7 +70,7 @@ for farm=1,6 do
         seen[key]=true;layers[token.y]=true;maximumY=math.max(maximumY,token.y)
         origins[token.origin]=(origins[token.origin] or 0)+1
         assert(origins[token.origin]<=8)
-        assert(math.abs(token.x)<7.5 and math.abs(token.z-config.TrayZ)<6,
+        assert(math.abs(token.x)<=10.31+1e-8 and math.abs(token.z-config.TrayZ)<=5.385+1e-8,
             'Logical centers must remain within the existing tray footprint')
         local best,bestDistance=nil,math.huge
         for _,node in walkNodes do
@@ -89,7 +89,7 @@ for farm=1,6 do
     end
     local layerCount=0
     for _ in layers do layerCount+=1 end
-    assert(layerCount==4 and math.abs(maximumY-7.3)<1e-8,'96 must occupy exactly four complete 24-slot layers')
+    assert(layerCount==3 and math.abs(maximumY-5.3)<1e-8,'96 must occupy exactly three complete 32-slot layers')
 
     -- A side approach collects only part of the pile. The remaining IDs keep
     -- their values and immediately compact before the next real pickup.
@@ -105,11 +105,18 @@ for farm=1,6 do
         lowered=lowered or token.y<old.y
     end
     assert(lowered and core:validate(full.state,full.owner),'Surviving upper Minis must repack into lower vacancies')
-    local final=aura(full,'front-walk',10.1,0,config.TrayZ-9)
-    assert(final.code=='OK' and final.count+partial.count==96 and #full.state.tokens==0)
+    local finalCount=0
+    local replayId
+    for index,node in walkNodes do
+        local id='front-walk-'..index
+        local final=aura(full,id,10.1,node.x,node.z)
+        assert(final.code=='OK' or final.code=='NothingNearby')
+        if final.code=='OK' then finalCount+=final.count;replayId=id end
+    end
+    assert(finalCount+partial.count==96 and #full.state.tokens==0)
     checkBag(full,expected)
     local revision=full.state.revision
-    assert(aura(full,'front-walk',10.2,0,config.TrayZ-9).replayed)
+    assert(replayId and aura(full,replayId,10.2,0,config.TrayZ-11).replayed)
     assert(Economy.count(full.state.bag)==96 and full.state.revision==revision,'Aura replay must not duplicate inventory')
 end
 
@@ -118,20 +125,22 @@ end
 local airborne=seed(50)
 core:step(airborne,1);core:step(airborne,2)
 local expectedAir=speciesCounts(airborne.state.tokens)
-assert(aura(airborne,'too-early',2,0,config.TrayZ-9).code=='NothingNearby')
+assert(aura(airborne,'too-early',2,0,config.TrayZ-11).code=='NothingNearby')
 local highest=airborne.state.tokens[#airborne.state.tokens]
-assert(core:dispatch(airborne,'Collect',{highest.id},context(2,0,config.TrayZ-9)).code=='TooFar')
+assert(core:dispatch(airborne,'Collect',{highest.id},context(2,0,config.TrayZ-11)).code=='TooFar')
 local moving,landed,eligible=0,0,0
 local collectAt=5.6
-local center=context(collectAt,0,config.TrayZ-9).pickupPosition
+local center=context(collectAt,0,config.TrayZ-11).pickupPosition
 for _,token in airborne.state.tokens do
     if token.readyAt>collectAt then moving+=1 else landed+=1 end
     local position=Motion.position(config,token,collectAt)
     if position and Pickup.contains(center,position,config.PickupRadius) then eligible+=1 end
 end
-assert(moving>0 and landed>0 and eligible==96,'Fixture must cover both the final airborne arc and the settled pile')
-local caught=aura(airborne,'catch-arc',collectAt,0,config.TrayZ-9)
-assert(caught.code=='OK' and caught.count==eligible and #airborne.state.tokens==0)
+assert(moving>0 and landed>0 and eligible>0,'Fixture must cover both the final airborne arc and the settled pile')
+local caught=aura(airborne,'catch-arc',collectAt,0,config.TrayZ-11)
+assert(caught.code=='OK' and caught.count==eligible and #airborne.state.tokens==96-eligible)
+for index,node in walkNodes do aura(airborne,'finish-arc-'..index,10,node.x,node.z) end
+assert(#airborne.state.tokens==0)
 checkBag(airborne,expectedAir)
 assert(core:validate(airborne.state,airborne.owner))
 
@@ -145,11 +154,11 @@ for _,count in {6,12,50} do
     core:step(capped,10000)
     assert(#capped.state.tokens==expectedTotal)
     for _,producer in capped.state.producers do assert(producer.due==10001) end
-    local removed=aura(capped,'clear-stall',10000,0,config.TrayZ-9)
+    local removed=aura(capped,'clear-stall',10000,0,config.TrayZ)
     assert(removed.code=='OK' and removed.count==expectedTotal and #capped.state.tokens==0)
     assert(not core:step(capped,10000.5) and #capped.state.tokens==0,'Clearing capacity must not release blocked work')
     assert(core:step(capped,10001) and #capped.state.tokens==count,'Only one new drop per producer follows a blocked stall')
     assert(core:validate(capped.state,capped.owner))
 end
 assert(Config.GroundCap==originalCap and Config.Slots==50 and Config.GroundPerProducer==8,'Acceptance must leave shipped limits unchanged')
-print(string.format('PASS 96 mixed Minis across six farms: four layers, all six species, actual aura/airborne pickup, repack/replay and no backlog; furthest ground approach %.2f / 12 world studs',furthest))
+print(string.format('PASS 96 mixed Minis across six farms: three layers, all six species, actual aura/airborne pickup, repack/replay and no backlog; furthest ground approach %.2f / 12 world studs',furthest))

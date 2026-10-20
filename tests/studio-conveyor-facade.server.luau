@@ -3,7 +3,19 @@
 local Config=require(game.ReplicatedStorage.Shared.Config)
 local Map=require(game.ReplicatedStorage.Shared.MapSpec)
 local Motion=require(game.ReplicatedStorage.Shared.MiniMotion)
+local Core=require(game.ServerScriptService.Domain.FarmCore)
+local Catalog=require(game.ReplicatedStorage.Shared.CreatureCatalog)
 local generated=assert(workspace:FindFirstChild('MergeABrainrotGenerated'))
+local core=Core.new(Config,Catalog,function() return 1 end)
+local session=core:newSession(999,0,'facade-targets')
+local state=core:snapshot(session)
+state.starterClaimed=true
+for slot=1,50 do
+    state.producers[slot]={id=core:id(session),speciesId='tier_06',slot=slot,due=1}
+end
+assert(core:commit(session,state))
+core:step(session,1);core:step(session,2)
+assert(#session.state.tokens==96)
 
 local function bounds(part: BasePart,frame: CFrame,scale: number): (Vector3,Vector3)
     local lo,hi=Vector3.one*math.huge,Vector3.one*-math.huge
@@ -26,12 +38,12 @@ for id=1,Config.PlotCount do
     local parts={}
     local protected={
         {name='red belt',lo=Vector3.new(-51.5,.6,Config.BeltZ-4),hi=Vector3.new(51.5,5,Config.BeltZ+4)},
-        {name='collection tray',lo=Vector3.new(-7.5,.6,Config.TrayZ-5.4),hi=Vector3.new(7.5,5,Config.TrayZ+5.8)},
+        {name='collection tray',lo=Vector3.new(-Config.Tray.Width/2+.5,.6,Config.TrayZ-Config.Tray.Depth/2+.6),hi=Vector3.new(Config.Tray.Width/2-.5,5,Config.TrayZ+Config.Tray.Depth/2-.2)},
         {name='center chute',lo=Vector3.new(-7,.6,Config.TrayZ+5.5),hi=Vector3.new(7,5,Config.BeltZ+4)},
         {name='producer standing space',lo=Vector3.new(-50.5,Config.DisplayPlatformHeight+.15,Config.DisplayZ-3.6),hi=Vector3.new(50.5,Config.RowHeight*5,Config.DisplayZ+3.6)},
     }
     for _,child in plot:GetChildren() do
-        if child:IsA('BasePart') and (child.Name:match('^Buy%d+$') or child.Name:match('^Pass_') or child.Name=='MergePad') then
+        if child:IsA('BasePart') and (child.Name:match('^Buy%d+Base$') or child.Name:match('^Pass_.+Base$') or child.Name=='MergePadBase') then
             local lo,hi=bounds(child,frame,scale)
             table.insert(protected,{name=child.Name,lo=Vector3.new(lo.X,0,lo.Z),hi=Vector3.new(hi.X,5,hi.Z)})
         end
@@ -64,6 +76,25 @@ for id=1,Config.PlotCount do
                 local localPoint=part.CFrame:PointToObjectSpace(point)
                 local half=part.Size/2+Vector3.one*(.12*scale)
                 assert(math.abs(localPoint.X)>half.X or math.abs(localPoint.Y)>half.Y or math.abs(localPoint.Z)>half.Z,part.Name..' clips a moving Mini')
+            end
+        end
+    end end
+    -- The outer landing paths now span a wider floor. Exercise every actual
+    -- cell/layer from both conveyor extremes, with explicit phase boundaries.
+    for _,target in session.state.tokens do for _,side in {-1,1} do
+        local token=table.clone(target)
+        token.startX=side*45
+        token.startY=Config.DisplayPlatformHeight+(if side==1 then 4*Config.RowHeight else 0)+1
+        token.startZ=Config.DisplayZ-2
+        token.spawnedAt=0;token.readyAt=Config.TransitSeconds
+        for _,progress in {0,.11,.22,.5,.77,.8,.85,.9,.95,.99,1} do
+            local position=assert(Motion.position(Config,token,Config.TransitSeconds*progress))
+            local point=frame:PointToWorldSpace(Vector3.new(position.x,position.y,position.z)*scale)
+            for _,part in parts do
+                local localPoint=part.CFrame:PointToObjectSpace(point)
+                local half=part.Size/2+Vector3.one*(.12*scale)
+                assert(math.abs(localPoint.X)>half.X or math.abs(localPoint.Y)>half.Y or math.abs(localPoint.Z)>half.Z,
+                    part.Name..' clips an outer-cell Mini trajectory')
             end
         end
     end end

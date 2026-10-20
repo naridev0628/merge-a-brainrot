@@ -85,10 +85,10 @@ local active=false
 local destroyed=false
 local deadline=os.clock()+120
 local route={
-    {name='left front',x=-18,z=config.TrayZ-9},
-    {name='left perimeter',x=-18,z=config.TrayZ},
-    {name='front center',x=0,z=config.TrayZ-9},
-    {name='right perimeter',x=18,z=config.TrayZ},
+    {name='left front',x=-15,z=config.TrayZ-11},
+    {name='left perimeter',x=-15,z=config.TrayZ},
+    {name='front center',x=0,z=config.TrayZ-11},
+    {name='right perimeter',x=15,z=config.TrayZ},
     {name='tray center',x=0,z=config.TrayZ},
 }
 local visited,serial,total,partial,repacked=0,0,0,false,false
@@ -164,7 +164,7 @@ remote.OnServerInvoke=function(who,action)
         if not humanoid or humanoid.Health<=0 or not root then return {error='Alive character required'} end
         original=character:GetPivot()
         local offset=humanoid.HipHeight+root.Size.Y/2+(if humanoid.RigType==Enum.HumanoidRigType.R6 then 2 else 0)
-        local start=world.frame:PointToWorldSpace(Vector3.new(-34,0,config.TrayZ-15)*config.PlotScale)
+        local start=world.frame:PointToWorldSpace(Vector3.new(-15,0,config.TrayZ-18)*config.PlotScale)
         -- Exactly one staging move. Every subsequent pickup uses real walking.
         character:PivotTo(CFrame.new(start+Vector3.new(0,offset+.15,0)))
         root.AssemblyLinearVelocity=Vector3.zero

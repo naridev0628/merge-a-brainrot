@@ -97,7 +97,6 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local rearCenter=(Config.PlotBackZ+Config.PlotRearStartZ)/2
     local rear=Factory.part(root,'WideFarmRear',Vector3.new(112,1,rearDepth),CFrame.new(0,-.5,rearCenter),lawn.Color,nil,true);rear.TopSurface=Enum.SurfaceType.Studs
     local stallFloor=Factory.part(root,'FarmerAlcove',Map.FarmerAlcoveSize,CFrame.new(Map.FarmerAlcoveCenter),lawn.Color,nil,true);stallFloor.TopSurface=Enum.SurfaceType.Studs
-    for x=-54,54,4 do for z=-36,Config.PlotBackZ-2,4 do if z>=Config.PlotRearStartZ or math.abs(x)<=46 then Factory.part(root,'LawnStud',Vector3.new(1,.12,1),CFrame.new(x,.06,z),Color3.fromRGB(124,217,37)) end end end
     for _,side in {-1,1} do
         fence(root,CFrame.new(side*48,0,3)*CFrame.Angles(0,math.pi/2,0),82)
         fence(root,CFrame.new(side*52,0,Config.PlotRearStartZ),8)
@@ -196,16 +195,26 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     ownerName.Text='Available plot'; ownerName.Position=UDim2.fromOffset(0,40);ownerName.Parent=badge;TextStyle.apply(ownerName,22,TextStyle.Cream,2.2)
     portrait.Visible=false
     -- Two red lanes converge at the center, then feed a gold-rimmed collection tray.
+    local traySpec=Config.Tray
+    local trayHalfWidth,trayHalfDepth=traySpec.Width/2,traySpec.Depth/2
+    local trayFront=Config.TrayZ-trayHalfDepth
+    local rimBack=math.min(Config.TrayZ+trayHalfDepth,Config.BeltZ-4)
+    local rimDepth,rimCenter=rimBack-trayFront,(rimBack+trayFront)/2
+    local laneOuter=Config.Columns*Config.ColumnSpacing/2+2
+    local laneWidth=laneOuter-trayHalfWidth
+    local laneCenter=(laneOuter+trayHalfWidth)/2
     local belt=Factory.part(root,'ConveyorBelt',Vector3.new(102,.4,8),CFrame.new(0,.5,Config.BeltZ),Color3.fromRGB(222,61,62),nil,true); belt.TopSurface=Enum.SurfaceType.Studs
     Factory.part(root,'ConveyorBackRail',Vector3.new(104,1,1),CFrame.new(0,.9,Config.BeltZ+4.6),orange,nil,true)
-    for _,x in {-30,30} do Factory.part(root,'ConveyorFrontRail',Vector3.new(44,1,1),CFrame.new(x,.9,Config.BeltZ-4.6),orange,nil,true) end
-    local chuteStart=Config.TrayZ+6
+    for _,side in {-1,1} do Factory.part(root,'ConveyorFrontRail',Vector3.new(laneWidth,1,1),CFrame.new(side*laneCenter,.9,Config.BeltZ-4.6),orange,nil,true) end
+    -- Keep the complete belt center collidable even when the tray extends beneath it.
+    local chuteStart=rimBack
     local chuteEnd=Config.BeltZ+4
     Factory.part(root,'ConveyorCenter',Vector3.new(14,.4,chuteEnd-chuteStart+1),CFrame.new(0,.5,(chuteStart+chuteEnd)/2),Color3.fromRGB(222,61,62),nil,true)
-    local tray=Factory.part(root,'CollectionTray',Vector3.new(16,.4,12),CFrame.new(0,.45,Config.TrayZ),Color3.fromRGB(222,61,62));tray.TopSurface=Enum.SurfaceType.Studs
-    for x=-6,6,2 do for z=-4,4,2 do Factory.part(root,'TrayStud',Vector3.new(.5,.1,.5),CFrame.new(x,.7,Config.TrayZ+z),Color3.fromRGB(238,84,82)) end end
-    for _,x in {-8,8} do Factory.part(root,'TrayRim',Vector3.new(.7,.8,12),CFrame.new(x,.8,Config.TrayZ),orange,nil,true) end
-    Factory.part(root,'TrayFront',Vector3.new(16,.6,.7),CFrame.new(0,.7,Config.TrayZ-6),orange,nil,true)
+    local tray=Factory.part(root,'CollectionTray',Vector3.new(traySpec.Width,.4,traySpec.Depth),CFrame.new(0,.45,Config.TrayZ),Color3.fromRGB(222,61,62));tray.TopSurface=Enum.SurfaceType.Studs
+    -- Keep 35 physical accents; native studs cover the larger red floor.
+    for x=-3,3 do for z=-2,2 do Factory.part(root,'TrayStud',Vector3.new(.5,.1,.5),CFrame.new(x*traySpec.Width/8,.7,Config.TrayZ+z*(traySpec.Depth-4)/4),Color3.fromRGB(238,84,82)) end end
+    for _,side in {-1,1} do Factory.part(root,'TrayRim',Vector3.new(.7,.8,rimDepth),CFrame.new(side*trayHalfWidth,.8,rimCenter),orange,nil,true) end
+    Factory.part(root,'TrayFront',Vector3.new(traySpec.Width,.6,.7),CFrame.new(0,.7,trayFront),orange,nil,true)
     belt.Transparency=1;belt.CanCollide=false
     for _,side in {-1,1} do
         local rampCF=CFrame.new(side*26,1.2,Config.BeltZ)*CFrame.Angles(0,0,side*.032)

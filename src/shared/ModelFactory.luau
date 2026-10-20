@@ -69,7 +69,11 @@ function Factory.characterLabel(part: BasePart,species: any,offset: number)
         local constraint=Instance.new('UITextSizeConstraint');constraint.MinTextSize=if name=='Name' then 6 else 5;constraint.MaxTextSize=fontSize;constraint.Parent=label
     end
     local displayName=if #species.name>13 then (species.name:gsub(' ','\n',1)) else species.name
-    line('Name',displayName,0,.72,24,Color3.fromRGB(table.unpack(species.color)))
+    -- Brighten the two muted names against tan shelves without recoloring meshes.
+    local nameColor=if species.tier==1 then Color3.fromRGB(255,204,143)
+        elseif species.tier==6 then Color3.fromRGB(177,236,112)
+        else Color3.fromRGB(table.unpack(species.color))
+    line('Name',displayName,0,.72,24,nameColor)
     line('Level','Level '..species.tier,.76,.24,16,Color3.fromRGB(255,244,222))
 end
 function Factory.producer(parent: Instance,id: string,species: any,position: Vector3,mini: boolean?): Model

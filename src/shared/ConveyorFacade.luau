@@ -57,6 +57,14 @@ function Facade.build(parent: Instance): Model
     local fasciaFront=Config.BeltZ+5.25
     local fasciaBack=Config.DisplayZ-3.7
     local fasciaDepth=fasciaBack-fasciaFront
+    local tray=Config.Tray
+    local halfWidth,halfDepth=tray.Width/2,tray.Depth/2
+    local trayFront=Config.TrayZ-halfDepth
+    local rimBack=math.min(Config.TrayZ+halfDepth,Config.BeltZ-4)
+    local rimDepth,rimCenter=rimBack-trayFront,(rimBack+trayFront)/2
+    local laneOuter=Config.Columns*Config.ColumnSpacing/2+2
+    local laneWidth=laneOuter-halfWidth
+    local laneCenter=(laneOuter+halfWidth)/2
 
     -- The bright apron bridges the narrow gap below the producer row. Its top
     -- stops at the existing stand plane, leaving every actor and fall visible.
@@ -80,18 +88,19 @@ function Facade.build(parent: Instance): Model
     -- Cream outer skirts and gold crowns make the same sloped red lanes read
     -- as one substantial machine. They stay outside the belt's playable width.
     for _,side in {-1,1} do
-        local laneCF=CFrame.new(side*30,1.95,Config.BeltZ-4.95)
+        -- Shorten the inner ends while retaining the original slope and outer height.
+        local laneCF=CFrame.new(side*laneCenter,1.95+(laneCenter-30)*math.tan(.022),Config.BeltZ-4.95)
             *CFrame.Angles(0,0,side*.022)
-        part(root,'ConveyorCreamSkirt',Vector3.new(44,3,.65),
+        part(root,'ConveyorCreamSkirt',Vector3.new(laneWidth,3,.65),
             laneCF*CFrame.new(0,-1.7,-.15),cream)
-        part(root,'ConveyorSkirtFoot',Vector3.new(44,.15,.82),
-            CFrame.new(side*30,.16,Config.BeltZ-5.1),creamLight)
-        part(root,'ConveyorGoldCrown',Vector3.new(44,.42,.78),laneCF,gold)
-        part(root,'ConveyorCrownHighlight',Vector3.new(44,.1,.84),
+        part(root,'ConveyorSkirtFoot',Vector3.new(laneWidth,.15,.82),
+            CFrame.new(side*laneCenter,.16,Config.BeltZ-5.1),creamLight)
+        part(root,'ConveyorGoldCrown',Vector3.new(laneWidth,.42,.78),laneCF,gold)
+        part(root,'ConveyorCrownHighlight',Vector3.new(laneWidth,.1,.84),
             laneCF*CFrame.new(0,.25,0),goldLight)
-        part(root,'ConveyorRedReveal',Vector3.new(44,.16,.1),
+        part(root,'ConveyorRedReveal',Vector3.new(laneWidth,.16,.1),
             laneCF*CFrame.new(0,-.37,-.5),red)
-        for x=-20,20,4 do
+        for x=-laneWidth/2+2,laneWidth/2-2,4 do
             part(root,'SkirtBrickStud',Vector3.new(.55,.5,.12),
                 laneCF*CFrame.new(x,-.75,-.54),creamLight)
         end
@@ -126,23 +135,23 @@ function Facade.build(parent: Instance): Model
 
     -- A shallow cream plinth and separate gold edge finish the existing red
     -- collection floor. No overlay changes its height or the center chute.
-    part(root,'TrayFoundation',Vector3.new(18.4,.18,13.2),
+    part(root,'TrayFoundation',Vector3.new(tray.Width+2.4,.18,tray.Depth+1.2),
         CFrame.new(0,.13,Config.TrayZ),cream)
-    part(root,'TrayFrontGoldEdge',Vector3.new(17,.22,.48),
-        CFrame.new(0,1.1,Config.TrayZ-6.18),goldLight)
-    part(root,'TrayFrontRedInlay',Vector3.new(16,.18,.1),
-        CFrame.new(0,.58,Config.TrayZ-6.66),red)
+    part(root,'TrayFrontGoldEdge',Vector3.new(tray.Width+1,.22,.48),
+        CFrame.new(0,1.1,trayFront-.18),goldLight)
+    part(root,'TrayFrontRedInlay',Vector3.new(tray.Width,.18,.1),
+        CFrame.new(0,.58,trayFront-.66),red)
     for _,side in {-1,1} do
-        -- Match the tray's depth: its rear edge is also the red belt's front.
-        part(root,'TraySideGoldEdge',Vector3.new(.4,.18,12),
-            CFrame.new(side*8.3,1.25,Config.TrayZ),goldLight)
-        part(root,'TraySideCreamBand',Vector3.new(.35,.55,12),
-            CFrame.new(side*8.65,.51,Config.TrayZ),creamLight)
-        part(root,'TraySideRedInlay',Vector3.new(.1,.18,11.5),
-            CFrame.new(side*8.87,.6,Config.TrayZ),red)
-        for _,z in {-5.7,5.7} do
+        -- The floor overlaps beneath the belt; raised trim stops at its open front.
+        part(root,'TraySideGoldEdge',Vector3.new(.4,.18,rimDepth),
+            CFrame.new(side*(halfWidth+.3),1.25,rimCenter),goldLight)
+        part(root,'TraySideCreamBand',Vector3.new(.35,.55,rimDepth),
+            CFrame.new(side*(halfWidth+.65),.51,rimCenter),creamLight)
+        part(root,'TraySideRedInlay',Vector3.new(.1,.18,rimDepth-.5),
+            CFrame.new(side*(halfWidth+.87),.6,rimCenter),red)
+        for _,z in {trayFront+.3,rimBack-.3} do
             part(root,'TrayCornerCap',Vector3.new(.6,.18,.6),
-                CFrame.new(side*8.3,1.43,Config.TrayZ+z),gold)
+                CFrame.new(side*(halfWidth+.3),1.43,z),gold)
         end
     end
     return root

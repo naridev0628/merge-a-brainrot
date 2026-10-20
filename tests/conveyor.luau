@@ -14,7 +14,7 @@ core:step(s,Config.Interval)
 local t=s.state.tokens[1]
 assert(t.startX==core:slotPosition(1).x and t.startZ>Config.BeltZ)
 assert(t.readyAt==Config.Interval+Config.TransitSeconds)
-assert(math.abs(t.x)<=7.5 and t.z>=Config.TrayZ-6 and t.z<=Config.TrayZ+6)
+assert(math.abs(t.x)<=10.31+1e-8 and math.abs(t.z-Config.TrayZ)<=5.385+1e-8)
 assert(cmd('Collect',{t.id},Config.Interval,t.x,t.z).code=='TooFar','Pickup must use the airborne location rather than the remote tray target')
 assert(Economy.count(s.state.bag)==0 and #s.state.tokens==1)
 assert(cmd('Collect',{t.id},Config.Interval,t.startX,t.startZ).code=='OK','New Mini is collectible immediately at its producer')
@@ -49,8 +49,8 @@ for _,mini in pile.state.tokens do
     local key=string.format('%.3f:%.3f:%.3f',mini.x,mini.y,mini.z)
     assert(not seen[key],'Minis must occupy distinct resting places at full capacity')
     seen[key]=true; heights[math.floor(mini.y)]=true
-    assert(mini.y>0 and mini.y<8,'Pile must stack above the tray within reach')
-    assert(math.abs(mini.x)<=7.5 and math.abs(mini.z-Config.TrayZ)<=6,'Pile must stay inside tray walls')
+    assert(mini.y>0 and mini.y<6,'Pile must stack above the tray within reach')
+    assert(math.abs(mini.x)<=10.31+1e-8 and math.abs(mini.z-Config.TrayZ)<=5.385+1e-8,'Pile must stay inside tray walls')
     assert(mini.y<=Config.CollectDistance,'Every resting mini must be reachable while walking underneath it on the ground')
     if mini.y==pile.state.tokens[1].y then
         local spread=speciesSpread[mini.speciesId] or {low=mini.x,high=mini.x}
@@ -60,19 +60,19 @@ for _,mini in pile.state.tokens do
 end
 local heightCount=0
 for _ in heights do heightCount+=1 end
-assert(heightCount==math.ceil(Config.GroundCap/24),'Full tray must fill every required 24-position layer')
-assert(pile.state.tokens[25].y-pile.state.tokens[1].y>=1.9,'Stacked mini bodies need vertical clearance')
+assert(heightCount==math.ceil(Config.GroundCap/32),'Full tray must fill every required 32-position layer')
+assert(pile.state.tokens[33].y-pile.state.tokens[1].y>=1.9,'Stacked mini bodies need vertical clearance')
 for _,spread in speciesSpread do assert(spread.high-spread.low>3,'Repeated species must not form identical columns across each layer') end
 for _,mini in pile.state.tokens do
     local snapshot=core:newSession(pile.owner,0,'pickup-check')
     snapshot.state=core:snapshot(pile)
     assert(core:dispatch(snapshot,'Collect',{mini.id},{now=settledAt,alive=true,position={x=mini.x,y=0,z=mini.z}}).code=='OK','Ground-level pickup must reach every height in the full pile')
 end
-for _=1,24 do
+for _=1,32 do
     local mini=pile.state.tokens[1]
     assert(core:dispatch(pile,'Collect',{mini.id},{now=settledAt,alive=true,position={x=mini.x,y=mini.y,z=mini.z}}).code=='OK')
 end
-local remaining=Config.GroundCap-24
+local remaining=Config.GroundCap-32
 assert(#pile.state.tokens==remaining)
 assert(pile.state.tokens[remaining].id==topId and pile.state.tokens[remaining].y<topY,'Surviving top minis must settle after lower minis are collected')
 local survivor=pile.state.tokens[remaining]

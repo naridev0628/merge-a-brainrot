@@ -81,16 +81,36 @@ local function audit(shelf,row,frame,scale)
         local back=at('DisplayBack',x,Vector3.new(width,5.8,.25),
             Vector3.new(x,3.1+lift+rowY,Config.DisplayZ+3.45),Color3.fromRGB(178,128,52))
         assert(back.FrontSurface==Enum.SurfaceType.Studs,'Back wall needs visible native front studs')
-        local divider=at('DisplayDivider',x-width/2,Vector3.new(.22,4.5,6.8),
-            Vector3.new(x-width/2,2.45+lift+rowY,Config.DisplayZ),Color3.fromRGB(217,164,66))
+        local divider=at('DisplayDivider',x-width/2,Vector3.new(.22,5.5,6.8),
+            Vector3.new(x-width/2,height+2.75+rowY,Config.DisplayZ),Color3.fromRGB(217,164,66))
+        assert(divider:IsA('WedgePart'),'Open bay fronts require triangular dividers')
         assert(divider.LeftSurface==Enum.SurfaceType.Studs and divider.RightSurface==Enum.SurfaceType.Studs)
+        near(frame:VectorToObjectSpace(divider.CFrame.UpVector),Vector3.yAxis,'Wedge up axis changed')
+        near(frame:VectorToObjectSpace(divider.CFrame.LookVector),-Vector3.zAxis,'Wedge must rise away from the front belt')
+        local function logicalPoint(part,point)
+            return frame:PointToObjectSpace(part.CFrame:PointToWorldSpace(point))/scale
+        end
+        local low=logicalPoint(divider,Vector3.new(0,-divider.Size.Y/2,-divider.Size.Z/2))
+        local high=logicalPoint(divider,Vector3.new(0,divider.Size.Y/2,divider.Size.Z/2))
+        assert(math.abs(low.Y-support.Y)<.001,'Wedge front must meet the producer support plane')
+        assert(math.abs(high.Y-(rowY+lift+6))<.001,'Wedge rear must meet the back wall')
         local glow=at('Slot'..slot,x,Vector3.new(Config.ColumnSpacing*.9,.12,5.9),
             Vector3.new(x,height-.12+rowY,Config.DisplayZ),nil)
         assert(glow.Material==Enum.Material.Neon,'World.render needs a recolorable neon slot')
-        at('DividerTopTrim',x-width/2,Vector3.new(.38,.22,7),
-            Vector3.new(x-width/2,rowY+lift+4.8,Config.DisplayZ),Color3.fromRGB(255,215,103))
-        at('BayTopTrim',x,Vector3.new(width,.25,.42),
+        local cap=at('DividerTopTrim',x-width/2,Vector3.new(.38,.22,math.sqrt(6.8^2+5.5^2)),
+            Vector3.new(x-width/2,height+2.75+rowY,Config.DisplayZ),Color3.fromRGB(255,215,103))
+        assert(cap.TopSurface==Enum.SurfaceType.Studs,'Gold diagonal caps need native Lego studs')
+        near(logicalPoint(cap,Vector3.new(0,0,-cap.Size.Z/2)),low,'Cap misses low front of wedge')
+        near(logicalPoint(cap,Vector3.new(0,0,cap.Size.Z/2)),high,'Cap misses tall rear of wedge')
+        local rearCap=at('BayTopTrim',x,Vector3.new(width,.25,.42),
             Vector3.new(x,rowY+lift+6,Config.DisplayZ+3.45),Color3.fromRGB(255,215,103))
+        local rearTop=logicalPoint(rearCap,Vector3.new(0,rearCap.Size.Y/2,0)).Y
+        for _,sx in {-1,1} do for _,sy in {-1,1} do for _,sz in {-1,1} do
+            local corner=logicalPoint(cap,Vector3.new(sx*cap.Size.X/2,sy*cap.Size.Y/2,sz*cap.Size.Z/2))
+            assert(math.abs(corner.Z-Config.DisplayZ)<=3.5+.001,'Cap escaped the previous trim depth')
+            assert(corner.Y<=rearTop+.001,'Cap rises above the existing rear trim')
+            assert(math.abs(corner.X-x)>=4.76-.001,'Cap narrowed the existing producer/Mini center corridor')
+        end end end
         local front=at('PlatformFrontTrim',x,Vector3.new(width,height,.4),
             Vector3.new(x,rowY+height/2,Config.DisplayZ-3.4),Color3.fromRGB(255,195,42))
         assert(front.FrontSurface==Enum.SurfaceType.Studs,'Front gold fascia needs native studs')
@@ -130,4 +150,4 @@ for row=1,rowCount do
 end
 assert(totalParts-baseBudget*rowCount==3*(rowCount-1) and totalParts-baseBudget*rowCount<=12,
     'The full producer display may add at most twelve rear structural parts')
-return string.format('PASS %d live rows; five-row dimensions, support plane, slot lookup, native surfaces, physics and %d/%d parts per ground/upper row after scaling',liveRows,baseBudget,baseBudget+3)
+return string.format('PASS %d live rows; five-row support plane, diagonal divider/cap clearance, slot lookup, native surfaces, physics and %d/%d parts per ground/upper row after scaling',liveRows,baseBudget,baseBudget+3)

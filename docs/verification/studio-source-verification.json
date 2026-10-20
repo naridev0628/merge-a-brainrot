@@ -1,6 +1,6 @@
 {
-  "verifiedAt": "2026-10-20T09:55:44Z",
-  "algorithm": "DJB2 UTF-8 normalized CRLF",
+  "recordedAt": "2026-10-20 10:20:48 UTC",
+  "algorithm": "DJB2 UTF-8, CRLF normalized to LF",
   "sources": [
     {
       "path": "src/client/Controllers/AudioConfig.luau",
@@ -203,8 +203,8 @@
     {
       "path": "src/server/Domain/FarmCore.luau",
       "studioPath": "ServerScriptService.Domain.FarmCore",
-      "bytes": 25989,
-      "hash": 2525806392
+      "bytes": 26177,
+      "hash": 2577440722
     },
     {
       "path": "src/server/Domain/ObbyRun.luau",
@@ -263,8 +263,8 @@
     {
       "path": "src/server/Services/WorldBuilder.luau",
       "studioPath": "ServerScriptService.Services.WorldBuilder",
-      "bytes": 36355,
-      "hash": 895033629
+      "bytes": 36843,
+      "hash": 13418556
     },
     {
       "path": "src/shared/AnimationVisibility.luau",
@@ -287,14 +287,14 @@
     {
       "path": "src/shared/Config.luau",
       "studioPath": "ReplicatedStorage.Shared.Config",
-      "bytes": 1212,
-      "hash": 2937979990
+      "bytes": 1350,
+      "hash": 1156560900
     },
     {
       "path": "src/shared/ConveyorFacade.luau",
       "studioPath": "ReplicatedStorage.Shared.ConveyorFacade",
-      "bytes": 7487,
-      "hash": 1177948626
+      "bytes": 8176,
+      "hash": 1850027174
     },
     {
       "path": "src/shared/CreatureCatalog.luau",
@@ -305,8 +305,8 @@
     {
       "path": "src/shared/DisplayShelves.luau",
       "studioPath": "ReplicatedStorage.Shared.DisplayShelves",
-      "bytes": 4109,
-      "hash": 4292630380
+      "bytes": 4915,
+      "hash": 1742323661
     },
     {
       "path": "src/shared/Economy.luau",
@@ -359,8 +359,8 @@
     {
       "path": "src/shared/MapSpec.luau",
       "studioPath": "ReplicatedStorage.Shared.MapSpec",
-      "bytes": 1043,
-      "hash": 934954449
+      "bytes": 1051,
+      "hash": 1432202208
     },
     {
       "path": "src/shared/MiniEvent.luau",
@@ -383,8 +383,8 @@
     {
       "path": "src/shared/ModelFactory.luau",
       "studioPath": "ReplicatedStorage.Shared.ModelFactory",
-      "bytes": 12570,
-      "hash": 624270356
+      "bytes": 12812,
+      "hash": 3661794603
     },
     {
       "path": "src/shared/MultiplierCuePresentation.luau",
@@ -483,11 +483,11 @@
       "hash": 3606643184
     }
   ],
-  "result": {
+  "verification": {
     "content": [
       {
         "type": "text",
-        "text": "{\"missing\":[],\"expected\":80,\"matched\":80,\"mismatches\":[]}"
+        "text": "{\"total\":80,\"mismatches\":[],\"matched\":80}"
       }
     ],
     "isError": false

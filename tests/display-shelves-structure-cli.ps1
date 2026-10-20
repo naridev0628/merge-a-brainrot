@@ -8,11 +8,25 @@ local Core=require('../src/server/Domain/FarmCore')
 local Catalog=require('../src/shared/CreatureCatalog')
 local layout=Core.new(Config,Catalog)
 local function vector(x,y,z) return {X=x,Y=y,Z=z} end
+-- Only the generator's X-axis cap rotation is needed in this numeric runtime.
+local frameMethods={}
+local frameMeta={__index=frameMethods}
+local function frame(x,y,z,rx)
+    return setmetatable({X=x,Y=y,Z=z,rx=rx or 0},frameMeta)
+end
+function frameMethods:PointToWorldSpace(p)
+    local c,s=math.cos(self.rx),math.sin(self.rx)
+    return vector(self.X+p.X,self.Y+c*p.Y-s*p.Z,self.Z+s*p.Y+c*p.Z)
+end
+function frameMeta.__mul(a,b)
+    local p=a:PointToWorldSpace(b)
+    return frame(p.X,p.Y,p.Z,a.rx+b.rx)
+end
 local Instance={}
 function Instance.new(kind)
     if kind=='Model' then return {parts={}} end
-    assert(kind=='Part','Unexpected generated instance '..kind)
-    return setmetatable({CanQuery=true,FrontSurface='Smooth',LeftSurface='Smooth',RightSurface='Smooth'},{
+    assert(kind=='Part' or kind=='WedgePart','Unexpected generated instance '..kind)
+    return setmetatable({ClassName=kind,CanQuery=true,FrontSurface='Smooth',LeftSurface='Smooth',RightSurface='Smooth'},{
         __newindex=function(self,key,value)
             rawset(self,key,value)
             if key=='Parent' then table.insert(value.parts,self) end
@@ -21,7 +35,10 @@ function Instance.new(kind)
 end
 local modules={Config=Config,TextStyle={}}
 local environment=setmetatable({
-    Instance=Instance,Vector3={new=vector},CFrame={new=vector,identity={}},
+    Instance=Instance,Vector3={new=vector},CFrame={new=frame,identity=frame(0,0,0),Angles=function(x,y,z)
+        assert(y==0 and z==0,'The shelf numeric fixture supports only X rotation')
+        return frame(0,0,0,x)
+    end},
     Color3={fromRGB=vector},
     Enum={SurfaceType={Studs='Studs',Smooth='Smooth'},Material={Plastic='Plastic',Neon='Neon'},PartType={Block='Block'}},
     script={Parent={Config='Config',ModelFactory='ModelFactory',TextStyle='TextStyle'}},
@@ -41,10 +58,54 @@ local function equal(a,b)
     if type(a)~='table' then return a==b end
     return a.X==b.X and a.Y==b.Y and a.Z==b.Z
 end
+local function auditDividers(shelf,row)
+    local function at(name,x)
+        local result=nil
+        for _,part in shelf.parts do
+            if part.Name==name and math.abs(part.CFrame.X-x)<1e-8 then
+                assert(not result,'Duplicate bay part '..name)
+                result=part
+            end
+        end
+        return assert(result,'Missing bay part '..name)
+    end
+    for column=1,Config.Columns do
+        local position=layout:slotPosition((row-1)*Config.Columns+column)
+        local x=position.x
+        local divider=at('DisplayDivider',x-4.95)
+        assert(divider.ClassName=='WedgePart','Divider must open at the front with a triangular side profile')
+        close(divider.CFrame.rx,0,'Wedge must rise toward the rear (+Z), not toward the belt')
+        local plinth,back=at('DisplayPlatform',x),at('DisplayBack',x)
+        local bottom=divider.CFrame.Y-divider.Size.Y/2
+        local rearTop=divider.CFrame.Y+divider.Size.Y/2
+        close(bottom,position.y,'Low divider front must meet the existing producer support plane')
+        close(bottom,plinth.CFrame.Y+plinth.Size.Y/2,'Divider must meet the plinth')
+        close(rearTop,back.CFrame.Y+back.Size.Y/2,'Tall divider rear must meet the existing back wall')
+        local cap=at('DividerTopTrim',x-4.95)
+        assert(cap.TopSurface=='Studs','Diagonal cap must retain the Lego surface')
+        for _,side in {-1,1} do
+            local endpoint=cap.CFrame:PointToWorldSpace(vector(0,0,side*cap.Size.Z/2))
+            close(endpoint.X,divider.CFrame.X,'Cap left the divider')
+            close(endpoint.Y,if side<0 then bottom else rearTop,'Cap must follow the full wedge slope without a gap')
+            close(endpoint.Z,divider.CFrame.Z+side*divider.Size.Z/2,'Cap must meet both wedge ends')
+        end
+        local rearCap=at('BayTopTrim',x)
+        for _,sx in {-1,1} do for _,sy in {-1,1} do for _,sz in {-1,1} do
+            local corner=cap.CFrame:PointToWorldSpace(vector(sx*cap.Size.X/2,sy*cap.Size.Y/2,sz*cap.Size.Z/2))
+            assert(corner.Z>=84.5 and corner.Z<=91.5,'Sloped cap escaped the old divider depth envelope')
+            assert(corner.Y<=rearCap.CFrame.Y+rearCap.Size.Y/2+1e-8,'Sloped cap grew above the existing back trim')
+            assert(math.abs(corner.X-x)>=4.76-1e-8,'Cap narrowed the producer/Mini center corridor')
+        end end end
+        for _,part in {divider,cap} do
+            assert(part.Anchored and not part.CanCollide and not part.CanTouch,'Divider decoration must not alter movement or Mini pickup physics')
+        end
+    end
+end
 local additions={RearRowJoin=true,RearRowSupport=true}
 local first=Shelves.buildRow(1,layout)
 assert(#first.parts==221,'The ground row must retain its existing 221 parts')
 for _,part in first.parts do assert(not additions[part.Name],'Ground row has no preceding gap to fill') end
+auditDividers(first,1)
 local extra=0
 for row=2,5 do
     local shelf=Shelves.buildRow(row,layout)
@@ -57,18 +118,20 @@ for row=2,5 do
     assert(#panels==1,'Upper row '..row..' must close its rear air gap with one panel')
     assert(#supports==2,'Upper rows need exactly two rear edge supports')
     assert(#shelf.parts==224 and #retained==221,'Upper rows may add only three parts')
+    auditDividers(shelf,row)
     extra+=#panels+#supports
     -- All original visible geometry must remain a pure vertical translation.
     for index,part in retained do
         local base=first.parts[index]
         local name=if base.Name:match('^Slot%d+$') then 'Slot'..(tonumber(base.Name:sub(5))+(row-1)*10) else base.Name
         assert(part.Name==name,'Slot lookup or original part order changed')
-        for _,key in {'Size','Color','Material','TopSurface','BottomSurface','FrontSurface','LeftSurface','RightSurface','Anchored','CanCollide','CanTouch','CanQuery'} do
+        for _,key in {'ClassName','Size','Color','Material','TopSurface','BottomSurface','FrontSurface','LeftSurface','RightSurface','Anchored','CanCollide','CanTouch','CanQuery'} do
             assert(equal(part[key],base[key]),'Existing '..part.Name..' '..key..' changed')
         end
         close(part.CFrame.X,base.CFrame.X,'Existing x moved')
         close(part.CFrame.Z,base.CFrame.Z,'Existing z moved')
         close(part.CFrame.Y,base.CFrame.Y+(row-1)*11,'Existing support height moved')
+        close(part.CFrame.rx,base.CFrame.rx,'Upper row orientation changed')
     end
     local rowY=(row-1)*11
     local panel=panels[1]
@@ -91,7 +154,7 @@ for row=2,5 do
     print('PASS row '..row..': continuous rear join, two inert supports, all 221 original parts preserved')
 end
 assert(extra==12,'Full 50-producer plot must add exactly twelve parts')
-print('PASS one/two/five-row structural contract; full plot 1105 -> 1117 Parts')
+print('PASS one/two/five-row support, rear join and sloped-divider clearance; unchanged 221/224 Parts per row, 1117 per full plot')
 '@
 $target = Join-Path $repo '.tools/display-shelves-structure-cli.luau'
 [System.IO.File]::WriteAllText($target, $scriptText)

@@ -1,5 +1,5 @@
 {
-  "updatedAtUTC": "2026-10-20T09:55:44Z",
+  "updatedAtUTC": "2026-10-20T10:32:53Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
@@ -7,12 +7,12 @@
   "studioId": "ef89b65f-2f6a-4fe7-8272-bae9e8007fd1",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Normal Play with verified Home responsive layout and FarmerBooth extraction on base9ee6fda; 80 source files synced.",
+    "mode": "Normal Play: 699931c plus verified wider tray, sloped dividers, native lawn and brighter producer-name palette working tree.",
     "mainScripts": "Both production Main scripts are enabled (Disabled=false), confirmed by root.",
     "temporaryScripts": [],
-    "harnessCleanup": "The snapshot-toggle harness was removed in Edit before normal Play restarted. After counter/deposit native checks, final cleanup confirms no harness, temporary spawn, QA or fixture remnants, both Main scripts enabled, HUD enabled and CameraType.Custom. After the all-Crocodilo route, cleanup at 09:39:10 UTC confirms no TrayWalk plot or fixture, avatar health 100, HUD enabled and CameraType.Custom. HUD hiding was capture-only.",
-    "productionSync": "At09:55:44UTC all80 project sources match Studio. 43 standalone suites, Home actual-module CLI across12 viewports, all80 source compilations, native rendered layout/cleanup, six-plot booth parity, mirrored fixture, peer review, Rojo and image decode checks pass.",
-    "currentTrial": "Home/booth batch verified and ready to commit. Wider shallower tray and triangular display-divider designs accepted for next implementation. New Foltyn video study is underway beyond the original100 frames.",
+    "harnessCleanup": "No ReferenceLayoutPreview, ProducerPalettePreview, TrayWalkPlot or TrayWalkFixture; HUD enabled, Custom camera. Normal Main scripts enabled.",
+    "productionSync": "80/80 source hashes match at 10:20:48 UTC. 44 standalone suites, all80 source compilations, strictCore, native map/walk checks, peer review, Rojo and diff pass.",
+    "currentTrial": "Map batch fully verified, including normal-client moved-pad and Lucky smoke; ready to commit. Fresh normal Play restored.",
     "sourceFreeze": "Historical capacity samples remain fixed earlier source based on 70786a3. The completed snapshot-toggle probe froze production cbbd765 before the counter and DepositEffects changes were synced. The historical harness uses deep Core.snapshot rather than production SnapshotPacket; its saved metrics and source scope are unchanged.",
     "console": "Final cleanup and source parity are saved in counter-deposit-native.json and studio-source-verification.json. Native regression results are GREEN. This checkpoint makes no broader full-Studio-Script-Analysis claim; external plugin errors are not reclassified as project defects.",
     "computerUse": "Physical Escape stopped UI work in the earlier 07:56 turn. Root subsequently completed native/render checks; no overnight cancellation was requested."
@@ -81,7 +81,10 @@
     "Counter proportions finalized at 09:30:30 UTC after a dedicated native height RED/GREEN: center Y 3.2 logical studs, top 2.275 world studs, panel height 2.455 logical studs, farmer height unchanged at 5.5 world studs. Final front/elevated captures reveal shirt, sleeves and pocket; all images decoded, Rojo rebuilt, and 79/79 source hashes match. This supersedes the earlier 09:22:38 counter geometry acceptance, without changing the snapshot-toggle source or measurements.",
     "Counter/deposit and profiling-evidence batch committed and pushed as 4ae9a5282da8b8135284d1add925b2d461d32a6e. Snapshot-toggle source remains frozen at earlier cbbd765; historical capacity benchmarks remain unchanged.",
     "All-Crocodilo actual-Humanoid route PASS at 09:39:10 UTC on 4ae9a52: 96 collected/bagged, zero remaining tokens or cloned Mini models, five waypoints over 51.45506834213393 world studs, partial repacking, and all 96 initial imported mesh identities checked. One isolated cloned farm/Core session and one Studio client; cleanup restored the character, HUD and Custom camera. No all-Crocodilo FPS, device, multiplayer or memory-recovery claim.",
-    "Home/booth batch: Home visible from accepted Ready state during onboarding; compact guidance/Shop preserved. Native12-viewport text/separation and Lucky/Settings regressions pass after two boundary overlaps reproduced and fixed. Observed actual Home click returns early-tutorial avatar to plot. Paired390x440 captures saved. Exact previous booth constructor compares426 parts across6 plots with unchanged geometry/material/flags/assets. Sources80/80; no performance claim. Raw home-booth-native.json."
+    "Home/booth batch: Home visible from accepted Ready state during onboarding; compact guidance/Shop preserved. Native12-viewport text/separation and Lucky/Settings regressions pass after two boundary overlaps reproduced and fixed. Observed actual Home click returns early-tutorial avatar to plot. Paired390x440 captures saved. Exact previous booth constructor compares426 parts across6 plots with unchanged geometry/material/flags/assets. Sources80/80; no performance claim. Raw home-booth-native.json.",
+    "699931c committed/pushed: Home available during onboarding,12 viewport native/CLI layout checks and426-part FarmerBooth extraction parity.",
+    "Foltyn study:14 timestamped selected frames,8key views,nine annotated native pairs; old100-frame board preserved.",
+    "Working-tree map batch:24x16tray,96 Minis in3layers, six-plot geometry/trajectory checks, mixed/allCroc96 actual-Humanoid pickups, same-count sloped dividers,−5064 lawn Parts, unchanged77colliders/plot and18slabs, brighter name-only tier1/6 palette."
   ],
   "benchmarkEvidence": {
     "baselineFiles": [
@@ -208,17 +211,13 @@
     }
   },
   "active": [
-    "Home/onboarding UI fix is underway locally, with independent review and native acceptance pending; root owns Studio.",
-    "All-Crocodilo actual-Humanoid collection passed on committed production 4ae9a52 at 09:39:10 UTC; checkpoint evidence and limitations are recorded separately from historical performance samples.",
-    "15-minute heartbeat remains active through the minimum 13:30 UTC cutoff; overnight work is not complete."
+    "Commit and push the verified Foltyn map batch to draft PR2.",
+    "Next code improvement: raise the clipped rear farm title above its highest occupied shelf row, with clear/reset and native long-name checks."
   ],
   "next": [
-    "Finish independent review and native validation of the Home/onboarding UI fix, preserving existing nonmodal gameplay. Keep the committed 4ae9a52 source pointer until the next verified commit exists.",
-    "Treat the snapshot-toggle result as evidence that disabling the full historical send pipeline did not eliminate short-window memory growth. It does not establish zero packet cost, a particular leak, engine caching as the cause, or full recovery.",
-    "Keep frame-window metrics separate from the longer tag and server-counter brackets. Do not average ON2 with ON1/OFF as a matched-population experiment.",
-    "Any follow-up memory probe needs a changed hypothesis and controlled conditions; do not repeat the long benchmark without a concrete reason.",
-    "Further producer-label readability needs actual player-camera evidence for remaining top-row cropping and oblique overlap; normal depth occlusion stays enabled.",
-    "Preserve 50 producers and 96 preview Minis, with memory, device, all-Crocodilo performance and multiplayer limits explicit. Keep PR 2 draft and unmerged, do not publish, and continue through 13:30 UTC with the 15-minute heartbeat."
+    "Commit current verified map batch.",
+    "Implement and test the prepared rear farm-title fix.",
+    "Continue authorized overnight coding until13:30UTC."
   ],
   "constraints": [
     "User permits expanding former 50 limits if performance supports it; producer count remains 50.",
@@ -264,7 +263,7 @@
     "leaderboardFacesCLI": "PASS",
     "frozenSnapshotProbeSourceFile": "docs/verification/capacity-96-snapshot-toggle-2026-10-20.json"
   },
-  "latestVerifiedCommit": "4ae9a5282da8b8135284d1add925b2d461d32a6e",
+  "latestVerifiedCommit": "699931c",
   "newBatchEvidence": {
     "status": "Gameplay/allocation/Lucky/shelf batch committed/pushed as 0059fb2. Subsequent canopy/hub/packet batch committed/pushed as 4d4fd29, synced and natively verified.",
     "normalFarmFlow": {
@@ -733,5 +732,18 @@
       "Not a native all-Crocodilo performance benchmark or multiplayer/device acceptance.",
       "First route also passed, but capture faced shelf rear. Evidence route repeated once with front camera; saved full result is second route."
     ]
+  },
+  "foltynMapEvidence": {
+    "baseline": "699931c",
+    "status": "All gates pass; ready to commit.",
+    "native": "docs/verification/wide-tray-native.json",
+    "lawnPalette": "docs/verification/lawn-palette-native.json",
+    "board": "docs/reference/chicken-farm-foltyn-study/index.html",
+    "sourceParity": "docs/verification/studio-source-verification.json",
+    "gates": "44 standalone suites;80 source compilation and parity; strictCore; native six-plot geometry/trajectories, five-row shelf geometry, both96-Mini actualHumanoid pickup routes, environment/mirror/bridge/affordability;19 JPEG decode checks;peer;Rojo;diff",
+    "limitations": "Dense Crocodilo overlap persists. Clone PadLabels are not owned-plot controller acceptance. No new FPS/memory/device/multiplayer claim; capacity remains50 producers/96preview Minis.",
+    "movedPad": "docs/verification/moved-pad-native.json",
+    "capture": "docs/verification/moved-pad-normal-owned-plot.jpg",
+    "cleanup": "Fresh normal Play, both Main scripts enabled, HUD/Custom camera restored, synthetic session and runtime bootstrap removed."
   }
 }

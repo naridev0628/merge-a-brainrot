@@ -128,11 +128,13 @@ function Core.commit(self: any, s: Session, candidate: State): boolean
     if not self:validate(candidate,s.owner) then return false end
     -- Pack all surviving minis after every state change. The server stores the
     -- same resting centers that clients animate towards, including after pickup.
+    local tray=self.config.Tray
+    local cells=tray.Columns*tray.Rows
     for index,token in candidate.tokens do
-        local slot=((index-1)*7)%24
-        local layer=math.floor((index-1)/24)
-        local row=math.floor(slot/6)
-        local column=(slot%6+row*2+layer*3)%6
+        local slot=((index-1)*7)%cells
+        local layer=math.floor((index-1)/cells)
+        local row=math.floor(slot/tray.Columns)
+        local column=(slot%tray.Columns+row*2+layer*3)%tray.Columns
         local seed=0
         for character=1,#token.id do seed=(seed*31+string.byte(token.id,character))%65521 end
         seed=bit32.bxor(seed,bit32.lshift(seed,13))
@@ -140,9 +142,9 @@ function Core.commit(self: any, s: Session, candidate: State): boolean
         seed=bit32.bxor(seed,bit32.lshift(seed,5))
         local jitterX=(seed%101/100-.5)*.62
         local jitterZ=(math.floor(seed/101)%101/100-.5)*.62
-        token.x=(column-2.5)*2.5+(row%2-.5)*.35+(layer%2-.5)*.4+jitterX
-        token.y=1.3+layer*2
-        token.z=self.config.TrayZ+(row-1.5)*2.5+(layer%2-.5)*.4+jitterZ
+        token.x=(column-(tray.Columns-1)/2)*tray.SpacingX+(row%2-.5)*.35+(layer%2-.5)*.4+jitterX
+        token.y=tray.BaseY+layer*tray.LayerHeight
+        token.z=self.config.TrayZ+(row-(tray.Rows-1)/2)*tray.SpacingZ+(layer%2-.5)*.4+jitterZ
     end
     s.state=candidate
     return true
@@ -231,7 +233,7 @@ function Core.step(self: any, s: Session, now: number): boolean
             table.insert(st.tokens,{
                 id=tokenId,owner=s.owner,origin=p.id,speciesId=p.speciesId,
                 baseCoinValue=self.catalog[p.speciesId].value,
-                x=0,z=c.TrayZ,y=1.3,
+                x=0,z=c.TrayZ,y=c.Tray.BaseY,
                 startX=source.x,startY=source.y+1,startZ=source.z-2,
                 spawnedAt=now,readyAt=now+(c.TransitSeconds or 0),
             })
