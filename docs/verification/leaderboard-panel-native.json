@@ -1,0 +1,48 @@
+{
+  "recordedAtUTC": "2026-10-20 08:32:21 UTC",
+  "basedOnCommit": "4d4fd29",
+  "workingTreeChanges": [
+    "two-sided leaderboards",
+    "deferred closed-panel construction",
+    "producer label camera offset"
+  ],
+  "hiddenPanelBaseline": {
+    "cards": 249,
+    "portraits": 249,
+    "descendants": 6993
+  },
+  "results": {
+    "hiddenPanel": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"result\":\"PASS hidden state/pending/shop deferral, fresh reopening, visible panels and nonmodal Lucky/Settings\",\"counts\":{\"visible\":{\"cards\":150,\"portraits\":158,\"instances\":2152},\"hidden\":{\"cards\":0,\"portraits\":0,\"instances\":3756}}}"
+        }
+      ],
+      "isError": false
+    },
+    "leaderboardServer": {
+      "content": [
+        {
+          "type": "text",
+          "text": "PASS three two-sided native boards, upright reversed surfaces, matching live rows/clear, current-server scope and six inert added Parts (765 -> 771)"
+        }
+      ],
+      "isError": false
+    },
+    "leaderboardClient": {
+      "content": [
+        {
+          "type": "text",
+          "text": "PASS six live leaderboard faces, replicated lists/current-server scope and local-session personal footer ranks"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "limitations": [
+    "Hidden descendant count includes deferred initial HUD stud construction; zero cards/portraits is not zero total allocation.",
+    "Single-client native fixtures and visual probes; not a new capacity or FPS benchmark.",
+    "Producer labels improve lower-row fascia occlusion; tight top cropping and oblique overlap remain."
+  ]
+}

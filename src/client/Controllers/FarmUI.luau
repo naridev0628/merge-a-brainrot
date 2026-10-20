@@ -423,6 +423,8 @@ function UI.update(self: any,state: any)
     self:resize(); self:setContext(self.context,self.quantity); self:drawMerge()
 end
 function UI.drawMerge(self: any)
+    -- open() invalidates the signature and renders the latest state on demand.
+    if not self.overlay.Visible then return end
     local settings=self.mode=='Settings'
     self.settingsView.setVisible(settings)
     if settings then

@@ -58,7 +58,9 @@ end
 function Factory.characterLabel(part: BasePart,species: any,offset: number)
     -- Scale with the physical bay and camera distance. Model:ScaleTo applies the
     -- plot scale to these stud dimensions together with the producer itself.
-    local gui=Instance.new('BillboardGui'); gui.Name='CharacterLabel'; gui.Size=UDim2.fromScale(Config.ColumnSpacing*.88,3.6); gui.StudsOffset=Vector3.new(0,offset-.3,0); gui.MaxDistance=65; gui.Parent=part
+    -- Bring names ahead of the shelf fascia while preserving ordinary depth
+    -- occlusion and the existing distance cutoff. This offset scales with the plot.
+    local gui=Instance.new('BillboardGui'); gui.Name='CharacterLabel'; gui.Size=UDim2.fromScale(Config.ColumnSpacing*.88,3.6); gui.StudsOffset=Vector3.new(0,offset-.3,4); gui.MaxDistance=65; gui.Parent=part
     local function line(name: string,value: string,y: number,height: number,fontSize: number,color: Color3)
         local label=Instance.new('TextLabel'); label.Name=name; label.Text=value; label.Position=UDim2.fromScale(0,y); label.Size=UDim2.fromScale(1,height); label.BackgroundTransparency=1; label.Parent=gui
         label.TextWrapped=name=='Name';label.TextScaled=true

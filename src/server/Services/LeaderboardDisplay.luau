@@ -199,10 +199,42 @@ function Display.new(parent: Instance, key: string, title: string, color: Color3
     footerSize.MaxTextSize = 23
     footerSize.MinTextSize = 15
     footerSize.Parent = footer
+
+    -- Bridge approaches see the rear of these inward-facing boards. Reuse the
+    -- exact UI layout on two inert rear planes, with a real outward-facing
+    -- orientation so names and rankings remain readable rather than mirrored.
+    local function rearSurface(front: SurfaceGui): SurfaceGui
+        local frontPlane = front.Parent :: BasePart
+        local plane = frontPlane:Clone()
+        plane.Name = front.Name .. 'RearPlane'
+        plane.CFrame = frontPlane.CFrame * CFrame.new(0, 0, 2.3) * CFrame.Angles(0, math.pi, 0)
+        plane.CastShadow = false
+        local gui = plane:FindFirstChild(front.Name) :: SurfaceGui
+        gui.Name = front.Name .. 'Rear'
+        plane.Parent = model
+        return gui
+    end
+    rearSurface(header)
+    local rearBody = rearSurface(body)
+    local rearHolder = rearBody:FindFirstChild('LeaderboardRows') :: Frame
+    local rearRows = {}
+    for _, row in rows do
+        local frame = rearHolder:FindFirstChild(row.frame.Name) :: Frame
+        table.insert(rearRows, {
+            frame = frame,
+            avatar = frame:FindFirstChild('Avatar') :: ImageLabel,
+            username = frame:FindFirstChild('Username') :: TextLabel,
+            metric = frame:FindFirstChild('Metric') :: TextLabel,
+        })
+    end
+    local faces = {
+        {rows = rows, footer = footer},
+        {rows = rearRows, footer = rearBody:FindFirstChild('PersonalLeaderboardFooter') :: TextLabel},
+    }
     model.WorldPivot = CFrame.identity
     model:PivotTo(cf)
     model.Parent = parent
-    return {key = key, rootModel = model, rows = rows, footer = footer}
+    return {key = key, rootModel = model, rows = rows, footer = footer, faces = faces}
 end
 
 function Display.update(board: any, entries: {any})
@@ -211,26 +243,35 @@ function Display.update(board: any, entries: {any})
         if a[board.key] == b[board.key] then return a.userId < b.userId end
         return a[board.key] > b[board.key]
     end)
-    for rank, row in board.rows do
+    for rank = 1, #board.rows do
         local entry = ordered[rank]
-        row.frame.Visible = entry ~= nil
-        if entry then
-            local oldUserId = row.frame:GetAttribute('UserId')
-            row.frame:SetAttribute('UserId', entry.userId)
-            row.username.Text = '@' .. entry.name
-            row.metric.Text = if board.key == 'time' then Display.time(entry.time) else (if board.key == 'coins' then '$' else '') .. Display.compact(entry[board.key])
-            if oldUserId ~= entry.userId or row.avatar.Image == '' then
+        local imageRows = {}
+        for _, face in board.faces do
+            local row = face.rows[rank]
+            row.frame.Visible = entry ~= nil
+            if entry then
+                local oldUserId = row.frame:GetAttribute('UserId')
+                row.frame:SetAttribute('UserId', entry.userId)
+                row.username.Text = '@' .. entry.name
+                row.metric.Text = if board.key == 'time' then Display.time(entry.time) else (if board.key == 'coins' then '$' else '') .. Display.compact(entry[board.key])
+                if oldUserId ~= entry.userId or row.avatar.Image == '' then
+                    row.avatar.Image = ''
+                    table.insert(imageRows, row)
+                end
+            else
+                row.frame:SetAttribute('UserId', nil)
+                row.username.Text = ''
+                row.metric.Text = ''
                 row.avatar.Image = ''
-                local userId = entry.userId
-                thumbnail(userId, function(image)
-                    if row.frame.Parent and row.frame:GetAttribute('UserId') == userId then row.avatar.Image = image end
-                end)
             end
-        else
-            row.frame:SetAttribute('UserId', nil)
-            row.username.Text = ''
-            row.metric.Text = ''
-            row.avatar.Image = ''
+        end
+        if entry and #imageRows > 0 then
+            local userId = entry.userId
+            thumbnail(userId, function(image)
+                for _, row in imageRows do
+                    if row.frame.Parent and row.frame:GetAttribute('UserId') == userId then row.avatar.Image = image end
+                end
+            end)
         end
     end
 end

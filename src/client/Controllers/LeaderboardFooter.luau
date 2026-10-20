@@ -60,9 +60,10 @@ function Footer.update(state: any)
     for board in boards do
         if not board:IsDescendantOf(root) then boards[board] = nil; continue end
         local key = board:GetAttribute('LeaderboardKey')
-        local footer = board:FindFirstChild('PersonalLeaderboardFooter', true)
-        local rows = board:FindFirstChild('LeaderboardRows', true)
-        if not footer or not footer:IsA('TextLabel') or not rows or type(key) ~= 'string' then continue end
+        local frontPlane = board:FindFirstChild('LeaderboardBodyPlane')
+        local front = if frontPlane then frontPlane:FindFirstChild('LeaderboardBody') else nil
+        local rows = if front then front:FindFirstChild('LeaderboardRows') else nil
+        if not rows or type(key) ~= 'string' then continue end
         local rank: number? = nil
         for _, row in rows:GetChildren() do
             if row:IsA('Frame') and row.Visible and row:GetAttribute('UserId') == player.UserId then
@@ -75,8 +76,16 @@ function Footer.update(state: any)
         local c = color :: Color3
         local hex = string.format('#%02X%02X%02X', math.floor(c.R * 255 + .5), math.floor(c.G * 255 + .5), math.floor(c.B * 255 + .5))
         local message = if rank then 'You are #' .. rank .. ' on the leaderboard!' else 'You are not on the leaderboard!'
-        footer.RichText = true
-        footer.Text = message .. ' <font color="' .. hex .. '">[' .. (values[key] or '0') .. ']</font>'
+        local value = message .. ' <font color="' .. hex .. '">[' .. (values[key] or '0') .. ']</font>'
+        for _, name in {'LeaderboardBody', 'LeaderboardBodyRear'} do
+            local plane = board:FindFirstChild(name .. 'Plane')
+            local body = if plane then plane:FindFirstChild(name) else nil
+            local footer = if body then body:FindFirstChild('PersonalLeaderboardFooter') else nil
+            if footer and footer:IsA('TextLabel') then
+                footer.RichText = true
+                footer.Text = value
+            end
+        end
     end
 end
 
