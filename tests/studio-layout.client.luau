@@ -13,8 +13,20 @@ for _,size in {Vector2.new(640,280),Vector2.new(390,844)} do
     assert(not string.find(ui.contextButton.Text,'LOCKED'),'Buy 5 must be available before rebirth')
     assert(ui.bagText.Text=='1000000' and ui.bagText.TextScaled,'Large counts must remain readable')
     assert(not ui.bagValue.Visible,'The bag cash value must stay hidden')
-    ui:setContext('Buy','100')
-    assert(string.find(ui.contextButton.Text,'LOCKED'),'Buy 100 must require rebirth')
+    ui:setContext('Buy','50')
+    assert(string.find(ui.contextButton.Text,'LOCKED'),'Buy 50 must require rebirth')
+    state.rebirths=2;state.coinUnits=136;state.purchased=3
+    local originalProducers=state.producers
+    state.producers={}
+    for slot=1,48 do table.insert(state.producers,{id='p'..slot,speciesId='tier_01',slot=slot}) end
+    ui:update(state);ui:setContext('Buy','50')
+    assert(string.find(ui.contextButton.Text,'$34',1,true),'Buy 50 must quote two remaining tier-2 producers at the shared price')
+    ui:setContext('Buy','5')
+    assert(string.find(ui.contextButton.Text,'Not enough space',1,true),'Fixed batches must report insufficient room')
+    for slot=49,50 do table.insert(state.producers,{id='p'..slot,speciesId='tier_01',slot=slot}) end
+    ui:update(state);ui:setContext('Buy','50')
+    assert(string.find(ui.contextButton.Text,'Not enough space',1,true),'A full plot must not advertise a zero-cost purchase')
+    state.producers=originalProducers;state.rebirths=0;state.coinUnits=0;state.purchased=0;ui:update(state)
     local mergeCalled=false
     ui.onMerge=function()mergeCalled=true end
     ui:toggleMerge()

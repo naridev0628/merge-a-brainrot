@@ -323,15 +323,10 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
             result.creditUnits=st.soldUnits; st.coinUnits+=st.soldUnits; st.soldUnits=0
             st.tutorialStep=math.max(st.tutorialStep,4)
         else
-            if not st.starterClaimed and quantity~='1' then return reject('ClaimStarter') end
-            if st.rebirths<c.BuyUnlocks[quantity] then return reject("Locked") end
-            local amount=if quantity=='100' then math.min(100,c.Slots-#st.producers) else tonumber(quantity) :: number
-            if amount<1 then return reject('PlotFull') end
-            if #st.producers+amount>c.Slots then return reject("PlotFull") end
-            local tier=if quantity=='100' then math.clamp(st.rebirths,1,c.MaxTier) else 1
+            local quote=Economy.purchaseQuote(c,st,quantity)
+            if quote.code~='OK' then return reject(quote.code) end
+            local amount,tier,cost=quote.amount,quote.tier,quote.cost
             local speciesId=string.format('tier_%02d',tier)
-            local cost=Economy.buyCost(st.purchased,amount,tier)
-            if st.coinUnits<cost then return reject("InsufficientFunds") end
             local used: {[number]: boolean}={}
             for _,p in st.producers do used[p.slot]=true end
             local slot=1

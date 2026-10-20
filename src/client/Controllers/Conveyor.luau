@@ -101,8 +101,9 @@ function Conveyor.update(self: any,now: number)
         if not rest or not produced then continue end
         local elapsed=now-produced
         if elapsed>=0 and elapsed<.55 then
-            local hop=math.sin(elapsed/.55*math.pi)
-            model:PivotTo((rest+Vector3.new(0,hop*.5,0))*CFrame.Angles(0,0,hop*.06))
+            local sway=math.sin(elapsed/.55*math.pi)
+            -- Turn gently around the vertical axis; feet stay on the brick stand.
+            model:PivotTo(CFrame.new(rest.Position)*CFrame.Angles(0,sway*.06,0)*rest.Rotation)
             record.active=true
         elseif record.active then
             model:PivotTo(rest); record.active=false

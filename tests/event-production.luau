@@ -18,11 +18,11 @@ c:setPasses(s,{mini2=true});s.state.tokens={}
 c:step(s,5*Config.Interval);assert(#s.state.tokens==3,'2x pass multiplies event without rounding loss')
 s.state.coinUnits=1000000
 assert(buy('five','5',31).code=='OK' and buy('ten','10',31).code=='OK','5 and10 never require rebirth')
-assert(buy('locked','100',31).code=='Locked')
+assert(buy('locked','50',31).code=='Locked')
 s.state.rebirths=2
-local before=s.state.coinUnits;local purchased=s.state.purchased;local amount=100-#s.state.producers
-assert(buy('tier2','100',31).code=='OK')
+local before=s.state.coinUnits;local purchased=s.state.purchased;local amount=50-#s.state.producers
+assert(buy('tier2','50',31).code=='OK')
 assert(s.state.coinUnits==before-Economy.buyCost(purchased,amount,2))
-assert(s.state.producers[100].speciesId=='tier_02' and #s.state.producers==100)
-assert(buy('tier2','100',31).replayed and #s.state.producers==100)
-print('PASS fractional event production, pass stacking, unlocked Buy5/10 and rebirth-tier Buy100')
+assert(s.state.producers[50].speciesId=='tier_02' and #s.state.producers==50)
+assert(buy('tier2','50',31).replayed and #s.state.producers==50)
+print('PASS fractional event production, pass stacking, unlocked Buy5/10 and rebirth-tier Buy50')

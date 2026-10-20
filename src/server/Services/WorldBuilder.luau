@@ -75,20 +75,24 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local rearDepth=Config.PlotBackZ-Config.PlotRearStartZ
     local rearCenter=(Config.PlotBackZ+Config.PlotRearStartZ)/2
     local rear=Factory.part(root,'WideFarmRear',Vector3.new(112,1,rearDepth),CFrame.new(0,-.5,rearCenter),lawn.Color,nil,true);rear.TopSurface=Enum.SurfaceType.Studs
-    local stallFloor=Factory.part(root,'FarmerAlcove',Vector3.new(20,1,12),CFrame.new(27,-.5,-44),lawn.Color,nil,true);stallFloor.TopSurface=Enum.SurfaceType.Studs
+    local stallFloor=Factory.part(root,'FarmerAlcove',Map.FarmerAlcoveSize,CFrame.new(Map.FarmerAlcoveCenter),lawn.Color,nil,true);stallFloor.TopSurface=Enum.SurfaceType.Studs
     for x=-54,54,4 do for z=-36,Config.PlotBackZ-2,4 do if z>=Config.PlotRearStartZ or math.abs(x)<=46 then Factory.part(root,'LawnStud',Vector3.new(1,.12,1),CFrame.new(x,.06,z),Color3.fromRGB(124,217,37)) end end end
     for _,side in {-1,1} do
         fence(root,CFrame.new(side*48,0,3)*CFrame.Angles(0,math.pi/2,0),82)
         fence(root,CFrame.new(side*52,0,Config.PlotRearStartZ),8)
         fence(root,CFrame.new(side*56,0,rearCenter)*CFrame.Angles(0,math.pi/2,0),rearDepth)
     end
-    fence(root,CFrame.new(-32.5,0,-38),31)
-    fence(root,CFrame.new(42.5,0,-38),11)
-    fence(root,CFrame.new(27,0,-50),20)
-    for _,x in {17,37} do fence(root,CFrame.new(x,0,-44)*CFrame.Angles(0,math.pi/2,0),12) end
+    local entranceHalf=7/Map.PlotScale
+    local alcoveLeft=Map.FarmerAlcoveCenter.X-Map.FarmerAlcoveSize.X/2
+    local alcoveRight=Map.FarmerAlcoveCenter.X+Map.FarmerAlcoveSize.X/2
+    for _,span in {{-48,alcoveLeft},{alcoveRight,-entranceHalf},{entranceHalf,48}} do
+        fence(root,CFrame.new((span[1]+span[2])/2,0,-38),span[2]-span[1])
+    end
+    fence(root,CFrame.new(Map.FarmerAlcoveCenter.X,0,-52),Map.FarmerAlcoveSize.X)
+    for _,x in {alcoveLeft,alcoveRight} do fence(root,CFrame.new(x,0,-45)*CFrame.Angles(0,math.pi/2,0),14) end
     local back=Factory.part(root,'BackWall',Vector3.new(112,5,1.5),CFrame.new(0,2.5,Config.PlotBackZ),orange,nil,true); back.TopSurface=Enum.SurfaceType.Studs
     local pads={}
-    for _,quantity in {'1','5','10','100'} do
+    for _,quantity in {'1','5','10','50'} do
         local purchase=pad(root,'Buy'..quantity,Vector3.new(10,.4,7),CFrame.new(Config.BuyPads[quantity],.2,Config.BuyZ),if quantity=='1' then Color3.fromRGB(96,238,43) else Color3.fromRGB(244,90,94))
         local title=Factory.label(purchase,'Buy '..quantity,170,102)
         title.Size=UDim2.new(1,0,0,38);title.TextSize=32;title.TextWrapped=false;title.TextColor3=Color3.fromRGB(255,241,209)
@@ -145,9 +149,14 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     end
     arrowLayer(.17,Color3.fromRGB(42,27,17),-5.38)
     arrowLayer(0,Color3.fromRGB(255,237,184),-5.49)
-    local boothFrame=CFrame.new(27,0,-42)*CFrame.Angles(0,math.pi,0)*CFrame.new(30,0,3)
-    for _,part in booth:GetDescendants() do if part:IsA('BasePart') then part.CFrame=boothFrame*part.CFrame end end
-    for index,x in {18,36} do
+    local boothFrame=CFrame.new(Map.FarmerCenter)*CFrame.Angles(0,math.pi,0)*CFrame.new(30,0,3)
+    for _,part in booth:GetDescendants() do if part:IsA('BasePart') then
+        local cf=part.CFrame;local pos=cf.Position
+        part.CFrame=CFrame.new(-30+(pos.X+30)*1.25,pos.Y,-3+(pos.Z+3)*1.25)*cf.Rotation
+        if part.Parent==booth and part~=farmer then part.Size*=Vector3.new(1.25,1,1.25) end
+        part.CFrame=boothFrame*part.CFrame
+    end end
+    for index,x in {-18,-36} do
         local crateCF=CFrame.new(x,0,-36)*CFrame.Angles(0,math.pi,0)
         Decor.place(root,'KeyCrate',crateCF,1.75)
         for n=1,3 do
@@ -159,8 +168,8 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
             mini.CFrame=miniCF*CFrame.new(0,4.7-mini.Size.Y/2,0)
         end
     end
-    Decor.place(root,'CashStash',CFrame.new(38,0,-35)*CFrame.Angles(0,.3,0),.9)
-    Decor.place(root,'ShippingCrate',CFrame.new(30,0,-45)*CFrame.Angles(0,-.2,0),.8)
+    Decor.place(root,'CashStash',CFrame.new(-38,0,-35)*CFrame.Angles(0,-.3,0),.9)
+    Decor.place(root,'ShippingCrate',CFrame.new(-30,0,-47)*CFrame.Angles(0,.2,0),.8)
     -- Keep the sign along the side fence, clear of the purchase row.
     local processorGroup=Instance.new('Model');processorGroup.Name='ProcessorSign';processorGroup.Parent=root
     for _,x in {-43,-25} do Factory.part(processorGroup,'ProcessorPost',Vector3.new(.7,8,.7),CFrame.new(x,4,29),Color3.fromRGB(102,65,34)) end
@@ -181,7 +190,7 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     signLine('FriendBoost','(No Friend Boost)',72,32,28,Color3.fromRGB(83,207,255))
     local processorLabel=signLine('Queued','0',100,116,102,Color3.fromRGB(255,231,183))
     local processorRate=signLine('Rate','2 per second',220,52,40,Color3.fromRGB(255,231,202))
-    local signTransform=CFrame.new(47,0,10)*CFrame.Angles(0,math.pi/2,0)*CFrame.new(34,0,-29)
+    local signTransform=CFrame.new(-47,0,10)*CFrame.Angles(0,-math.pi/2,0)*CFrame.new(34,0,-29)
     for _,part in processorGroup:GetDescendants() do if part:IsA('BasePart') then part.CFrame=signTransform*part.CFrame end end
     local upgrade=pad(root,'UpgradePad',Vector3.new(11,.4,7),CFrame.new(Map.Upgrade),Color3.fromRGB(95,245,70))
     local upgradeLabel=Factory.label(upgrade,'+3 per second',220,85)
@@ -215,8 +224,8 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     Factory.part(root,'ConveyorBackRail',Vector3.new(104,1,1),CFrame.new(0,.9,Config.BeltZ+4.6),orange,nil,true)
     for _,x in {-30,30} do Factory.part(root,'ConveyorFrontRail',Vector3.new(44,1,1),CFrame.new(x,.9,Config.BeltZ-4.6),orange,nil,true) end
     local chuteStart=Config.TrayZ+6
-    local chuteEnd=Config.BeltZ-4
-    Factory.part(root,'ConveyorCenter',Vector3.new(14,.4,chuteEnd-chuteStart+1),CFrame.new(0,.5,(chuteStart+chuteEnd)/2),Color3.fromRGB(222,61,62))
+    local chuteEnd=Config.BeltZ+4
+    Factory.part(root,'ConveyorCenter',Vector3.new(14,.4,chuteEnd-chuteStart+1),CFrame.new(0,.5,(chuteStart+chuteEnd)/2),Color3.fromRGB(222,61,62),nil,true)
     Factory.part(root,'CollectionTray',Vector3.new(16,.4,12),CFrame.new(0,.45,Config.TrayZ),Color3.fromRGB(239,95,71))
     for _,x in {-8,8} do Factory.part(root,'TrayRim',Vector3.new(.7,.8,12),CFrame.new(x,.8,Config.TrayZ),orange,nil,true) end
     Factory.part(root,'TrayFront',Vector3.new(16,.6,.7),CFrame.new(0,.7,Config.TrayZ-6),orange,nil,true)
@@ -228,23 +237,23 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     end
     local plotDecor=Instance.new('Model');plotDecor.Name='PlotDecor';plotDecor.WorldPivot=CFrame.identity;plotDecor.Parent=root
     -- Identical authored locations, variants and sizes on every plot; keep all play areas clear.
-    for _,spec in {{Vector3.new(-48,0,Config.DisplayZ+1),.8,2,.3},{Vector3.new(48,0,Config.DisplayZ+1),.9,1,0},{Vector3.new(-43,0,-7),.65,3,0}} do
+    for _,spec in {{Vector3.new(-48,0,Config.DisplayZ+1),.8,2,.3},{Vector3.new(48,0,Config.DisplayZ+1),.9,1,0},{Vector3.new(43,0,-7),.65,3,0}} do
         Environment.tree(plotDecor,CFrame.new(spec[1])*CFrame.Angles(0,spec[4],0),spec[2],spec[3])
     end
-    for _,spot in {Vector3.new(-43,0,18),Vector3.new(44,0,0)} do
+    for _,spot in {Vector3.new(43,0,18),Vector3.new(-44,0,0)} do
         Factory.prop(plotDecor,'BrickBush',CFrame.new(spot),.8)
         Factory.prop(plotDecor,'BrickLog',CFrame.new(spot+Vector3.new(0,0,5))*CFrame.Angles(0,math.pi/2,0),.65)
         Factory.prop(plotDecor,'BrickGrass',CFrame.new(spot+Vector3.new(-1,0,2.5)),.85)
         for flower=1,3 do Factory.prop(plotDecor,'BrickFlower',CFrame.new(spot+Vector3.new((flower-2)*1.4,0,-3)),.8) end
     end
-    local barn=Factory.prop(root,'BrickBarn',CFrame.lookAt(Vector3.new(41,0,-29),Vector3.new(0,0,18)),.85)
+    local barn=Factory.prop(root,'BrickBarn',CFrame.lookAt(Vector3.new(-41,0,-29),Vector3.new(0,0,18)),.95)
     if barn then
-        local roofGuest=Factory.producer(root,'BarnMascot',Catalog[string.format('tier_%02d',(id-1)%4+1)],Vector3.new(41,barn.Size.Y,-29),true)
+        local roofGuest=Factory.producer(root,'BarnMascot',Catalog[string.format('tier_%02d',(id-1)%4+1)],Vector3.new(-41,barn.Size.Y,-29),true)
         roofGuest:ScaleTo(1.2)
         local guestPivot=roofGuest:GetPivot()
         roofGuest:PivotTo(CFrame.lookAt(guestPivot.Position,Vector3.new(0,guestPivot.Position.Y,18)))
     end
-    local groupCF=CFrame.new(-47,9,6)*CFrame.Angles(0,-math.pi/2,0)
+    local groupCF=CFrame.new(47,9,6)*CFrame.Angles(0,math.pi/2,0)
     for _,x in {-6.5,6.5} do
         local support=Factory.part(root,'GroupBoardSupport',Vector3.new(.9,9,.9),groupCF*CFrame.new(x,-4.5,.1),Color3.fromRGB(101,62,34));support.TopSurface=Enum.SurfaceType.Studs
     end
@@ -264,7 +273,7 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local groupLogCF=groupCF*CFrame.new(0,-8.3,-1.8)
     local groupLog=Factory.part(root,'GroupBoardFootLog',Vector3.new(7,1.4,1.6),groupLogCF,Color3.fromRGB(145,88,43));groupLog.TopSurface=Enum.SurfaceType.Studs
     for x=-2.8,2.8,1.4 do for _,z in {-.4,.4} do Factory.part(root,'GroupLogStud',Vector3.new(.65,.18,.65),groupLogCF*CFrame.new(x,.79,z),Color3.fromRGB(184,120,65)) end end
-    pad(root,'GroupRewardPad',Vector3.new(10,.4,7),CFrame.new(-35,.2,6),Color3.fromRGB(181,170,133))
+    pad(root,'GroupRewardPad',Vector3.new(10,.4,7),CFrame.new(35,.2,6),Color3.fromRGB(181,170,133))
     local spawn=Instance.new('SpawnLocation'); spawn.Name='FarmSpawn'; spawn.Anchored=true; spawn.Transparency=1
     spawn.CanCollide=false; spawn.CanTouch=false; spawn.Size=Vector3.new(6,1,6); spawn.CFrame=Map.Spawn; spawn.Neutral=true; spawn.Parent=root
     local producers=Instance.new('Folder'); producers.Name='Producers'; producers.Parent=root
@@ -304,10 +313,18 @@ function World.build()
         local transform=CFrame.lookAt(outward*plotRadius,outward*(plotRadius-1))
         table.insert(plots,buildPlot(root,i,transform))
         local bridgeCF=CFrame.lookAt(outward*112.5+Vector3.new(0,-.2,0),outward*113.5+Vector3.new(0,-.2,0))
-        local bridge=Factory.part(root,'Bridge',Vector3.new(14,1,37),bridgeCF,Color3.fromRGB(162,111,63),nil,true);bridge.TopSurface=Enum.SurfaceType.Studs
+        local bridge=Factory.part(root,'Bridge',Vector3.new(14,1,39),bridgeCF,Color3.fromRGB(162,111,63),nil,true);bridge.TopSurface=Enum.SurfaceType.Studs
         local bridgeMesh=Factory.prop(root,'BrickBridge',bridgeCF+Vector3.new(0,.1,0))
-        if bridgeMesh then bridgeMesh.Size=Vector3.new(bridgeMesh.Size.X,bridgeMesh.Size.Y,37);bridge.Transparency=1 end
-        for _,side in {-1,1} do local rail=Factory.part(root,'BridgeBarrier',Vector3.new(.6,4,37),bridgeCF*CFrame.new(side*6.8,2.2,0),orange,nil,true);rail.Transparency=1 end
+        if bridgeMesh then bridgeMesh.Size=Vector3.new(bridgeMesh.Size.X,bridgeMesh.Size.Y,39);bridge.Transparency=1 end
+        -- The mesh's rails extend beyond its planks. Solid landing planks cover
+        -- that inset and overlap the island/plot instead of merely touching them.
+        for _,radius in {94,plotRadius-38*Map.PlotScale} do
+            local landingCF=CFrame.lookAt(outward*radius+Vector3.new(0,.15,0),outward*(radius+1)+Vector3.new(0,.15,0))
+            local landing=Factory.part(root,if radius==94 then 'BridgeApproach' else 'BridgeLanding',Vector3.new(13.6,.5,3),landingCF,Color3.fromRGB(180,119,64),nil,true)
+            landing.TopSurface=Enum.SurfaceType.Studs;landing:SetAttribute('PlotId',i)
+            for _,x in {-5.8,5.8} do Factory.part(root,'LandingPeg',Vector3.new(.22,.08,.22),landingCF*CFrame.new(x,.29,0),Color3.fromRGB(105,64,32)) end
+        end
+        for _,side in {-1,1} do local rail=Factory.part(root,'BridgeBarrier',Vector3.new(.6,4,39),bridgeCF*CFrame.new(side*6.8,2.2,0),orange,nil,true);rail.Transparency=1 end
         for n=1,4 do Factory.prop(root,'BrickLilyPad',bridgeCF*CFrame.new((if n%2==0 then -1 else 1)*(12+n*2),-4.18,(n-2)*10)*CFrame.Angles(0,n*1.6,0),.8+n*.2) end
     end
     local boards={}
@@ -482,17 +499,15 @@ function World.render(world: any,state: any)
     end
     for _,child in world.tokens:GetChildren() do if not present[child.Name] then child:Destroy() end end
     for quantity,label in world.pads do
+        local quote=Economy.purchaseQuote(Config,state,quantity)
+        local amount,tier,cost=quote.amount,quote.tier,quote.cost
         local unlocked=state.rebirths>=Config.BuyUnlocks[quantity]
-        local free=quantity=='1' and not state.starterClaimed
-        local amount=if quantity=='100' then math.min(100,Config.Slots-#state.producers) else tonumber(quantity)
-        local tier=if quantity=='100' then math.clamp(state.rebirths,1,Config.MaxTier) else 1
-        local cost=if free then Config.BuyUnits else Economy.buyCost(state.purchased or 0,amount,tier)
-        padAvailability(label.Parent.Parent,unlocked and (state.starterClaimed or quantity=='1') and amount>0 and #state.producers+amount<=Config.Slots and state.coinUnits>=cost)
+        padAvailability(label.Parent.Parent,quote.code=='OK')
         label.Text=if amount==0 then 'Stack full' else 'Buy '..quantity
         local price=label.Parent.Price
         price.Text=if amount==0 then '' else cashText(cost)
         price.TextColor3=if unlocked then Color3.fromRGB(132,255,0) else Color3.fromRGB(255,195,195)
-        label.Parent.Detail.Text=if not unlocked then 'Rebirth '..Config.BuyUnlocks[quantity]..' required' elseif amount==0 then 'Merge to make room' elseif quantity=='100' then 'Up to 100 '..Catalog[string.format('tier_%02d',tier)].name else ''
+        label.Parent.Detail.Text=if not unlocked then 'Rebirth '..Config.BuyUnlocks[quantity]..' required' elseif quote.code=='PlotFull' then 'Merge to make room' elseif quantity=='50' then 'Up to 50 '..Catalog[string.format('tier_%02d',tier)].name else ''
     end
     world.saleLabel.Text='Collect cash\n$'..string.format('%g',state.soldUnits/4)
     world.processorLabel.Text=tostring(Economy.count(state.saleQueue))

@@ -36,13 +36,13 @@ local pile=core:newSession(13,0,'pile')
 pile.state.coinUnits=1000000; pile.state.rebirths=3
 local buyContext={now=0,alive=true,position={x=Config.BuyPads['1'],y=3,z=Config.BuyZ}}
 assert(core:dispatch(pile,'Buy',{'starter'},buyContext).code=='OK')
-buyContext.position.x=Config.BuyPads['100']
-assert(core:dispatch(pile,'Buy',{'full','100'},buyContext).code=='OK')
+buyContext.position.x=Config.BuyPads['50']
+assert(core:dispatch(pile,'Buy',{'full','50'},buyContext).code=='OK')
 for index,producer in pile.state.producers do producer.speciesId=string.format('tier_%02d',(index-1)%6+1) end
 core:step(pile,Config.Interval)
-assert(#pile.state.tokens==96)
-local seen={}; local heights={}; local speciesSpread={}; local topId=pile.state.tokens[96].id
-local topY=pile.state.tokens[96].y
+assert(#pile.state.tokens==50)
+local seen={}; local heights={}; local speciesSpread={}; local topId=pile.state.tokens[50].id
+local topY=pile.state.tokens[50].y
 for _,mini in pile.state.tokens do
     local key=string.format('%.3f:%.3f:%.3f',mini.x,mini.y,mini.z)
     assert(not seen[key],'Minis must occupy distinct resting places at full capacity')
@@ -70,8 +70,8 @@ for _=1,24 do
     local mini=pile.state.tokens[1]
     assert(core:dispatch(pile,'Collect',{mini.id},{now=10,alive=true,position={x=mini.x,y=mini.y,z=mini.z}}).code=='OK')
 end
-assert(#pile.state.tokens==72)
-assert(pile.state.tokens[72].id==topId and pile.state.tokens[72].y<topY,'Surviving top minis must settle after lower minis are collected')
-local survivor=pile.state.tokens[72]
+assert(#pile.state.tokens==26)
+assert(pile.state.tokens[26].id==topId and pile.state.tokens[26].y<topY,'Surviving top minis must settle after lower minis are collected')
+local survivor=pile.state.tokens[26]
 assert(core:dispatch(pile,'Collect',{survivor.id},{now=10,alive=true,position={x=survivor.x,y=survivor.y,z=survivor.z}}).code=='OK','Pickup must use the new authoritative pile position')
-print('PASS 96 unique pile positions, tray bounds, stacked heights and authoritative settling after pickup')
+print('PASS 50 unique pile positions, tray bounds, stacked heights and authoritative settling after pickup')

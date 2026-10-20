@@ -321,10 +321,13 @@ function UI.setContext(self: any,kind: string?,quantity: string?)
     elseif kind=='Merge' then self.contextText.Text='Two matching Brainrots become one'; self.contextButton.Text='Step on pad to merge automatically'
     else
         local unlock=Config.BuyUnlocks[self.quantity]
-        local free=self.quantity=='1' and not s.starterClaimed
-        self.contextText.Text=if s.rebirths<unlock then 'Unlocks at rebirth '..unlock else tostring(Config.Slots-#s.producers)..' spaces left'
-        local amount=if self.quantity=='100' then math.min(100,Config.Slots-#s.producers) else tonumber(self.quantity)
-        self.contextButton.Text=if s.rebirths<unlock then 'LOCKED - Rebirth '..unlock elseif free then 'Walk onto the pad - $5' elseif amount==0 then 'Maximum reached - merge!' else 'Step on pad - $'..UI.coins(Economy.buyCost(s.purchased or 0,amount,if self.quantity=='100' then math.clamp(s.rebirths,1,Config.MaxTier) else 1))
+        local quote=Economy.purchaseQuote(Config,s,self.quantity)
+        self.contextText.Text=if quote.code=='Locked' then 'Unlocks at rebirth '..unlock else tostring(math.max(0,Config.Slots-#s.producers))..' spaces left'
+        self.contextButton.Text=if quote.code=='Locked' then 'LOCKED - Rebirth '..unlock
+            elseif quote.code=='ClaimStarter' then 'Buy your first Brainrot on the $5 pad'
+            elseif quote.code=='PlotFull' then 'Not enough space - merge!'
+            elseif quote.code=='BadRequest' then 'Unavailable'
+            else 'Step on pad - $'..UI.coins(quote.cost)
     end
     if self.pending then self.contextButton.Text='Waiting for server...' end
 end

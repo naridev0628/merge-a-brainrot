@@ -37,5 +37,5 @@ s.state.coinUnits=119
 eq(command('Upgrade',{'poor'},100,Config.UpgradeX,Config.UpgradeZ).code,'InsufficientFunds')
 core:setPasses(s,{mini2=true}); s.state.tokens={}; s.state.producers[1].due=106
 core:step(s,106); eq(#s.state.tokens,2)
-local tenth=core:slotPosition(100); eq(tenth.y,Config.DisplayPlatformHeight+9*Config.RowHeight)
-print('PASS complete tutorial, processor queue acceleration, upgrade replay, double Minis and ten-row cap')
+local fifth=core:slotPosition(50); eq(fifth.y,Config.DisplayPlatformHeight+4*Config.RowHeight)
+print('PASS complete tutorial, processor queue acceleration, upgrade replay, double Minis and five-row cap')

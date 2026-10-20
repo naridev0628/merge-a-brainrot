@@ -7,8 +7,8 @@ function PadHold.update(state: State,key: string?,now: number)
 end
 function PadHold.ready(state: State,now: number): boolean
     if not state.key or state.stopped then return false end
-    -- Every entry acts immediately; remaining on a pad never repeats spending.
-    return state.lastSent==nil
+    -- Entry is immediate. Holding repeats at a deliberate pace after two seconds.
+    return state.lastSent==nil or (now-state.enteredAt>=2 and now-state.lastSent>=.5)
 end
 function PadHold.sent(state: State,now: number) state.lastSent=now end
 function PadHold.stop(state: State) state.stopped=true end

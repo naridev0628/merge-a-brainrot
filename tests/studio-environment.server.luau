@@ -47,12 +47,12 @@ for id=1,Config.PlotCount do
     local chuteLo,chuteHi=footprint(plot.ConveyorCenter,frame)
     local beltLo=footprint(plot.ConveyorBelt,frame)
     assert(chuteLo.Z<=trayHi.Z+.01 and chuteHi.Z>=beltLo.Z-.01,'Tray and conveyor must have a continuous center chute')
-    for _,quantity in {'1','5','10','100'} do
+    for _,quantity in {'1','5','10','50'} do
         local title=plot['Buy'..quantity].Label.Text
         assert(title.Font==Enum.Font.FredokaOne and title.TextSize>=30 and title:FindFirstChildOfClass('UIStroke'),'Purchase title needs a bold rounded outline')
         assert(title.Parent.Price.Position.Y.Offset>=title.Size.Y.Offset-2,'Purchase price must remain below its title')
     end
-    for _,name in {'Buy1','Buy5','Buy10','Buy100','UpgradePad'} do
+    for _,name in {'Buy1','Buy5','Buy10','Buy50','UpgradePad'} do
         local pad=plot[name]
         local affordable=pad:GetAttribute('Affordable')
         if affordable~=nil then
