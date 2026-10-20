@@ -9,13 +9,13 @@ local function buy(id,q,now)
 end
 assert(buy('first','1').code=='OK')
 c:setEvent(s,50)
-c:step(s,6);assert(#s.state.tokens==0 and s.state.producers[1].productionCredit==50)
-c:step(s,12);assert(#s.state.tokens==1 and s.state.producers[1].productionCredit==0)
+c:step(s,1*Config.Interval);assert(#s.state.tokens==0 and s.state.producers[1].productionCredit==50)
+c:step(s,2*Config.Interval);assert(#s.state.tokens==1 and s.state.producers[1].productionCredit==0)
 c:setEvent(s,150);s.state.tokens={}
-c:step(s,18);assert(#s.state.tokens==1)
-c:step(s,24);assert(#s.state.tokens==3)
+c:step(s,3*Config.Interval);assert(#s.state.tokens==1)
+c:step(s,4*Config.Interval);assert(#s.state.tokens==3)
 c:setPasses(s,{mini2=true});s.state.tokens={}
-c:step(s,30);assert(#s.state.tokens==3,'2x pass multiplies event without rounding loss')
+c:step(s,5*Config.Interval);assert(#s.state.tokens==3,'2x pass multiplies event without rounding loss')
 s.state.coinUnits=1000000
 assert(buy('five','5',31).code=='OK' and buy('ten','10',31).code=='OK','5 and10 never require rebirth')
 assert(buy('locked','100',31).code=='Locked')

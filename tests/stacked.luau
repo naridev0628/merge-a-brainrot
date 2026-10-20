@@ -6,12 +6,12 @@ local function eq(a,b) assert(a==b,tostring(a)..' ~= '..tostring(b)) end
 local function fixture()
     local c=Core.new(Config,Catalog)
     local s=c:newSession(7,0,'stack')
-    c:dispatch(s,'Buy',{'starter'},{now=0,alive=true,position={x=Config.BuyPads['1'],y=3,z=34}})
+    c:dispatch(s,'Buy',{'starter'},{now=0,alive=true,position={x=Config.BuyPads['1'],y=3,z=Config.BuyZ}})
     return c,s
 end
 local function buy(c,s,id,quantity)
     local x=Config.BuyPads[quantity] or 0
-    return c:dispatch(s,'Buy',{id,quantity},{now=0,alive=true,position={x=x,y=3,z=34}})
+    return c:dispatch(s,'Buy',{id,quantity},{now=0,alive=true,position={x=x,y=3,z=Config.BuyZ}})
 end
 local c,s=fixture(); s.state.coinUnits=4000000
 eq(buy(c,s,'locked','100').code,'Locked')
@@ -44,7 +44,7 @@ eq(r:dispatch(rs,'Rebirth',{'under-price'},ctx).code,'InsufficientFunds')
 rs.state.coinUnits=Config.RebirthBase; r:step(rs,6)
 eq(r:dispatch(rs,'Rebirth',{'rb'},ctx).code,'OK')
 eq(rs.state.rebirths,1); eq(rs.state.coinUnits,0); eq(#rs.state.tokens,0); eq(Economy.count(rs.state.bag),0)
-eq(rs.state.producers[1].speciesId,'tier_01'); eq(rs.state.producers[1].due,18)
+eq(rs.state.producers[1].speciesId,'tier_01'); eq(rs.state.producers[1].due,12+Config.Interval)
 eq(rs.state.discoveries.tier_06,true)
 eq(r:dispatch(rs,'Rebirth',{'rb'},ctx).replayed,true); eq(rs.state.rebirths,1)
 rs.state.coinUnits=5*Config.BuyUnits-1

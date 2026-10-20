@@ -47,8 +47,8 @@ function Conveyor.update(self: any,now: number)
         if not start or not drop or not center or not target or not spawned or not ready then continue end
         local scale=model:GetAttribute('PlotScale') or .5
         local finalRotation=model:GetAttribute('FinalRotation') or record.rotation
-        local floorOffset=if model:GetAttribute('FinalRotation') then Vector3.zero else model:GetAttribute('FloorOffset') or Vector3.zero
         local t=math.clamp((now-spawned)/math.max(.01,ready-spawned),0,1)
+        local floorOffset=if model:GetAttribute('FinalRotation') then (model:GetAttribute('RestingLift') or Vector3.zero)*math.clamp((t-.77)/.23,0,1) else model:GetAttribute('FloorOffset') or Vector3.zero
         if record.target and record.target~=target and t>=1 then
             record.repackFrom=model:GetPivot(); record.repackAt=now; record.settled=false
         end

@@ -26,7 +26,8 @@ function Factory.prop(parent: Instance,name: string,cf: CFrame,scale: number?): 
     local template=templates and templates:FindFirstChild(name)
     if not template or not template:IsA('MeshPart') then return nil end
     local mesh=template:Clone(); mesh.Size*=scale or 1; mesh.CFrame=cf*CFrame.new(0,mesh.Size.Y/2,0)
-    mesh.Anchored=true; mesh.CanCollide=false; mesh.CanTouch=false; mesh.Parent=parent
+    local walkable=name=='BrickLilyPad' or name=='BrickRockIsland'
+    mesh.Anchored=true; mesh.CanCollide=walkable; mesh.CanQuery=walkable; mesh.CanTouch=false; mesh.Parent=parent
     if name=='BrickTree' then
         local s=scale or 1
         local trunk=Factory.part(parent,'TreeTrunkCollider',Vector3.new(2,6,2)*s,cf*CFrame.new(0,3*s,0),Color3.fromRGB(101,65,37),nil,true);trunk.Transparency=1
@@ -172,6 +173,8 @@ function Factory.producer(parent: Instance,id: string,species: any,position: Vec
 end
 function Factory.mini(parent: Instance,token: any,species: any): Model
     local m=Factory.producer(parent,token.id,species,Vector3.new(token.x,.2,token.z),true)
+    -- Ground tokens must read clearly after the half-size plot transform.
+    m:ScaleTo(m:GetScale()*2.4)
     m:SetAttribute('OwnerUserId',token.owner); return m
 end
 return Factory

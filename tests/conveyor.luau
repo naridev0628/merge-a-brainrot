@@ -10,20 +10,24 @@ end
 assert(Config.BuyPads['1']>Config.BuyPads['5'] and Config.BuyPads['5']>Config.BuyPads['10'])
 assert(core:slotPosition(1).x>core:slotPosition(10).x)
 assert(cmd('Buy',{'free'},0,Config.BuyPads['1'],Config.BuyZ).code=='OK')
-core:step(s,6)
+core:step(s,Config.Interval)
 local t=s.state.tokens[1]
 assert(t.startX==core:slotPosition(1).x and t.startZ>Config.BeltZ)
-assert(t.readyAt==6+Config.TransitSeconds)
+assert(t.readyAt==Config.Interval+Config.TransitSeconds)
 assert(math.abs(t.x)<=7.5 and t.z>=Config.TrayZ-6 and t.z<=Config.TrayZ+6)
-assert(cmd('Collect',{t.id},6,t.x,t.z).code=='InTransit')
+assert(cmd('Collect',{t.id},Config.Interval,t.x,t.z).code=='InTransit')
 assert(Economy.count(s.state.bag)==0 and #s.state.tokens==1)
 assert(cmd('Collect',{t.id},t.readyAt,t.x,t.z).code=='OK')
 assert(Economy.count(s.state.bag)==1)
 core:setPasses(s,{autoCollect=true})
-core:step(s,12)
+local nextDrop=t.readyAt+Config.Interval
+s.state.producers[1].due=nextDrop
+core:step(s,nextDrop)
 assert(#s.state.tokens==1,'Auto Collect must wait for the conveyor')
-core:step(s,12+Config.TransitSeconds)
-assert(#s.state.tokens==0 and #s.state.saleQueue>0)
+local arrivingId=s.state.tokens[1].id
+core:step(s,nextDrop+Config.TransitSeconds)
+for _,mini in s.state.tokens do assert(mini.id~=arrivingId,'Arrived Mini must be collected while newer Minis remain in transit') end
+assert(#s.state.saleQueue>0)
 print('PASS conveyor ordering, tray bounds, transit pickup rejection and automation arrival gate')
 
 -- A full tray must never reuse the same resting place, and collecting the
@@ -35,7 +39,7 @@ assert(core:dispatch(pile,'Buy',{'starter'},buyContext).code=='OK')
 buyContext.position.x=Config.BuyPads['100']
 assert(core:dispatch(pile,'Buy',{'full','100'},buyContext).code=='OK')
 for index,producer in pile.state.producers do producer.speciesId=string.format('tier_%02d',(index-1)%6+1) end
-core:step(pile,6)
+core:step(pile,Config.Interval)
 assert(#pile.state.tokens==96)
 local seen={}; local heights={}; local speciesSpread={}; local topId=pile.state.tokens[96].id
 local topY=pile.state.tokens[96].y

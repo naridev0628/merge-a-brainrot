@@ -51,28 +51,28 @@ test("starting $5 buys TungTung and three Minis fund the first merge", function(
     local core, s = fixture()
     eq(#s.state.producers, 1, "starter producer")
     eq(s.state.coinUnits, 0)
-    core:step(s, 5.99); eq(#s.state.tokens, 0)
+    core:step(s, Config.Interval-.01); eq(#s.state.tokens, 0)
     for i = 1, 3 do
-        core:step(s, i * 6)
+        core:step(s, i * Config.Interval)
         eq(#s.state.tokens, 1)
-        eq(collect(core, s, s.state.tokens[1], i * 6).code, "OK")
+        eq(collect(core, s, s.state.tokens[1], i * Config.Interval).code, "OK")
     end
     eq(Economy.count(s.state.bag), 3)
-    eq(command(core, s, "Sell", "sell1", nil, 18).creditUnits, 24)
-    eq(command(core, s, "Buy", "buy1", nil, 18).code, "OK")
+    eq(command(core, s, "Sell", "sell1", nil, 3*Config.Interval).creditUnits, 24)
+    eq(command(core, s, "Buy", "buy1", nil, 3*Config.Interval).code, "OK")
     eq(s.state.coinUnits, 4)
     local a, b = s.state.producers[1], s.state.producers[2]
-    eq(command(core, s, "Merge", "merge1", {a.id, b.id}, 18).code, "OK")
+    eq(command(core, s, "Merge", "merge1", {a.id, b.id}, 3*Config.Interval).code, "OK")
     eq(#s.state.producers, 1)
     eq(s.state.producers[1].speciesId, "tier_02")
     eq(s.state.producers[1].slot, 1)
-    eq(s.state.producers[1].due, 24)
+    eq(s.state.producers[1].due, 4*Config.Interval)
     eq(s.state.discoveries.tier_02, true)
-    core:step(s, 24); eq(s.state.tokens[1].baseCoinValue, 5)
+    core:step(s, 4*Config.Interval); eq(s.state.tokens[1].baseCoinValue, 5)
 end)
 test("duplicate collection and successful sale replay cannot grant extras", function()
     local core, s = fixture()
-    core:step(s, 6); local token = s.state.tokens[1]
+    core:step(s, Config.Interval); local token = s.state.tokens[1]
     eq(collect(core, s, token, 6).code, "OK")
     local before = fingerprint(s)
     eq(collect(core, s, token, 6).code, "MissingToken"); eq(fingerprint(s), before)
@@ -111,7 +111,7 @@ test("same-ID foreign and mismatched merges leave full state unchanged", functio
     eq(fingerprint(s),before)
 end)
 test("dead distant malformed and nonfinite requests are rejected", function()
-    local core,s=fixture(); s.state.coinUnits=80; core:step(s,6)
+    local core,s=fixture(); s.state.coinUnits=80; core:step(s,Config.Interval)
     local before=fingerprint(s)
     eq(core:dispatch(s,"Buy",{"far"},context(6,1000,1000)).code,"TooFar")
     local dead=context(6,18,34); dead.alive=false
@@ -127,7 +127,7 @@ end)
 test("full bag leaves token; coin overflow leaves entire bag",function()
     local core,s=fixture()
     s.state.bag={{speciesId="tier_01",baseCoinValue=2,count=Config.BagCap}}
-    core:step(s,6); local token=s.state.tokens[1]; local before=fingerprint(s)
+    core:step(s,Config.Interval); local token=s.state.tokens[1]; local before=fingerprint(s)
     eq(collect(core,s,token,6).code,"BagFull"); eq(fingerprint(s),before)
     s.state.coinUnits=Config.CoinCap
     before=fingerprint(s)
@@ -144,18 +144,18 @@ test("full plot rejects purchase without charge and merge frees a slot",function
 end)
 test("stall catchup and capped production discard backlog",function()
     local core,s=fixture()
-    core:step(s,600); eq(#s.state.tokens,2); eq(s.state.producers[1].due,606)
-    for t=606,624,6 do core:step(s,t) end
+    core:step(s,600); eq(#s.state.tokens,2); eq(s.state.producers[1].due,600+Config.Interval)
+    for i=1,4 do core:step(s,600+i*Config.Interval) end
     eq(#s.state.tokens,6)
     core:step(s,1000); eq(#s.state.tokens,8)
     core:step(s,2000); eq(#s.state.tokens,8)
     collect(core,s,s.state.tokens[1],2000)
     core:step(s,2000.25); eq(#s.state.tokens,7)
-    core:step(s,2006); eq(#s.state.tokens,8)
+    core:step(s,2000+Config.Interval); eq(#s.state.tokens,8)
 end)
 test("retired producer goods remain collectible with captured value",function()
     local core,s=fixture(); s.state.coinUnits=80
-    command(core,s,"Buy","buy"); core:step(s,6)
+    command(core,s,"Buy","buy"); core:step(s,Config.Interval)
     local token=s.state.tokens[1]
     command(core,s,"Merge","merge",{s.state.producers[1].id,s.state.producers[2].id},6)
     eq(#s.state.tokens,2); eq(collect(core,s,token,6).code,"OK")
@@ -178,7 +178,7 @@ end)
 test("independent sessions cannot consume each other's producers or tokens",function()
     local core,a=fixture(); local b=core:newSession(43,0,"other")
     command(core,b,'Buy','starter')
-    core:step(a,6); core:step(b,6)
+    core:step(a,Config.Interval); core:step(b,Config.Interval)
     local before=fingerprint(b)
     eq(collect(core,b,a.state.tokens[1],6).code,"MissingToken")
     eq(command(core,b,"Merge","foreign",{a.state.producers[1].id,b.state.producers[1].id}).code,"MissingProducer")
@@ -204,7 +204,7 @@ test("earned income reaches tier three without grants",function()
     local sequence=0
     local function earnPurchase()
         while s.state.coinUnits<80 do
-            now+=6; core:step(s,now)
+            now+=Config.Interval; core:step(s,now)
             for _,token in table.clone(s.state.tokens) do
                 for _,live in s.state.tokens do
                     if live.id==token.id then eq(collect(core,s,live,now).code,"OK"); break end

@@ -2,7 +2,7 @@
 
 Six-player, memory-only Roblox Studio prototype with six Brainrot tiers, stacked farms, timed Mini processing, automatic merging, Lucky Blocks and rebirth. Source files in Git are the source of truth. No live experience has been published.
 
-Start with $5 and walk onto BUY 1 to get TungTung. Producers make Minis on a six-second cycle, adjusted by the shared 0.50–1.50x Mini Multiplier. Nearby ready Minis enter your bag automatically. Walk onto the farmer's deposit pad, collect processed cash, buy another TungTung, and step onto MERGE to combine all available pairs. Buy 5 and Buy 10 need no rebirth. Buy 100 unlocks at rebirth 1 and advances one species tier per rebirth on the same pad.
+Start with $5 and walk onto BUY 1 to get TungTung. Every producer has a one-second base Mini cycle, adjusted by the shared 0.50–1.50x Mini Multiplier; higher tiers retain their larger Mini values. Ready Minis within a 12-stud sphere around your character enter your bag automatically. Walk onto the farmer's deposit pad, collect processed cash anywhere on the green pad, buy another TungTung, and step onto MERGE to combine all available pairs. Buy and Upgrade act on entry; after standing for two seconds they repeat every 0.1 seconds until you leave or reach a limit. Buy 5 and Buy 10 need no rebirth. Buy 100 unlocks at rebirth 1 and advances one species tier per rebirth on the same pad.
 
 Purchases gradually cost more, even after merging. The first processor upgrade costs $10. First rebirth requires $25,000 and an owned Level 6 Brainrot. Shift and touch Sprint are supported. There is no welcome modal or interaction-key requirement for farm pads.
 

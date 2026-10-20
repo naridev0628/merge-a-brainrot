@@ -32,7 +32,7 @@ local worlds: {[Player]: any}={}
 local owners: {[number]: Player}={}
 local buckets: {[Player]: any}={}
 local connections: {[Player]: RBXScriptConnection}={}
-local rates={CollectNearby={4,6},AutoMerge={2,3},Collect={12,24},State={1,2},Deposit={3,6},Claim={3,6},Buy={3,6},Merge={3,6},Rebirth={1,2},Upgrade={2,3},OpenLucky={2,3},Home={1/3,1},Sprint={4,8}}
+local rates={CollectNearby={4,6},AutoMerge={2,3},Collect={12,24},State={1,2},Deposit={3,6},Claim={3,6},Buy={10,12},Merge={3,6},Rebirth={1,2},Upgrade={10,12},OpenLucky={2,3},Home={1/3,1},Sprint={4,8}}
 local function send(player: Player)
     local session=sessions[player]
     if not session then snapshot:FireClient(player,{status='Unavailable',reason='All six plots are occupied. Waiting for a free plot.'}); return end
@@ -56,7 +56,9 @@ local function context(player: Player)
     local world=worlds[player]
     local foot=if root and humanoid then root.Position-Vector3.new(0,humanoid.HipHeight+root.Size.Y/2+(if humanoid.RigType==Enum.HumanoidRigType.R6 then 2 else 0),0) else nil
     local pos=if foot and world then world.frame:PointToObjectSpace(foot)/Map.PlotScale else nil
-    return {now=os.clock(),alive=humanoid~=nil and humanoid.Health>0 and root~=nil,position=pos and {x=pos.X,y=pos.Y,z=pos.Z}}
+    local pickupPos=if root and world then world.frame:PointToObjectSpace(root.Position)/Map.PlotScale else nil
+    return {now=os.clock(),alive=humanoid~=nil and humanoid.Health>0 and root~=nil,position=pos and {x=pos.X,y=pos.Y,z=pos.Z},
+        pickupPosition=pickupPos and {x=pickupPos.X,y=pickupPos.Y,z=pickupPos.Z}}
 end
 local function moveHome(player: Player,character: Model)
     local root=character:WaitForChild('HumanoidRootPart',10)

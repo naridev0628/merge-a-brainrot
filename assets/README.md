@@ -77,7 +77,7 @@ Map GLBs map to identically named files in `map/roblox`, for example `BrickTree.
 | CoolTralalero | 97742083681887 | 106777814112940 |
 | BrainrotNest | 89792719614296 | 83615912467282 |
 
-BrainrotNest is used in the farm display bays by `WorldBuilder.luau`. Its local Blender bounds are 5.3714 × 5.3714 across and 0.4772 high, starting at Z=0. Its imported Roblox size uses Y as height. The nest combines two brown brick courses, a studded gold center, and short gold straw blocks.
+Farm display bays now use rectangular studded brick platforms built by `WorldBuilder.luau`. BrainrotNest remains an archived source asset and is no longer instantiated in the farm. Its local Blender bounds are 5.3714 × 5.3714 across and 0.4772 high, starting at Z=0. Its imported Roblox size uses Y as height.
 
 Keep the atlas as the **only UV layer**, exported as `TEXCOORD_0`. An earlier nest export retained primitive UVs as UV0 and placed its atlas on UV1; Blender rendered correctly but Roblox displayed incorrect black/white palette samples. The nest generator now removes the unused layer, and all current GLBs were inspected for one UV set with their material using UV0. Re-exporting the PNG alone does not fix this geometry mapping issue.
 

@@ -10,12 +10,12 @@ local function command(action,args,now,x,z)
     return core:dispatch(s,action,args,{now=now,alive=true,position={x=x or Config.SellX,y=3,z=z or Config.SellZ}})
 end
 eq(Tutorial.goal(s.state).kind,'Buy')
-eq(command('Buy',{'starter'},0,Config.BuyPads['1'],34).code,'OK')
+eq(command('Buy',{'starter'},0,Config.BuyPads['1'],Config.BuyZ).code,'OK')
 eq(Tutorial.goal(s.state).kind,'Collect')
 eq(s.state.coinUnits,0)
 for i=1,3 do
-    core:step(s,i*6); local t=s.state.tokens[1]
-    eq(command('Collect',{t.id},i*6,t.x,t.z).code,'OK')
+    core:step(s,i*Config.Interval); local t=s.state.tokens[1]
+    eq(command('Collect',{t.id},i*Config.Interval,t.x,t.z).code,'OK')
 end
 eq(Tutorial.goal(s.state).kind,'Deposit')
 eq(command('Deposit',{'deposit'},18).code,'OK')
@@ -23,7 +23,7 @@ eq(Tutorial.goal(s.state).kind,'Wait')
 core:step(s,20); eq(Tutorial.goal(s.state).kind,'Claim')
 eq(command('Claim',{'claim'},20,Config.ClaimX,Config.ClaimZ).code,'OK'); eq(s.state.coinUnits,24)
 eq(Tutorial.goal(s.state).kind,'Buy')
-eq(command('Buy',{'buy'},20,Config.BuyPads['1'],34).code,'OK'); eq(Tutorial.goal(s.state).kind,'Merge')
+eq(command('Buy',{'buy'},20,Config.BuyPads['1'],Config.BuyZ).code,'OK'); eq(Tutorial.goal(s.state).kind,'Merge')
 eq(command('Merge',{'merge',s.state.producers[1].id,s.state.producers[2].id},20).code,'OK')
 eq(Tutorial.goal(s.state).kind,'Done')
 s.state.coinUnits=1000

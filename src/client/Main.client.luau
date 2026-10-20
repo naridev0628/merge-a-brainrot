@@ -7,6 +7,9 @@ local RunService=game:GetService('RunService')
 local Marketplace=game:GetService('MarketplaceService')
 local Shared=ReplicatedStorage:WaitForChild('Shared')
 local Config=require(Shared:WaitForChild('Config'))
+local PickupGeometry=require(Shared:WaitForChild('PickupGeometry'))
+local PadGeometry=require(Shared:WaitForChild('PadGeometry'))
+local PadHold=require(Shared:WaitForChild('PadHold'))
 local Economy=require(Shared:WaitForChild('Economy'))
 local Map=require(Shared:WaitForChild('MapSpec'))
 local Tutorial=require(Shared:WaitForChild('Tutorial'))
@@ -21,6 +24,7 @@ local Effects=require(Controllers:WaitForChild('DepositEffects'))
 local Discovery=require(Controllers:WaitForChild('DiscoveryEffects'))
 local LuckyEffects=require(Controllers:WaitForChild('LuckyEffects'))
 local CashEffects=require(Controllers:WaitForChild('CashEffects'))
+local UpgradeEffects=require(Controllers:WaitForChild('UpgradeEffects'))
 local Conveyor=require(Controllers:WaitForChild('Conveyor'))
 local PickupAudio=require(Controllers:WaitForChild('PickupAudio'))
 local Locale=require(Controllers:WaitForChild('Locale'))
@@ -54,7 +58,7 @@ local pickupCounts: {[string]: number}={}
 local pickupScheduled=false
 local lastClaimAt=-10
 local lastClaimRevision=-1
-local enteredPad: string?=nil
+local heldPad=PadHold.new()
 local lastAuraAt=-10
 local lastAutoAt=-10
 local messages={BadRequest='That action could not be read.',Unavailable='Your farm is unavailable.',MissingToken='Already collected.',BagFull='Bag full - deposit your Minis.',TooFar='Move closer to your own pad or Mini.',BagEmpty='Your bag is empty.',WalletFull='Wallet limit reached. Your Minis are still safe.',PlotFull='Maximum amount of Brainrots reached. Merge your Brainrots.',InsufficientFunds='Not enough Coins. Deposit Minis, wait, then collect cash.',Locked='Rebirth to unlock this purchase amount.',ClaimStarter='Buy your first TungTung at BUY 1.',SameProducer='Choose two different Brainrots.',MissingProducer='That pair changed. Choose again.',Mismatch='Choose two matching Brainrots.',MaxTier='Highest tier reached!',NotAlive='Wait until your character respawns.',RequestLimit='Session action limit reached. Restart this preview.',RequestConflict='Request already used. Try again.',InvalidState='Your farm could not update.',NeedTier6='You need to own a Level 6 Brainrot to rebirth.',MaxRebirths='Maximum rebirths reached.',QueueFull='Processor full. Wait for space before depositing.',NothingReady='Your Minis are still selling. Check the timer.',MaxProcessor='Processor fully upgraded.'}
@@ -102,7 +106,7 @@ task.spawn(function()
 end)
 snapshot.OnClientEvent:Connect(function(incoming)
     if incoming.status~='Ready' then state=nil; pending=nil; view:setPending(false); view:unavailable(incoming.reason or 'Waiting for a plot.'); return end
-    if incoming.sessionKey~=sessionKey then sessionKey=incoming.sessionKey; revision=-1; pending=nil; collectRetry={}; lastClaimAt=-10; lastClaimRevision=-1; view:setPending(false) end
+    if incoming.sessionKey~=sessionKey then sessionKey=incoming.sessionKey; revision=-1; pending=nil; collectRetry={}; heldPad=PadHold.new(); lastClaimAt=-10; lastClaimRevision=-1; view:setPending(false) end
     if incoming.revision<revision then return end
     local oldMultiplier=state and state.cashMultiplier
     if state and not luckyAnimating and not (pending and pending.action=='OpenLucky') then for id in incoming.discoveries do if not state.discoveries[id] then showDiscovery(id) end end end
@@ -131,9 +135,11 @@ result.OnClientEvent:Connect(function(response)
     if not pending or response.requestId~=pending.args[1] then return end
     local completed=pending
     pending=nil; view:setPending(false)
-    -- The command can arrive before the character's latest replicated position.
-    -- Retry a rejected entry while still standing on it; successful buys stay latched.
-    if response.code=='TooFar' and (response.action=='Buy' or response.action=='Upgrade') then enteredPad=nil; return end
+    if completed.holdKey and completed.holdKey==heldPad.key and response.code~='OK' then
+        -- Replication can briefly lag a new entry; other rejections stop held spending until reentry.
+        if response.code=='TooFar' then PadHold.update(heldPad,nil,os.clock()); return end
+        PadHold.stop(heldPad)
+    end
     if response.code~='OK' then view:notice(messages[response.code] or 'Try again.'); return end
     if response.action=='Claim' then
         lastClaimRevision=revision
@@ -142,7 +148,7 @@ result.OnClientEvent:Connect(function(response)
         Effects.play(view.gui,player.Character,completed.miniSpecies)
         view:notice('Deposited '..completed.count..' Minis! Watch the processor timer.')
     elseif response.action=='Buy' then PurchaseEffects.play(view.gui,response.count or 1,response.speciesId or 'tier_01')
-    elseif response.action=='Upgrade' then view:notice('Processor upgraded! Your queue now sells faster.')
+    elseif response.action=='Upgrade' then if state then UpgradeEffects.play(state.plotCFrame) end
     elseif response.action=='OpenLucky' then
         view:close(); luckyAnimating=true
         LuckyEffects.play(view.gui,function()
@@ -181,35 +187,41 @@ RunService.RenderStepped:Connect(function()
 end)
 task.spawn(function()
     while true do
-        task.wait(.25)
+        task.wait(.05)
         if not state then command:FireServer('State',{}); task.wait(1); continue end
         LeaderboardFooter.update(state)
         if pending and os.clock()-pending.sent>=3 then pending.sent=os.clock(); command:FireServer(pending.action,pending.args) end
         local char=player.Character; local root=char and char:FindFirstChild('HumanoidRootPart') :: BasePart?
         local humanoid=char and char:FindFirstChildOfClass('Humanoid')
-        if not root or not humanoid or humanoid.Health<=0 then view:setContext(nil); continue end
+        if not root or not humanoid or humanoid.Health<=0 then PadHold.update(heldPad,nil,os.clock()); view:setContext(nil); continue end
         local foot=root.Position-Vector3.new(0,humanoid.HipHeight+root.Size.Y/2+(if humanoid.RigType==Enum.HumanoidRigType.R6 then 2 else 0),0)
         local pos=state.plotCFrame:PointToObjectSpace(foot)/Map.PlotScale
-        local function onPad(center: Vector3,halfX: number,halfZ: number): boolean
-            return math.abs(pos.X-center.X)<=halfX and math.abs(pos.Z-center.Z)<=halfZ and pos.Y>=-.1 and pos.Y<=7
+        local footPosition={x=pos.X,y=pos.Y,z=pos.Z}
+        local function onPad(action: string,quantity: string?): boolean
+            return PadGeometry.contains(Config,action,footPosition,quantity)
         end
         local padKey: string?=nil; local action: string?=nil; local values: {string}?=nil; local repeatable=false
-        if onPad(Map.Sell,7,5) then padKey='Deposit'; if #state.bag>0 then action='Deposit'; repeatable=true end
-        elseif onPad(Map.Claim,7.5,5) then padKey='Claim'; if state.soldUnits>0 then action='Claim'; repeatable=true end
-        elseif onPad(Map.Merge,5,3.5) then
+        if onPad('Deposit') then padKey='Deposit'; if #state.bag>0 then action='Deposit'; repeatable=true end
+        elseif onPad('Claim') then padKey='Claim'; if state.soldUnits>0 then action='Claim'; repeatable=true end
+        elseif onPad('AutoMerge') then
             padKey='AutoMerge'; local seen={}
             for _,p in state.producers do if Catalog[p.speciesId].nextId then if seen[p.speciesId] then action='AutoMerge'; repeatable=true; break end; seen[p.speciesId]=true end end
-        elseif onPad(Map.Upgrade,5.5,3.5) then padKey='Upgrade'; action='Upgrade'
+        elseif onPad('Upgrade') then padKey='Upgrade'; action='Upgrade'
         else
-            for quantity,x in Config.BuyPads do
-                if onPad(Vector3.new(x,.15,Config.BuyZ),5,3.5) then padKey='Buy'..quantity; action='Buy'; values={quantity}; break end
+            for quantity in Config.BuyPads do
+                if onPad('Buy',quantity) then padKey='Buy'..quantity; action='Buy'; values={quantity}; break end
             end
         end
+        local holdable=action=='Buy' or action=='Upgrade'
+        PadHold.update(heldPad,if holdable and not view:isOpen() and not luckyAnimating then padKey else nil,os.clock())
         if not view:isOpen() and not pending and not luckyAnimating then
-            if action and (repeatable or padKey~=enteredPad) and os.clock()-lastAutoAt>=.6 then
-                send(action,values); lastAutoAt=os.clock(); enteredPad=padKey
-            elseif not action then enteredPad=padKey end
-        elseif not padKey then enteredPad=nil end
+            if action and holdable and PadHold.ready(heldPad,os.clock()) then
+                send(action,values)
+                if pending then pending.holdKey=heldPad.key; PadHold.sent(heldPad,os.clock()) end
+            elseif action and repeatable and os.clock()-lastAutoAt>=.6 then
+                send(action,values); lastAutoAt=os.clock()
+            end
+        end
         local kind: string?=nil; local value='1'; local nearest=Config.PadDistance
         local function consider(name: string,point: Vector3,key: string?)
             local d=(pos-point).Magnitude
@@ -219,14 +231,19 @@ task.spawn(function()
         for quantity,x in Config.BuyPads do consider('Buy',Vector3.new(x,.15,Config.BuyZ),quantity) end
         for key,point in Map.PassPads do consider('Pass',point,key) end
         if state.lucky then consider('Lucky',Vector3.new(0,1.6,24)) end
+        -- A pad's full footprint owns its interaction even when its corner is farther from the label.
+        if padKey then kind=if padKey=='AutoMerge' then 'Merge' elseif holdable then action else padKey;value=if values then values[1] else '1' end
         view.estimatedServerNow=state.serverNow+os.clock()-receivedAt
         view:setContext(kind,value)
         if view:isOpen() or Economy.count(state.bag)>=Config.BagCap or state.autoCollect then continue end
-        if os.clock()-lastAuraAt>=.3 then
-            for _,t in state.tokens do
-                if view.estimatedServerNow>=t.readyAt and (pos+Vector3.new(0,3,0)-Vector3.new(t.x,t.y,t.z)).Magnitude<=Config.PickupRadius then
-                    lastAuraAt=os.clock(); command:FireServer('CollectNearby',{HttpService:GenerateGUID(false)}); break
-                end
+        -- Aura keeps its own four-per-second cadence while pad holds scan more often.
+        if os.clock()-lastAuraAt<.25 then continue end
+        local pickupPos=state.plotCFrame:PointToObjectSpace(root.Position)/Map.PlotScale
+        local pickupCenter={x=pickupPos.X,y=pickupPos.Y,z=pickupPos.Z}
+        for _,t in state.tokens do
+            if view.estimatedServerNow>=t.readyAt and PickupGeometry.contains(pickupCenter,t,Config.PickupRadius) then
+                lastAuraAt=os.clock()
+                command:FireServer('CollectNearby',{HttpService:GenerateGUID(false)}); break
             end
         end
     end

@@ -224,9 +224,9 @@ function Environment.octagon(parent: Instance, center: CFrame, radius: number, t
         wedge.BottomSurface = Enum.SurfaceType.Smooth
         wedge.Parent = model
     end
-    local pitch = math.max(2.0, radius / 13)
+    local pitch = math.max(2.0, radius / 25)
     local width = math.min(.55, pitch * .28)
-    local budget: StudBudget = {remaining = 720}
+    local budget: StudBudget = {remaining = 2500}
     local limit = math.floor((radius - width) / pitch)
     for x = -limit, limit do
         for z = -limit, limit do

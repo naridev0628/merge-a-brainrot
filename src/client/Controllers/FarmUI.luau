@@ -277,7 +277,7 @@ function UI.setContext(self: any,kind: string?,quantity: string?)
     elseif kind=='Upgrade' then
         local cost=Config.ProcessorCosts[s.processorLevel+1]
         self.contextText.Text='Processor Lv '..s.processorLevel..' | '..Config.ProcessorRates[s.processorLevel+1]..' / s'
-        self.contextButton.Text=if cost then 'Step on pad - $'..UI.coins(cost) else 'Fully upgraded!'
+        self.contextButton.Text=if cost then 'Step on pad - $'..UI.coins(cost)..' | Hold 2s to repeat' else 'Fully upgraded!'
     elseif kind=='Pass' then
         local pass=PassConfig[self.quantity]; local info=self.shopInfo[self.quantity]
         self.contextText.Text=pass.name
@@ -289,7 +289,7 @@ function UI.setContext(self: any,kind: string?,quantity: string?)
     else
         local unlock=Config.BuyUnlocks[self.quantity]
         local free=self.quantity=='1' and not s.starterClaimed
-        self.contextText.Text=if s.rebirths<unlock then 'Unlocks at rebirth '..unlock else tostring(Config.Slots-#s.producers)..' spaces left'
+        self.contextText.Text=if s.rebirths<unlock then 'Unlocks at rebirth '..unlock else tostring(Config.Slots-#s.producers)..' spaces left | Hold 2s to repeat'
         local amount=if self.quantity=='100' then math.min(100,Config.Slots-#s.producers) else tonumber(self.quantity)
         self.contextButton.Text=if s.rebirths<unlock then 'LOCKED - Rebirth '..unlock elseif free then 'Walk onto the pad - $5' elseif amount==0 then 'Maximum reached - merge!' else 'Step on pad - $'..UI.coins(Economy.buyCost(s.purchased or 0,amount,if self.quantity=='100' then math.clamp(s.rebirths,1,Config.MaxTier) else 1))
     end

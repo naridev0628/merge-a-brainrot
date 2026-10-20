@@ -22,10 +22,14 @@ local function point(world: any,value: Vector3): Vector3
     return world.frame:PointToWorldSpace(value*Map.PlotScale)
 end
 local function pad(parent: Instance,name: string,size: Vector3,cf: CFrame,color: Color3)
-    Factory.part(parent,name..'Base',size+Vector3.new(.5,.15,.5),cf-Vector3.new(0,.17,0),Color3.fromRGB(128,79,29))
+    Factory.part(parent,name..'Base',size+Vector3.new(.7,.25,.7),cf-Vector3.new(0,.22,0),Color3.fromRGB(112,65,30))
+    for _,side in {-1,1} do
+        Factory.part(parent,name..'Edge',Vector3.new(size.X+.5,.12,.15),cf*CFrame.new(0,.05,side*(size.Z/2+.15)),color:Lerp(Color3.new(1,1,1),.3))
+        Factory.part(parent,name..'Edge',Vector3.new(.15,.12,size.Z+.5),cf*CFrame.new(side*(size.X/2+.15),.05,0),color:Lerp(Color3.new(1,1,1),.3))
+    end
     local p=Factory.part(parent,name,size,cf,color); p.TopSurface=Enum.SurfaceType.Studs
     for x=-size.X/2+1,size.X/2-1,2 do for z=-size.Z/2+1,size.Z/2-1,2 do
-        Factory.part(parent,name..'Stud',Vector3.new(.65,.12,.65),cf*CFrame.new(x,size.Y/2+.06,z),color)
+        Factory.part(parent,name..'Stud',Vector3.new(.7,.18,.7),cf*CFrame.new(x,size.Y/2+.09,z),color:Lerp(Color3.new(1,1,1),.12))
     end end
     return p
 end
@@ -69,32 +73,55 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
         local purchase=pad(root,'Buy'..quantity,Vector3.new(10,.4,7),CFrame.new(Config.BuyPads[quantity],.2,Config.BuyZ),if quantity=='1' then Color3.fromRGB(96,238,43) else Color3.fromRGB(244,90,94))
         pads[quantity]=Factory.label(purchase,'BUY '..quantity,130,64); pads[quantity].TextSize=17
     end
-    local deposit=pad(root,'DepositPad',Vector3.new(14,.4,10),CFrame.new(Map.Sell),Color3.fromRGB(255,223,45))
-    local depositLabel=Factory.label(deposit,'Deposit Minis',135,30);depositLabel.TextSize=16;depositLabel.Parent.StudsOffset=Vector3.new(0,1.1,0)
+    local deposit=pad(root,'DepositPad',Vector3.new(Map.DepositHalfSize.X*2,.4,Map.DepositHalfSize.Y*2),CFrame.new(Map.Sell),Color3.fromRGB(255,229,95))
+    local depositLabel=Factory.label(deposit,'Deposit Minis',220,42);depositLabel.TextSize=26;depositLabel.TextColor3=Color3.fromRGB(255,235,166);depositLabel.Parent.StudsOffset=Vector3.new(0,3.3,0)
+    local depositOutline=Instance.new('UIStroke');depositOutline.Thickness=2;depositOutline.Color=Color3.fromRGB(45,28,12);depositOutline.Parent=depositLabel
     for _,side in {-1,1} do
-        local a=Factory.part(root,'DepositGlow',Vector3.new(14.3,.08,.15),CFrame.new(Map.Sell+Vector3.new(0,.25,side*5)),Color3.fromRGB(255,255,90));a.Material=Enum.Material.Neon
-        local b=Factory.part(root,'DepositGlow',Vector3.new(.15,.08,10),CFrame.new(Map.Sell+Vector3.new(side*7,.25,0)),Color3.fromRGB(255,255,90));b.Material=Enum.Material.Neon
+        local a=Factory.part(root,'DepositGlow',Vector3.new(18.4,.16,.3),CFrame.new(Map.Sell+Vector3.new(0,.28,side*5)),Color3.fromRGB(255,255,100));a.Material=Enum.Material.Neon
+        local b=Factory.part(root,'DepositGlow',Vector3.new(.3,.16,10),CFrame.new(Map.Sell+Vector3.new(side*9,.28,0)),Color3.fromRGB(255,255,100));b.Material=Enum.Material.Neon
     end
     local glow=Instance.new('PointLight');glow.Color=Color3.fromRGB(255,230,65);glow.Brightness=1.2;glow.Range=8;glow.Parent=deposit
     local booth=Instance.new('Model'); booth.Name='DepositBooth'; booth.Parent=root
-    for _,dx in {-6,6} do Factory.part(booth,'BoothPost',Vector3.new(.8,8,.8),CFrame.new(-30+dx,4,-4),Color3.fromRGB(115,73,39)) end
+    local boothFloor=Factory.part(booth,'BoothFoundation',Vector3.new(15,.45,8),CFrame.new(-30,.22,-3),Color3.fromRGB(106,119,176));boothFloor.TopSurface=Enum.SurfaceType.Studs
+    for _,dx in {-6,6} do
+        Factory.part(booth,'BoothPost',Vector3.new(1,10,1),CFrame.new(-30+dx,5,-4),Color3.fromRGB(115,73,39))
+        for y=1,9,1.6 do Factory.part(booth,'PostStud',Vector3.new(.45,.45,.15),CFrame.new(-30+dx,y,-4.56),Color3.fromRGB(150,96,53)) end
+    end
     for stripe=1,8 do
-        local awning=Factory.part(booth,'Awning',Vector3.new(1.7,.6,7),CFrame.new(-37.65+stripe*1.7,8,-3),if stripe%2==0 then Color3.fromRGB(255,240,208) else Color3.fromRGB(243,87,85)); awning.TopSurface=Enum.SurfaceType.Studs
+        local stripeColor=if stripe%2==0 then Color3.fromRGB(255,240,208) else Color3.fromRGB(239,52,46)
+        local awning=Factory.part(booth,'Awning',Vector3.new(1.7,.7,7),CFrame.new(-37.65+stripe*1.7,10,-3),stripeColor); awning.TopSurface=Enum.SurfaceType.Studs
+        Factory.part(booth,'AwningFringe',Vector3.new(1.7,1.4,.5),CFrame.new(-37.65+stripe*1.7,9.3,-6.3),stripeColor)
+        for _,y in {9,9.7} do Factory.part(booth,'AwningStud',Vector3.new(.65,.45,.18),CFrame.new(-37.65+stripe*1.7,y,-6.62),stripeColor:Lerp(Color3.new(1,1,1),.1)) end
     end
     Factory.part(booth,'Counter',Vector3.new(13,.6,3),CFrame.new(-30,2.8,-5),Color3.fromRGB(134,82,36))
     Factory.prop(booth,'Shopkeeper',CFrame.new(-30,0,-2),.95)
+    Factory.part(booth,'MiniSignFrame',Vector3.new(9.6,3.1,.6),CFrame.new(-30,7.25,-4.8),Color3.fromRGB(87,53,38))
+    Factory.part(booth,'MiniSignFace',Vector3.new(8.8,2.45,.1),CFrame.new(-30,7.25,-5.16),Color3.fromRGB(152,111,91))
+    for i,tier in {1,2,4} do
+        local icon=Factory.producer(booth,'SignMini',Catalog[string.format('tier_%02d',tier)],Vector3.new(-32+i*1.6,6.3,-5.5),true)
+        icon:ScaleTo(.7)
+    end
+    -- Raised brick arrow stays visible with the miniature models on the sign.
+    local function arrowLayer(padding: number,color: Color3,depth: number)
+        Factory.part(booth,'DepositArrow',Vector3.new(.42+padding,1.5+padding,.1),CFrame.new(-33,7.35,depth),color)
+        for _,side in {-1,1} do
+            Factory.part(booth,'DepositArrow',Vector3.new(.42+padding,1.05+padding,.1),CFrame.new(-33+side*.3,6.85,depth)*CFrame.Angles(0,0,-side*math.pi/4),color)
+        end
+    end
+    arrowLayer(.17,Color3.fromRGB(42,27,17),-5.38)
+    arrowLayer(0,Color3.fromRGB(255,237,184),-5.49)
     local boothFrame=CFrame.new(27,0,-42)*CFrame.Angles(0,math.pi,0)*CFrame.new(30,0,3)
     for _,part in booth:GetDescendants() do if part:IsA('BasePart') then part.CFrame=boothFrame*part.CFrame end end
-    for index,x in {19,35} do
-        local crateCF=CFrame.new(x,0,-39)*CFrame.Angles(0,math.pi,0)
-        Decor.place(root,'KeyCrate',crateCF,1.25)
+    for index,x in {18,36} do
+        local crateCF=CFrame.new(x,0,-36)*CFrame.Angles(0,math.pi,0)
+        Decor.place(root,'KeyCrate',crateCF,1.75)
         for n=1,3 do
             local key=Factory.expansionKeys[((id-1)*6+(index-1)*3+n-1)%#Factory.expansionKeys+1]
-            local miniCF=CFrame.new(x+(n-2)*1.1,0,-39)*CFrame.Angles(0,math.pi,0)
+            local miniCF=CFrame.new(x+(n-2)*1.6,0,-36)*CFrame.Angles(0,math.pi,0)
             local mini=Factory.expansion(root,key,miniCF,true)
             -- Fit broad silhouettes into individual crate slots, with heads above the rim.
-            mini.Size*=math.min(1,1.05/mini.Size.X)
-            mini.CFrame=miniCF*CFrame.new(0,3-mini.Size.Y/2,0)
+            mini.Size*=math.min(1.3,1.45/mini.Size.X)
+            mini.CFrame=miniCF*CFrame.new(0,4.7-mini.Size.Y/2,0)
         end
     end
     Decor.place(root,'CashStash',CFrame.new(38,0,-35)*CFrame.Angles(0,.3,0),.9)
@@ -139,13 +166,13 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     Factory.label(merge,'MERGE',140,44)
     local sign=Factory.part(root,'OwnerSign',Vector3.new(14,4,1),CFrame.new(0,4,72),Color3.fromRGB(157,91,31))
     local ownerLabel=Factory.label(sign,'BRAINROT FARM',260,58)
-    local badgePart=Factory.part(root,'OwnerBadgeAnchor',Vector3.one,CFrame.new(0,24,-14),orange); badgePart.Transparency=1
+    local badgePart=Factory.part(root,'OwnerBadgeAnchor',Vector3.one,CFrame.new(0,44,Config.DisplayZ),orange); badgePart.Transparency=1
     local badge=Instance.new('BillboardGui'); badge.Name='OwnerBadge'; badge.Size=UDim2.fromOffset(220,120); badge.MaxDistance=500; badge.AlwaysOnTop=true; badge.Parent=badgePart
     local portrait=Instance.new('ImageLabel'); portrait.Name='Portrait'; portrait.BackgroundColor3=Color3.fromRGB(80,160,250); portrait.Size=UDim2.fromOffset(76,76); portrait.Position=UDim2.new(.5,-38,0,0); portrait.Parent=badge
     local round=Instance.new('UICorner'); round.CornerRadius=UDim.new(1,0); round.Parent=portrait
     local rim=Instance.new('UIStroke'); rim.Thickness=3; rim.Color=Color3.new(0,0,0); rim.Parent=portrait
     local ownerName=Instance.new('TextLabel'); ownerName.Name='Username'; ownerName.Size=UDim2.new(1,0,0,40); ownerName.Position=UDim2.fromOffset(0,78); ownerName.BackgroundTransparency=1
-    ownerName.Font=Enum.Font.FredokaOne; ownerName.TextSize=20; ownerName.TextColor3=Color3.new(1,1,1); ownerName.TextStrokeTransparency=0; ownerName.Text='Available plot'; ownerName.Parent=badge
+    ownerName.Font=Enum.Font.FredokaOne; ownerName.TextSize=22; ownerName.TextColor3=Color3.new(1,1,1); ownerName.TextStrokeTransparency=0; ownerName.Text='Available plot'; ownerName.Position=UDim2.fromOffset(0,40);ownerName.Parent=badge
     portrait.Visible=false
     -- Two red lanes converge at the center, then feed a gold-rimmed collection tray.
     local belt=Factory.part(root,'ConveyorBelt',Vector3.new(102,.4,8),CFrame.new(0,.5,Config.BeltZ),Color3.fromRGB(222,61,62),nil,true); belt.TopSurface=Enum.SurfaceType.Studs
@@ -161,16 +188,16 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
         local ramp=Factory.part(root,'StuddedConveyorRamp',Vector3.new(51,.35,8),rampCF,Color3.fromRGB(222,61,62),nil,true);ramp.TopSurface=Enum.SurfaceType.Studs
         for x=-24,24,2 do for z=-3,3,2 do Factory.part(root,'ConveyorStud',Vector3.new(.5,.10,.5),rampCF*CFrame.new(x,.23,z),Color3.fromRGB(238,84,82)) end end
     end
-    local treeSpots={Vector3.new(49,0,63),Vector3.new(-50,0,64),Vector3.new(-40,0,-28),Vector3.new(-41,0,34),Vector3.new(32,0,70)}
-    for i,spot in treeSpots do
-        local offset=Vector3.new(((id+i)%3-1)*1.2,0,((id*3+i)%5-2)*.6)
-        Environment.tree(root,CFrame.new(spot+offset)*CFrame.Angles(0,(id+i)*.7,0),.8+(id+i)%4*.12,(id+i)%3+1)
+    local plotDecor=Instance.new('Model');plotDecor.Name='PlotDecor';plotDecor.WorldPivot=CFrame.identity;plotDecor.Parent=root
+    -- Identical authored locations, variants and sizes on every plot; keep all play areas clear.
+    for _,spec in {{Vector3.new(-48,0,67),.8,2,.3},{Vector3.new(48,0,67),.9,1,0},{Vector3.new(-43,0,-7),.65,3,0}} do
+        Environment.tree(plotDecor,CFrame.new(spec[1])*CFrame.Angles(0,spec[4],0),spec[2],spec[3])
     end
-    for i,point in {Vector3.new(-47,0,-29),Vector3.new(28,0,-28),Vector3.new(49,0,42),Vector3.new(-48,0,43)} do
-        Factory.prop(root,'BrickBush',CFrame.new(point)*CFrame.Angles(0,i*.8,0))
-        Factory.prop(root,'BrickLog',CFrame.new(point+Vector3.new(4,0,2))*CFrame.Angles(0,i,0))
-        for flower=1,3 do Factory.prop(root,'BrickFlower',CFrame.new(point+Vector3.new(flower*1.2,0,-3+(flower%2))),.8+flower*.1) end
-        Factory.prop(root,'BrickGrass',CFrame.new(point+Vector3.new(-2,0,1)),1.2)
+    for _,spot in {Vector3.new(-43,0,18),Vector3.new(44,0,0)} do
+        Factory.prop(plotDecor,'BrickBush',CFrame.new(spot),.8)
+        Factory.prop(plotDecor,'BrickLog',CFrame.new(spot+Vector3.new(0,0,5))*CFrame.Angles(0,math.pi/2,0),.65)
+        Factory.prop(plotDecor,'BrickGrass',CFrame.new(spot+Vector3.new(-1,0,2.5)),.85)
+        for flower=1,3 do Factory.prop(plotDecor,'BrickFlower',CFrame.new(spot+Vector3.new((flower-2)*1.4,0,-3)),.8) end
     end
     local barn=Factory.prop(root,'BrickBarn',CFrame.lookAt(Vector3.new(41,0,-29),Vector3.new(0,0,18)),.85)
     if barn then
@@ -193,7 +220,7 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     placeScaled(root,transform)
     root.Parent=parent; task.wait()
     local lighting=game:GetService('Lighting'); lighting.ClockTime=13; lighting.Brightness=2; lighting.Ambient=Color3.fromRGB(170,170,170)
-    return {id=id,frame=transform,root=root,producers=producers,tokens=tokens,rows=rows,ownerLabel=ownerLabel,pads=pads,saleLabel=saleLabel,portrait=portrait,ownerName=ownerName,processorLabel=processorLabel,processorRate=processorRate,upgradeLabel=upgradeLabel,upgradePrice=upgradePrice,spawn=spawn}
+    return {id=id,frame=transform,root=root,producers=producers,tokens=tokens,rows=rows,ownerLabel=ownerLabel,badgePart=badgePart,pads=pads,saleLabel=saleLabel,portrait=portrait,ownerName=ownerName,processorLabel=processorLabel,processorRate=processorRate,upgradeLabel=upgradeLabel,upgradePrice=upgradePrice,spawn=spawn}
 end
 function World.build()
     local old=workspace:FindFirstChild('MergeABrainrotGenerated'); if old then old:Destroy() end
@@ -232,6 +259,24 @@ function World.build()
     local boards={}
     local circle=Factory.part(root,'GatheringCircle',Vector3.new(.3,68,68),CFrame.new(0,.15,0)*CFrame.Angles(0,0,math.pi/2),Color3.fromRGB(255,192,98),Enum.PartType.Cylinder,true)
     circle.TopSurface=Enum.SurfaceType.Studs
+    -- Cylinder top faces do not use the normal Part top surface; give the plaza real studs.
+    for x=-32,32,2 do
+        for z=-32,32,2 do if x*x+z*z<33*33 then
+            local stud=Factory.part(root,'PlazaStud',Vector3.new(.6,.14,.6),CFrame.new(x,.37,z),Color3.fromRGB(255,205,128));stud.CanQuery=false
+        end end
+        if x%10==0 then task.wait() end
+    end
+    -- Authored clusters between bridge approaches, with the radial paths left open.
+    for sector=1,6 do
+        local angle=(sector-.5)*math.pi/3
+        for _,radius in {45,82} do
+            local cf=CFrame.new(math.sin(angle)*radius,0,math.cos(angle)*radius)*CFrame.Angles(0,angle,0)
+            Factory.prop(root,'BrickBush',cf,1.25)
+            Factory.prop(root,'BrickBush',cf*CFrame.new(3.8,0,1.4),.8)
+            Factory.prop(root,'BrickGrass',cf*CFrame.new(-3,0,1),1.3)
+            for flower=1,3 do Factory.prop(root,'BrickFlower',cf*CFrame.new(flower-2,0,-3),.8) end
+        end
+    end
     for i=1,10 do
         local angle=i*.7
         local block=Factory.part(root,'ParkourStep'..i,Vector3.new(5,1,5),CFrame.new(math.cos(angle)*14,i*3,math.sin(angle)*14),orange,nil,true); block.TopSurface=Enum.SurfaceType.Studs
@@ -272,6 +317,7 @@ end
 function World.setOwner(world: any,player: Player)
     world.renderGeneration=(world.renderGeneration or 0)+1
     world.ownerId=player.UserId; world.ownerName.Text=player.Name.."'s Plot"; world.ownerLabel.Text=player.DisplayName.."'s BRAINROT FARM"; world.portrait.Visible=true
+    world.ownerName.Position=UDim2.fromOffset(0,78)
     task.spawn(function()
         local ok,uri=pcall(game.Players.GetUserThumbnailAsync,game.Players,player.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size150x150)
         if ok and world.ownerId==player.UserId then world.portrait.Image=uri end
@@ -313,6 +359,7 @@ function World.render(world: any,state: any)
     end
     for _,child in world.producers:GetChildren() do if not present[child.Name] then child:Destroy() end end
     local rowCount=math.max(1,math.ceil(#state.producers/Config.Columns))
+    world.badgePart.CFrame=world.frame*CFrame.new(Vector3.new(0,44+(rowCount-1)*Config.RowHeight,Config.DisplayZ)*Map.PlotScale)
     for row=1,rowCount do
         if not world.rows:FindFirstChild(tostring(row)) then
             local shelf=Instance.new('Model'); shelf.Name=tostring(row); shelf.WorldPivot=CFrame.identity
@@ -320,8 +367,10 @@ function World.render(world: any,state: any)
             base.TopSurface=Enum.SurfaceType.Studs
             for column=1,Config.Columns do
                 local slot=(row-1)*Config.Columns+column; local pos=layout:slotPosition(slot)
-                local plinth=Factory.part(shelf,'DisplayPlatform',Vector3.new(5.7,.22,5.7),CFrame.new(pos.x,.35+(row-1)*Config.RowHeight,Config.DisplayZ),Color3.fromRGB(255,223,122)); plinth.TopSurface=Enum.SurfaceType.Studs
-                Factory.prop(shelf,'BrainrotNest',CFrame.new(pos.x,(row-1)*Config.RowHeight+.25,Config.DisplayZ))
+                local plinth=Factory.part(shelf,'DisplayPlatform',Vector3.new(5.7,.5,5.7),CFrame.new(pos.x,.25+(row-1)*Config.RowHeight,Config.DisplayZ),Color3.fromRGB(255,223,122)); plinth.TopSurface=Enum.SurfaceType.Studs
+                for _,dx in {-1.8,0,1.8} do for _,dz in {-1.8,0,1.8} do
+                    Factory.part(shelf,'DisplayBrickStud',Vector3.new(.7,.16,.7),CFrame.new(pos.x+dx,.58+(row-1)*Config.RowHeight,Config.DisplayZ+dz),Color3.fromRGB(255,237,167))
+                end end
                 Factory.part(shelf,'DisplayBack',Vector3.new(6.4,5.8,.25),CFrame.new(pos.x,3.1+(row-1)*Config.RowHeight,Config.DisplayZ+3.45),Color3.fromRGB(178,128,52))
                 Factory.part(shelf,'DisplayDivider',Vector3.new(.22,4.5,6.8),CFrame.new(pos.x-3.2,2.45+(row-1)*Config.RowHeight,Config.DisplayZ),Color3.fromRGB(217,164,66))
                 local glow=Factory.part(shelf,'Slot'..slot,Vector3.new(5.9,.12,5.9),CFrame.new(pos.x,.28+(row-1)*Config.RowHeight,Config.DisplayZ),orange); glow.Material=Enum.Material.Neon
@@ -360,7 +409,11 @@ function World.render(world: any,state: any)
         local lying=if t.speciesId=='tier_06' then CFrame.Angles(roll*.5,0,roll)
             elseif seed%2==0 then CFrame.Angles(math.pi/2+roll,0,0)
             else CFrame.Angles(0,0,-math.pi/2+roll)
-        mini:SetAttribute('FinalRotation',world.frame.Rotation*CFrame.Angles(0,yaw,0)*lying)
+        local finalRotation=world.frame.Rotation*CFrame.Angles(0,yaw,0)*lying
+        mini:SetAttribute('FinalRotation',finalRotation)
+        local size=mini:GetExtentsSize()
+        local halfHeight=(math.abs(finalRotation.RightVector.Y)*size.X+math.abs(finalRotation.UpVector.Y)*size.Y+math.abs(finalRotation.LookVector.Y)*size.Z)/2
+        mini:SetAttribute('RestingLift',Vector3.new(0,math.max(0,halfHeight-.325),0))
         mini:SetAttribute('PlotScale',Map.PlotScale)
         mini:SetAttribute('ConveyorEnd',point(world,Vector3.new(t.x,t.y,t.z)))
         game:GetService('CollectionService'):AddTag(mini,'ConveyorMini')
@@ -391,6 +444,7 @@ function World.clear(world: any)
     local block=world.root:FindFirstChild('LuckyBlock'); if block then block:Destroy() end
     world.producers:ClearAllChildren(); world.tokens:ClearAllChildren(); world.rows:ClearAllChildren(); world.ownerLabel.Text='BRAINROT FARM'
     world.ownerId=nil; world.ownerName.Text='Available plot'; world.portrait.Visible=false; world.portrait.Image=''
+    world.ownerName.Position=UDim2.fromOffset(0,40);world.badgePart.CFrame=world.frame*CFrame.new(Vector3.new(0,44,Config.DisplayZ)*Map.PlotScale)
     world.saleLabel.Text='Collect cash\n$0'
 end
 return World

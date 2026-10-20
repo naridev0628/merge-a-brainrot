@@ -12,11 +12,15 @@ export type State = {
     lucky: {id: string,baseTier: number}?,
 }
 export type Result = {code: string, revision: number?, creditUnits: number?, replayed: boolean?, speciesId: string?, count: number?, counts: {[string]: number}?}
-export type Context = {now: number, alive: boolean, position: Position?}
+export type Context = {now: number, alive: boolean, position: Position?, pickupPosition: Position?}
 export type Session = {owner: number, key: string, phase: string, sequence: number, state: State, cache: {[string]: any}, cacheCount: number, productionCursor: number, pickupCache: {[string]: any}, pickupOrder: {string}}
 local env: any=getfenv()
 local Economy: any
 if env.script then Economy=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.Economy) else Economy=require('../../shared/Economy') end
+local PickupGeometry: any
+if env.script then PickupGeometry=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.PickupGeometry) else PickupGeometry=require('../../shared/PickupGeometry') end
+local PadGeometry: any
+if env.script then PadGeometry=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.PadGeometry) else PadGeometry=require('../../shared/PadGeometry') end
 local Core = {}
 Core.__index = Core
 local function finite(n: any): boolean
@@ -189,7 +193,13 @@ function Core.step(self: any, s: Session, now: number): boolean
         local credit=(p.productionCredit or 0)+cycles*st.miniMultiplier*st.eventHundredths
         local drops=math.floor(credit/100);p.productionCredit=credit%100
         for _=1,drops do
-            if #st.tokens>=c.GroundCap or (counts[p.id] or 0)>=c.GroundPerProducer then break end
+            -- Lucky rolls belong to production ticks, even when the physical tray is full.
+            if not st.lucky and self.random()<c.LuckyChance then
+                local best=1
+                for _,producer in st.producers do best=math.max(best,self.catalog[producer.speciesId].tier) end
+                st.lucky={id=self:id(s),baseTier=math.min(6,best+1)}
+            end
+            if #st.tokens>=c.GroundCap or (counts[p.id] or 0)>=c.GroundPerProducer then continue end
             local tokenId=self:id(s)
             local source=self:slotPosition(p.slot)
             table.insert(st.tokens,{
@@ -201,11 +211,6 @@ function Core.step(self: any, s: Session, now: number): boolean
             })
             counts[p.id]=(counts[p.id] or 0)+1
             nextCursor=index%#st.producers+1
-            if not st.lucky and self.random()<c.LuckyChance then
-                local best=1
-                for _,producer in st.producers do best=math.max(best,self.catalog[producer.speciesId].tier) end
-                st.lucky={id=self:id(s),baseTier=math.min(6,best+1)}
-            end
         end
         -- Capped or late producers never queue hidden work.
         p.due=now+c.Interval
@@ -255,13 +260,15 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
     local c=self.config; local st=copy(s.state); local result: Result={code="OK"}
     drainSales(st,ctx.now,c)
     if action=='CollectNearby' then
+        if ctx.pickupPosition~=nil and not validPosition(ctx.pickupPosition) then return reject('NotAlive') end
         local room=c.BagCap-Economy.count(st.bag)
         if room<=0 then return reject('BagFull') end
         local counts: {[string]: number}={}; local picked=0
-        local center={x=(ctx.position :: Position).x,y=(ctx.position :: Position).y+3,z=(ctx.position :: Position).z}
+        -- Runtime supplies the actual root center; retain the legacy domain context for callers without an avatar.
+        local center=ctx.pickupPosition or {x=(ctx.position :: Position).x,y=(ctx.position :: Position).y+3,z=(ctx.position :: Position).z}
         for index=#st.tokens,1,-1 do
             local t=st.tokens[index]
-            if picked<room and t.owner==s.owner and ctx.now>=t.readyAt and distance(center,t)<=c.PickupRadius then
+            if picked<room and t.owner==s.owner and ctx.now>=t.readyAt and PickupGeometry.contains(center,t,c.PickupRadius) then
                 table.remove(st.tokens,index); Economy.add(st.bag,t.speciesId,t.baseCoinValue)
                 counts[t.speciesId]=(counts[t.speciesId] or 0)+1; picked+=1
             end
@@ -269,7 +276,7 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
         if picked==0 then return reject('NothingNearby') end
         result.count=picked; result.counts=counts; st.tutorialStep=math.max(st.tutorialStep,2)
     elseif action=='AutoMerge' then
-        if distance(ctx.position :: Position,{x=c.MergeX,y=.15,z=c.MergeZ})>c.PadDistance then return reject('TooFar') end
+        if not PadGeometry.contains(c,action,ctx.position :: Position) then return reject('TooFar') end
         local merged=0
         while true do
             local seen: {[string]: number}={}; local a: number?=nil; local b: number?=nil
@@ -302,8 +309,7 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
         result.speciesId=t.speciesId
         st.tutorialStep=math.max(st.tutorialStep,2)
     elseif action=="Deposit" or action=="Claim" or action=="Buy" then
-        local anchor={x=c.OriginX+(if action=="Deposit" then c.SellX elseif action=="Claim" then c.ClaimX else c.BuyPads[quantity]),y=0.15,z=if action=="Deposit" then c.SellZ elseif action=="Claim" then c.ClaimZ else c.BuyZ}
-        if distance(ctx.position :: Position,anchor)>c.PadDistance then return reject("TooFar") end
+        if not PadGeometry.contains(c,action,ctx.position :: Position,quantity) then return reject("TooFar") end
         if action=="Deposit" then
             local code=deposit(c,st,ctx.now)
             if code~='OK' then return reject(code) end
@@ -349,7 +355,7 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
     elseif action=='Upgrade' then
         local cost=c.ProcessorCosts[st.processorLevel+1]
         if not cost then return reject('MaxProcessor') end
-        if distance(ctx.position :: Position,{x=c.UpgradeX,y=.15,z=c.UpgradeZ})>c.PadDistance then return reject('TooFar') end
+        if not PadGeometry.contains(c,action,ctx.position :: Position) then return reject('TooFar') end
         if st.coinUnits<cost then return reject('InsufficientFunds') end
         local ratio=if c.ProcessorRates then c.ProcessorRates[st.processorLevel+1]/c.ProcessorRates[st.processorLevel+2] else (1+st.processorLevel)/(2+st.processorLevel)
         st.coinUnits-=cost; st.processorLevel+=1
