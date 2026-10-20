@@ -1,7 +1,7 @@
 {
-  "recordedAtUTC": "2026-10-20 09:30:30 UTC",
-  "algorithm": "DJB2 UTF8 normalized CRLF",
-  "expected": [
+  "verifiedAt": "2026-10-20T09:55:44Z",
+  "algorithm": "DJB2 UTF-8 normalized CRLF",
+  "sources": [
     {
       "path": "src/client/Controllers/AudioConfig.luau",
       "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioConfig",
@@ -53,8 +53,8 @@
     {
       "path": "src/client/Controllers/FarmUI.luau",
       "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.FarmUI",
-      "bytes": 47407,
-      "hash": 3796338480
+      "bytes": 50231,
+      "hash": 2114923471
     },
     {
       "path": "src/client/Controllers/FeedbackAudio.luau",
@@ -263,8 +263,8 @@
     {
       "path": "src/server/Services/WorldBuilder.luau",
       "studioPath": "ServerScriptService.Services.WorldBuilder",
-      "bytes": 40346,
-      "hash": 2795400442
+      "bytes": 36355,
+      "hash": 895033629
     },
     {
       "path": "src/shared/AnimationVisibility.luau",
@@ -475,16 +475,21 @@
       "studioPath": "ReplicatedStorage.Shared.Tutorial",
       "bytes": 1589,
       "hash": 1178793125
+    },
+    {
+      "path": "src/shared/FarmerBooth.luau",
+      "studioPath": "ReplicatedStorage.Shared.FarmerBooth",
+      "bytes": 4494,
+      "hash": 3606643184
     }
   ],
-  "native": {
+  "result": {
     "content": [
       {
         "type": "text",
-        "text": "{\"serverMain\":false,\"clientMain\":false,\"checked\":79,\"mismatches\":[]}"
+        "text": "{\"missing\":[],\"expected\":80,\"matched\":80,\"mismatches\":[]}"
       }
     ],
     "isError": false
-  },
-  "scope": "79 project scripts runningServer; engine/plugin extras excluded."
+  }
 }

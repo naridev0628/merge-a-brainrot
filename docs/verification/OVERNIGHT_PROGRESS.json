@@ -1,5 +1,5 @@
 {
-  "updatedAtUTC": "2026-10-20T09:43:00Z",
+  "updatedAtUTC": "2026-10-20T09:55:44Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
@@ -7,12 +7,12 @@
   "studioId": "ef89b65f-2f6a-4fe7-8272-bae9e8007fd1",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Normal Play on committed and pushed 4ae9a52, including the verified counter/deposit batch. Both Main scripts are enabled. The isolated all-Crocodilo route passed at 09:39:10 UTC; cleanup restored the character, HUD and Custom camera and removed the cloned plot/fixture. Home/onboarding UI changes are local and awaiting native acceptance.",
+    "mode": "Normal Play with verified Home responsive layout and FarmerBooth extraction on base9ee6fda; 80 source files synced.",
     "mainScripts": "Both production Main scripts are enabled (Disabled=false), confirmed by root.",
     "temporaryScripts": [],
     "harnessCleanup": "The snapshot-toggle harness was removed in Edit before normal Play restarted. After counter/deposit native checks, final cleanup confirms no harness, temporary spawn, QA or fixture remnants, both Main scripts enabled, HUD enabled and CameraType.Custom. After the all-Crocodilo route, cleanup at 09:39:10 UTC confirms no TrayWalk plot or fixture, avatar health 100, HUD enabled and CameraType.Custom. HUD hiding was capture-only.",
-    "productionSync": "Final counter/deposit source is synced. At 09:30:30 UTC, all 79 running-Server project source hashes match the working tree; the lowered-counter native fixture and Rojo rebuild pass. Eight deposit native cases and existing effects regression remain passing, together with 43 standalone tests, actual-module Deposit CLI, changed source/fixture compilation, peer review and diff checks. Batch is committed and pushed as 4ae9a52.",
-    "currentTrial": "All-Crocodilo physical pickup is verified on 4ae9a52 with 96 collected, five walking waypoints and partial repacking. Home/onboarding UI implementation and independent review are underway; native UI acceptance is pending. The snapshot-toggle probe remains frozen at cbbd765, and no all-Crocodilo performance benchmark was run.",
+    "productionSync": "At09:55:44UTC all80 project sources match Studio. 43 standalone suites, Home actual-module CLI across12 viewports, all80 source compilations, native rendered layout/cleanup, six-plot booth parity, mirrored fixture, peer review, Rojo and image decode checks pass.",
+    "currentTrial": "Home/booth batch verified and ready to commit. Wider shallower tray and triangular display-divider designs accepted for next implementation. New Foltyn video study is underway beyond the original100 frames.",
     "sourceFreeze": "Historical capacity samples remain fixed earlier source based on 70786a3. The completed snapshot-toggle probe froze production cbbd765 before the counter and DepositEffects changes were synced. The historical harness uses deep Core.snapshot rather than production SnapshotPacket; its saved metrics and source scope are unchanged.",
     "console": "Final cleanup and source parity are saved in counter-deposit-native.json and studio-source-verification.json. Native regression results are GREEN. This checkpoint makes no broader full-Studio-Script-Analysis claim; external plugin errors are not reclassified as project defects.",
     "computerUse": "Physical Escape stopped UI work in the earlier 07:56 turn. Root subsequently completed native/render checks; no overnight cancellation was requested."
@@ -80,7 +80,8 @@
     "Counter/deposit final acceptance at 09:30:30 UTC: final RGB(55, 66, 165) counter panels synced on all six plots; mirrored fixture passes 18 inert panels and route/fence/face clearance. Eight deposit native cases and existing effects regression pass; 43 pure suites, Deposit CLI, changed source/fixture compilation, peer review, Rojo and diff checks pass. All 79 running-Server source hashes match, normal Main/HUD/Custom camera restored, and temporary objects removed. Three 1759x567 counter captures are validated and root-inspected. The batch was subsequently committed and pushed as 4ae9a52.",
     "Counter proportions finalized at 09:30:30 UTC after a dedicated native height RED/GREEN: center Y 3.2 logical studs, top 2.275 world studs, panel height 2.455 logical studs, farmer height unchanged at 5.5 world studs. Final front/elevated captures reveal shirt, sleeves and pocket; all images decoded, Rojo rebuilt, and 79/79 source hashes match. This supersedes the earlier 09:22:38 counter geometry acceptance, without changing the snapshot-toggle source or measurements.",
     "Counter/deposit and profiling-evidence batch committed and pushed as 4ae9a5282da8b8135284d1add925b2d461d32a6e. Snapshot-toggle source remains frozen at earlier cbbd765; historical capacity benchmarks remain unchanged.",
-    "All-Crocodilo actual-Humanoid route PASS at 09:39:10 UTC on 4ae9a52: 96 collected/bagged, zero remaining tokens or cloned Mini models, five waypoints over 51.45506834213393 world studs, partial repacking, and all 96 initial imported mesh identities checked. One isolated cloned farm/Core session and one Studio client; cleanup restored the character, HUD and Custom camera. No all-Crocodilo FPS, device, multiplayer or memory-recovery claim."
+    "All-Crocodilo actual-Humanoid route PASS at 09:39:10 UTC on 4ae9a52: 96 collected/bagged, zero remaining tokens or cloned Mini models, five waypoints over 51.45506834213393 world studs, partial repacking, and all 96 initial imported mesh identities checked. One isolated cloned farm/Core session and one Studio client; cleanup restored the character, HUD and Custom camera. No all-Crocodilo FPS, device, multiplayer or memory-recovery claim.",
+    "Home/booth batch: Home visible from accepted Ready state during onboarding; compact guidance/Shop preserved. Native12-viewport text/separation and Lucky/Settings regressions pass after two boundary overlaps reproduced and fixed. Observed actual Home click returns early-tutorial avatar to plot. Paired390x440 captures saved. Exact previous booth constructor compares426 parts across6 plots with unchanged geometry/material/flags/assets. Sources80/80; no performance claim. Raw home-booth-native.json."
   ],
   "benchmarkEvidence": {
     "baselineFiles": [

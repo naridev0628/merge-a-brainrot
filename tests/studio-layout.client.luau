@@ -12,8 +12,63 @@ local function inside(object,root)
 end
 local function separate(a,b)
     local ap,as=a.AbsolutePosition,a.AbsoluteSize;local bp,bs=b.AbsolutePosition,b.AbsoluteSize
-    assert(ap.X+as.X<=bp.X or bp.X+bs.X<=ap.X or ap.Y+as.Y<=bp.Y or bp.Y+bs.Y<=ap.Y,a.Name..' overlaps '..b.Name)
+    assert(ap.X+as.X<=bp.X or bp.X+bs.X<=ap.X or ap.Y+as.Y<=bp.Y or bp.Y+bs.Y<=ap.Y,
+        a.Name..' overlaps '..b.Name..' at '..tostring(ui.root.AbsoluteSize)..' ('..ui.mode..')')
 end
+local Tutorial=require(game.ReplicatedStorage.Shared.Tutorial)
+local onboarding=table.clone(state)
+onboarding.status='Ready';onboarding.bag={};onboarding.producers={};onboarding.starterClaimed=false
+local homeOK,homeError=xpcall(function()
+    for _,size in {Vector2.new(320,480),Vector2.new(390,440),Vector2.new(360,568),Vector2.new(390,844),
+        Vector2.new(600,280),Vector2.new(640,280),Vector2.new(640,450),Vector2.new(640,500),Vector2.new(700,500),
+        Vector2.new(780,500),Vector2.new(900,600),Vector2.new(1440,900)} do
+        ui.root.Size=UDim2.fromOffset(size.X,size.Y)
+        ui:unavailable('Waiting for a plot.');task.wait()
+        assert(not ui.homeButton.Visible,'Home must wait for a Ready farm')
+        for _,step in {1,2,4,6,7} do
+            onboarding.tutorialStep=step;onboarding.starterClaimed=step>1
+            onboarding.soldUnits=if step==4 then 8 else 0
+            onboarding.producers=if step>=6 then state.producers elseif step>1 then {state.producers[1]} else {}
+            ui:update(onboarding);ui:setContext('Buy','1');task.wait()
+            assert(ui.homeButton.Visible,'Ready farms must have Home during onboarding')
+            inside(ui.homeButton,ui.root);inside(ui.cashPlus,ui.root)
+            assert(ui.cashPlus.Visible and ui.cashPlus.Active,'Short onboarding must retain the Shop button')
+            local goal=Tutorial.goal(onboarding)
+            assert(ui.objective.Text==goal.title and ui.hint.Text==goal.detail,'Onboarding guidance must remain unchanged')
+            if step<7 then
+                assert(ui.objective.Visible and ui.hint.Visible,'Onboarding objective and detail must remain visible')
+                separate(ui.homeButton,ui.objective);separate(ui.homeButton,ui.hint);separate(ui.objective,ui.hint)
+                for _,label in {ui.objective,ui.hint} do
+                    inside(label,ui.root);separate(label,ui.actions);separate(label,ui.contextPanel)
+                    assert(label.TextBounds.X<=label.AbsoluteSize.X+1 and label.TextBounds.Y<=label.AbsoluteSize.Y+1,
+                        label.Name..' must fit its rendered onboarding text')
+                end
+                for _,control in {ui.homeButton,ui.actions,ui.contextPanel} do separate(ui.cashPlus,control) end
+                if size.X<600 and size.Y<500 then
+                    assert(not ui.boostButton.Visible and not ui.boostPrice.Visible and not ui.autoButton.Visible,
+                        'Short phone onboarding must reserve the compact header and action row')
+                    for _,control in {ui.mergeButton,ui.indexButton,ui.rebirthButton,ui.settingsButton} do inside(control,ui.root) end
+                end
+            else
+                assert(ui.homeButton.Position.X.Scale==.5 and ui.homeButton.Position.Y.Offset==6,'Mature Home position must remain unchanged')
+                assert(ui.boostButton.Visible and ui.boostPrice.Visible and ui.autoButton.Visible,'Promos must return after onboarding')
+            end
+            ui:open('Shop');task.wait()
+            assert(ui.mode=='Shop' and ui:isOpen(),'The retained Shop entry must still open its panel')
+            ui:close()
+        end
+        onboarding.tutorialStep=1
+        for _,mode in {'Lucky','Settings'} do
+            ui:update(onboarding);ui:open(mode);task.wait()
+            assert(ui.homeButton.Visible and ui.homeButton.Position.X.Scale==.5,'Side panels retain centered Home during onboarding')
+            inside(ui.panel,ui.root);separate(ui.panel,ui.homeButton);separate(ui.panel,ui.bag);separate(ui.panel,ui.contextPanel)
+            assert(not ui.objective.Visible and not ui.hint.Visible,'Side-panel guidance visibility must remain unchanged')
+            assert(ui.boostButton.Visible and ui.autoButton.Visible,'Side-panel promotional controls must be restored')
+            ui:close()
+        end
+    end
+end,debug.traceback)
+if not homeOK then ui.gui:Destroy();error(homeError) end
 for _,size in {Vector2.new(640,280),Vector2.new(320,480),Vector2.new(390,440),Vector2.new(360,568),Vector2.new(390,600),Vector2.new(390,690),Vector2.new(390,700),Vector2.new(640,450),Vector2.new(390,844),Vector2.new(1440,900)} do
     ui.root.Size=UDim2.fromOffset(size.X,size.Y)
     ui:update(state)
@@ -108,4 +163,4 @@ assert(notes>0 and notes<=8,'Cash claim must keep a bounded bundle burst')
 ui.gui:Destroy()
 task.wait(2)
 assert(burst.Parent==nil,'Cash bundles and sparks must clear after two seconds')
-print('PASS adaptive Lucky bounds/odds/cost, rebirth rewards, pooled pickup budget/expiry, million-Mini count, walk pads and cash cleanup')
+print('PASS onboarding Home/guidance/Shop layout, adaptive Lucky bounds/odds/cost, rebirth rewards, pooled pickup budget/expiry, million-Mini count, walk pads and cash cleanup')

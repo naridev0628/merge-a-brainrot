@@ -184,6 +184,8 @@ function UI.new(parent: Instance)
 end
 function UI.resize(self: any)
     local size=self.root.AbsoluteSize; local short=size.Y<500; local phone=size.X<600
+    local tutorialVisible=self.state~=nil and Tutorial.goal(self.state).kind~='Done' and not self:isLuckyOpen() and not self:isSettingsOpen()
+    local compactTutorial=tutorialVisible and (phone or short)
     local compactCash=phone or (short and size.X<900)
     self.stats.TextSize=if compactCash then 30 elseif short then 40 else 52
     local amountWidth=math.min(if phone then 100 elseif compactCash then 116 else 270,math.max(if compactCash then 66 else 96,game:GetService('TextService'):GetTextSize(self.stats.Text,self.stats.TextSize,self.stats.Font,Vector2.new(1000,80)).X+14))
@@ -204,8 +206,8 @@ function UI.resize(self: any)
     local w=math.min(size.X-(if phone then 24 else 300),520)
     for _,l in {self.title,self.objective,self.hint} do l.AnchorPoint=Vector2.new(.5,0); l.Size=UDim2.fromOffset(w,if l==self.hint then 34 else 36) end
     if self.state then
-        local tutorialVisible=Tutorial.goal(self.state).kind~='Done' and not self:isLuckyOpen() and not self:isSettingsOpen()
         for _,label in {self.title,self.objective,self.hint} do label.Visible=tutorialVisible end
+        self.title.Visible=tutorialVisible and not compactTutorial
     end
     self.title.Position=UDim2.new(.5,0,0,0); self.objective.Position=UDim2.new(.5,0,0,34); self.hint.Position=UDim2.new(.5,0,0,70)
     self.title.TextSize=if short then 23 else 28; self.objective.TextSize=if phone or short then 19 else 24; self.hint.TextSize=if phone or short then 13 else 16
@@ -222,7 +224,30 @@ function UI.resize(self: any)
     self.permanent.TextSize=if phone or short then 17 else 23
     self.boostPrice.Position=self.boostButton.Position+UDim2.fromOffset(-4,self.boostButton.Size.Y.Offset+9); self.boostPrice.Size=UDim2.fromOffset(self.boostButton.Size.X.Offset+8,if short then 24 else 30); self.boostPrice.TextSize=if phone or short then 17 else 25
     self.autoButton.Position=UDim2.fromOffset(if short then 128 else 12,if short then 145 else 310); self.autoButton.Size=UDim2.fromOffset(if phone or short then 90 else 130,if short then 36 else 44)
-    self.homeButton.AnchorPoint=Vector2.new(.5,0); self.homeButton.Position=UDim2.new(.5,0,0,6); self.homeButton.Size=UDim2.fromOffset(if short then 154 elseif phone then 190 else 252,if short then 40 elseif phone then 50 else 66); self.homeButton.TextSize=if phone or short then 30 else 39; self.homeButton.Visible=self.state~=nil and (self.state.tutorialStep>=7 or self:isLuckyOpen())
+    self.homeButton.AnchorPoint=Vector2.new(.5,0); self.homeButton.Position=UDim2.new(.5,0,0,6); self.homeButton.Size=UDim2.fromOffset(if short then 154 elseif phone then 190 else 252,if short then 40 elseif phone then 50 else 66); self.homeButton.TextSize=if phone or short then 30 else 39; self.homeButton.Visible=self.state~=nil
+    if tutorialVisible then
+        -- Home is an escape route during onboarding; keep the goal alongside it.
+        self.homeButton.AnchorPoint=Vector2.new(0,0); self.homeButton.Position=UDim2.fromOffset(12,6)
+        self.homeButton.Size=UDim2.fromOffset(96,40); self.homeButton.TextSize=26
+        if compactTutorial then
+            self.objective.AnchorPoint=Vector2.new(0,0); self.hint.AnchorPoint=Vector2.new(0,0)
+            self.objective.Position=UDim2.fromOffset(120,0); self.objective.TextSize=16
+            self.objective.Size=UDim2.fromOffset(size.X-(if phone then 132 else 296),if phone then 44 else 32)
+            self.hint.Position=UDim2.fromOffset(if phone then 12 else 120,if phone then 50 else 34)
+            self.hint.Size=UDim2.fromOffset(size.X-(if phone then 24 else 296),if phone then 34 else 30)
+        end
+        if phone and short then
+            local width=math.min(72,(size.X-48)/4)
+            self.actions.Size=UDim2.fromOffset(width*4+24,52); self.actions.Position=UDim2.new(1,-width*4-36,0,92)
+            for i,b in {self.mergeButton,self.indexButton,self.rebirthButton,self.settingsButton} do
+                b.Size=UDim2.fromOffset(width,52); b.Position=UDim2.fromOffset((i-1)*(width+8),0)
+            end
+        end
+    end
+    -- The cash-bar plus still opens Shop when the smallest onboarding HUD
+    -- temporarily omits promotional controls to leave room for guidance.
+    local showPromos=not (tutorialVisible and phone and short)
+    self.boostButton.Visible=showPromos; self.boostPrice.Visible=showPromos; self.autoButton.Visible=showPromos
     self.contextPanel.Position=UDim2.new(if short then .42 else .5,0,1,if phone then -200 elseif short then -150 else -226); self.contextPanel.Size=UDim2.fromOffset(if short then 230 else math.min(320,size.X-36),62); self.contextButton.TextSize=if phone or short then 18 else 20
     self.toast.Position=UDim2.new(.5,0,0,if short then 104 else 108); self.toast.Size=UDim2.fromOffset(math.min(size.X-32,410),44); self.toastText.TextSize=if phone or short then 14 else 16
     self.panel.Size=UDim2.fromOffset(math.min(size.X-24,640),math.min(size.Y-24,620))
@@ -237,9 +262,20 @@ function UI.resize(self: any)
         local top=self.homeButton.Position.Y.Offset+self.homeButton.Size.Y.Offset+12
         local contextTop=size.Y+self.contextPanel.Position.Y.Offset-self.contextPanel.Size.Y.Offset
         local height=if phone then math.min(432,contextTop-top-12) elseif short then size.Y-28 else math.min(LuckyPanel.Height,size.Y-120)
+        local aboveHud=phone
+        if not phone and not short then
+            local left=size.X-12-width; local upper=(size.Y-height)/2; local lower=upper+height
+            local crossesHome=left<size.X/2+self.homeButton.Size.X.Offset/2 and upper<top-12
+            local crossesBag=left<size.X/2+bagWidth/2 and lower>size.Y-24-self.bag.Size.Y.Offset
+            local crossesContext=left<size.X/2+self.contextPanel.Size.X.Offset/2 and lower>contextTop and upper<contextTop+self.contextPanel.Size.Y.Offset
+            aboveHud=crossesHome or crossesBag or crossesContext
+            -- Intermediate landscape widths need the same scrolling space as
+            -- phones when the centered card would cover a persistent control.
+            if aboveHud then height=math.min(height,contextTop-top-12) end
+        end
         self.panel.Size=UDim2.fromOffset(width,height); self.panel.BackgroundTransparency=1
         self.closeButton.Size=UDim2.fromOffset(28,28); self.closeButton.Position=UDim2.new(1,-30,0,3); self.closeButton.TextSize=19
-        self.panel.AnchorPoint=Vector2.new(1,if phone then 0 else .5); self.panel.Position=if phone then UDim2.new(1,-12,0,top) else UDim2.new(1,-12,.5,0)
+        self.panel.AnchorPoint=Vector2.new(1,if aboveHud then 0 else .5); self.panel.Position=if aboveHud then UDim2.new(1,-12,0,top) else UDim2.new(1,-12,.5,0)
         if phone then
             local left=size.X-12-width
             self.boostButton.Size=UDim2.fromOffset(math.min(self.boostButton.Size.X.Offset,left-28),self.boostButton.Size.Y.Offset)
@@ -255,6 +291,11 @@ function UI.resize(self: any)
         local contextTop=size.Y+self.contextPanel.Position.Y.Offset-self.contextPanel.Size.Y.Offset
         local width=if aboveHud then math.min(292,size.X-24) elseif short then math.min(224,math.floor(size.X*.49-93)) else 300
         local height=if aboveHud then math.min(SettingsPanel.Height,contextTop-top-12) else math.min(SettingsPanel.Height,size.Y-24)
+        local upper=(size.Y-height)/2
+        if not aboveHud and not short and size.X-12-width<size.X/2+self.contextPanel.Size.X.Offset/2
+            and upper<contextTop+self.contextPanel.Size.Y.Offset and upper+height>contextTop then
+            aboveHud=true; width=math.min(292,size.X-24); height=math.min(SettingsPanel.Height,contextTop-top-12)
+        end
         self.panel.Size=UDim2.fromOffset(width,math.max(100,height))
         self.panel.AnchorPoint=Vector2.new(1,if aboveHud then 0 else .5)
         self.panel.Position=if aboveHud then UDim2.new(1,-12,0,top) else UDim2.new(1,-12,.5,0)
@@ -417,7 +458,6 @@ function UI.update(self: any,state: any)
     for _,label in {self.title,self.objective,self.hint} do label.Visible=goal.kind~='Done' end
     self.boostButton.Text=if state.cashMultiplier>=8 then '8x Cash' else tostring(state.cashMultiplier*2)..'x Cash'
     self:refreshBoostPrice()
-    self.homeButton.Visible=state.tutorialStep>=7
     local owned={}; for _,p in state.producers do owned[p.id]=true end
     local keep={}; for _,id in self.selected do if owned[id] then table.insert(keep,id) end end; self.selected=keep
     self:resize(); self:setContext(self.context,self.quantity); self:drawMerge()

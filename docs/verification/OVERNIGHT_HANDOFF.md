@@ -159,3 +159,11 @@ The endpoint patch has passed its scoped behavior and source-sync gates. Any fur
 The [additional reference research](../reference/ADDITIONAL_CHICKEN_FARM_RESEARCH.md#browser-follow-up--20-october-2026) remains the basis for visual comparisons. The newly completed Lucky identity pass does not establish exact reference economy rules.
 
 Preserve the user's overrides: no incremental cash buttons, no “Received” prefix, immediate pad entry and held repeat, aura/airborne pickup, and nonmodal Lucky UI. Continue through the overnight cutoff; neither the window nor final 96-Mini validation is complete.
+
+## Home layout and booth extraction verified at09:55:44UTC
+
+The Home button is available once the farm is Ready, including onboarding. Compact screens keep the objective, detail, action row and cash-plus Shop access. Native testing exposed and then resolved Lucky at640×500 and Settings at900×600 overlaps; existing scrolling panels use a bounded fallback only when they intersect another control. Twelve viewport sizes pass native rendered text and separation checks. An observed native Home activation returns the early-tutorial avatar from the hub to the plot. The [before](home-onboarding-before.jpg) and [after](home-onboarding-after.jpg) images use the actual UI inside an isolated390×440 frame; they are not physical-device acceptance.
+
+FarmerBooth now owns the unchanged stall constructor formerly in WorldBuilder. A disposable oracle from committed9ee6fda matches426 parts across all six integrated booths, including transforms/sizes within1e-5, hierarchy, colors, materials, interaction flags, surfaces and imported mesh/texture IDs. The existing mirrored-map fixture also passes. The initial unencoded snapshot probe returned Complex Table and was not used as parity evidence.
+
+The [native record](home-booth-native.json) includes RED/GREEN layout results, booth parity and cleanup. All80 sources compile and match Studio;43 standalone suites, actual-module Home CLI, Rojo, peer review and both image decode checks pass. This batch is verified and ready to commit; no FPS or memory improvement is claimed. New work now targets a broader shallow tray and diagonal gold display dividers, informed by the additional Foltyn video study. Continue through13:30UTC; overnight work is not complete.
