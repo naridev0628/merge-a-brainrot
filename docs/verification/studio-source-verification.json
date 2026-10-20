@@ -1,7 +1,7 @@
 {
-  "localCount": 76,
-  "matched": 76,
+  "recordedAtUTC": "2026-10-20 07:39:58 UTC",
+  "localCount": 78,
+  "studioProjectCount": 78,
   "mismatches": [],
-  "scope": "Adler32 and byte length after CRLF normalization; six extra Roblox engine-injected chat/player scripts excluded",
-  "recordedAt": "2026-10-20T07:14:55.112Z"
+  "scope": "Project sources in running server DataModel, normalized CRLF; excludes engine-injected scripts."
 }

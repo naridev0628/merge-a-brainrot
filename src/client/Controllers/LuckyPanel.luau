@@ -3,13 +3,17 @@ local Shared=game:GetService('ReplicatedStorage'):WaitForChild('Shared')
 local Config=require(Shared:WaitForChild('Config'))
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
 local Style=require(Shared:WaitForChild('TextStyle'))
+local Appearance=require(Shared:WaitForChild('LuckyAppearance'))
 local Panel={Width=248,Height=452,MinContentHeight=252}
 function Panel.new(view: any,button: any,text: any,frame: any,Art: any,C: any)
     local viewport=Instance.new('ScrollingFrame'); viewport.Name='LuckyViewport'; viewport.Size=UDim2.fromScale(1,1); viewport.BackgroundTransparency=1; viewport.BorderSizePixel=0; viewport.ScrollBarThickness=3; viewport.ScrollingDirection=Enum.ScrollingDirection.Y; viewport.CanvasSize=UDim2.new(); viewport.Parent=view.panel
     local content=Instance.new('Frame'); content.Name='LuckyPresentation'; content.BackgroundTransparency=1; content.Active=false; content.Parent=viewport
-    local card=frame(content,'GoldCard',Color3.fromRGB(255,210,14)); Art.brick(card,card.BackgroundColor3)
+    -- Keep the legacy node name for existing layout/update paths.
+    local card=frame(content,'GoldCard',Color3.new(1,1,1)); local _,recolorCard=Art.brick(card,Color3.fromRGB(255,193,0))
     local gradient=Instance.new('UIGradient'); gradient.Rotation=90; gradient.Color=ColorSequence.new(Color3.fromRGB(255,255,90),Color3.fromRGB(255,158,20)); gradient.Parent=card
     local title=text(card,'Title',32,Style.Gold); title.Text='Basic'; title.ZIndex=3
+    title.TextScaled=true; title.TextWrapped=false
+    local titleLimit=Instance.new('UITextSizeConstraint'); titleLimit.MinTextSize=14; titleLimit.MaxTextSize=32; titleLimit.Parent=title
     local subtitle=text(card,'Subtitle',22,Style.Cream); subtitle.Text='Lucky Block'; subtitle.ZIndex=3
     local portrait=Art.luckyPortrait(card,UDim2.new(),UDim2.new()); portrait.ZIndex=3
     local rewards=frame(card,'Rewards',Color3.fromRGB(102,57,3)); rewards.BackgroundTransparency=.22; rewards.ZIndex=3
@@ -24,6 +28,19 @@ function Panel.new(view: any,button: any,text: any,frame: any,Art: any,C: any)
     end
     local costStripe=frame(content,'CostStripe',Color3.fromRGB(75,90,13)); costStripe.BackgroundTransparency=.18
     local costText=text(costStripe,'Cost',24,Style.Price); costText.Size=UDim2.fromScale(1,1)
+    local currentAppearance: string?=nil
+    local function applyAppearance(baseTier: number?)
+        local appearance=Appearance.forTier(baseTier)
+        if currentAppearance==appearance.key then return end
+        currentAppearance=appearance.key; card:SetAttribute('LuckyAppearance',appearance.key)
+        title.Text=appearance.title; title.TextColor3=Color3.fromRGB(table.unpack(appearance.titleColor))
+        gradient.Color=ColorSequence.new(Color3.fromRGB(table.unpack(appearance.cardTop)),Color3.fromRGB(table.unpack(appearance.cardBottom)))
+        rewards.BackgroundColor3=Color3.fromRGB(table.unpack(appearance.rewards))
+        costStripe.BackgroundColor3=Color3.fromRGB(table.unpack(appearance.costStripe))
+        recolorCard(Color3.fromRGB(table.unpack(appearance.body)))
+        Art.setLuckyTier(portrait,baseTier)
+    end
+    applyAppearance(nil)
     local unlock=button(content,'Unlock','Unlock!',C.green); Art.brick(unlock,C.green)
     local discard=button(content,'Discard','Discard',Color3.fromRGB(255,62,68)); Art.brick(discard,discard.BackgroundColor3)
     unlock.Activated:Connect(function() if not view.pending and view.eligible then view.onLucky() end end)
@@ -52,6 +69,7 @@ function Panel.new(view: any,button: any,text: any,frame: any,Art: any,C: any)
             local headerHeight=if compactHeader then 54 else 145
             card.Size=UDim2.fromOffset(width,cardHeight)
             title.Position=UDim2.fromOffset(if compactHeader then 55 else 8,4); title.Size=UDim2.new(1,if compactHeader then -88 else -38,0,if compactHeader then 25 else 38); title.TextSize=if compactHeader then 24 else 32
+            titleLimit.MaxTextSize=if compactHeader then 24 else 32
             subtitle.Position=UDim2.fromOffset(if compactHeader then 55 else 8,if compactHeader then 28 else 40); subtitle.Size=UDim2.new(1,if compactHeader then -62 else -16,0,25); subtitle.TextSize=if compactHeader then 18 else 22
             portrait.Position=if compactHeader then UDim2.fromOffset(2,2) else UDim2.new(.5,-48,0,65); portrait.Size=UDim2.fromOffset(if compactHeader then 50 else 96,if compactHeader then 50 else 76)
             rewards.Position=UDim2.fromOffset(7,headerHeight); rewards.Size=UDim2.new(1,-14,0,cardHeight-headerHeight-7)
@@ -72,6 +90,7 @@ function Panel.new(view: any,button: any,text: any,frame: any,Art: any,C: any)
         render=function(state: any)
             for _,row in rows do row.root.Visible=false end
             local held=state.lucky and state.lucky.held
+            applyAppearance(if state.lucky then state.lucky.baseTier else nil)
             discard.Active=held and not view.pending or false; discard.AutoButtonColor=discard.Active
             if not held then costText.Text='Pick up a Lucky Block'; unlock.Text='Unlock!'; unlock.Active=false; unlock.AutoButtonColor=false; view.eligible=false; return end
             local odds={}

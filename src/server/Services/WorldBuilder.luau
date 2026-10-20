@@ -8,6 +8,7 @@ local HubScenery=require(Shared.HubScenery)
 local HubStudOcclusion=require(Shared.HubStudOcclusion)
 local ObbyCourse=require(Shared.ObbyCourse)
 local Decor=require(Shared.StallDecor)
+local LuckyBlockVisuals=require(Shared.LuckyBlockVisuals)
 local LeaderboardDisplay=require(script.Parent.LeaderboardDisplay)
 local Map=require(Shared.MapSpec)
 local Catalog=require(Shared.CreatureCatalog)
@@ -404,10 +405,7 @@ function World.render(world: any,state: any)
         block=Factory.prop(world.root,'LuckyBlock',world.frame*CFrame.new(Vector3.new(Config.LuckyX,.4,Config.LuckyZ)*Map.PlotScale),Map.PlotScale)
         if not block then block=Factory.part(world.root,'LuckyBlock',Vector3.new(3.5,3.5,3.5)*Map.PlotScale,world.frame*CFrame.new(Vector3.new(Config.LuckyX,2.5,Config.LuckyZ)*Map.PlotScale),Color3.fromRGB(255,203,21)) end
         Factory.label(block,'Lucky Block\nWalk near to hold',170,55)
-        if not block:IsA('MeshPart') then for _,face in {Enum.NormalId.Front,Enum.NormalId.Back,Enum.NormalId.Left,Enum.NormalId.Right} do
-            local gui=Instance.new('SurfaceGui'); gui.Face=face; gui.CanvasSize=Vector2.new(100,100); gui.Parent=block
-            local q=Instance.new('TextLabel'); q.Size=UDim2.fromScale(1,1); q.Text='?'; q.TextSize=80; q.Font=Enum.Font.FredokaOne; q.TextColor3=Color3.new(1,1,1); q.BackgroundTransparency=1; q.Parent=gui
-        end end
+        LuckyBlockVisuals.apply(block,state.lucky.baseTier)
     elseif (not state.lucky or state.lucky.held) and block then block:Destroy() end
     local present={}
     for _,p in state.producers do

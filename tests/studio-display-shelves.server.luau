@@ -7,7 +7,7 @@ local Core=require(game.ServerScriptService.Domain.FarmCore)
 local Shelves=require(Shared.DisplayShelves)
 local layout=Core.new(Config,Catalog)
 local forbidden={BackStud=true,DividerStud=true,PlatformStud=true,PlatformFrontStud=true}
-local expectedBudget=1+22*Config.Columns
+local baseBudget=1+22*Config.Columns
 local function near(a,b,message)
     assert((a-b).Magnitude<.001,message)
 end
@@ -22,6 +22,7 @@ local function audit(shelf,row,frame,scale)
         byName[part.Name]=byName[part.Name] or {}
         table.insert(byName[part.Name],part)
     end
+    local expectedBudget=baseBudget+(if row>1 then 3 else 0)
     assert(count==expectedBudget and count<=300,'Each shelf row must retain its geometry within 300 parts')
     assert(#byName.DisplayBrickStud==15*Config.Columns,'Keep the large physical plinth studs')
     local function at(name,x,size,position,color)
@@ -47,6 +48,27 @@ local function audit(shelf,row,frame,scale)
     local base=at('ShelfBase',0,Vector3.new(Config.Columns*Config.ColumnSpacing+1,.45,7),
         Vector3.new(0,.225+rowY,Config.DisplayZ),Color3.fromRGB(255,174,22))
     assert(base.TopSurface==Enum.SurfaceType.Studs)
+    if row==1 then
+        assert(not byName.RearRowJoin and not byName.RearRowSupport,'Ground row must not grow a rear skirt')
+    else
+        assert(#(byName.RearRowJoin or {})==1 and #(byName.RearRowSupport or {})==2,
+            'Upper rows need one rear join and exactly two edge supports')
+        local lowerTop=rowY-Config.RowHeight+lift+6
+        local upperBottom=rowY+.1
+        local join=at('RearRowJoin',0,
+            Vector3.new(Config.Columns*Config.ColumnSpacing-.1,upperBottom-lowerTop,.25),
+            Vector3.new(0,(lowerTop+upperBottom)/2,Config.DisplayZ+3.45),Color3.fromRGB(178,128,52))
+        assert(join.FrontSurface==Enum.SurfaceType.Studs,'Rear join needs a visible native brick face')
+        local previousBottom=rowY-Config.RowHeight
+        local currentTop=rowY+.45
+        for _,side in {-1,1} do
+            local x=side*(Config.Columns*Config.ColumnSpacing/2-.35)
+            local support=at('RearRowSupport',x,Vector3.new(.6,currentTop-previousBottom,.42),
+                Vector3.new(x,(previousBottom+currentTop)/2,Config.DisplayZ+3.45),Color3.fromRGB(217,164,66))
+            assert(not support.CanQuery,'Rear supports must not intercept queries')
+        end
+        assert(not join.CanQuery,'Rear join must not intercept queries')
+    end
     for column=1,Config.Columns do
         local slot=(row-1)*Config.Columns+column
         local position=layout:slotPosition(slot)
@@ -88,12 +110,14 @@ for _,plot in generated:GetChildren() do
 end
 assert(liveRows>0,'Exercise at least one World.render-generated row')
 
-for row=1,math.ceil(Config.Slots/Config.Columns) do
+local totalParts=0
+local rowCount=math.ceil(Config.Slots/Config.Columns)
+for row=1,rowCount do
     local shelf=Shelves.buildRow(row,layout)
     local ok,err=pcall(function()
         assert(shelf.Parent==nil and shelf.Name==tostring(row),'Build off-world with the row lookup name')
         assert(shelf:GetPivot()==CFrame.identity,'World scaling depends on an identity row pivot')
-        audit(shelf,row,CFrame.identity,1)
+        totalParts+=audit(shelf,row,CFrame.identity,1)
         local frame=CFrame.new(120,0,-80)*CFrame.Angles(0,math.pi/3,0)
         shelf:ScaleTo(Map.PlotScale);shelf:PivotTo(frame)
         audit(shelf,row,frame,Map.PlotScale)
@@ -104,4 +128,6 @@ for row=1,math.ceil(Config.Slots/Config.Columns) do
     shelf:Destroy()
     assert(ok,err)
 end
-return string.format('PASS %d live rows; five-row dimensions, support plane, slot lookup, native surfaces, physics and %d parts/row after scaling',liveRows,expectedBudget)
+assert(totalParts-baseBudget*rowCount==3*(rowCount-1) and totalParts-baseBudget*rowCount<=12,
+    'The full producer display may add at most twelve rear structural parts')
+return string.format('PASS %d live rows; five-row dimensions, support plane, slot lookup, native surfaces, physics and %d/%d parts per ground/upper row after scaling',liveRows,baseBudget,baseBudget+3)

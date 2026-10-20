@@ -21,6 +21,27 @@ function Shelves.buildRow(row: number,layout: any): Model
         CFrame.new(0,.225+rowY,Config.DisplayZ),orange)
     base.TopSurface=Enum.SurfaceType.Studs
 
+    if row>1 then
+        -- Close the air band above the preceding back wall. Keep all three
+        -- pieces inside the rear trim footprint, clear of producers and drops.
+        local lowerTop=rowY-Config.RowHeight+lift+6
+        local upperBottom=rowY+.1
+        local join=Factory.part(shelf,'RearRowJoin',
+            Vector3.new(Config.Columns*Config.ColumnSpacing-.1,upperBottom-lowerTop,.25),
+            CFrame.new(0,(lowerTop+upperBottom)/2,Config.DisplayZ+3.45),Color3.fromRGB(178,128,52))
+        join.FrontSurface=Enum.SurfaceType.Studs
+        join.CanQuery=false
+        local previousBottom=rowY-Config.RowHeight
+        local currentTop=rowY+.45
+        for _,side in {-1,1} do
+            local support=Factory.part(shelf,'RearRowSupport',
+                Vector3.new(.6,currentTop-previousBottom,.42),
+                CFrame.new(side*(Config.Columns*Config.ColumnSpacing/2-.35),
+                    (previousBottom+currentTop)/2,Config.DisplayZ+3.45),Color3.fromRGB(217,164,66))
+            support.CanQuery=false
+        end
+    end
+
     for column=1,Config.Columns do
         local slot=(row-1)*Config.Columns+column
         local position=layout:slotPosition(slot)

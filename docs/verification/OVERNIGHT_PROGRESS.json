@@ -1,5 +1,5 @@
 {
-  "updatedAtUTC": "2026-10-20T07:17:22Z",
+  "updatedAtUTC": "2026-10-20T07:50:35Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
@@ -7,14 +7,14 @@
   "studioId": "ef89b65f-2f6a-4fe7-8272-bae9e8007fd1",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Fresh normal Studio Play; zero producers",
+    "mode": "Fresh normal Play restored after final blue/white-cap capture: zero BrainrotProducer and zero ConveyorMini tags.",
     "mainScripts": "Both production Main scripts are enabled (Disabled=false), confirmed by root.",
     "temporaryScripts": [],
-    "harnessCleanup": "Capacity harness controls/scripts/modules fully removed. Isolated tray-walk clone/control cleaned up; character restored.",
-    "productionSync": "All 76 project scripts match Studio Adler32 and normalized byte length. Both Main scripts enabled. Multiplier cue, lighthouse cull, PadLabels, and pad affordability natively verified.",
-    "currentTrial": "Current verified batch ready for commit/push to existing draft PR 2. Full 76-source compilation, 40 standalone Luau test files, Rojo build passed; after scoped TextWrapped cleanup fix, targeted compile/native fixture and Rojo rebuild passed.",
-    "sourceFreeze": "Saved benchmark provenance unchanged. Later multiplier cue, lighthouse cull, and PadLabels are outside that measured source. No new profile without a changed hypothesis/source.",
-    "console": "Root latest console: normal Ready line and only known external Superpower/RobloxFoundation/asset203785492 errors; no project stack reported. External plugins untouched."
+    "harnessCleanup": "Capacity/tray harnesses and temporary world containers/previews absent. Both Main scripts enabled. Client BrainrotHUD enabled, CameraType.Custom, no OvernightNormalFarmFlow test script.",
+    "productionSync": "07:39:58 UTC comparison: localCount=78, studioProjectCount=78, mismatches=[] after CRLF normalization; engine scripts excluded. Both Main scripts enabled.",
+    "currentTrial": "Prior 58c7875 committed/pushed; PR 2 open/draft/unmerged. New gameplay/allocation/Lucky/shelf batch verified and ready for root commit, currently uncommitted. Final blue/white-cap capture inspected/saved, Play restarted.",
+    "sourceFreeze": "Saved benchmark provenance remains fixed source based on 70786a3, before lighthouse and later UI work. It measures neither the complete 58c7875 build nor the new uncommitted batch. Benchmark metrics unchanged.",
+    "console": "Root latest console includes Ready and no project errors. Previously observed external plugin/asset errors were not treated as project defects; plugins untouched."
   },
   "candidateConfig": {
     "producerSlots": 50,
@@ -46,7 +46,16 @@
     "PadLabels before/after capture shows separated Buy costs; Auto Collect is hidden while Merge occludes it and appears on approach.",
     "All 76 source files compile, all 40 standalone Luau test files pass, Rojo build passes. After the scoped PadLabels cleanup fix, targeted compilation/native validation and rebuild passed.",
     "Studio source verification: 76 of 76 project scripts match Adler32 and normalized byte length. Six extra engine chat/player scripts excluded and untouched. Eleven preliminary trailing-blank-line differences were normalized; no gameplay source was stale.",
-    "Four additional PRO GAME ZONE 0 video states visually inspected at 00:13, 00:40, 01:20, 02:00; additional research document updated. No new exact economy claims."
+    "Four additional PRO GAME ZONE 0 video states visually inspected at 00:13, 00:40, 01:20, 02:00; additional research document updated. No new exact economy claims.",
+    "Verified batch committed as 58c7875 and pushed to origin/codex/stacked-brainrot-farm; PR 2 updated and remains open/draft/unmerged. Benchmark source scope remains earlier fixed pre-lighthouse source, not the complete commit.",
+    "Normal shipped gameplay route on 58c7875 PASS: 100 deposited, 92 client-observed all-flight collections with Lucky held, 88 standing Claim OK responses, two Upgrade OK responses, card visible/nonmodal. Started with starter after earlier four-second Buy timeout with 14 TooFar replies and a later purchase; not a fresh-entry result.",
+    "PadHold TooFar retry bounded to 0.5 seconds instead of prior repeated 20Hz reset. Immediate entry and two-second initial hold / half-second repeat preserved; pure limiter tests and peer review pass.",
+    "Fresh normal Buy retry smoke PASS in 0.6340521999954944 seconds: one TooFar then OK. Server Z=46.655181884765625 outside on first request, 55.3488655090332 inside on success. One sample, not a latency guarantee.",
+    "Core.step conservative preflight: 20,160 old/new deterministic steps retained identical state/RNG; 984,048 table copies avoided in the 600-second scenario, reported by root. No new native FPS/memory result.",
+    "Lucky gold Basic for baseTier <=2 and blue for valid baseTier >=3 is consistent across ground/held/card. Updated server/client native fixtures pass; blue has 28 white glyph runs and eight white corner caps, 36 decorative Parts. Economy and nonmodal behavior unchanged; tier mapping is our adaptation.",
+    "Shelf rear joins native PASS: one live row and five isolated scaled rows, actual-generator CLI and peer review. Ground row 221 Parts, upper rows 224; +12 per full plot. One/two/five-row screenshots saved. Producer labels can still clip at some angles; synthetic-camera probe inconclusive, ModelFactory unchanged.",
+    "Current gates PASS: 78 source files compile, 42 standalone Luau files, display-shelves CLI, Rojo build, diff check. At 07:39:58 UTC 78 local/Studio project sources match with zero mismatches. Batch remains uncommitted.",
+    "Root inspected/saved final blue/white-cap capture and restarted Play. Server confirms zero BrainrotProducer/ConveyorMini tags; both Main scripts enabled, no temporary world containers, client HUD enabled/CameraType.Custom/no OvernightNormalFarmFlow test script. No source changes after 78/42 gates."
   ],
   "benchmarkEvidence": {
     "baselineFiles": [
@@ -173,17 +182,16 @@
     }
   },
   "active": [
-    "Verified current batch ready for commit/push to draft PR 2 without merging or publishing.",
-    "Normal Studio Play fresh with zero producers; both Main scripts enabled and no temporary harness.",
+    "Root: commit the verified batch and checkpoint docs. Final blue/white-cap capture and fresh normal-Play restoration complete; batch currently uncommitted.",
+    "Fresh normal Play has zero producer/Mini tags, both Main scripts enabled, no temporary world/test scripts, HUD enabled and camera Custom.",
     "Minimum work window continues through 13:30 UTC with active 15-minute continuation heartbeat."
   ],
   "next": [
-    "Commit/push the verified batch to existing draft PR 2; do not merge or publish.",
-    "Exercise actual normal-game airborne pickup while Lucky card remains open, then standing cash claim, deposit, and upgrades through shipped controller/server; fix confirmed issues. Existing tray test is an isolated Core/world session and normal pad-entry smoke covers Buy only.",
-    "Compare remaining reference map/HUD gaps, including Basic versus Blue Lucky ground/held/card presentation seen in additional video. Any baseTier visual mapping is an adaptation; preserve existing prices, odds, drops, nonmodal UI, and user overrides.",
-    "Inspect runtime attribute, snapshot, and render allocation sources behind 96-Mini churn frame/memory tails before selecting an optimization. Preserve tested features; rerun the long profile only for a changed hypothesis/source that warrants it.",
-    "Retain 50 producers and 96 preview Minis with memory/device/species/multiplayer limitations explicit. No claim of leak resolution, release capacity, or eight-hour completion.",
-    "Continue concrete implementation and meaningful validation through 13:30 UTC using active 15-minute heartbeat; avoid a new massive test-only or planning-only batch."
+    "Commit the verified batch and docs; final capture/reset is complete. Keep PR 2 draft/unmerged and do not publish.",
+    "Improve canopy with thicker existing roof/fringe/posts and about two logical studs lower canopy/sign assembly, zero added Parts; preserve mirrored footprint, face visibility, deposit-route clearance.",
+    "Inspect 50-producer label readability through actual gameplay camera; select a verified bounded fix preserving producer positions and Mini paths.",
+    "Run targeted native allocation profiling only for a specific audit hypothesis; no repeated long benchmark without a reason or leak-resolution claim.",
+    "Retain 50 producers and 96 preview Minis with memory/device/species/multiplayer limits explicit. Continue through 13:30 UTC with 15-minute heartbeat; no eight-hour-completion claim."
   ],
   "constraints": [
     "User permits expanding former 50 limits if performance supports it; producer count remains 50.",
@@ -196,20 +204,81 @@
   "heartbeatIntervalMinutes": 15,
   "heartbeatStatus": "Root confirms the 15-minute continuation heartbeat remains active.",
   "verification": {
-    "sourceFilesCompiled": 76,
-    "standaloneLuauTestFilesPassed": 40,
-    "rojoBuild": "PASS; rebuilt after scoped TextWrapped fix",
-    "finalScopedFix": "PadLabels TextWrapped capture/restore; targeted compilation and native 15-label fixture passed after the full suite",
+    "sourceFilesCompiled": 78,
+    "standaloneLuauTestFilesPassed": 42,
+    "rojoBuild": "PASS",
+    "finalScopedFix": "Lucky white corner caps and rear shelf joins; updated native fixtures passed, final 36-Part appearance inspected/saved, fresh Play restored. Source unchanged after 78/42 gates.",
     "studioSourceFile": "docs/verification/studio-source-verification.json",
-    "studioSourceMatched": 76,
-    "studioSourceLocalCount": 76,
+    "studioSourceMatched": 78,
+    "studioSourceLocalCount": 78,
     "studioSourceMismatchCount": 0,
-    "studioSourceRecordedAtUTC": "2026-10-20T07:14:55.112Z",
-    "studioSourceScope": "Adler32 and byte length after CRLF normalization; six extra Roblox engine-injected chat/player scripts excluded",
-    "excludedEngineScripts": 6,
-    "initialWhitespaceOnlyDifferences": 11,
+    "studioSourceRecordedAtUTC": "2026-10-20T07:39:58Z",
+    "studioSourceScope": "Compact localCount/studioProjectCount/mismatches record; CRLF-normalized project sources, engine scripts excluded.",
     "padLabelsBefore": "docs/verification/fresh-hud-pad-spacing.jpg",
     "padLabelsAfter": "docs/verification/pad-labels-after.jpg",
-    "commitStatus": "Verified batch ready for commit/push to existing draft PR 2; not yet recorded complete at this checkpoint"
+    "commitStatus": "58c7875 latest committed/pushed batch in open draft/unmerged PR 2. New verified batch and docs uncommitted, ready for root commit; final capture/reset complete.",
+    "shelfStructureCLI": "PASS red/green regression and unchanged original geometry",
+    "diffCheck": "PASS",
+    "priorExcludedEngineScripts": 6,
+    "priorWhitespaceOnlyDifferences": 11
+  },
+  "latestVerifiedCommit": "58c7875453eee8c916ccd1784bf760f71f1726d4",
+  "newBatchEvidence": {
+    "status": "Verified, uncommitted after 58c7875; final blue/white-cap capture inspected/saved and fresh normal Play restored.",
+    "normalFarmFlow": {
+      "file": "docs/verification/normal-farm-flow-raw.json",
+      "capture": "docs/verification/normal-flow-lucky-held.jpg",
+      "sourceCommit": "58c7875",
+      "recordedAtUTC": "2026-10-20T07:30:29Z",
+      "deposited": 100,
+      "heldAirborneCollectionObservations": 92,
+      "claimOK": 88,
+      "upgradeOK": 2,
+      "startedWithStarter": true,
+      "initialBuyTimedOutSeconds": 4,
+      "initialBuyTooFarReplies": 14,
+      "scope": "Normal Main/controller/server; card visible/nonmodal. All-flight event counts are client observations. Predates retry, preflight, and appearance changes."
+    },
+    "padRetry": {
+      "file": "docs/verification/pad-retry-smoke-raw.json",
+      "recordedAtUTC": "2026-10-20T07:32:32Z",
+      "latencySeconds": 0.6340521999954944,
+      "tooFarResponses": 1,
+      "serverFirstZ": 46.655181884765625,
+      "serverSuccessZ": 55.3488655090332,
+      "retrySeconds": 0.5,
+      "scope": "Fresh normal Buy1 center entry with new retry/Core preflight; Lucky changes not yet synced. One sample, not a latency guarantee."
+    },
+    "stepPreflight": {
+      "comparedSteps": 20160,
+      "stateAndRngIdentical": true,
+      "avoidedTableCopies": 984048,
+      "scenarioSeconds": 600,
+      "scope": "Root-reported deterministic comparison, not native FPS/memory measurement."
+    },
+    "luckyAppearance": {
+      "nativeServer": "PASS",
+      "nativeClient": "PASS",
+      "blueDecorationParts": 36,
+      "whiteGlyphParts": 28,
+      "whiteCornerCaps": 8,
+      "capture": "docs/verification/blue-lucky-preview.jpg",
+      "captureStatus": "Final 36-Part blue/white-cap appearance inspected by root and saved; fresh Play restored afterward."
+    },
+    "shelfJoins": {
+      "native": "PASS one live row and five isolated scaled rows",
+      "cli": "PASS",
+      "peerReview": "No actionable findings",
+      "groundRowParts": 221,
+      "upperRowParts": 224,
+      "addedPartsPerFullPlot": 12,
+      "fullSixFarmShelfParts": 6702,
+      "captures": [
+        "docs/verification/shelf-supports-1-rows.jpg",
+        "docs/verification/shelf-supports-2-rows.jpg",
+        "docs/verification/shelf-supports-5-rows.jpg"
+      ],
+      "remaining": "Producer labels can clip behind upper ledges at some angles. Synthetic-camera AlwaysOnTop probe unverified; no ModelFactory change."
+    }
   }
 }

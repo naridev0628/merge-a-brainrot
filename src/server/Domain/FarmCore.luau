@@ -188,8 +188,22 @@ local function deposit(c: any,st: State,now: number): string
     st.bag={}; st.tutorialStep=math.max(st.tutorialStep,3)
     return 'OK'
 end
+local function hasStepWork(st: State,now: number): boolean
+    if st.saleQueue[1] and st.saleQueue[1].due<=now then return true end
+    -- Capped producers still advance deadlines/credits and roll Lucky.
+    for _,producer in st.producers do if producer.due<=now then return true end end
+    if st.autoSell and st.soldUnits>0 then return true end
+    if st.autoCollect then
+        if #st.bag>0 then return true end
+        for _,token in st.tokens do if token.readyAt<=now then return true end end
+    end
+    return false
+end
 function Core.step(self: any, s: Session, now: number): boolean
     if s.phase~="Ready" or not finite(now) then return false end
+    -- Read-only and conservative: blocked work may still take the normal path,
+    -- but a quiet cadence tick need not recursively copy every producer/Mini.
+    if not hasStepWork(s.state,now) then return false end
     local changed=false
     local st=copy(s.state); local c=self.config
     if drainSales(st,now,c) then changed=true end

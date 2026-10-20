@@ -4,6 +4,7 @@ local Shared=game:GetService('ReplicatedStorage'):WaitForChild('Shared')
 local Style=require(Shared:WaitForChild('TextStyle'))
 local Factory=require(Shared:WaitForChild('ModelFactory'))
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
+local LuckyVisuals=require(Shared:WaitForChild('LuckyBlockVisuals'))
 local ContentProvider=game:GetService('ContentProvider')
 local Art={}
 local ink=Color3.fromRGB(31,27,23)
@@ -42,8 +43,8 @@ function Art.brick(parent: GuiObject,color: Color3)
                 local corner=Instance.new('UICorner'); corner.CornerRadius=UDim.new(0,1); corner.Parent=stud
                 local border=Instance.new('UIStroke'); border.Color=color:Lerp(ink,.28); border.Thickness=1; border.Transparency=.45; border.Parent=stud
                 local shading=Instance.new('UIGradient'); shading.Color=ColorSequence.new(Color3.new(1,1,1),Color3.fromRGB(185,185,185)); shading.Rotation=90; shading.Parent=stud
-                local highlight=rect(stud,UDim2.fromScale(.09,.06),UDim2.fromScale(.82,.16),color:Lerp(Color3.new(1,1,1),.5)); highlight.BackgroundTransparency=.2
-                local shadow=rect(stud,UDim2.fromScale(.12,.84),UDim2.fromScale(.82,.16),color:Lerp(ink,.42)); shadow.BackgroundTransparency=.15
+                local highlight=rect(stud,UDim2.fromScale(.09,.06),UDim2.fromScale(.82,.16),color:Lerp(Color3.new(1,1,1),.5)); highlight.Name='Highlight'; highlight.BackgroundTransparency=.2
+                local shadow=rect(stud,UDim2.fromScale(.12,.84),UDim2.fromScale(.82,.16),color:Lerp(ink,.42)); shadow.Name='Shadow'; shadow.BackgroundTransparency=.15
                 studs[index]=stud
             end
             local column=(index-1)%columns; local row=math.floor((index-1)/columns)
@@ -66,7 +67,19 @@ function Art.brick(parent: GuiObject,color: Color3)
         for _,property in {'Text','Font','TextSize','TextColor3','TextWrapped','TextXAlignment','TextYAlignment','TextStrokeColor3','TextStrokeTransparency'} do parent:GetPropertyChangedSignal(property):Connect(sync) end
         parent.TextTransparency=1; sync()
     end
-    return art
+    local function recolor(nextColor: Color3)
+        color=nextColor
+        for _,stud in studs do
+            stud.BackgroundColor3=color:Lerp(Color3.new(1,1,1),.14)
+            local border=stud:FindFirstChildOfClass('UIStroke')
+            if border then border.Color=color:Lerp(ink,.28) end
+            local highlight=stud:FindFirstChild('Highlight')
+            local shadow=stud:FindFirstChild('Shadow')
+            if highlight and highlight:IsA('Frame') then highlight.BackgroundColor3=color:Lerp(Color3.new(1,1,1),.5) end
+            if shadow and shadow:IsA('Frame') then shadow.BackgroundColor3=color:Lerp(ink,.42) end
+        end
+    end
+    return art,recolor
 end
 local function preparePortrait(v: ViewportFrame,model: Model,delegatedPreload: boolean?)
     -- Mesh content is not guaranteed to have loaded when a template is cloned.
@@ -90,23 +103,26 @@ function Art.portrait(parent: Instance,speciesId: string,pos: UDim2,size: UDim2,
     if silhouette then v.ImageColor3=Color3.new(0,0,0) end
     preparePortrait(v,model); return v
 end
-function Art.luckyPortrait(parent: Instance,pos: UDim2,size: UDim2,delegatedPreload: boolean?)
+function Art.luckyPortrait(parent: Instance,pos: UDim2,size: UDim2,delegatedPreload: boolean?,baseTier: number?)
     local v=Instance.new('ViewportFrame'); v.Name='LuckyBlockPortrait'; v.Position=pos; v.Size=size; v.BackgroundTransparency=1; v.Ambient=Color3.fromRGB(235,235,235); v.LightColor=Color3.new(1,1,1); v.LightDirection=Vector3.new(-1,-1,-2); v.Parent=parent
     local world=Instance.new('WorldModel'); world.Parent=v
     local model=Instance.new('Model'); model.Name='LuckyBlock'; model.Parent=world
-    local mesh=Factory.prop(model,'LuckyBlock',CFrame.new())
+    local mesh: BasePart?=Factory.prop(model,'LuckyBlock',CFrame.new())
     if not mesh then
-        local cube=Factory.part(model,'GoldenBlock',Vector3.new(3,3,3),CFrame.new(),Color3.fromRGB(255,193,0))
-        for _,face in {Enum.NormalId.Front,Enum.NormalId.Right,Enum.NormalId.Left} do
-            local surface=Instance.new('SurfaceGui'); surface.Face=face; surface.CanvasSize=Vector2.new(128,128); surface.Parent=cube
-            glyph(surface,'?',UDim2.fromScale(.1,.05),UDim2.fromScale(.8,.9),Color3.new(1,1,1))
-        end
+        mesh=Factory.part(model,'GoldenBlock',Vector3.new(3,3,3),CFrame.new(),Color3.fromRGB(255,193,0))
     end
+    model.PrimaryPart=mesh
+    LuckyVisuals.apply(mesh,baseTier)
     preparePortrait(v,model,delegatedPreload)
     local cf,extent=model:GetBoundingBox(); local distance=math.max(extent.X,extent.Y,extent.Z)*2.45
     local camera=v.CurrentCamera
     if camera then camera.CFrame=CFrame.lookAt(cf.Position+Vector3.new(1,.72,-1).Unit*distance,cf.Position) end
     return v
+end
+function Art.setLuckyTier(viewport: ViewportFrame,baseTier: number?)
+    local world=viewport:FindFirstChildOfClass('WorldModel')
+    local model=world and world:FindFirstChild('LuckyBlock')
+    if model and model:IsA('Model') and model.PrimaryPart then LuckyVisuals.apply(model.PrimaryPart,baseTier) end
 end
 function Art.cardPortrait(entry: TextButton,speciesId: string)
     local caption=entry.Text; entry.Text=''

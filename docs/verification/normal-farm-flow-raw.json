@@ -1,0 +1,856 @@
+{
+  "claims": 88,
+  "upgrades": 2,
+  "scope": "Normal shipped Main/controller/server; one staging move, then actual Humanoid walks. No direct gameplay commands.",
+  "phases": [
+    {
+      "name": "airborne-and-held-lucky",
+      "at": 46843.0131583
+    },
+    {
+      "name": "deposit",
+      "at": 46965.8759513
+    },
+    {
+      "name": "standing-claim",
+      "at": 46970.1909514
+    },
+    {
+      "name": "standing-upgrade",
+      "at": 47020.3908673
+    }
+  ],
+  "responses": [
+    {
+      "at": 46844.2120567,
+      "held": false,
+      "action": "CollectNearby",
+      "code": "NothingNearby",
+      "phase": "airborne-and-held-lucky",
+      "level": 0
+    },
+    {
+      "at": 46844.5126387,
+      "held": false,
+      "action": "CollectNearby",
+      "code": "NothingNearby",
+      "phase": "airborne-and-held-lucky",
+      "level": 0
+    },
+    {
+      "at": 46844.7450972,
+      "held": false,
+      "action": "PickupLucky",
+      "code": "TooFar",
+      "phase": "airborne-and-held-lucky",
+      "level": 0
+    },
+    {
+      "at": 46845.3789862,
+      "held": false,
+      "action": "PickupLucky",
+      "code": "OK",
+      "phase": "airborne-and-held-lucky",
+      "level": 0
+    },
+    {
+      "at": 46969.8742252,
+      "held": true,
+      "action": "Deposit",
+      "code": "TooFar",
+      "phase": "deposit",
+      "level": 0
+    },
+    {
+      "at": 46969.9578523,
+      "held": true,
+      "action": "Deposit",
+      "code": "TooFar",
+      "phase": "deposit",
+      "level": 0
+    },
+    {
+      "at": 46970.0076078,
+      "held": true,
+      "action": "Deposit",
+      "code": "TooFar",
+      "phase": "deposit",
+      "level": 0
+    },
+    {
+      "at": 46970.0743619,
+      "held": true,
+      "action": "Deposit",
+      "code": "OK",
+      "phase": "deposit",
+      "level": 0
+    },
+    {
+      "at": 46970.7573946,
+      "held": true,
+      "action": "Claim",
+      "code": "TooFar",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46970.8080066,
+      "held": true,
+      "action": "Claim",
+      "code": "TooFar",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46970.8743676,
+      "held": true,
+      "action": "Claim",
+      "code": "TooFar",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46970.9430973,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46972.9908044,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46973.5402519,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46974.0737536,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46974.640218299995,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46975.1915,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46975.7407075,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46976.2569868,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46976.790904199996,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46977.3237014,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46977.858475299996,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46978.4237147,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46978.9736012,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46979.4903565,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46980.0401807,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46980.540999,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46981.0901797,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46981.790784,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46982.3564917,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46982.890114,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46983.4065684,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46983.9738968,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46984.506972999996,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46985.0073158,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46985.540042399996,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46986.0566886,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46986.5739106,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46987.0902171,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46987.7738709,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46988.3065161,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46988.856363599996,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46989.356632099996,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46989.8895172,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46990.4573409,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46990.9894762,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46991.5400418,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46992.073577099996,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46992.6070961,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46993.2909829,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46993.8063535,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46994.3558318,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46994.890063499995,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46995.4062601,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46995.9066372,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46996.4226898,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46996.9729467,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46997.506681499995,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46998.055908099996,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46998.6230123,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46999.306475,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 46999.8731719,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47000.422697199996,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47000.9559984,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47001.506378699996,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47002.056221499995,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47002.6061127,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47003.2893809,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47003.8059926,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47004.306137499996,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47004.8732406,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47005.422656999996,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47005.989256199995,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47006.5231766,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47007.0389201,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47007.5559589,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47008.1223123,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47008.7896453,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47009.322709299995,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47009.8890037,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47010.4391418,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47010.9726105,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47011.4897836,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47012.0061151,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47012.5558447,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47013.0889251,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47013.8058218,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47014.3395347,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47014.9057902,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47015.4560832,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47015.9885465,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47016.5389727,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47017.072881299995,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47017.6394689,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47018.2388039,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47018.7728346,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47019.3055558,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47019.8395855,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47020.3882428,
+      "held": true,
+      "action": "Claim",
+      "code": "OK",
+      "phase": "standing-claim",
+      "level": 0
+    },
+    {
+      "at": 47021.3223226,
+      "held": true,
+      "action": "Upgrade",
+      "code": "TooFar",
+      "phase": "standing-upgrade",
+      "level": 0
+    },
+    {
+      "at": 47021.3880662,
+      "held": true,
+      "action": "Upgrade",
+      "code": "OK",
+      "phase": "standing-upgrade",
+      "level": 0
+    },
+    {
+      "at": 47023.4215828,
+      "held": true,
+      "action": "Upgrade",
+      "code": "OK",
+      "phase": "standing-upgrade",
+      "level": 1
+    }
+  ],
+  "pass": true,
+  "processorLevel": 2,
+  "coinsBeforeUpgrade": 800,
+  "heldLuckyId": "8aa77a3e-49b0-4046-8c2f-27f47137334f-10",
+  "startedWithStarter": true,
+  "airborneCollections": 92,
+  "bagBeforeDeposit": 100,
+  "heldAirborneCollections": 92,
+  "recordedAtUTC": "2026-10-20 07:30:29 UTC",
+  "sourceCommit": "58c7875",
+  "fixtureNotes": [
+    "The first four-second Buy entry attempt timed out after 14 TooFar responses. The purchase completed later; this successful route resumed from the starter-only state, so it does not claim a fresh Buy-entry pass.",
+    "Boundary TooFar responses in the successful route motivated the later bounded PadHold retry change. This saved run predates that change, Core.step preflight, and blue Lucky styling.",
+    "92 all-flight snapshot collection events while held establish airborne pickup coexisting with the visible nonmodal Lucky card. Counts reflect client observations immediately before command results."
+  ]
+}

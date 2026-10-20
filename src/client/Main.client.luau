@@ -77,7 +77,8 @@ local function send(action: string,values: {string}?)
     local args={HttpService:GenerateGUID(false)}
     if values then for _,v in values do table.insert(args,v) end end
     local miniSpecies={}; if action=='Deposit' then for _,mini in state.bag do for _=1,math.min(3,mini.count or 1) do table.insert(miniSpecies,mini.speciesId) end end end
-    pending={action=action,args=args,sent=os.clock(),count=Economy.count(state.bag),miniSpecies=miniSpecies,discoveries=table.clone(state.discoveries)}
+    pending={action=action,args=args,sent=os.clock(),count=Economy.count(state.bag),miniSpecies=miniSpecies,discoveries=table.clone(state.discoveries),
+        luckyBaseTier=if action=='OpenLucky' and state.lucky then state.lucky.baseTier else nil}
     view:setPending(true); command:FireServer(action,args)
 end
 view.onBuy=function(quantity) send('Buy',{quantity}) end
@@ -162,7 +163,7 @@ result.OnClientEvent:Connect(function(response)
     pending=nil; view:setPending(false)
     if completed.holdKey and completed.holdKey==heldPad.key and response.code~='OK' then
         -- Replication can briefly lag a new entry; other rejections stop held spending until reentry.
-        if response.code=='TooFar' then PadHold.update(heldPad,nil,os.clock()); return end
+        if response.code=='TooFar' then PadHold.retry(heldPad,os.clock()); return end
         PadHold.stop(heldPad)
     end
     if response.code~='OK' then
@@ -185,7 +186,7 @@ result.OnClientEvent:Connect(function(response)
         LuckyEffects.play(view.gui,function()
             revealingLuckySpecies=nil
             showDiscovery(response.speciesId,not completed.discoveries[response.speciesId])
-        end)
+        end,completed.luckyBaseTier)
     elseif response.action=='Rebirth' then view:close(); view:clearSelection(); view:notice('Rebirth complete! Your earnings and bulk-buy unlocks increased.')
     else view:clearSelection(); if not view:isLuckyOpen() and not view:isSettingsOpen() then view:close() end; view:notice('Merged '..(response.count or 1)..' pairs!') end
 end)
