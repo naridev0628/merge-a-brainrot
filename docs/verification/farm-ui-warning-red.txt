@@ -1,0 +1,10 @@
+										22937 tab item (settable, string) FarmUI
+										23023 tree item (settable, string) Players.NEH4A.PlayerScripts.Controllers.FarmUI
+										23024 tree item (settable, string) Type Error: (43,9) Value of type 'Tween?' could be nil
+										23025 tree item (settable, string) Type Error: (416,8) Type "FinishNow" | "Lucky" | "Pass" cannot be compared with "Buy"
+										23026 tree item (settable, string) Type Error: (417,12) Type "FinishNow" | "Lucky" | "Pass" cannot be compared with "Deposit"
+										23027 tree item (settable, string) Type Error: (418,12) Type "FinishNow" | "Lucky" | "Pass" cannot be compared with "Claim"
+										23028 tree item (settable, string) Type Error: (419,12) Type "FinishNow" | "Lucky" | "Pass" cannot be compared with "Upgrade"
+										23029 tree item (settable, string) Type Error: (537,77) Key 'TextScaled' not found in external type 'Instance'
+									112 check box (settable, string) 0 of 0 Errors ID: RBXMainWindow.RootWidget.Layout0.Layout3.FixedSplitLayoutSouth0.Layout27.scriptAnalysisPanel.ScriptingAnalysisWidget.ErrorsToolButton
+									114 check box (settable, string) 6 of 6 Warnings ID: RBXMainWindow.RootWidget.Layout0.Layout3.FixedSplitLayoutSouth0.Layout27.scriptAnalysisPanel.ScriptingAnalysisWidget.WarningsToolButton

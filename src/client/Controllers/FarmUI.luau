@@ -39,8 +39,9 @@ local function button(parent: Instance,name: string,label: string,color: Color3)
     local hovering=false; local pressed=false; local motion: Tween?=nil
     local function animate()
         if motion then motion:Cancel() end
-        motion=TweenService:Create(scale,TweenInfo.new(.12,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Scale=if pressed then .97 elseif hovering then 1.05 else 1})
-        motion:Play()
+        local nextMotion=TweenService:Create(scale,TweenInfo.new(.12,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Scale=if pressed then .97 elseif hovering then 1.05 else 1})
+        motion=nextMotion
+        nextMotion:Play()
     end
     b.MouseEnter:Connect(function() if b.AutoButtonColor then hovering=true; animate() end end)
     b.MouseLeave:Connect(function() hovering=false; pressed=false; animate() end)
@@ -413,14 +414,9 @@ function UI.setShopInfo(self: any,info: any) self.shopInfo=info; self:refreshBoo
 function UI.act(self: any)
     if self.pending or self:isOpen() then return end
     if self.context~='Pass' and self.context~='Lucky' and self.context~='FinishNow' then return end
-    if self.context=='Buy' then self.onBuy(self.quantity)
-    elseif self.context=='Deposit' then self.onDeposit()
-    elseif self.context=='Claim' then self.onClaim()
-    elseif self.context=='Upgrade' then self.onUpgrade()
-    elseif self.context=='Pass' then self.onPass(self.quantity)
+    if self.context=='Pass' then self.onPass(self.quantity)
     elseif self.context=='Lucky' then self:open('Lucky')
-    elseif self.context=='FinishNow' then self:notice('Finish now is coming soon.')
-    elseif self.context=='Merge' then self:toggleMerge() end
+    elseif self.context=='FinishNow' then self:notice('Finish now is coming soon.') end
 end
 function UI.setContext(self: any,kind: string?,quantity: string?)
     self.context=kind; self.quantity=quantity or '1'
@@ -534,7 +530,7 @@ function UI.drawMerge(self: any)
             local b=card(key,pass.name..'\n'..price,colors[key],i,function() if not owned and available then self.onPass(key) end end)
             b.TextColor3=Color3.new(1,1,1); b.TextStrokeTransparency=1; b.TextStrokeColor3=C.navy; b.TextSize=20
             Art.brick(b,colors[key]); b.AutoButtonColor=available and not owned
-            local caption=b:FindFirstChild('BrickCaption'); if caption then caption.TextScaled=true; local limit=Instance.new('UITextSizeConstraint');limit.MaxTextSize=23;limit.MinTextSize=12;limit.Parent=caption end
+            local caption=b:FindFirstChild('BrickCaption'); if caption and caption:IsA('TextLabel') then caption.TextScaled=true; local limit=Instance.new('UITextSizeConstraint');limit.MaxTextSize=23;limit.MinTextSize=12;limit.Parent=caption end
         end
         if self.mode=='Upgrade' then
             local info=self.shopInfo[self.upgradeKey]; self.eligible=info and info.forSale or false

@@ -1,5 +1,5 @@
 {
-  "updatedAtUTC": "2026-10-20T11:17:25Z",
+  "updatedAtUTC": "2026-10-20T11:25:32Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
@@ -7,11 +7,10 @@
   "studioId": "ef89b65f-2f6a-4fe7-8272-bae9e8007fd1",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Normal Play: c0204a1 plus verified Settings/pad-index/shared-types batch",
+    "mode": "Normal Play: dea3690 plus verified FarmUI strict cleanup",
     "mainScripts": "Both enabled",
-    "harnessCleanup": "Fresh Play, no temporary UI, HUD enabled, Custom camera, health100",
-    "productionSync": "80/80 hashes plus 80/80 saved Studio XML sources match",
-    "currentTrial": "Verified batch ready for commit; next FarmUI warning cleanup"
+    "productionSync": "80/80 native and saved XML sources match",
+    "currentTrial": "Verified FarmUI batch ready to commit; lower-row nameplate prototype under study"
   },
   "candidateConfig": {
     "producerSlots": 50,
@@ -260,7 +259,7 @@
     "leaderboardFacesCLI": "PASS",
     "frozenSnapshotProbeSourceFile": "docs/verification/capacity-96-snapshot-toggle-2026-10-20.json"
   },
-  "latestVerifiedCommit": "c0204a1",
+  "latestVerifiedCommit": "dea3690",
   "newBatchEvidence": {
     "status": "Gameplay/allocation/Lucky/shelf batch committed/pushed as 0059fb2. Subsequent canopy/hub/packet batch committed/pushed as 4d4fd29, synced and natively verified.",
     "normalFarmFlow": {
@@ -752,5 +751,6 @@
     "savedSourceMatches": 80,
     "gates": "44 suites,80 compile/parity,2163 layouts,native regressions,peer,Rojo,diff",
     "limitations": "Synthetic UI input and virtual viewport checks; broader697 Studio warnings; no new FPS/memory/capacity acceptance"
-  }
+  },
+  "farmUIStrictEvidence": "docs/verification/farm-ui-strict-native.json"
 }

@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-10-20 11:17 UTC",
+  "recordedAt": "2026-10-20T11:25:03.026Z",
   "algorithm": "DJB2 UTF-8, CRLF normalized to LF",
   "sources": [
     {
@@ -53,8 +53,8 @@
     {
       "path": "src/client/Controllers/FarmUI.luau",
       "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.FarmUI",
-      "bytes": 51746,
-      "hash": 3063894368
+      "bytes": 51529,
+      "hash": 2101360183
     },
     {
       "path": "src/client/Controllers/FeedbackAudio.luau",
@@ -483,13 +483,5 @@
       "hash": 3606643184
     }
   ],
-  "studioResult": {
-    "content": [
-      {
-        "type": "text",
-        "text": "{\"count\":80,\"paths\":[\"src/client/Controllers/AudioConfig.luau\",\"src/client/Controllers/AudioLoadCache.luau\",\"src/client/Controllers/AudioPreloader.luau\",\"src/client/Controllers/BrickArt.luau\",\"src/client/Controllers/CashEffects.luau\",\"src/client/Controllers/Conveyor.luau\",\"src/client/Controllers/DepositEffects.luau\",\"src/client/Controllers/DiscoveryEffects.luau\",\"src/client/Controllers/FarmUI.luau\",\"src/client/Controllers/FeedbackAudio.luau\",\"src/client/Controllers/IndexPanel.luau\",\"src/client/Controllers/LeaderboardFooter.luau\",\"src/client/Controllers/Locale.luau\",\"src/client/Controllers/LuckyCarryPose.luau\",\"src/client/Controllers/LuckyEffects.luau\",\"src/client/Controllers/LuckyPanel.luau\",\"src/client/Controllers/MultiplierCue.luau\",\"src/client/Controllers/MusicController.luau\",\"src/client/Controllers/ObbyHUD.luau\",\"src/client/Controllers/PadLabels.luau\",\"src/client/Controllers/PickupAudio.luau\",\"src/client/Controllers/Preferences.luau\",\"src/client/Controllers/PurchaseEffects.luau\",\"src/client/Controllers/RebirthPanel.luau\",\"src/client/Controllers/SettingsPanel.luau\",\"src/client/Controllers/Sprint.luau\",\"src/client/Controllers/TierEffects.luau\",\"src/client/Controllers/TutorialGuide.luau\",\"src/client/Controllers/UpgradeEffects.luau\",\"src/client/Controllers/VisualLifecycle.luau\",\"src/client/Controllers/VisualQueue.luau\",\"src/client/Controllers/VisualRuntime.luau\",\"src/client/Main.client.luau\",\"src/server/Domain/FarmCore.luau\",\"src/server/Domain/ObbyRun.luau\",\"src/server/Domain/RateLimiter.luau\",\"src/server/Domain/SnapshotPacket.luau\",\"src/server/Main.server.luau\",\"src/server/Services/LeaderboardDisplay.luau\",\"src/server/Services/LuckyCarry.luau\",\"src/server/Services/MultiplierDisplay.luau\",\"src/server/Services/ObbyService.luau\",\"src/server/Services/PassService.luau\",\"src/server/Services/WorldBuilder.luau\",\"src/shared/AnimationVisibility.luau\",\"src/shared/BrickStudOcclusion.luau\",\"src/shared/ClientPreferences.luau\",\"src/shared/Config.luau\",\"src/shared/ConveyorFacade.luau\",\"src/shared/CreatureCatalog.luau\",\"src/shared/DisplayShelves.luau\",\"src/shared/Economy.luau\",\"src/shared/EnvironmentArt.luau\",\"src/shared/FarmCapacity.luau\",\"src/shared/FarmLandmarks.luau\",\"src/shared/HubScenery.luau\",\"src/shared/HubStudOcclusion.luau\",\"src/shared/LuckyAppearance.luau\",\"src/shared/LuckyBlockVisuals.luau\",\"src/shared/MapSpec.luau\",\"src/shared/MiniEvent.luau\",\"src/shared/MiniMotion.luau\",\"src/shared/MiniNeighborIndex.luau\",\"src/shared/ModelFactory.luau\",\"src/shared/MultiplierCuePresentation.luau\",\"src/shared/ObbyConfig.luau\",\"src/shared/ObbyCourse.luau\",\"src/shared/ObbyPresentation.luau\",\"src/shared/PadGeometry.luau\",\"src/shared/PadHold.luau\",\"src/shared/PadLabelLayout.luau\",\"src/shared/PadTargeting.luau\",\"src/shared/PassConfig.luau\",\"src/shared/PickupGeometry.luau\",\"src/shared/ProductionInfo.luau\",\"src/shared/StallDecor.luau\",\"src/shared/StarterPad.luau\",\"src/shared/TextStyle.luau\",\"src/shared/Tutorial.luau\",\"src/shared/FarmerBooth.luau\"]}"
-      }
-    ],
-    "isError": false
-  }
+  "studioResult": "PASS 80/80 native Server source hashes"
 }
