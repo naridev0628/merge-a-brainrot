@@ -1,10 +1,10 @@
-# Build status — 2026-10-19
+# Build status â€” 2026-10-19
 
 Current work is on `codex/stacked-brainrot-farm`, based on `codex/first-playable`, in draft PR #2. The latest pass adds walk-on farm actions, aura pickup, merge-all, rising prices, compact high-capacity storage, rebirth-tier bulk purchases, a 90-second Mini Multiplier, a reference-shaped hub and plots, leaderboard styling and original scenery. See [current verification](verification/SEAMLESS_FARM.md) and [economy benchmark](verification/ECONOMY_PACE.md).
 
 Build `default.project.json` to `build/MergeABrainrot-StackedFarm.rbxlx` and press Play. Memory only: progress resets on Stop. First rebirth is now $25,000 plus Level 6. Processor upgrades start at $10. Buy 5/10 are available immediately; Buy 100 starts at rebirth 1 and advances the species on that same pad. Ground cash bundles clear after two seconds.
 
-Eleven new original characters, eleven matching Minis and three stall props include Blender source, GLBs and previews. The new character packs await Roblox import and progression assignment; the three stall props already render as native parts derived from their Blender layout.
+Eleven new original characters and eleven matching Minis are imported into Roblox with both palette textures. All 22 templates are saved under `assets/characters/expansion_roblox`, mapped to `ReplicatedStorage.ExpansionModels`, and verified to load in Edit and Play. All eleven Mini variants appear across 36 farmer-crate decorations. Main characters are reusable templates; assigning new gameplay tiers is separate from this import. Three stall props render as native parts derived from their Blender layout. Editable Blender sources, GLBs and previews remain included.
 
 Pending release work: saving, global rankings, configured purchases/group reward, friend boost, real multiplayer/device load tests and final-owner asset permissions. A user-supplied water texture is still pending. Collaborator invitation and Mac verification remain pending. No live experience was published.
 

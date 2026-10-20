@@ -38,7 +38,9 @@ The shared character/Skibidi palette is `BrainrotPalette.png`; the map kit also 
 
 ## Roblox mapping
 
-`default.project.json` maps `characters/roblox` to `ReplicatedStorage.CharacterModels` and `map/roblox` to `ReplicatedStorage.MapModels`. Each `.model.json` stores its mesh ID, texture ID, imported size, and anchored/non-colliding properties. `src/shared/ModelFactory.luau` clones these templates. Mini geometry is exported at its source size and scaled to 0.42 by the producer factory.
+`default.project.json` maps `characters/roblox` to `ReplicatedStorage.CharacterModels`, `characters/expansion_roblox` to `ReplicatedStorage.ExpansionModels`, and `map/roblox` to `ReplicatedStorage.MapModels`. Each `.model.json` stores its mesh ID, texture ID, imported size, and anchored/non-colliding properties. `src/shared/ModelFactory.luau` clones these templates. Legacy production Minis use a 0.42 scale. The eleven expansion Minis are already two studs high before plot/decoration scaling and do not use that legacy factor.
+
+The expansion adds eleven main/Mini pairs: Fluriflura, GorilloSubwoofero, LiriliLarila, NoobiniPizzanini, OdinDinDinDun, PipiPotato, RaccooniJandelini, TalpaDiFero, TimCheese, ToilettoFocaccino and TukannoBananno. All 22 were imported and verified textured in Studio. Their cloud IDs and dimensions are recorded in [the expansion manifest](characters/expansion_import/asset-manifest.json). All eleven Mini variants are used across the farmer crates. Main templates are available without changing the current six production tiers.
 
 Character filenames below omit the common `.model.json` suffix. Main and Mini IDs are separate uploads even when they share a palette.
 
@@ -105,6 +107,6 @@ When moving ownership or publishing elsewhere, import the local GLBs under the i
 
 ## 2026-10-19 expansion packs and stall detail
 
-`characters/expansion_a/ExpansionACharacters.blend` contains Noobini Pizzanini, LirilÏ Laril‡, Tim Cheese, Fluriflura, Talpa Di Fero, Raccooni Jandelini and Pipi Potato. `characters/expansion_b/ExpansionBCharacters.blend` contains Gorillo Subwoofero, Toiletto Focaccino, Odin Din Din Dun and Tukanno Bananno. Each has a matching Mini, GLB exports, palette, previews and geometry statistics. These eleven characters are original reference-based models, not extracted game assets. Their separate READMEs document sources and validation. They are not yet uploaded to Roblox or assigned production tiers.
+`characters/expansion_a/ExpansionACharacters.blend` contains Noobini Pizzanini, Liril√¨ Laril√†, Tim Cheese, Fluriflura, Talpa Di Fero, Raccooni Jandelini and Pipi Potato. `characters/expansion_b/ExpansionBCharacters.blend` contains Gorillo Subwoofero, Toiletto Focaccino, Odin Din Din Dun and Tukanno Bananno. Each has a matching Mini, GLB exports, palette, previews and geometry statistics. These eleven characters are original reference-based models, not extracted game assets. Their separate READMEs document sources and validation. All 22 main/Mini meshes are uploaded to Roblox with textures and saved in expansion_roblox. New production tiers remain unassigned; all eleven Mini variants are used in farmer crates.
 
 `map/stall_props/StallProps.blend` contains KeyCrate, ShippingCrate and CashStash. The crate holds varied existing Minis at runtime. `tools/build_stall_runtime.py` converts `layout.json` from the Blender generator into `src/shared/StallDecor.luau`; these 201 native primitive parts are already integrated in each plot without new asset uploads. `EnvironmentArt.luau` supplies three original gradient tree shapes, an octagonal island and red/white lighthouse.

@@ -89,9 +89,12 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
         local crateCF=CFrame.new(x,0,-39)*CFrame.Angles(0,math.pi,0)
         Decor.place(root,'KeyCrate',crateCF,1.25)
         for n=1,3 do
-            local species=Catalog[string.format('tier_%02d',(index+n)%6+1)]
-            local mini=Factory.producer(root,'CrateMini',species,Vector3.new(x+(n-2)*1.1,1,-39),true)
-            mini:PivotTo(mini:GetPivot()*CFrame.Angles(0,math.pi+(n-2)*.3,0))
+            local key=Factory.expansionKeys[((id-1)*6+(index-1)*3+n-1)%#Factory.expansionKeys+1]
+            local miniCF=CFrame.new(x+(n-2)*1.1,0,-39)*CFrame.Angles(0,math.pi,0)
+            local mini=Factory.expansion(root,key,miniCF,true)
+            -- Fit broad silhouettes into individual crate slots, with heads above the rim.
+            mini.Size*=math.min(1,1.05/mini.Size.X)
+            mini.CFrame=miniCF*CFrame.new(0,3-mini.Size.Y/2,0)
         end
     end
     Decor.place(root,'CashStash',CFrame.new(38,0,-35)*CFrame.Angles(0,.3,0),.9)

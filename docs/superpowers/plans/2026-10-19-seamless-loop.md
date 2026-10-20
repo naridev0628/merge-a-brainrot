@@ -20,9 +20,9 @@ Review focus: bulk quote vs actual charge; merging must not reduce prices; aura 
 - Compact bag and processor batches hold millions without per-item allocation; queue timing/FIFO and upgrade retiming have regressions.
 - Buy 5/10 require no rebirth. Buy 100 advances the species one tier per rebirth on the existing pad.
 - Octagonal hub, circular center, six bridges, T-shaped plot, taller producer rows, three gradient tree shapes, corner lighthouse and Blender-derived stall detail.
-- Server-owned 90-second 0.50–1.50x Mini event with 0.10–0.30 moves and fractional production carry.
+- Server-owned 90-second 0.50â€“1.50x Mini event with 0.10â€“0.30 moves and fractional production carry.
 - Three reference-styled wood leaderboards with avatars, rank medal colors, colored headings and personalized bracketed values.
-- Eleven original Blender main/Mini pairs delivered as asset packs; Roblox import/tier assignment remain explicit follow-up work.
+- Eleven original Blender main/Mini pairs imported into Roblox with textures, saved as Rojo templates, and verified in Studio. All eleven Mini variants populate farmer crates. New gameplay-tier assignment remains separate follow-up work.
 - White upgrade rate label, larger green price, and eight cash bundles with sparks that disappear in two seconds.
 
 Verification evidence is tracked in `docs/verification/SEAMLESS_FARM.md`. Group reward is a labeled Coming soon board until a group/reward configuration exists. Current-server rankings do not claim persistent global data. No live publish.

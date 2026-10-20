@@ -3,6 +3,24 @@
 local Factory={}
 local cream=Color3.fromRGB(255,241,209)
 local dark=Color3.fromRGB(39,27,22)
+Factory.expansionKeys={
+    'Fluriflura','GorilloSubwoofero','LiriliLarila','NoobiniPizzanini',
+    'OdinDinDinDun','PipiPotato','RaccooniJandelini','TalpaDiFero',
+    'TimCheese','ToilettoFocaccino','TukannoBananno',
+}
+-- Expansion Minis are already exported at two studs tall; do not apply the legacy .42 scale.
+function Factory.expansion(parent: Instance,key: string,cf: CFrame,mini: boolean?): MeshPart
+    local templates=game:GetService('ReplicatedStorage'):WaitForChild('ExpansionModels')
+    local template=templates:FindFirstChild(key..(if mini then '_Mini' else ''))
+    assert(template and template:IsA('MeshPart'),'Missing imported expansion character: '..key)
+    local mesh=template:Clone()
+    mesh.Name=if mini then 'CrateMini' else key
+    mesh:SetAttribute('CharacterKey',key)
+    mesh.CFrame=cf*CFrame.new(0,mesh.Size.Y/2,0)
+    mesh.Anchored=true;mesh.CanCollide=false;mesh.CanTouch=false;mesh.CanQuery=false
+    mesh.Parent=parent
+    return mesh
+end
 function Factory.prop(parent: Instance,name: string,cf: CFrame,scale: number?): MeshPart?
     local templates=game:GetService('ReplicatedStorage'):FindFirstChild('MapModels')
     local template=templates and templates:FindFirstChild(name)

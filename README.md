@@ -2,7 +2,7 @@
 
 Six-player, memory-only Roblox Studio prototype with six Brainrot tiers, stacked farms, timed Mini processing, automatic merging, Lucky Blocks and rebirth. Source files in Git are the source of truth. No live experience has been published.
 
-Start with $5 and walk onto BUY 1 to get TungTung. Producers make Minis on a six-second cycle, adjusted by the shared 0.50–1.50x Mini Multiplier. Nearby ready Minis enter your bag automatically. Walk onto the farmer's deposit pad, collect processed cash, buy another TungTung, and step onto MERGE to combine all available pairs. Buy 5 and Buy 10 need no rebirth. Buy 100 unlocks at rebirth 1 and advances one species tier per rebirth on the same pad.
+Start with $5 and walk onto BUY 1 to get TungTung. Producers make Minis on a six-second cycle, adjusted by the shared 0.50â€“1.50x Mini Multiplier. Nearby ready Minis enter your bag automatically. Walk onto the farmer's deposit pad, collect processed cash, buy another TungTung, and step onto MERGE to combine all available pairs. Buy 5 and Buy 10 need no rebirth. Buy 100 unlocks at rebirth 1 and advances one species tier per rebirth on the same pad.
 
 Purchases gradually cost more, even after merging. The first processor upgrade costs $10. First rebirth requires $25,000 and an owned Level 6 Brainrot. Shift and touch Sprint are supported. There is no welcome modal or interaction-key requirement for farm pads.
 
@@ -16,6 +16,6 @@ rojo build default.project.json -o build/MergeABrainrot-StackedFarm.rbxlx
 
 Create `build/` first, open the generated place in Studio and press Play. The map generates at runtime. For editing use `rojo serve default.project.json` and connect the Studio Rojo plugin. Run non-Studio `tests/*.luau` with Luau 0.743, and `tests/studio-layout.client.luau` in Studio Client during Play.
 
-Progress resets on Stop. Persistence, global leaderboards, group rewards, friend boosts and configured monetization remain pending. Paid offers show Coming soon. Eleven additional original Blender characters and their Minis are supplied as editable asset packs; they are not yet imported or assigned gameplay tiers.
+Progress resets on Stop. Persistence, global leaderboards, group rewards, friend boosts and configured monetization remain pending. Paid offers show Coming soon. Eleven additional original Blender characters and eleven matching Minis are imported with textures in `ReplicatedStorage.ExpansionModels`; their saved templates ship in every Rojo build. All eleven Mini variants decorate the farmer crates. These assets are available for future progression; the existing six gameplay tiers remain unchanged.
 
 See [current verification](docs/verification/SEAMLESS_FARM.md), [economy benchmark](docs/verification/ECONOMY_PACE.md), [asset sources](assets/README.md), and [setup](docs/SETUP.md). The original handoff remains unchanged in `Merge_a_Brainrot_Pack/`; subsequent explicit user requests govern this prototype.
