@@ -4,6 +4,7 @@
 local Core=require('../src/server/Domain/FarmCore')
 local Config=require('../src/shared/Config')
 local Catalog=require('../src/shared/CreatureCatalog')
+local Economy=require('../src/shared/Economy')
 
 local function clock(seconds)
     return string.format('%02d:%02d:%05.2f',math.floor(seconds/3600),math.floor(seconds/60)%60,seconds%60)
@@ -41,7 +42,7 @@ local function simulate(label,continueGrowing,useUpgrades)
         if result.code=='RequestLimit' then failure='RequestLimit' end
         if result.code=='OK' then
             if action=='Buy' then purchased+=1 end
-            if action=='Merge' then merges+=1 end
+            if action=='AutoMerge' then merges+=result.count or 0 end
             if action=='Claim' then grossUnits+=result.creditUnits end
             record()
         end
@@ -51,31 +52,19 @@ local function simulate(label,continueGrowing,useUpgrades)
     advance(2) -- Buy pad to tray.
     local firstHarvest=true
     while now<48*3600 and not failure do
-        -- Walk through the compact tray. The three-per-cadence pickup ceiling
-        -- matches the client; each position is on the ground beside that mini.
+        -- One aura request collects the currently settled pile at walking distance.
         local count=0
-        while true do
-            local picked=0
-            for _=1,3 do
-                local chosen=nil
-                for _,token in session.state.tokens do
-                    if token.readyAt<=now then chosen=token; break end
-                end
-                if not chosen or #session.state.bag>=Config.BagCap then break end
-                assert(command('Collect',{chosen.id},chosen.x,chosen.z)=='OK')
-                picked+=1; count+=1; collected+=1
-            end
-            if picked>0 then advance(Config.Cadence) end
-            if #session.state.bag>=Config.BagCap then break end
-            if picked==0 then
-                if (firstHarvest and count<3) or count==0 then advance(Config.Cadence)
-                else break end
-            end
-        end
+        repeat
+            local before=Economy.count(session.state.bag)
+            command('CollectNearby',{},0,Config.TrayZ)
+            local picked=Economy.count(session.state.bag)-before
+            count+=picked; collected+=picked
+            advance(Config.Cadence)
+        until (firstHarvest and count>=3) or (not firstHarvest and count>0)
         firstHarvest=false
         advance(2) -- Tray to processor intake.
-        local blockedThisTrip=false
-        while #session.state.bag+#session.state.saleQueue>Config.SaleCapacity do
+        local blockedThisTrip=Economy.count(session.state.saleQueue)>Config.ProcessorRates[session.state.processorLevel+1]*8
+        while Economy.count(session.state.bag)+Economy.count(session.state.saleQueue)>Config.SaleCapacity do
             advance(Config.Cadence); depositWait+=Config.Cadence; blockedThisTrip=true
         end
         assert(command('Deposit',{},Config.SellX,Config.SellZ)=='OK' or failure)
@@ -97,7 +86,7 @@ local function simulate(label,continueGrowing,useUpgrades)
         -- affordable processor upgrade before buying more producers. One upgrade
         -- per affected trip lets the next circuit expose whether it was enough.
         local upgradeCost=Config.ProcessorCosts[session.state.processorLevel+1]
-        if useUpgrades and blockedThisTrip and upgradeCost and session.state.coinUnits>=upgradeCost then
+        if useUpgrades and (blockedThisTrip or (milestones[2] and session.state.processorLevel==0)) and upgradeCost and session.state.coinUnits>=upgradeCost then
             advance(2) -- Additional payout-to-upgrade station visit.
             assert(command('Upgrade',{},Config.UpgradeX,Config.UpgradeZ)=='OK' or failure)
             if not failure then
@@ -108,26 +97,16 @@ local function simulate(label,continueGrowing,useUpgrades)
         end
         advance(2) -- Payout to the single-buy pad.
         if continueGrowing or not milestones[6] then
-            while session.state.coinUnits>=Config.BuyUnits and #session.state.producers<Config.Slots do
+            while session.state.coinUnits>=Economy.buyCost(session.state.purchased,1) and #session.state.producers<Config.Slots do
                 assert(command('Buy',{'1'},Config.BuyPads['1'],Config.BuyZ)=='OK' or failure)
                 if failure then break end
-                advance(Config.Cadence)
+                advance(.8) -- Step off and return to the buy pad.
             end
         end
         advance(2) -- Buy pad to merge area.
         if continueGrowing or not milestones[6] then
-            while not failure do
-                local seen={}; local first=nil; local second=nil
-                for _,producer in session.state.producers do
-                    if Catalog[producer.speciesId].nextId then
-                        if seen[producer.speciesId] then first=seen[producer.speciesId]; second=producer.id; break end
-                        seen[producer.speciesId]=producer.id
-                    end
-                end
-                if not first then break end
-                assert(command('Merge',{first,second},0,36)=='OK' or failure)
-                advance(Config.Cadence)
-            end
+            command('AutoMerge',{},Config.MergeX,Config.MergeZ)
+            advance(.6)
         end
         advance(2) -- Merge area back to tray.
     end
@@ -135,6 +114,6 @@ local function simulate(label,continueGrowing,useUpgrades)
 end
 
 print('Live config: buy $'..Config.BuyUnits/4 ..', interval '..Config.Interval..'s, transit '..Config.TransitSeconds..'s, processor '..Config.ProcessorRates[1]..'/s, rebirth $'..Config.RebirthBase/4)
-simulate('save-after-first-tier6',false)
-simulate('keep-growing',true)
-simulate('grow-and-upgrade-on-backlog',true,true)
+-- Saving without expansion is intentionally omitted from the active growth benchmark.
+-- Growth-only results are retained in the audit; this run tests saving for rebirth.
+simulate('save-for-rebirth-with-upgrades',false,true)

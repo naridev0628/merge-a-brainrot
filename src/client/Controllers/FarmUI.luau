@@ -2,6 +2,7 @@
 local Shared=game:GetService('ReplicatedStorage'):WaitForChild('Shared')
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
 local Config=require(Shared:WaitForChild('Config'))
+local Economy=require(Shared:WaitForChild('Economy'))
 local Tutorial=require(Shared:WaitForChild('Tutorial'))
 local PassConfig=require(Shared:WaitForChild('PassConfig'))
 local Art=require(script.Parent:WaitForChild('BrickArt'))
@@ -79,8 +80,10 @@ function UI.new(parent: Instance)
     local totalGradient=Instance.new('UIGradient'); totalGradient.Rotation=90; totalGradient.Color=ColorSequence.new(Color3.fromRGB(255,249,188),Color3.fromRGB(255,203,68)); totalGradient.Parent=self.total
     self.bag=Instance.new('Frame'); self.bag.Name='MiniBag'; self.bag.BackgroundTransparency=1; self.bag.Parent=root; Art.basket(self.bag)
     self.bagText=text(self.bag,'Count',32,C.cream); self.bagText.Size=UDim2.fromScale(.60,.32); self.bagText.Position=UDim2.fromScale(.20,.60); self.bagText.TextStrokeTransparency=0; self.bagText.ZIndex=4
+    self.bagText.TextScaled=true
+    local countSize=Instance.new('UITextSizeConstraint'); countSize.MinTextSize=12; countSize.MaxTextSize=32; countSize.Parent=self.bagText
     local bagCaption=text(self.bag,'Caption',23,C.cream); bagCaption.Text='Minis'; bagCaption.Position=UDim2.fromScale(.12,.30); bagCaption.Size=UDim2.fromScale(.76,.25); bagCaption.TextStrokeTransparency=0; bagCaption.ZIndex=4
-    self.bagValue=text(self.bag,'Value',16,C.green); self.bagValue.Size=UDim2.new(1,40,0,24); self.bagValue.Position=UDim2.new(0,-20,1,0); self.bagValue.TextStrokeTransparency=0; self.bagValue.ZIndex=4
+    self.bagValue=text(self.bag,'Value',16,C.green); self.bagValue.Size=UDim2.new(1,40,0,24); self.bagValue.Position=UDim2.new(0,-20,1,0); self.bagValue.TextStrokeTransparency=0; self.bagValue.ZIndex=4; self.bagValue.Visible=false
     self.title=text(root,'TutorialTitle',28,C.blue); self.title.TextStrokeTransparency=0; self.title.TextStrokeColor3=C.navy
     self.objective=text(root,'Objective',24,Color3.new(1,1,1)); self.objective.TextStrokeTransparency=0; self.objective.TextStrokeColor3=C.navy
     self.hint=text(root,'Hint',16,Color3.new(1,1,1)); self.hint.TextStrokeTransparency=0; self.hint.TextStrokeColor3=C.navy
@@ -169,7 +172,7 @@ function UI.resize(self: any)
     self.cashPlus.Position=UDim2.new(0,amountWidth+14,.5,-plusSize/2); self.cashPlus.Size=UDim2.fromOffset(plusSize,plusSize)
     self.multiplier.Position=UDim2.new(0,amountWidth+plusSize+22,0,0); self.multiplier.Size=UDim2.new(0,multiplierWidth,1,0); self.multiplier.TextSize=if compactCash then 16 else 24; self.multiplier.Visible=true
     self.cashFog.Position=self.multiplier.Position; self.cashFog.Size=self.multiplier.Size
-    self.bag.Size=UDim2.fromOffset(if phone or short then 126 else 178,if phone or short then 102 else 145); self.bag.AnchorPoint=Vector2.new(.5,1); self.bag.Position=UDim2.new(if phone then .78 else .5,0,1,if phone then -250 else -44); self.bagText.TextSize=if short then 25 else 32
+    self.bag.Size=UDim2.fromOffset(if phone or short then 126 else 178,if phone or short then 102 else 145); self.bag.AnchorPoint=Vector2.new(.5,1); self.bag.Position=UDim2.new(if phone then .78 else .5,0,1,if phone then -250 else -44)
     self.total.AnchorPoint=Vector2.new(1,1); self.total.Position=UDim2.new(1,-12,1,if phone then -103 else -25); self.total.Size=UDim2.fromOffset(if phone then 210 elseif short then 230 else 330,30); self.total.TextSize=if phone then 18 elseif short then 20 else 25
     local w=math.min(size.X-(if phone then 24 else 300),520)
     for _,l in {self.title,self.objective,self.hint} do l.AnchorPoint=Vector2.new(.5,0); l.Size=UDim2.fromOffset(w,if l==self.hint then 34 else 36) end
@@ -179,7 +182,7 @@ function UI.resize(self: any)
     local actionHeight=if phone or short then 62 else 86
     self.actions.Size=UDim2.fromOffset(actionWidth,3*(actionHeight+8)); self.actions.Position=UDim2.new(1,-actionWidth-12,0,if short then 65 else 140)
     for i,b in {self.mergeButton,self.indexButton,self.rebirthButton} do b.Size=UDim2.new(1,0,0,actionHeight); b.Position=UDim2.fromOffset(0,(i-1)*(actionHeight+8)); b.TextSize=if short or phone then 16 else 23 end
-    self.mergeButton.Text='Merge'
+    self.mergeButton.Text='Merge pad'
     self.boostButton.Position=UDim2.fromOffset(12,if short then 74 else 150); self.boostButton.Size=UDim2.fromOffset(if phone or short then 112 else 175,if short then 85 else 120); self.boostButton.TextSize=if short or phone then 26 else 36
     self.boostPrice.Position=self.boostButton.Position+UDim2.fromOffset(0,self.boostButton.Size.Y.Offset+5); self.boostPrice.Size=UDim2.fromOffset(self.boostButton.Size.X.Offset,22); self.boostPrice.TextSize=if phone or short then 14 else 18
     self.autoButton.Position=UDim2.fromOffset(12,if short then 194 else 310); self.autoButton.Size=UDim2.fromOffset(if phone or short then 90 else 130,44)
@@ -236,7 +239,7 @@ function UI.clearSelection(self: any) self.selected={}; self.signature=nil; self
 function UI.isOpen(self: any): boolean return self.overlay.Visible end
 function UI.close(self: any) self.overlay.Visible=false; self:setContext(self.context,self.quantity) end
 function UI.open(self: any,mode: string) self.mode=mode; self.overlay.Visible=true; self.toast.Visible=false; self.signature=nil; self:resize(); self:drawMerge(); self:setContext(self.context,self.quantity) end
-function UI.toggleMerge(self: any) if self:isOpen() and self.mode=='Merge' then self:close() else self:open('Merge') end end
+function UI.toggleMerge(self: any) self.onMerge() end
 function UI.offerUpgrade(self: any,multiplier: number)
     self:notice(tostring(multiplier)..'x Cash is active!')
 end
@@ -249,6 +252,7 @@ end
 function UI.setShopInfo(self: any,info: any) self.shopInfo=info; self:refreshBoostPrice(); self.signature=nil; self:drawMerge() end
 function UI.act(self: any)
     if self.pending or self:isOpen() then return end
+    if self.context~='Pass' and self.context~='Lucky' and self.context~='FinishNow' then return end
     if self.context=='Buy' then self.onBuy(self.quantity)
     elseif self.context=='Deposit' then self.onDeposit()
     elseif self.context=='Claim' then self.onClaim()
@@ -261,32 +265,33 @@ end
 function UI.setContext(self: any,kind: string?,quantity: string?)
     self.context=kind; self.quantity=quantity or '1'
     self.contextPanel.Visible=kind~=nil and self.state~=nil and not self:isOpen()
+    self.contextButton.Active=kind=='Pass' or kind=='Lucky' or kind=='FinishNow'
     if not self.contextPanel.Visible then return end
     local s=self.state
     if kind=='FinishNow' then self.contextText.Text='Finish all queued sales'; self.contextButton.Text='Coming soon'
-    elseif kind=='Deposit' then self.contextText.Text=#s.bag..' Minis | '..#s.saleQueue..' in processor'; self.contextButton.Text='Deposit Minis [E]'
+    elseif kind=='Deposit' then self.contextText.Text=Economy.count(s.bag)..' Minis | '..Economy.count(s.saleQueue)..' in processor'; self.contextButton.Text='Walk onto the deposit pad'
     elseif kind=='Claim' then
         local nextSale=s.saleQueue[1]
-        self.contextText.Text=if nextSale then #s.saleQueue..' selling | Next in '..math.max(0,math.ceil(nextSale.due-(self.estimatedServerNow or s.serverNow)))..'s' else 'All sales complete'
-        self.contextButton.Text='Collect '..UI.coins(s.soldUnits)..' Coins [E]'
+        self.contextText.Text=if nextSale then Economy.count(s.saleQueue)..' selling | Next in '..math.max(0,math.ceil(nextSale.due-(self.estimatedServerNow or s.serverNow)))..'s' else 'All sales complete'
+        self.contextButton.Text='Walk onto the cash pad'
     elseif kind=='Upgrade' then
         local cost=Config.ProcessorCosts[s.processorLevel+1]
         self.contextText.Text='Processor Lv '..s.processorLevel..' | '..Config.ProcessorRates[s.processorLevel+1]..' / s'
-        self.contextButton.Text=if cost then 'Upgrade - '..UI.coins(cost)..' Coins [E]' else 'Fully upgraded!'
+        self.contextButton.Text=if cost then 'Step on pad - $'..UI.coins(cost) else 'Fully upgraded!'
     elseif kind=='Pass' then
         local pass=PassConfig[self.quantity]; local info=self.shopInfo[self.quantity]
         self.contextText.Text=pass.name
         self.contextButton.Text=if info and info.forSale then 'View pass - '..info.price..' Robux' else 'Coming soon'
     elseif kind=='Lucky' then
         self.contextText.Text='A rare Lucky Block dropped!'
-        self.contextButton.Text='See rewards and price [E]'
-    elseif kind=='Merge' then self.contextText.Text='Two matching Brainrots become one'; self.contextButton.Text='Open Merge [E]'
+        self.contextButton.Text='See rewards and price'
+    elseif kind=='Merge' then self.contextText.Text='Two matching Brainrots become one'; self.contextButton.Text='Step on pad to merge automatically'
     else
         local unlock=Config.BuyUnlocks[self.quantity]
         local free=self.quantity=='1' and not s.starterClaimed
         self.contextText.Text=if s.rebirths<unlock then 'Unlocks at rebirth '..unlock else tostring(Config.Slots-#s.producers)..' spaces left'
         local amount=if self.quantity=='100' then math.min(100,Config.Slots-#s.producers) else tonumber(self.quantity)
-        self.contextButton.Text=if s.rebirths<unlock then 'LOCKED - Rebirth '..unlock elseif free then 'Walk onto the pad - $5' elseif amount==0 then 'Maximum reached - merge!' else 'Buy '..amount..' - '..UI.coins(Config.BuyUnits*amount)..' Coins [E]'
+        self.contextButton.Text=if s.rebirths<unlock then 'LOCKED - Rebirth '..unlock elseif free then 'Walk onto the pad - $5' elseif amount==0 then 'Maximum reached - merge!' else 'Step on pad - $'..UI.coins(Economy.buyCost(s.purchased or 0,amount,if self.quantity=='100' then math.clamp(s.rebirths,1,Config.MaxTier) else 1))
     end
     if self.pending then self.contextButton.Text='Waiting for server...' end
 end
@@ -303,9 +308,8 @@ function UI.update(self: any,state: any)
     self.total.Text='Total Brainrots: '..total
     self.rebirthBadge.Visible=top and state.coinUnits>=Config.RebirthBase+state.rebirths*Config.RebirthStep and state.rebirths<Config.MaxRebirths
     self.multiplier.Text='x'..((1+state.rebirths*.25)*state.cashMultiplier)..' Cash'
-    self.bagText.Text=tostring(#state.bag)
-    local bagUnits=0; for _,mini in state.bag do bagUnits+=mini.baseCoinValue*(4+state.rebirths)*state.cashMultiplier end
-    self.bagValue.Text='$'..UI.coins(bagUnits)
+    self.bagText.Text=tostring(Economy.count(state.bag))
+    self.bagValue.Visible=false
     local goal=Tutorial.goal(state); self.title.Text=if goal.kind=='Done' then 'MERGE A BRAINROT' else 'Tutorial'
     self.objective.Text=goal.title; self.hint.Text=goal.detail
     for _,label in {self.title,self.objective,self.hint} do label.Visible=goal.kind~='Done' end
@@ -348,7 +352,11 @@ function UI.drawMerge(self: any)
             local owned=(key=='cash2' and s.cashMultiplier>=2) or (key=='cash4' and s.cashMultiplier>=4) or (key=='cash8' and s.cashMultiplier>=8) or (key=='autoCollect' and s.autoCollect) or (key=='autoSell' and s.autoSell) or (key=='mini2' and s.miniMultiplier==2)
             local available=info and info.forSale and pass.id>0
             local price=if owned then 'OWNED' elseif available then tostring(info.price)..' Robux' else 'Coming soon'
-            card(key,pass.name..'\n'..price,if owned then C.green else C.cream,i,function() if not owned and available then self.onPass(key) end end)
+            local colors={cash2=C.green,cash4=C.blue,cash8=C.violet,autoCollect=C.amber,autoSell=C.pink,mini2=C.green}
+            local b=card(key,pass.name..'\n'..price,colors[key],i,function() if not owned and available then self.onPass(key) end end)
+            b.TextColor3=Color3.new(1,1,1); b.TextStrokeTransparency=0; b.TextStrokeColor3=C.navy; b.TextSize=20
+            Art.brick(b,colors[key]); b.AutoButtonColor=available and not owned
+            local caption=b:FindFirstChild('BrickCaption'); if caption then caption.TextScaled=true; local limit=Instance.new('UITextSizeConstraint');limit.MaxTextSize=23;limit.MinTextSize=12;limit.Parent=caption end
         end
         if self.mode=='Upgrade' then
             local info=self.shopInfo[self.upgradeKey]; self.eligible=info and info.forSale or false

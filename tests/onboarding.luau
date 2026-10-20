@@ -1,3 +1,4 @@
+local Economy=require('../src/shared/Economy')
 local Tutorial=require('../src/shared/Tutorial')
 local Input=require('../src/shared/StarterPad')
 local Config=require('../src/shared/Config')

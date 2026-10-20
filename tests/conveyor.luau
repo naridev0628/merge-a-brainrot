@@ -1,3 +1,4 @@
+local Economy=require('../src/shared/Economy')
 local Core=require('../src/server/Domain/FarmCore')
 local Config=require('../src/shared/Config')
 local Catalog=require('../src/shared/CreatureCatalog')
@@ -15,9 +16,9 @@ assert(t.startX==core:slotPosition(1).x and t.startZ>Config.BeltZ)
 assert(t.readyAt==6+Config.TransitSeconds)
 assert(math.abs(t.x)<=7.5 and t.z>=Config.TrayZ-6 and t.z<=Config.TrayZ+6)
 assert(cmd('Collect',{t.id},6,t.x,t.z).code=='InTransit')
-assert(#s.state.bag==0 and #s.state.tokens==1)
+assert(Economy.count(s.state.bag)==0 and #s.state.tokens==1)
 assert(cmd('Collect',{t.id},t.readyAt,t.x,t.z).code=='OK')
-assert(#s.state.bag==1)
+assert(Economy.count(s.state.bag)==1)
 core:setPasses(s,{autoCollect=true})
 core:step(s,12)
 assert(#s.state.tokens==1,'Auto Collect must wait for the conveyor')
@@ -28,7 +29,7 @@ print('PASS conveyor ordering, tray bounds, transit pickup rejection and automat
 -- A full tray must never reuse the same resting place, and collecting the
 -- bottom of the pile must compact the survivors into supported lower slots.
 local pile=core:newSession(13,0,'pile')
-pile.state.coinUnits=10000; pile.state.rebirths=3
+pile.state.coinUnits=1000000; pile.state.rebirths=3
 local buyContext={now=0,alive=true,position={x=Config.BuyPads['1'],y=3,z=Config.BuyZ}}
 assert(core:dispatch(pile,'Buy',{'starter'},buyContext).code=='OK')
 buyContext.position.x=Config.BuyPads['100']

@@ -1,3 +1,4 @@
+local Economy=require('../src/shared/Economy')
 local Core=require('../src/server/Domain/FarmCore')
 local Config=require('../src/shared/Config')
 local Catalog=require('../src/shared/CreatureCatalog')
@@ -18,5 +19,5 @@ for tier=1,6 do
     assert(payouts[tier]==Catalog[id].value)
     if tier>1 then assert(payouts[tier]>payouts[tier-1]) end
 end
-assert(payouts[1]==2 and payouts[3]==12,'Ballerina must pay six times Tong Tong per Mini')
-print('PASS identical drop counts, increasing tier values, Ballerina payout $12 versus Tong Tong $2')
+assert(payouts[1]==2 and payouts[3]==12,'Ballerina must pay six times TungTung per Mini')
+print('PASS identical drop counts, increasing tier values, Ballerina payout $12 versus TungTung $2')

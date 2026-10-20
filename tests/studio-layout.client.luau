@@ -1,26 +1,38 @@
--- Run in the Studio Client command bar during Play. This creates and removes a separate test HUD.
-local UI=require(game.Players.LocalPlayer.PlayerScripts.Controllers.FarmUI)
-local ui=UI.new(game.Players.LocalPlayer.PlayerGui)
-ui.gui.Name="LayoutRegression"
-ui.root.Size=UDim2.fromOffset(640,280)
-task.wait()
-ui:update({coinUnits=0,rebirths=0,bag={},saleQueue={},soldUnits=0,processorLevel=0,starterClaimed=true,cashMultiplier=1,miniMultiplier=1,autoCollect=false,autoSell=false,discoveries={tier_01=true},serverNow=0,tutorialStep=4,producers={
-    {id="a",speciesId="tier_01",slot=1},
-    {id="b",speciesId="tier_01",slot=2},
-}})
-ui:toggleMerge()
-ui:notice("Respawn before merging again.")
-task.wait()
-local feedbackVisible=ui.toast.Visible and ui.toast.ZIndex>ui.overlay.ZIndex
-local listHeight=ui.list.AbsoluteSize.Y
-local cardHeight=ui.list.Producer_1.AbsoluteSize.Y
-require(game.Players.LocalPlayer.PlayerScripts.Controllers.CashEffects).play(ui.gui,game.Players.LocalPlayer.Character,"534")
+-- Run in Studio Client during Play. Temporary test UI is removed afterward.
+local player=game.Players.LocalPlayer
+local UI=require(player.PlayerScripts.Controllers.FarmUI)
+local ui=UI.new(player.PlayerGui)
+ui.gui.Name='LayoutRegression'
+local state={coinUnits=0,rebirths=0,purchased=0,bag={{speciesId='tier_01',baseCoinValue=2,count=1000000}},saleQueue={},soldUnits=0,processorLevel=0,starterClaimed=true,cashMultiplier=1,miniMultiplier=1,autoCollect=false,autoSell=false,discoveries={tier_01=true},serverNow=0,tutorialStep=4,producers={{id='a',speciesId='tier_01',slot=1},{id='b',speciesId='tier_01',slot=2}}}
+for _,size in {Vector2.new(640,280),Vector2.new(390,844)} do
+    ui.root.Size=UDim2.fromOffset(size.X,size.Y)
+    ui:update(state)
+    ui:setContext('Buy','5')
+    task.wait()
+    assert(not ui.contextButton.Active,'Walk pads must not use clickable purchase controls')
+    assert(not string.find(ui.contextButton.Text,'LOCKED'),'Buy 5 must be available before rebirth')
+    assert(ui.bagText.Text=='1000000' and ui.bagText.TextScaled,'Large counts must remain readable')
+    assert(not ui.bagValue.Visible,'The bag cash value must stay hidden')
+    ui:setContext('Buy','100')
+    assert(string.find(ui.contextButton.Text,'LOCKED'),'Buy 100 must require rebirth')
+    local mergeCalled=false
+    ui.onMerge=function()mergeCalled=true end
+    ui:toggleMerge()
+    assert(mergeCalled and not ui:isOpen(),'Merge button must guide to pad without opening a chooser')
+end
+require(player.PlayerScripts.Controllers.CashEffects).play(ui.gui,player.Character,'534')
 task.wait(.3)
 local cash=ui.root.CashCollectionFeedback
-assert(cash.TextScaled,"Collection feedback must retain automatic text sizing")
-assert(cash.TextBounds.Y>=24,"Collection feedback is too small to read")
+assert(cash.TextScaled and cash.TextBounds.Y>=24,'Cash feedback must remain readable')
+local burst=workspace:FindFirstChild('CashCollectionBurst')
+assert(burst,'Cash claim must create its ground celebration')
+local notes=0
+for _,part in burst:GetChildren() do
+    if part.Name=='CashNote' then notes+=1 end
+    assert(not part.CanCollide and not part.CanTouch,'Cash effects must not block movement')
+end
+assert(notes==8,'Cash claim must scatter eight small cash bundles')
 ui.gui:Destroy()
-assert(feedbackVisible,"Merge feedback is hidden behind the modal")
-assert(listHeight>=48,"Short screen cannot show a full touch target")
-assert(cardHeight>=48,"Producer cards must be at least 48 pixels tall")
-print("PASS modal feedback and short-screen touch targets")
+task.wait(2)
+assert(burst.Parent==nil,'Cash bundles and sparks must clear after two seconds')
+print('PASS short landscape/portrait UI, million-Mini count, walk-pad controls, buy unlock labels and cash burst cleanup')

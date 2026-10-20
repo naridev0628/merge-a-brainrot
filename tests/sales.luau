@@ -1,3 +1,4 @@
+local Economy=require('../src/shared/Economy')
 local Core=require('../src/server/Domain/FarmCore')
 local Config=table.clone(require('../src/shared/Config'))
 Config.TransitSeconds=0 -- Conveyor arrival is tested independently in conveyor.luau.
@@ -15,7 +16,7 @@ eq(cmd('Buy',{'notfree','1'},0,Config.BuyPads['1'],34).code,'InsufficientFunds')
 c:step(s,6)
 local t=s.state.tokens[1]
 eq(cmd('Collect',{t.id},6,t.x,t.z).code,'OK')
-eq(cmd('Deposit',{'deposit'},6).code,'OK'); eq(#s.state.bag,0); eq(s.state.coinUnits,0); eq(#s.state.saleQueue,1)
+eq(cmd('Deposit',{'deposit'},6).code,'OK'); eq(Economy.count(s.state.bag),0); eq(s.state.coinUnits,0); eq(#s.state.saleQueue,1)
 eq(cmd('Deposit',{'deposit'},6).replayed,true); eq(#s.state.saleQueue,1)
 eq(cmd('Claim',{'early'},6,Config.ClaimX,Config.ClaimZ).code,'NothingReady')
 c:step(s,6.49); eq(s.state.soldUnits,0)
@@ -24,7 +25,7 @@ eq(cmd('Claim',{'cash'},8,Config.ClaimX,Config.ClaimZ).code,'OK'); eq(s.state.co
 eq(cmd('Claim',{'cash'},8,Config.ClaimX,Config.ClaimZ).replayed,true); eq(s.state.coinUnits,8)
 c:setPasses(s,{cash2=true,cash4=true,cash8=true,autoCollect=true})
 eq(s.state.cashMultiplier,8)
-c:step(s,12); eq(#s.state.tokens,0); eq(#s.state.bag,0); eq(#s.state.saleQueue,1)
+c:step(s,12); eq(#s.state.tokens,0); eq(Economy.count(s.state.bag),0); eq(#s.state.saleQueue,1)
 c:step(s,14); eq(s.state.soldUnits,64); eq(s.state.coinUnits,8)
 c:setPasses(s,{cash8=true,autoCollect=true,autoSell=true})
 c:step(s,14.25); eq(s.state.coinUnits,72); eq(s.state.soldUnits,0)

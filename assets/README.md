@@ -101,3 +101,10 @@ Detailed counts are in `characters/blender/mesh-stats.json`, `skibidi-stats.json
 The `.model.json` files reference Roblox-hosted meshes and textures; they do not contain the mesh data or image pixels. Copying the repository, syncing with Rojo, or copying an asset ID does not grant another account, group, or experience permission to use those uploads. Mesh access and texture access both need verification in the destination experience. A mesh that loads without its texture is not a successful portable import.
 
 When moving ownership or publishing elsewhere, import the local GLBs under the intended owner or configure the required asset permissions, then replace both `MeshId` and `TextureID` in the corresponding `.model.json` files with the destination's usable IDs. Preserve the intended imported sizes and test colors in Studio and the published experience. Keep the `.blend` files, palettes, and generators as the independent rebuild sources.
+
+
+## 2026-10-19 expansion packs and stall detail
+
+`characters/expansion_a/ExpansionACharacters.blend` contains Noobini Pizzanini, Lirilì Larilà, Tim Cheese, Fluriflura, Talpa Di Fero, Raccooni Jandelini and Pipi Potato. `characters/expansion_b/ExpansionBCharacters.blend` contains Gorillo Subwoofero, Toiletto Focaccino, Odin Din Din Dun and Tukanno Bananno. Each has a matching Mini, GLB exports, palette, previews and geometry statistics. These eleven characters are original reference-based models, not extracted game assets. Their separate READMEs document sources and validation. They are not yet uploaded to Roblox or assigned production tiers.
+
+`map/stall_props/StallProps.blend` contains KeyCrate, ShippingCrate and CashStash. The crate holds varied existing Minis at runtime. `tools/build_stall_runtime.py` converts `layout.json` from the Blender generator into `src/shared/StallDecor.luau`; these 201 native primitive parts are already integrated in each plot without new asset uploads. `EnvironmentArt.luau` supplies three original gradient tree shapes, an octagonal island and red/white lighthouse.

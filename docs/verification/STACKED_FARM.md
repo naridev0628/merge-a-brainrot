@@ -1,3 +1,5 @@
+> Historical verification of the previous pass. Current behavior and evidence are in [SEAMLESS_FARM.md](SEAMLESS_FARM.md).
+
 # Stacked farm verification - 2026-10-19
 
 Scope: `codex/stacked-brainrot-farm` against `codex/first-playable`. Roblox Studio on Windows, Rojo 7.7.1, Luau 0.743. This is a Studio-only memory prototype, not a published release.

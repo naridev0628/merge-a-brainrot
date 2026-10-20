@@ -1,3 +1,4 @@
+local Economy=require('../src/shared/Economy')
 local Core=require('../src/server/Domain/FarmCore')
 local Config=table.clone(require('../src/shared/Config'))
 Config.TransitSeconds=0 -- Arrival timing has its own regression suite.
@@ -28,12 +29,13 @@ eq(Tutorial.goal(s.state).kind,'Done')
 s.state.coinUnits=1000
 s.state.bag={{speciesId='tier_02',baseCoinValue=5},{speciesId='tier_02',baseCoinValue=5}}
 eq(command('Deposit',{'upgrade-deposit'},100).code,'OK')
-eq(s.state.saleQueue[1].due,100.5); eq(s.state.saleQueue[2].due,101)
-eq(command('Upgrade',{'upgrade'},100,Config.UpgradeX,Config.UpgradeZ).code,'OK'); eq(s.state.processorLevel,1); eq(s.state.coinUnits,600)
-eq(s.state.saleQueue[1].due,100.2); eq(s.state.saleQueue[2].due,100.4)
-eq(command('Upgrade',{'upgrade'},100,Config.UpgradeX,Config.UpgradeZ).replayed,true); eq(s.state.coinUnits,600)
+eq(s.state.saleQueue[1].due,100.5); eq(s.state.saleQueue[1].count,2); eq(s.state.saleQueue[1].interval,.5)
+eq(command('Upgrade',{'upgrade'},100,Config.UpgradeX,Config.UpgradeZ).code,'OK'); eq(s.state.processorLevel,1); eq(s.state.coinUnits,960)
+eq(s.state.saleQueue[1].due,100.2); eq(s.state.saleQueue[1].interval,.2)
+eq(command('Upgrade',{'upgrade'},100,Config.UpgradeX,Config.UpgradeZ).replayed,true); eq(s.state.coinUnits,960)
+s.state.coinUnits=119
 eq(command('Upgrade',{'poor'},100,Config.UpgradeX,Config.UpgradeZ).code,'InsufficientFunds')
 core:setPasses(s,{mini2=true}); s.state.tokens={}; s.state.producers[1].due=106
 core:step(s,106); eq(#s.state.tokens,2)
-local tenth=core:slotPosition(100); eq(tenth.y,.5+9*7)
+local tenth=core:slotPosition(100); eq(tenth.y,.5+9*Config.RowHeight)
 print('PASS complete tutorial, processor queue acceleration, upgrade replay, double Minis and ten-row cap')

@@ -7,6 +7,8 @@ local Shared=ReplicatedStorage:WaitForChild('Shared')
 local Config=require(Shared.Config)
 local Catalog=require(Shared.CreatureCatalog)
 local Map=require(Shared.MapSpec)
+local MiniEvent=require(Shared.MiniEvent)
+local MultiplierDisplay=require(script.Parent.Services.MultiplierDisplay)
 local Core=require(script.Parent.Domain.FarmCore)
 local Limiter=require(script.Parent.Domain.RateLimiter)
 local World=require(script.Parent.Services.WorldBuilder)
@@ -22,17 +24,21 @@ if not RunService:IsStudio() then
 end
 local core=Core.new(Config,Catalog)
 local hub=World.build()
+local eventDisplay=MultiplierDisplay.new(hub.root)
+local eventValue=MiniEvent.Initial
+local eventNextAt=os.clock()+MiniEvent.IntervalSeconds
 local sessions: {[Player]: any}={}
 local worlds: {[Player]: any}={}
 local owners: {[number]: Player}={}
 local buckets: {[Player]: any}={}
 local connections: {[Player]: RBXScriptConnection}={}
-local rates={Collect={12,24},State={1,2},Deposit={3,6},Claim={3,6},Buy={3,6},Merge={3,6},Rebirth={1,2},Upgrade={2,3},OpenLucky={2,3},Home={1/3,1},Sprint={4,8}}
+local rates={CollectNearby={4,6},AutoMerge={2,3},Collect={12,24},State={1,2},Deposit={3,6},Claim={3,6},Buy={3,6},Merge={3,6},Rebirth={1,2},Upgrade={2,3},OpenLucky={2,3},Home={1/3,1},Sprint={4,8}}
 local function send(player: Player)
     local session=sessions[player]
     if not session then snapshot:FireClient(player,{status='Unavailable',reason='All six plots are occupied. Waiting for a free plot.'}); return end
     local state: any=core:snapshot(session); state.status=session.phase; state.memoryOnly=true; state.serverNow=os.clock()
     state.plotId=worlds[player].id; state.plotCFrame=worlds[player].frame; state.sessionKey=session.key
+    state.timePlayed=math.floor(os.clock()-(session.joinedAt or os.clock()))
     snapshot:FireClient(player,state)
 end
 local function render(player: Player)
@@ -64,6 +70,7 @@ local function attach(player: Player)
     owners[chosen.id]=player; worlds[player]=chosen
     player.RespawnLocation=chosen.spawn
     sessions[player]=core:newSession(player.UserId,os.clock(),HttpService:GenerateGUID(false))
+    core:setEvent(sessions[player],eventValue)
     sessions[player].joinedAt=os.clock()
     World.setOwner(chosen,player); refreshPasses(player)
     connections[player]=player.CharacterAdded:Connect(function(c) moveHome(player,c) end)
@@ -110,12 +117,19 @@ task.spawn(function()
     local nextBoards=0
     while true do
         task.wait(Config.Cadence)
+        local now=os.clock()
+        if now>=eventNextAt then
+            eventValue=MiniEvent.next(eventValue,math.random);eventNextAt=now+MiniEvent.IntervalSeconds
+            for player,session in sessions do core:setEvent(session,eventValue);send(player) end
+        end
+        eventDisplay:update(eventValue,eventNextAt,now)
         for player,session in sessions do if core:step(session,os.clock()) then render(player); send(player) end end
         if os.clock()>=nextBoards then
             nextBoards=os.clock()+3; local entries={}
             for player,session in sessions do
                 local total=0;for _,p in session.state.producers do total+=2^(Catalog[p.speciesId].tier-1) end
-                table.insert(entries,{name=player.Name,coins=session.state.coinUnits/4,count=total,time=math.floor(os.clock()-session.joinedAt)})
+                table.insert(entries,{userId=player.UserId,name=player.Name,coins=session.state.coinUnits/4,count=total,time=math.floor(os.clock()-session.joinedAt)})
+                send(player)
             end
             World.updateBoards(hub,entries)
         end

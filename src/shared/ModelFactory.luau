@@ -8,7 +8,16 @@ function Factory.prop(parent: Instance,name: string,cf: CFrame,scale: number?): 
     local template=templates and templates:FindFirstChild(name)
     if not template or not template:IsA('MeshPart') then return nil end
     local mesh=template:Clone(); mesh.Size*=scale or 1; mesh.CFrame=cf*CFrame.new(0,mesh.Size.Y/2,0)
-    mesh.Anchored=true; mesh.CanCollide=false; mesh.CanTouch=false; mesh.Parent=parent; return mesh
+    mesh.Anchored=true; mesh.CanCollide=false; mesh.CanTouch=false; mesh.Parent=parent
+    if name=='BrickTree' then
+        local s=scale or 1
+        local trunk=Factory.part(parent,'TreeTrunkCollider',Vector3.new(2,6,2)*s,cf*CFrame.new(0,3*s,0),Color3.fromRGB(101,65,37),nil,true);trunk.Transparency=1
+        for _,side in {-1,1} do
+            local root=Factory.part(parent,'TreeRoot',Vector3.new(3,.5,.8)*s,cf*CFrame.new(side*1.2*s,.25*s,0)*CFrame.Angles(0,side*.4,0),Color3.fromRGB(105,66,36),nil,true);root.TopSurface=Enum.SurfaceType.Studs
+            local branch=Factory.part(parent,'TreeBranch',Vector3.new(3,.65,.65)*s,cf*CFrame.new(side*1.5*s,4.4*s,0)*CFrame.Angles(0,side*.4,side*.35),Color3.fromRGB(105,66,36),nil,true);branch.TopSurface=Enum.SurfaceType.Studs
+        end
+    end
+    return mesh
 end
 function Factory.part(parent: Instance,name: string,size: Vector3,cf: CFrame,color: Color3,shape: Enum.PartType?,collide: boolean?): Part
     local p=Instance.new('Part'); p.Name=name; p.Size=size; p.CFrame=cf; p.Color=color

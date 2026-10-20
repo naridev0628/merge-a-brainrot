@@ -1,0 +1,2743 @@
+{
+  "name": "KeyCrate",
+  "schema_version": 1,
+  "coordinates": "Blender Z-up; Roblox values already converted X,Z,Y. Use position_roblox and row-major rotation_matrix_roblox directly in CFrame.new. Cylinder size X is its thickness. All parts anchored; cosmetic parts CanCollide=false.",
+  "parts": [
+    {
+      "name": "Crate floor slat",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        -1.225000023841858,
+        0.0,
+        0.11999999731779099
+      ],
+      "size_blender": [
+        0.46,
+        1.91,
+        0.2
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.225000023841858,
+        0.11999999731779099,
+        0.0
+      ],
+      "size_roblox": [
+        0.46,
+        0.2,
+        1.91
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Crate floor slat.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        -0.7350000143051147,
+        0.0,
+        0.11999999731779099
+      ],
+      "size_blender": [
+        0.46,
+        1.91,
+        0.2
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.7350000143051147,
+        0.11999999731779099,
+        0.0
+      ],
+      "size_roblox": [
+        0.46,
+        0.2,
+        1.91
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Crate floor slat.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        -0.24500000476837158,
+        0.0,
+        0.11999999731779099
+      ],
+      "size_blender": [
+        0.46,
+        1.91,
+        0.2
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.24500000476837158,
+        0.11999999731779099,
+        0.0
+      ],
+      "size_roblox": [
+        0.46,
+        0.2,
+        1.91
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Crate floor slat.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        0.24500000476837158,
+        0.0,
+        0.11999999731779099
+      ],
+      "size_blender": [
+        0.46,
+        1.91,
+        0.2
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.24500000476837158,
+        0.11999999731779099,
+        0.0
+      ],
+      "size_roblox": [
+        0.46,
+        0.2,
+        1.91
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Crate floor slat.004",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        0.7350000143051147,
+        0.0,
+        0.11999999731779099
+      ],
+      "size_blender": [
+        0.46,
+        1.91,
+        0.2
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.7350000143051147,
+        0.11999999731779099,
+        0.0
+      ],
+      "size_roblox": [
+        0.46,
+        0.2,
+        1.91
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Crate floor slat.005",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        1.225000023841858,
+        0.0,
+        0.11999999731779099
+      ],
+      "size_blender": [
+        0.46,
+        1.91,
+        0.2
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.225000023841858,
+        0.11999999731779099,
+        0.0
+      ],
+      "size_roblox": [
+        0.46,
+        0.2,
+        1.91
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Corner upright",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wooddark",
+      "color_linear": [
+        0.18,
+        0.065,
+        0.018
+      ],
+      "color_srgb": [
+        0.461356,
+        0.282779,
+        0.142826
+      ],
+      "position_blender": [
+        -1.4199999570846558,
+        -0.8999999761581421,
+        0.800000011920929
+      ],
+      "size_blender": [
+        0.16,
+        0.16,
+        1.6
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.4199999570846558,
+        0.800000011920929,
+        -0.8999999761581421
+      ],
+      "size_roblox": [
+        0.16,
+        1.6,
+        0.16
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Corner upright.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wooddark",
+      "color_linear": [
+        0.18,
+        0.065,
+        0.018
+      ],
+      "color_srgb": [
+        0.461356,
+        0.282779,
+        0.142826
+      ],
+      "position_blender": [
+        -1.4199999570846558,
+        0.8999999761581421,
+        0.800000011920929
+      ],
+      "size_blender": [
+        0.16,
+        0.16,
+        1.6
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.4199999570846558,
+        0.800000011920929,
+        0.8999999761581421
+      ],
+      "size_roblox": [
+        0.16,
+        1.6,
+        0.16
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Corner upright.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wooddark",
+      "color_linear": [
+        0.18,
+        0.065,
+        0.018
+      ],
+      "color_srgb": [
+        0.461356,
+        0.282779,
+        0.142826
+      ],
+      "position_blender": [
+        1.4199999570846558,
+        -0.8999999761581421,
+        0.800000011920929
+      ],
+      "size_blender": [
+        0.16,
+        0.16,
+        1.6
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.4199999570846558,
+        0.800000011920929,
+        -0.8999999761581421
+      ],
+      "size_roblox": [
+        0.16,
+        1.6,
+        0.16
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Corner upright.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wooddark",
+      "color_linear": [
+        0.18,
+        0.065,
+        0.018
+      ],
+      "color_srgb": [
+        0.461356,
+        0.282779,
+        0.142826
+      ],
+      "position_blender": [
+        1.4199999570846558,
+        0.8999999761581421,
+        0.800000011920929
+      ],
+      "size_blender": [
+        0.16,
+        0.16,
+        1.6
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.4199999570846558,
+        0.800000011920929,
+        0.8999999761581421
+      ],
+      "size_roblox": [
+        0.16,
+        1.6,
+        0.16
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Long crate plank",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wood",
+      "color_linear": [
+        0.32,
+        0.12,
+        0.035
+      ],
+      "color_srgb": [
+        0.601243,
+        0.381092,
+        0.205984
+      ],
+      "position_blender": [
+        0.0,
+        -0.9599999785423279,
+        0.3199999928474426
+      ],
+      "size_blender": [
+        3.03,
+        0.16,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        0.3199999928474426,
+        -0.9599999785423279
+      ],
+      "size_roblox": [
+        3.03,
+        0.29,
+        0.16
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "End crate plank",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        -1.4900000095367432,
+        0.0,
+        0.3199999928474426
+      ],
+      "size_blender": [
+        0.16,
+        1.82,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.4900000095367432,
+        0.3199999928474426,
+        0.0
+      ],
+      "size_roblox": [
+        0.16,
+        0.29,
+        1.82
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Square iron nail",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "iron",
+      "color_linear": [
+        0.075,
+        0.08,
+        0.075
+      ],
+      "color_srgb": [
+        0.303532,
+        0.313304,
+        0.303532
+      ],
+      "position_blender": [
+        -1.2899999618530273,
+        -1.0499999523162842,
+        0.3199999928474426
+      ],
+      "size_blender": [
+        0.055,
+        0.024,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.2899999618530273,
+        0.3199999928474426,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.055,
+        0.055,
+        0.024
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Square iron nail.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "iron",
+      "color_linear": [
+        0.075,
+        0.08,
+        0.075
+      ],
+      "color_srgb": [
+        0.303532,
+        0.313304,
+        0.303532
+      ],
+      "position_blender": [
+        1.2899999618530273,
+        -1.0499999523162842,
+        0.3199999928474426
+      ],
+      "size_blender": [
+        0.055,
+        0.024,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.2899999618530273,
+        0.3199999928474426,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.055,
+        0.055,
+        0.024
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Plank edge seam",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "edge",
+      "color_linear": [
+        0.58,
+        0.27,
+        0.085
+      ],
+      "color_srgb": [
+        0.785777,
+        0.556393,
+        0.322726
+      ],
+      "position_blender": [
+        -0.7300000190734863,
+        -1.0499999523162842,
+        0.42500001192092896
+      ],
+      "size_blender": [
+        0.55,
+        0.015,
+        0.018
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.7300000190734863,
+        0.42500001192092896,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.55,
+        0.018,
+        0.015
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Long crate plank.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wood",
+      "color_linear": [
+        0.32,
+        0.12,
+        0.035
+      ],
+      "color_srgb": [
+        0.601243,
+        0.381092,
+        0.205984
+      ],
+      "position_blender": [
+        0.0,
+        0.9599999785423279,
+        0.3199999928474426
+      ],
+      "size_blender": [
+        3.03,
+        0.16,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        0.3199999928474426,
+        0.9599999785423279
+      ],
+      "size_roblox": [
+        3.03,
+        0.29,
+        0.16
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "End crate plank.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        1.4900000095367432,
+        0.0,
+        0.3199999928474426
+      ],
+      "size_blender": [
+        0.16,
+        1.82,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.4900000095367432,
+        0.3199999928474426,
+        0.0
+      ],
+      "size_roblox": [
+        0.16,
+        0.29,
+        1.82
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Square iron nail.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "iron",
+      "color_linear": [
+        0.075,
+        0.08,
+        0.075
+      ],
+      "color_srgb": [
+        0.303532,
+        0.313304,
+        0.303532
+      ],
+      "position_blender": [
+        -1.2899999618530273,
+        1.0499999523162842,
+        0.3199999928474426
+      ],
+      "size_blender": [
+        0.055,
+        0.024,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.2899999618530273,
+        0.3199999928474426,
+        1.0499999523162842
+      ],
+      "size_roblox": [
+        0.055,
+        0.055,
+        0.024
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Square iron nail.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "iron",
+      "color_linear": [
+        0.075,
+        0.08,
+        0.075
+      ],
+      "color_srgb": [
+        0.303532,
+        0.313304,
+        0.303532
+      ],
+      "position_blender": [
+        1.2899999618530273,
+        1.0499999523162842,
+        0.3199999928474426
+      ],
+      "size_blender": [
+        0.055,
+        0.024,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.2899999618530273,
+        0.3199999928474426,
+        1.0499999523162842
+      ],
+      "size_roblox": [
+        0.055,
+        0.055,
+        0.024
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Plank edge seam.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "edge",
+      "color_linear": [
+        0.58,
+        0.27,
+        0.085
+      ],
+      "color_srgb": [
+        0.785777,
+        0.556393,
+        0.322726
+      ],
+      "position_blender": [
+        0.7300000190734863,
+        -1.0499999523162842,
+        0.42500001192092896
+      ],
+      "size_blender": [
+        0.55,
+        0.015,
+        0.018
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.7300000190734863,
+        0.42500001192092896,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.55,
+        0.018,
+        0.015
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Long crate plank.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        0.0,
+        -0.9599999785423279,
+        0.6700000166893005
+      ],
+      "size_blender": [
+        3.03,
+        0.16,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        0.6700000166893005,
+        -0.9599999785423279
+      ],
+      "size_roblox": [
+        3.03,
+        0.29,
+        0.16
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "End crate plank.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wood",
+      "color_linear": [
+        0.32,
+        0.12,
+        0.035
+      ],
+      "color_srgb": [
+        0.601243,
+        0.381092,
+        0.205984
+      ],
+      "position_blender": [
+        -1.4900000095367432,
+        0.0,
+        0.6700000166893005
+      ],
+      "size_blender": [
+        0.16,
+        1.82,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.4900000095367432,
+        0.6700000166893005,
+        0.0
+      ],
+      "size_roblox": [
+        0.16,
+        0.29,
+        1.82
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Plank edge seam.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "edge",
+      "color_linear": [
+        0.58,
+        0.27,
+        0.085
+      ],
+      "color_srgb": [
+        0.785777,
+        0.556393,
+        0.322726
+      ],
+      "position_blender": [
+        -0.7300000190734863,
+        -1.0499999523162842,
+        0.7749999761581421
+      ],
+      "size_blender": [
+        0.55,
+        0.015,
+        0.018
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.7300000190734863,
+        0.7749999761581421,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.55,
+        0.018,
+        0.015
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Long crate plank.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        0.0,
+        0.9599999785423279,
+        0.6700000166893005
+      ],
+      "size_blender": [
+        3.03,
+        0.16,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        0.6700000166893005,
+        0.9599999785423279
+      ],
+      "size_roblox": [
+        3.03,
+        0.29,
+        0.16
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "End crate plank.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wood",
+      "color_linear": [
+        0.32,
+        0.12,
+        0.035
+      ],
+      "color_srgb": [
+        0.601243,
+        0.381092,
+        0.205984
+      ],
+      "position_blender": [
+        1.4900000095367432,
+        0.0,
+        0.6700000166893005
+      ],
+      "size_blender": [
+        0.16,
+        1.82,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.4900000095367432,
+        0.6700000166893005,
+        0.0
+      ],
+      "size_roblox": [
+        0.16,
+        0.29,
+        1.82
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Plank edge seam.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "edge",
+      "color_linear": [
+        0.58,
+        0.27,
+        0.085
+      ],
+      "color_srgb": [
+        0.785777,
+        0.556393,
+        0.322726
+      ],
+      "position_blender": [
+        0.7300000190734863,
+        -1.0499999523162842,
+        0.7749999761581421
+      ],
+      "size_blender": [
+        0.55,
+        0.015,
+        0.018
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.7300000190734863,
+        0.7749999761581421,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.55,
+        0.018,
+        0.015
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Long crate plank.004",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wood",
+      "color_linear": [
+        0.32,
+        0.12,
+        0.035
+      ],
+      "color_srgb": [
+        0.601243,
+        0.381092,
+        0.205984
+      ],
+      "position_blender": [
+        0.0,
+        -0.9599999785423279,
+        1.0199999809265137
+      ],
+      "size_blender": [
+        3.03,
+        0.16,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        1.0199999809265137,
+        -0.9599999785423279
+      ],
+      "size_roblox": [
+        3.03,
+        0.29,
+        0.16
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "End crate plank.004",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        -1.4900000095367432,
+        0.0,
+        1.0199999809265137
+      ],
+      "size_blender": [
+        0.16,
+        1.82,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.4900000095367432,
+        1.0199999809265137,
+        0.0
+      ],
+      "size_roblox": [
+        0.16,
+        0.29,
+        1.82
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Square iron nail.004",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "iron",
+      "color_linear": [
+        0.075,
+        0.08,
+        0.075
+      ],
+      "color_srgb": [
+        0.303532,
+        0.313304,
+        0.303532
+      ],
+      "position_blender": [
+        -1.2899999618530273,
+        -1.0499999523162842,
+        1.0199999809265137
+      ],
+      "size_blender": [
+        0.055,
+        0.024,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.2899999618530273,
+        1.0199999809265137,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.055,
+        0.055,
+        0.024
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Square iron nail.005",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "iron",
+      "color_linear": [
+        0.075,
+        0.08,
+        0.075
+      ],
+      "color_srgb": [
+        0.303532,
+        0.313304,
+        0.303532
+      ],
+      "position_blender": [
+        1.2899999618530273,
+        -1.0499999523162842,
+        1.0199999809265137
+      ],
+      "size_blender": [
+        0.055,
+        0.024,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.2899999618530273,
+        1.0199999809265137,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.055,
+        0.055,
+        0.024
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Plank edge seam.004",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "edge",
+      "color_linear": [
+        0.58,
+        0.27,
+        0.085
+      ],
+      "color_srgb": [
+        0.785777,
+        0.556393,
+        0.322726
+      ],
+      "position_blender": [
+        -0.7300000190734863,
+        -1.0499999523162842,
+        1.125
+      ],
+      "size_blender": [
+        0.55,
+        0.015,
+        0.018
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.7300000190734863,
+        1.125,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.55,
+        0.018,
+        0.015
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Long crate plank.005",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wood",
+      "color_linear": [
+        0.32,
+        0.12,
+        0.035
+      ],
+      "color_srgb": [
+        0.601243,
+        0.381092,
+        0.205984
+      ],
+      "position_blender": [
+        0.0,
+        0.9599999785423279,
+        1.0199999809265137
+      ],
+      "size_blender": [
+        3.03,
+        0.16,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        1.0199999809265137,
+        0.9599999785423279
+      ],
+      "size_roblox": [
+        3.03,
+        0.29,
+        0.16
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "End crate plank.005",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        1.4900000095367432,
+        0.0,
+        1.0199999809265137
+      ],
+      "size_blender": [
+        0.16,
+        1.82,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.4900000095367432,
+        1.0199999809265137,
+        0.0
+      ],
+      "size_roblox": [
+        0.16,
+        0.29,
+        1.82
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Square iron nail.006",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "iron",
+      "color_linear": [
+        0.075,
+        0.08,
+        0.075
+      ],
+      "color_srgb": [
+        0.303532,
+        0.313304,
+        0.303532
+      ],
+      "position_blender": [
+        -1.2899999618530273,
+        1.0499999523162842,
+        1.0199999809265137
+      ],
+      "size_blender": [
+        0.055,
+        0.024,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.2899999618530273,
+        1.0199999809265137,
+        1.0499999523162842
+      ],
+      "size_roblox": [
+        0.055,
+        0.055,
+        0.024
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Square iron nail.007",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "iron",
+      "color_linear": [
+        0.075,
+        0.08,
+        0.075
+      ],
+      "color_srgb": [
+        0.303532,
+        0.313304,
+        0.303532
+      ],
+      "position_blender": [
+        1.2899999618530273,
+        1.0499999523162842,
+        1.0199999809265137
+      ],
+      "size_blender": [
+        0.055,
+        0.024,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.2899999618530273,
+        1.0199999809265137,
+        1.0499999523162842
+      ],
+      "size_roblox": [
+        0.055,
+        0.055,
+        0.024
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Plank edge seam.005",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "edge",
+      "color_linear": [
+        0.58,
+        0.27,
+        0.085
+      ],
+      "color_srgb": [
+        0.785777,
+        0.556393,
+        0.322726
+      ],
+      "position_blender": [
+        0.7300000190734863,
+        -1.0499999523162842,
+        1.125
+      ],
+      "size_blender": [
+        0.55,
+        0.015,
+        0.018
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.7300000190734863,
+        1.125,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.55,
+        0.018,
+        0.015
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Long crate plank.006",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        0.0,
+        -0.9599999785423279,
+        1.3700000047683716
+      ],
+      "size_blender": [
+        3.03,
+        0.16,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        1.3700000047683716,
+        -0.9599999785423279
+      ],
+      "size_roblox": [
+        3.03,
+        0.29,
+        0.16
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "End crate plank.006",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wood",
+      "color_linear": [
+        0.32,
+        0.12,
+        0.035
+      ],
+      "color_srgb": [
+        0.601243,
+        0.381092,
+        0.205984
+      ],
+      "position_blender": [
+        -1.4900000095367432,
+        0.0,
+        1.3700000047683716
+      ],
+      "size_blender": [
+        0.16,
+        1.82,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.4900000095367432,
+        1.3700000047683716,
+        0.0
+      ],
+      "size_roblox": [
+        0.16,
+        0.29,
+        1.82
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Square iron nail.008",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "iron",
+      "color_linear": [
+        0.075,
+        0.08,
+        0.075
+      ],
+      "color_srgb": [
+        0.303532,
+        0.313304,
+        0.303532
+      ],
+      "position_blender": [
+        -1.2899999618530273,
+        -1.0499999523162842,
+        1.3700000047683716
+      ],
+      "size_blender": [
+        0.055,
+        0.024,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.2899999618530273,
+        1.3700000047683716,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.055,
+        0.055,
+        0.024
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Square iron nail.009",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "iron",
+      "color_linear": [
+        0.075,
+        0.08,
+        0.075
+      ],
+      "color_srgb": [
+        0.303532,
+        0.313304,
+        0.303532
+      ],
+      "position_blender": [
+        1.2899999618530273,
+        -1.0499999523162842,
+        1.3700000047683716
+      ],
+      "size_blender": [
+        0.055,
+        0.024,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.2899999618530273,
+        1.3700000047683716,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.055,
+        0.055,
+        0.024
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Plank edge seam.006",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "edge",
+      "color_linear": [
+        0.58,
+        0.27,
+        0.085
+      ],
+      "color_srgb": [
+        0.785777,
+        0.556393,
+        0.322726
+      ],
+      "position_blender": [
+        -0.7300000190734863,
+        -1.0499999523162842,
+        1.475000023841858
+      ],
+      "size_blender": [
+        0.55,
+        0.015,
+        0.018
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.7300000190734863,
+        1.475000023841858,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.55,
+        0.018,
+        0.015
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Long crate plank.007",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "woodlight",
+      "color_linear": [
+        0.48,
+        0.2,
+        0.06
+      ],
+      "color_srgb": [
+        0.722027,
+        0.484529,
+        0.2717
+      ],
+      "position_blender": [
+        0.0,
+        0.9599999785423279,
+        1.3700000047683716
+      ],
+      "size_blender": [
+        3.03,
+        0.16,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        1.3700000047683716,
+        0.9599999785423279
+      ],
+      "size_roblox": [
+        3.03,
+        0.29,
+        0.16
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "End crate plank.007",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wood",
+      "color_linear": [
+        0.32,
+        0.12,
+        0.035
+      ],
+      "color_srgb": [
+        0.601243,
+        0.381092,
+        0.205984
+      ],
+      "position_blender": [
+        1.4900000095367432,
+        0.0,
+        1.3700000047683716
+      ],
+      "size_blender": [
+        0.16,
+        1.82,
+        0.29
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.4900000095367432,
+        1.3700000047683716,
+        0.0
+      ],
+      "size_roblox": [
+        0.16,
+        0.29,
+        1.82
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Square iron nail.010",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "iron",
+      "color_linear": [
+        0.075,
+        0.08,
+        0.075
+      ],
+      "color_srgb": [
+        0.303532,
+        0.313304,
+        0.303532
+      ],
+      "position_blender": [
+        -1.2899999618530273,
+        1.0499999523162842,
+        1.3700000047683716
+      ],
+      "size_blender": [
+        0.055,
+        0.024,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.2899999618530273,
+        1.3700000047683716,
+        1.0499999523162842
+      ],
+      "size_roblox": [
+        0.055,
+        0.055,
+        0.024
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Square iron nail.011",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "iron",
+      "color_linear": [
+        0.075,
+        0.08,
+        0.075
+      ],
+      "color_srgb": [
+        0.303532,
+        0.313304,
+        0.303532
+      ],
+      "position_blender": [
+        1.2899999618530273,
+        1.0499999523162842,
+        1.3700000047683716
+      ],
+      "size_blender": [
+        0.055,
+        0.024,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.2899999618530273,
+        1.3700000047683716,
+        1.0499999523162842
+      ],
+      "size_roblox": [
+        0.055,
+        0.055,
+        0.024
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Plank edge seam.007",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "edge",
+      "color_linear": [
+        0.58,
+        0.27,
+        0.085
+      ],
+      "color_srgb": [
+        0.785777,
+        0.556393,
+        0.322726
+      ],
+      "position_blender": [
+        0.7300000190734863,
+        -1.0499999523162842,
+        1.475000023841858
+      ],
+      "size_blender": [
+        0.55,
+        0.015,
+        0.018
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.7300000190734863,
+        1.475000023841858,
+        -1.0499999523162842
+      ],
+      "size_roblox": [
+        0.55,
+        0.018,
+        0.015
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Top long rim",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "edge",
+      "color_linear": [
+        0.58,
+        0.27,
+        0.085
+      ],
+      "color_srgb": [
+        0.785777,
+        0.556393,
+        0.322726
+      ],
+      "position_blender": [
+        0.0,
+        -0.9700000286102295,
+        1.5800000429153442
+      ],
+      "size_blender": [
+        3.14,
+        0.2,
+        0.14
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        1.5800000429153442,
+        -0.9700000286102295
+      ],
+      "size_roblox": [
+        3.14,
+        0.14,
+        0.2
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Top short rim",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "edge",
+      "color_linear": [
+        0.58,
+        0.27,
+        0.085
+      ],
+      "color_srgb": [
+        0.785777,
+        0.556393,
+        0.322726
+      ],
+      "position_blender": [
+        -1.4900000095367432,
+        0.0,
+        1.5800000429153442
+      ],
+      "size_blender": [
+        0.2,
+        1.81,
+        0.14
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -1.4900000095367432,
+        1.5800000429153442,
+        0.0
+      ],
+      "size_roblox": [
+        0.2,
+        0.14,
+        1.81
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Top long rim.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "edge",
+      "color_linear": [
+        0.58,
+        0.27,
+        0.085
+      ],
+      "color_srgb": [
+        0.785777,
+        0.556393,
+        0.322726
+      ],
+      "position_blender": [
+        0.0,
+        0.9700000286102295,
+        1.5800000429153442
+      ],
+      "size_blender": [
+        3.14,
+        0.2,
+        0.14
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        1.5800000429153442,
+        0.9700000286102295
+      ],
+      "size_roblox": [
+        3.14,
+        0.14,
+        0.2
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Top short rim.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "edge",
+      "color_linear": [
+        0.58,
+        0.27,
+        0.085
+      ],
+      "color_srgb": [
+        0.785777,
+        0.556393,
+        0.322726
+      ],
+      "position_blender": [
+        1.4900000095367432,
+        0.0,
+        1.5800000429153442
+      ],
+      "size_blender": [
+        0.2,
+        1.81,
+        0.14
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        1.4900000095367432,
+        1.5800000429153442,
+        0.0
+      ],
+      "size_roblox": [
+        0.2,
+        0.14,
+        1.81
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Front wooden strap",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wooddark",
+      "color_linear": [
+        0.18,
+        0.065,
+        0.018
+      ],
+      "color_srgb": [
+        0.461356,
+        0.282779,
+        0.142826
+      ],
+      "position_blender": [
+        -0.9700000286102295,
+        -1.0800000429153442,
+        0.800000011920929
+      ],
+      "size_blender": [
+        0.14,
+        0.08,
+        1.34
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.9700000286102295,
+        0.800000011920929,
+        -1.0800000429153442
+      ],
+      "size_roblox": [
+        0.14,
+        1.34,
+        0.08
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Front wooden strap.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "wooddark",
+      "color_linear": [
+        0.18,
+        0.065,
+        0.018
+      ],
+      "color_srgb": [
+        0.461356,
+        0.282779,
+        0.142826
+      ],
+      "position_blender": [
+        0.9700000286102295,
+        -1.0800000429153442,
+        0.800000011920929
+      ],
+      "size_blender": [
+        0.14,
+        0.08,
+        1.34
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.9700000286102295,
+        0.800000011920929,
+        -1.0800000429153442
+      ],
+      "size_roblox": [
+        0.14,
+        1.34,
+        0.08
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  ],
+  "metadata": {
+    "interior_bounds_blender": [
+      [
+        -1.34,
+        -0.79,
+        0.23
+      ],
+      [
+        1.34,
+        0.79,
+        1.51
+      ]
+    ],
+    "recommended_mini_slots_blender": [
+      [
+        -0.87,
+        0,
+        0.24
+      ],
+      [
+        0,
+        0.03,
+        0.24
+      ],
+      [
+        0.87,
+        0,
+        0.24
+      ]
+    ],
+    "purpose": "Open wooden display container for existing Brainrot mini models."
+  }
+}

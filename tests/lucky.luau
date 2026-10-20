@@ -1,3 +1,4 @@
+local Economy=require('../src/shared/Economy')
 local Core=require('../src/server/Domain/FarmCore')
 local Config=require('../src/shared/Config')
 local Catalog=require('../src/shared/CreatureCatalog')

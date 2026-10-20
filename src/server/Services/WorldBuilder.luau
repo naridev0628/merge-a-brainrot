@@ -1,9 +1,13 @@
 --!strict
 local Shared=game:GetService('ReplicatedStorage'):WaitForChild('Shared')
 local Factory=require(Shared.ModelFactory)
+local Environment=require(Shared.EnvironmentArt)
+local Decor=require(Shared.StallDecor)
+local LeaderboardDisplay=require(script.Parent.LeaderboardDisplay)
 local Map=require(Shared.MapSpec)
 local Catalog=require(Shared.CreatureCatalog)
 local Config=require(Shared.Config)
+local Economy=require(Shared.Economy)
 local PassConfig=require(Shared.PassConfig)
 local Core=require(script.Parent.Parent.Domain.FarmCore)
 local layout=Core.new(Config,Catalog)
@@ -45,11 +49,20 @@ local function fence(parent: Instance,cf: CFrame,length: number)
 end
 local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local root=Instance.new('Model'); root.Name='Plot'..id; root.WorldPivot=CFrame.identity
-    local lawn=Factory.part(root,'StuddedLawn',Vector3.new(112,1,112),CFrame.new(0,-.5,18),Color3.fromRGB(114,210,37),nil,true)
+    local lawn=Factory.part(root,'StuddedLawn',Vector3.new(96,1,82),CFrame.new(0,-.5,3),Color3.fromRGB(114,210,37),nil,true)
     lawn.TopSurface=Enum.SurfaceType.Studs
-    for x=-54,54,4 do for z=-36,72,4 do Factory.part(root,'LawnStud',Vector3.new(1,.12,1),CFrame.new(x,.06,z),Color3.fromRGB(124,217,37)) end end
-    for _,x in {-56,56} do fence(root,CFrame.new(x,0,18)*CFrame.Angles(0,math.pi/2,0),112) end
-    for _,x in {-32,32} do fence(root,CFrame.new(x,0,-38),48) end
+    local rear=Factory.part(root,'WideFarmRear',Vector3.new(112,1,30),CFrame.new(0,-.5,59),lawn.Color,nil,true);rear.TopSurface=Enum.SurfaceType.Studs
+    local stallFloor=Factory.part(root,'FarmerAlcove',Vector3.new(20,1,12),CFrame.new(27,-.5,-44),lawn.Color,nil,true);stallFloor.TopSurface=Enum.SurfaceType.Studs
+    for x=-54,54,4 do for z=-36,72,4 do if z>=44 or math.abs(x)<=46 then Factory.part(root,'LawnStud',Vector3.new(1,.12,1),CFrame.new(x,.06,z),Color3.fromRGB(124,217,37)) end end end
+    for _,side in {-1,1} do
+        fence(root,CFrame.new(side*48,0,3)*CFrame.Angles(0,math.pi/2,0),82)
+        fence(root,CFrame.new(side*52,0,44),8)
+        fence(root,CFrame.new(side*56,0,59)*CFrame.Angles(0,math.pi/2,0),30)
+    end
+    fence(root,CFrame.new(-32.5,0,-38),31)
+    fence(root,CFrame.new(42.5,0,-38),11)
+    fence(root,CFrame.new(27,0,-50),20)
+    for _,x in {17,37} do fence(root,CFrame.new(x,0,-44)*CFrame.Angles(0,math.pi/2,0),12) end
     local back=Factory.part(root,'BackWall',Vector3.new(112,5,1.5),CFrame.new(0,2.5,74),orange,nil,true); back.TopSurface=Enum.SurfaceType.Studs
     local pads={}
     for _,quantity in {'1','5','10','100'} do
@@ -70,17 +83,29 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     end
     Factory.part(booth,'Counter',Vector3.new(13,.6,3),CFrame.new(-30,2.8,-5),Color3.fromRGB(134,82,36))
     Factory.prop(booth,'Shopkeeper',CFrame.new(-30,0,-2),.95)
-    local boothFrame=CFrame.new(43,0,12)*CFrame.Angles(0,math.pi/2,0)*CFrame.new(30,0,3)
+    local boothFrame=CFrame.new(27,0,-42)*CFrame.Angles(0,math.pi,0)*CFrame.new(30,0,3)
     for _,part in booth:GetDescendants() do if part:IsA('BasePart') then part.CFrame=boothFrame*part.CFrame end end
-    -- A readable sign replaces the bulky processor machine.
-    for _,x in {-43,-25} do Factory.part(root,'ProcessorPost',Vector3.new(.7,8,.7),CFrame.new(x,4,29),Color3.fromRGB(102,65,34)) end
-    local processor=Factory.part(root,'Processor',Vector3.new(23,10,1),CFrame.new(-34,9,29),Color3.fromRGB(143,94,49),nil,true)
-    for _,side in {-1,1} do
-        for x=-10,10,1.6 do for y=-4,4,1.6 do Factory.part(root,'SignStud',Vector3.new(.72,.72,.16),CFrame.new(-34+x,9+y,29+side*.56),Color3.fromRGB(181,126,78)) end end
+    for index,x in {19,35} do
+        local crateCF=CFrame.new(x,0,-39)*CFrame.Angles(0,math.pi,0)
+        Decor.place(root,'KeyCrate',crateCF,1.25)
+        for n=1,3 do
+            local species=Catalog[string.format('tier_%02d',(index+n)%6+1)]
+            local mini=Factory.producer(root,'CrateMini',species,Vector3.new(x+(n-2)*1.1,1,-39),true)
+            mini:PivotTo(mini:GetPivot()*CFrame.Angles(0,math.pi+(n-2)*.3,0))
+        end
     end
-    for _,y in {3.8,14.2} do Factory.part(root,'SignFrame',Vector3.new(23.6,.55,1.4),CFrame.new(-34,y,29),Color3.fromRGB(103,61,31)) end
-    for _,x in {-45.7,-22.3} do Factory.part(root,'SignFrame',Vector3.new(.55,10.4,1.4),CFrame.new(x,9,29),Color3.fromRGB(103,61,31)) end
-    local textFace=Factory.part(root,'ProcessorTextFace',Vector3.new(23,10,.02),CFrame.new(-34,9,28.3),Color3.new(1,1,1));textFace.Transparency=1;textFace.CanQuery=false
+    Decor.place(root,'CashStash',CFrame.new(38,0,-35)*CFrame.Angles(0,.3,0),.9)
+    Decor.place(root,'ShippingCrate',CFrame.new(30,0,-45)*CFrame.Angles(0,-.2,0),.8)
+    -- Keep the sign along the side fence, clear of the purchase row.
+    local processorGroup=Instance.new('Model');processorGroup.Name='ProcessorSign';processorGroup.Parent=root
+    for _,x in {-43,-25} do Factory.part(processorGroup,'ProcessorPost',Vector3.new(.7,8,.7),CFrame.new(x,4,29),Color3.fromRGB(102,65,34)) end
+    local processor=Factory.part(processorGroup,'Processor',Vector3.new(23,10,1),CFrame.new(-34,9,29),Color3.fromRGB(143,94,49),nil,true)
+    for _,side in {-1,1} do
+        for x=-10,10,1.6 do for y=-4,4,1.6 do Factory.part(processorGroup,'SignStud',Vector3.new(.72,.72,.16),CFrame.new(-34+x,9+y,29+side*.56),Color3.fromRGB(181,126,78)) end end
+    end
+    for _,y in {3.8,14.2} do Factory.part(processorGroup,'SignFrame',Vector3.new(23.6,.55,1.4),CFrame.new(-34,y,29),Color3.fromRGB(103,61,31)) end
+    for _,x in {-45.7,-22.3} do Factory.part(processorGroup,'SignFrame',Vector3.new(.55,10.4,1.4),CFrame.new(x,9,29),Color3.fromRGB(103,61,31)) end
+    local textFace=Factory.part(processorGroup,'ProcessorTextFace',Vector3.new(23,10,.02),CFrame.new(-34,9,28.3),Color3.new(1,1,1));textFace.Transparency=1;textFace.CanQuery=false
     local surface=Instance.new('SurfaceGui'); surface.Name='ProcessorDisplay'; surface.Adornee=textFace; surface.Face=Enum.NormalId.Front; surface.CanvasSize=Vector2.new(690,300); surface.Parent=processor
     local function signLine(name: string,value: string,y: number,height: number,size: number,color: Color3)
         local label=Instance.new('TextLabel');label.Name=name;label.Text=value;label.Position=UDim2.fromOffset(0,y);label.Size=UDim2.new(1,0,0,height);label.BackgroundTransparency=1;label.Font=Enum.Font.FredokaOne;label.TextSize=size;label.TextColor3=color;label.TextStrokeTransparency=0;label.TextStrokeColor3=Color3.fromRGB(30,19,14);label.Parent=surface
@@ -91,8 +116,14 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     signLine('FriendBoost','(No Friend Boost)',72,32,28,Color3.fromRGB(83,207,255))
     local processorLabel=signLine('Queued','0',100,116,102,Color3.fromRGB(255,231,183))
     local processorRate=signLine('Rate','2 per second',220,52,40,Color3.fromRGB(255,231,202))
+    local signTransform=CFrame.new(47,0,10)*CFrame.Angles(0,math.pi/2,0)*CFrame.new(34,0,-29)
+    for _,part in processorGroup:GetDescendants() do if part:IsA('BasePart') then part.CFrame=signTransform*part.CFrame end end
     local upgrade=pad(root,'UpgradePad',Vector3.new(11,.4,7),CFrame.new(Map.Upgrade),Color3.fromRGB(95,245,70))
-    local upgradeLabel=Factory.label(upgrade,'UPGRADE PROCESSOR\n100 Coins',190,55)
+    local upgradeLabel=Factory.label(upgrade,'+3 per second',220,85)
+    upgradeLabel.Size=UDim2.new(1,0,0,32); upgradeLabel.TextSize=26; upgradeLabel.TextWrapped=false
+    upgradeLabel.TextStrokeColor3=Color3.fromRGB(30,25,18)
+    local upgradePrice=upgradeLabel:Clone(); upgradePrice.Name='Price'; upgradePrice.Position=UDim2.fromOffset(0,32); upgradePrice.Size=UDim2.new(1,0,0,50); upgradePrice.Text='$10'; upgradePrice.TextSize=42; upgradePrice.TextColor3=Color3.fromRGB(133,255,0); upgradePrice.Parent=upgradeLabel.Parent
+    for _,label in {upgradeLabel,upgradePrice} do local outline=Instance.new('UIStroke');outline.Color=Color3.fromRGB(26,37,10);outline.Thickness=2;outline.Parent=label end
     local finish=pad(root,'FinishNowPad',Vector3.new(10,.4,7),CFrame.new(Map.FinishNow),Color3.fromRGB(255,213,35)); finish:SetAttribute('ProductKey','finishNow')
     Factory.label(finish,'Finish now\nComing soon',140,52)
     for key,position in Map.PassPads do
@@ -127,22 +158,30 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
         local ramp=Factory.part(root,'StuddedConveyorRamp',Vector3.new(51,.35,8),rampCF,Color3.fromRGB(222,61,62),nil,true);ramp.TopSurface=Enum.SurfaceType.Studs
         for x=-24,24,2 do for z=-3,3,2 do Factory.part(root,'ConveyorStud',Vector3.new(.5,.10,.5),rampCF*CFrame.new(x,.23,z),Color3.fromRGB(238,84,82)) end end
     end
-    for _,x in {-51,51} do for _,z in {-24,65} do
-        Factory.prop(root,'BrickTree',CFrame.new(x,0,z),1.15)
-    end end
+    local treeSpots={Vector3.new(49,0,63),Vector3.new(-50,0,64),Vector3.new(-40,0,-28),Vector3.new(-41,0,34),Vector3.new(32,0,70)}
+    for i,spot in treeSpots do
+        local offset=Vector3.new(((id+i)%3-1)*1.2,0,((id*3+i)%5-2)*.6)
+        Environment.tree(root,CFrame.new(spot+offset)*CFrame.Angles(0,(id+i)*.7,0),.8+(id+i)%4*.12,(id+i)%3+1)
+    end
     for i,point in {Vector3.new(-47,0,-29),Vector3.new(28,0,-28),Vector3.new(49,0,42),Vector3.new(-48,0,43)} do
         Factory.prop(root,'BrickBush',CFrame.new(point)*CFrame.Angles(0,i*.8,0))
         Factory.prop(root,'BrickLog',CFrame.new(point+Vector3.new(4,0,2))*CFrame.Angles(0,i,0))
         for flower=1,3 do Factory.prop(root,'BrickFlower',CFrame.new(point+Vector3.new(flower*1.2,0,-3+(flower%2))),.8+flower*.1) end
         Factory.prop(root,'BrickGrass',CFrame.new(point+Vector3.new(-2,0,1)),1.2)
     end
-    local barn=Factory.prop(root,'BrickBarn',CFrame.new(43,0,-27)*CFrame.Angles(0,-.25,0),.85)
+    local barn=Factory.prop(root,'BrickBarn',CFrame.lookAt(Vector3.new(41,0,-29),Vector3.new(0,0,18)),.85)
     if barn then
-        local roofGuest=Factory.producer(root,'BarnMascot',Catalog[string.format('tier_%02d',(id-1)%4+1)],Vector3.new(43,barn.Size.Y,-27),true)
+        local roofGuest=Factory.producer(root,'BarnMascot',Catalog[string.format('tier_%02d',(id-1)%4+1)],Vector3.new(41,barn.Size.Y,-29),true)
         roofGuest:ScaleTo(1.2)
         local guestPivot=roofGuest:GetPivot()
         roofGuest:PivotTo(CFrame.lookAt(guestPivot.Position,Vector3.new(0,guestPivot.Position.Y,18)))
     end
+    local groupCF=CFrame.new(-47,7,6)*CFrame.Angles(0,-math.pi/2,0)
+    local groupBoard=Factory.part(root,'GroupRewardBoard',Vector3.new(17,10,.8),groupCF,Color3.fromRGB(153,101,56),nil,true)
+    for x=-7,7,2 do for y=-4,4,2 do Factory.part(root,'GroupBoardStud',Vector3.new(.7,.7,.15),groupCF*CFrame.new(x,y,-.48),Color3.fromRGB(188,133,82)) end end
+    local groupGui=Instance.new('SurfaceGui');groupGui.Face=Enum.NormalId.Front;groupGui.CanvasSize=Vector2.new(510,300);groupGui.AlwaysOnTop=true;groupGui.Parent=groupBoard
+    local groupText=Instance.new('TextLabel');groupText.Size=UDim2.fromScale(1,1);groupText.BackgroundTransparency=1;groupText.Text='GROUP REWARD\nJoin our group\nComing soon';groupText.Font=Enum.Font.FredokaOne;groupText.TextSize=38;groupText.TextColor3=Color3.fromRGB(255,239,194);groupText.TextStrokeTransparency=0;groupText.Parent=groupGui
+    pad(root,'GroupRewardPad',Vector3.new(10,.4,7),CFrame.new(-35,.2,6),Color3.fromRGB(181,170,133))
     local spawn=Instance.new('SpawnLocation'); spawn.Name='FarmSpawn'; spawn.Anchored=true; spawn.Transparency=1
     spawn.CanCollide=false; spawn.CanTouch=false; spawn.Size=Vector3.new(6,1,6); spawn.CFrame=Map.Spawn; spawn.Neutral=true; spawn.Parent=root
     local producers=Instance.new('Folder'); producers.Name='Producers'; producers.Parent=root
@@ -151,23 +190,42 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     placeScaled(root,transform)
     root.Parent=parent; task.wait()
     local lighting=game:GetService('Lighting'); lighting.ClockTime=13; lighting.Brightness=2; lighting.Ambient=Color3.fromRGB(170,170,170)
-    return {id=id,frame=transform,root=root,producers=producers,tokens=tokens,rows=rows,ownerLabel=ownerLabel,pads=pads,saleLabel=saleLabel,portrait=portrait,ownerName=ownerName,processorLabel=processorLabel,processorRate=processorRate,upgradeLabel=upgradeLabel,spawn=spawn}
+    return {id=id,frame=transform,root=root,producers=producers,tokens=tokens,rows=rows,ownerLabel=ownerLabel,pads=pads,saleLabel=saleLabel,portrait=portrait,ownerName=ownerName,processorLabel=processorLabel,processorRate=processorRate,upgradeLabel=upgradeLabel,upgradePrice=upgradePrice,spawn=spawn}
 end
 function World.build()
     local old=workspace:FindFirstChild('MergeABrainrotGenerated'); if old then old:Destroy() end
     local root=Instance.new('Folder'); root.Name='MergeABrainrotGenerated'; root.Parent=workspace
     local water=Factory.part(root,'Water',Vector3.new(1000,1,1000),CFrame.new(0,-5,0),Color3.fromRGB(46,174,224),nil,true); water.Material=Enum.Material.Glass; water.Transparency=.15
-    local plaza=Factory.part(root,'CentralPlaza',Vector3.new(440,1,94),CFrame.new(0,-.5,0),Color3.fromRGB(115,210,38),nil,true); plaza.TopSurface=Enum.SurfaceType.Studs
+    Environment.octagon(root,CFrame.new(0,0,0),96,1,Color3.fromRGB(115,210,38))
+    for i=1,6 do
+        local angle=(i-1)*math.pi/3
+        local outward=Vector3.new(math.sin(angle),0,math.cos(angle))
+        local walkCF=CFrame.lookAt(outward*63+Vector3.new(0,.08,0),outward*80+Vector3.new(0,.08,0))
+        local walk=Factory.part(root,'LobbyWalkway',Vector3.new(14,.2,50),walkCF,Color3.fromRGB(245,204,123));walk.TopSurface=Enum.SurfaceType.Studs
+    end
+    for i=1,16 do
+        local angle=i*math.pi/8; local x,z=math.cos(angle)*37,math.sin(angle)*37
+        local edging=Factory.part(root,'CircleEdging',Vector3.new(6,.4,1.1),CFrame.new(x,.3,z)*CFrame.Angles(0,-angle+math.pi/2,0),orange);edging.TopSurface=Enum.SurfaceType.Studs
+    end
+    for i=1,6 do
+        local angle=(i-.5)*math.pi/3; local center=Vector3.new(math.sin(angle)*57,0,math.cos(angle)*57)
+        local bed=Factory.part(root,'Planter',Vector3.new(9,.7,5),CFrame.new(center+Vector3.new(0,.35,0))*CFrame.Angles(0,angle,0),Color3.fromRGB(134,81,41));bed.TopSurface=Enum.SurfaceType.Studs
+        for flower=1,4 do Factory.prop(root,'BrickFlower',CFrame.new(center+Vector3.new(-4+flower*1.6,.7,0)),.85+flower%2*.2) end
+        Factory.prop(root,'BrickBush',CFrame.new(center+Vector3.new(3,.7,0)),.75)
+    end
     local plots={}
-    for _,z in {126,-126} do for _,x in {-120,0,120} do
-        local transform=CFrame.new(x,0,z)*(if z<0 then CFrame.Angles(0,math.pi,0) else CFrame.new())
-        table.insert(plots,buildPlot(root,#plots+1,transform))
-        local bridge=Factory.part(root,'Bridge',Vector3.new(14,1,64),CFrame.new(x,-.2,if z>0 then 77 else -77),Color3.fromRGB(162,111,63),nil,true); bridge.TopSurface=Enum.SurfaceType.Studs
-        local bridgeMesh=Factory.prop(root,'BrickBridge',CFrame.new(x,-.1,if z>0 then 77 else -77))
-        if bridgeMesh then bridge.Transparency=1 end
-        for _,side in {-1,1} do local rail=Factory.part(root,'BridgeBarrier',Vector3.new(.6,4,64),bridge.CFrame*CFrame.new(side*6.8,2.2,0),orange,nil,true); rail.Transparency=1 end
-        for i=1,4 do Factory.prop(root,'BrickLilyPad',CFrame.new(x+(if i%2==0 then -1 else 1)*(15+i*5),-4.38,if z>0 then 55+i*10 else -55-i*10)*CFrame.Angles(0,i*1.6,0),.8+i*.22) end
-    end end
+    for i=1,6 do
+        local angle=(i-1)*math.pi/3
+        local outward=Vector3.new(math.sin(angle),0,math.cos(angle))
+        local transform=CFrame.lookAt(outward*150,outward*149)
+        table.insert(plots,buildPlot(root,i,transform))
+        local bridgeCF=CFrame.lookAt(outward*112.5+Vector3.new(0,-.2,0),outward*113.5+Vector3.new(0,-.2,0))
+        local bridge=Factory.part(root,'Bridge',Vector3.new(14,1,37),bridgeCF,Color3.fromRGB(162,111,63),nil,true);bridge.TopSurface=Enum.SurfaceType.Studs
+        local bridgeMesh=Factory.prop(root,'BrickBridge',bridgeCF+Vector3.new(0,.1,0))
+        if bridgeMesh then bridgeMesh.Size=Vector3.new(bridgeMesh.Size.X,bridgeMesh.Size.Y,37);bridge.Transparency=1 end
+        for _,side in {-1,1} do local rail=Factory.part(root,'BridgeBarrier',Vector3.new(.6,4,37),bridgeCF*CFrame.new(side*6.8,2.2,0),orange,nil,true);rail.Transparency=1 end
+        for n=1,4 do Factory.prop(root,'BrickLilyPad',bridgeCF*CFrame.new((if n%2==0 then -1 else 1)*(12+n*2),-4.18,(n-2)*10)*CFrame.Angles(0,n*1.6,0),.8+n*.2) end
+    end
     local boards={}
     local circle=Factory.part(root,'GatheringCircle',Vector3.new(.3,68,68),CFrame.new(0,.15,0)*CFrame.Angles(0,0,math.pi/2),Color3.fromRGB(255,192,98),Enum.PartType.Cylinder,true)
     circle.TopSurface=Enum.SurfaceType.Studs
@@ -176,31 +234,35 @@ function World.build()
         local block=Factory.part(root,'ParkourStep'..i,Vector3.new(5,1,5),CFrame.new(math.cos(angle)*14,i*3,math.sin(angle)*14),orange,nil,true); block.TopSurface=Enum.SurfaceType.Studs
     end
     Factory.part(root,'ParkourFinish',Vector3.new(9,1,9),CFrame.new(math.cos(7)*7,33,math.sin(7)*7),Color3.fromRGB(255,225,41),nil,true)
-    for _,x in {-190,-110,-65,65,110,190} do for _,z in {-30,30} do
-        Factory.prop(root,'BrickTree',CFrame.new(x,0,z),.9)
-        for flower=1,3 do
-            local px=x+5+flower*2
-            Factory.prop(root,'BrickFlower',CFrame.new(px,0,z+5),.8+flower*.1)
-        end
-    end end
+    for i=1,9 do
+        local angle=i*2.399; local radius=65+i%3*7
+        local position=Vector3.new(math.cos(angle)*radius,0,math.sin(angle)*radius)
+        Environment.tree(root,CFrame.new(position)*CFrame.Angles(0,angle,0),.85+i%4*.12,i%3+1)
+        for flower=1,3 do Factory.prop(root,'BrickFlower',CFrame.new(position+Vector3.new(4+flower*1.3,0,2)),.7+flower*.1) end
+        Factory.prop(root,'BrickGrass',CFrame.new(position+Vector3.new(-3,0,2)),1.1)
+    end
+    Environment.lighthouse(root,CFrame.new(-62,0,-62)*CFrame.Angles(0,math.pi/4,0),.7)
     for index,position in {Vector3.new(-67,-4.4,86),Vector3.new(67,-4.4,-86),Vector3.new(190,-4.4,112)} do
         Factory.prop(root,'BrickRockIsland',CFrame.new(position)*CFrame.Angles(0,index*.9,0),1.25)
         Factory.prop(root,'BrickLilyPad',CFrame.new(position+Vector3.new(10,0,4)),1.2)
         Factory.prop(root,'BrickLilyPad',CFrame.new(position+Vector3.new(-6,0,-8)),.9)
     end
-    for index,position in {Vector3.new(-155,0,22),Vector3.new(155,0,-24)} do
+    for index,position in {Vector3.new(-65,0,25),Vector3.new(65,0,-24)} do
         local facing=CFrame.Angles(0,if index==1 then -.4 else math.pi-.4,0)
         Factory.prop(root,'BrickBarn',CFrame.new(position)*facing,.85)
         Factory.prop(root,'CoolTralalero',CFrame.new(position+Vector3.new(6,0,-2))*facing,.65)
         Factory.prop(root,'BrickGrass',CFrame.new(position+Vector3.new(-4,0,-3)),1.4)
         Factory.prop(root,'BrickFlower',CFrame.new(position+Vector3.new(4,0,3)),1.1)
     end
-    for i,title in {'TIME PLAYED','NET WORTH','TOTAL BRAINROTS'} do
-        local board=Factory.part(root,'Leaderboard'..i,Vector3.new(25,18,1),CFrame.new((i-2)*37,10,-32),Color3.fromRGB(79,49,31),nil,true)
-        local surface=Instance.new('SurfaceGui'); surface.Face=Enum.NormalId.Front; surface.CanvasSize=Vector2.new(500,380); surface.Parent=board
-        local label=Instance.new('TextLabel'); label.Name='Ranking'; label.Size=UDim2.fromScale(1,1); label.BackgroundTransparency=1; label.TextColor3=Color3.new(1,1,1); label.Font=Enum.Font.FredokaOne; label.TextSize=28; label.TextWrapped=true; label.Text=title..'\nCURRENT SERVER'; label.Parent=surface
-        boards[i]=label
-        local rear=surface:Clone(); rear.Face=Enum.NormalId.Back; rear.Parent=board
+    local boardSpecs={
+        {key='time',title='Time Played',color=Color3.fromRGB(86,178,255)},
+        {key='coins',title='Net Worth',color=Color3.fromRGB(103,255,31)},
+        {key='count',title='Total Brainrots',color=Color3.fromRGB(197,231,136)},
+    }
+    for i,spec in boardSpecs do
+        local angle=(i-1)*math.pi*2/3-math.pi/2
+        local position=Vector3.new(math.cos(angle)*30,14,math.sin(angle)*30)
+        boards[i]=LeaderboardDisplay.new(root,spec.key,spec.title,spec.color,CFrame.lookAt(position,Vector3.new(0,14,0)))
     end
     return {root=root,plots=plots,boards=boards}
 end
@@ -213,13 +275,7 @@ function World.setOwner(world: any,player: Player)
     end)
 end
 function World.updateBoards(hub: any,entries: {any})
-    for index,key in {'time','coins','count'} do
-        local ordered=table.clone(entries); table.sort(ordered,function(a,b) return if a[key]==b[key] then a.name<b.name else a[key]>b[key] end)
-        local rows={({'TIME PLAYED','NET WORTH','TOTAL BRAINROTS'})[index],'CURRENT SERVER',''}
-        for rank,entry in ordered do table.insert(rows,rank..'. '..entry.name..'  -  '..(if key=='time' then math.floor(entry.time/60)..'m '..entry.time%60 ..'s' else tostring(entry[key]))) end
-        local label=hub.boards[index]; label.Text=table.concat(rows,'\n')
-        for _,surface in label.Parent.Parent:GetChildren() do if surface:IsA('SurfaceGui') then surface.Ranking.Text=label.Text end end
-    end
+    for _,board in hub.boards do LeaderboardDisplay.update(board,entries) end
 end
 function World.render(world: any,state: any)
     world.renderGeneration=(world.renderGeneration or 0)+1
@@ -315,14 +371,17 @@ function World.render(world: any,state: any)
         local unlocked=state.rebirths>=Config.BuyUnlocks[quantity]
         local free=quantity=='1' and not state.starterClaimed
         local amount=if quantity=='100' then math.min(100,Config.Slots-#state.producers) else tonumber(quantity)
-        label.Text=(if free then 'BUY FIRST\n$5' elseif amount==0 then 'STACK FULL\nMERGE TO MAKE ROOM' else 'BUY '..(if quantity=='100' then 'UP TO 100' else quantity)..'\n$'..(amount*Config.BuyUnits/4))..(if unlocked then '' else '\nRebirth '..Config.BuyUnlocks[quantity]..' required')
+        local tier=if quantity=='100' then math.clamp(state.rebirths,1,Config.MaxTier) else 1
+        label.Text=(if free then 'BUY FIRST\n$5' elseif amount==0 then 'STACK FULL\nMERGE TO MAKE ROOM' else 'BUY '..(if quantity=='100' then 'UP TO 100 '..Catalog[string.format('tier_%02d',tier)].name else quantity)..'\n$'..(Economy.buyCost(state.purchased or 0,amount,tier)/4))..(if unlocked then '' else '\nRebirth '..Config.BuyUnlocks[quantity]..' required')
+        if quantity=='100' then label.Parent.Size=UDim2.fromOffset(160,78);label.TextSize=15 end
         label.TextColor3=if unlocked then Color3.fromRGB(130,255,62) else Color3.fromRGB(255,195,195)
     end
     world.saleLabel.Text='Collect cash\n$'..string.format('%g',state.soldUnits/4)
-    world.processorLabel.Text=tostring(#state.saleQueue)
+    world.processorLabel.Text=tostring(Economy.count(state.saleQueue))
     world.processorRate.Text=Config.ProcessorRates[state.processorLevel+1]..' per second'
     local upgradeCost=Config.ProcessorCosts[state.processorLevel+1]
-    world.upgradeLabel.Text=if upgradeCost then '+'..(Config.ProcessorRates[state.processorLevel+2]-Config.ProcessorRates[state.processorLevel+1])..' per second\n$'..(upgradeCost/4) else 'PROCESSOR MAXED'
+    world.upgradeLabel.Text=if upgradeCost then '+'..(Config.ProcessorRates[state.processorLevel+2]-Config.ProcessorRates[state.processorLevel+1])..' per second' else 'PROCESSOR MAXED'
+    world.upgradePrice.Text=if upgradeCost then '$'..(upgradeCost/4) else ''
 end
 function World.clear(world: any)
     world.renderGeneration=(world.renderGeneration or 0)+1

@@ -1,10 +1,12 @@
 # Merge a Brainrot
 
-Six-player, memory-only Roblox Studio prototype with compact brick farms, six Brainrot tiers, stacking, timed mini sales, merging, Lucky Blocks and rebirth. Source files in Git are the source of truth. No live experience has been published.
+Six-player, memory-only Roblox Studio prototype with six Brainrot tiers, stacked farms, timed Mini processing, automatic merging, Lucky Blocks and rebirth. Source files in Git are the source of truth. No live experience has been published.
 
-Start with $5 and walk onto BUY 1 to get Tong Tong. Each producer makes a Mini every six seconds. Collect three $2 Minis from the conveyor tray, deposit them, then walk onto Collect Cash. Buy a second $5 Tong Tong and merge the pair. There is no welcome modal; the small tutorial guides the first loop. Hold Shift to sprint, or use the touch Sprint button.
+Start with $5 and walk onto BUY 1 to get TungTung. Producers make Minis on a six-second cycle, adjusted by the shared 0.50–1.50x Mini Multiplier. Nearby ready Minis enter your bag automatically. Walk onto the farmer's deposit pad, collect processed cash, buy another TungTung, and step onto MERGE to combine all available pairs. Buy 5 and Buy 10 need no rebirth. Buy 100 unlocks at rebirth 1 and advances one species tier per rebirth on the same pad.
 
-Each plot has 100 producer slots across ten rows. Plots are 56 by 56 studs, half the earlier width and depth. Minis tumble into separate layered pile positions and producers hop when creating them. The HUD includes gradient cash, a collection index, merge-weighted Total Brainrots and an eligible-rebirth badge. Original Blender characters, brick scenery, nests and Lucky Blocks include editable sources.
+Purchases gradually cost more, even after merging. The first processor upgrade costs $10. First rebirth requires $25,000 and an owned Level 6 Brainrot. Shift and touch Sprint are supported. There is no welcome modal or interaction-key requirement for farm pads.
+
+Six T-shaped plots connect by bridges to an octagonal hub with a circular center. Three wood leaderboards show current-server Net Worth, Time Played and Total Brainrots, including avatars, medal colors and personal bracketed values. Three gradient tree shapes, a corner lighthouse, mixed Mini crates and cash props decorate the map. Producer rows are spaced farther apart. Cash claims scatter eight small cash bundles and sparks for two seconds.
 
 Build with Rojo 7.7.1:
 
@@ -12,10 +14,8 @@ Build with Rojo 7.7.1:
 rojo build default.project.json -o build/MergeABrainrot-StackedFarm.rbxlx
 ```
 
-Create `build/` first, open the generated place in Studio and press Play. The map generates at runtime. For live editing use `rojo serve default.project.json` and connect the Studio Rojo plugin. `setup.project.json` is the historical setup scaffold.
+Create `build/` first, open the generated place in Studio and press Play. The map generates at runtime. For editing use `rojo serve default.project.json` and connect the Studio Rojo plugin. Run non-Studio `tests/*.luau` with Luau 0.743, and `tests/studio-layout.client.luau` in Studio Client during Play.
 
-Run all non-Studio `tests/*.luau` scripts with Luau 0.743. Run `tests/studio-layout.client.luau` in the Studio Client command bar during Play. `tools/simulate_progression.luau` exercises the real economy with a timed active-player benchmark.
+Progress resets on Stop. Persistence, global leaderboards, group rewards, friend boosts and configured monetization remain pending. Paid offers show Coming soon. Eleven additional original Blender characters and their Minis are supplied as editable asset packs; they are not yet imported or assigned gameplay tiers.
 
-Stopping Play resets progress. Persistence, live release, friend boosts and configured monetization remain pending. Gamepass IDs are unset, so paid offers display Coming soon rather than invented Robux prices. First rebirth retains the specified $1 million plus Level 6 requirement; the [economy audit](docs/verification/ECONOMY_PACE.md) records its substantial manual progression burden.
-
-See [build status](docs/BUILD_STATUS.md), [current verification](docs/verification/STACKED_FARM.md), [asset sources and imports](assets/README.md), and [setup instructions](docs/SETUP.md). The original handoff remains unchanged in `Merge_a_Brainrot_Pack/`; subsequent explicit user requests govern the current prototype.
+See [current verification](docs/verification/SEAMLESS_FARM.md), [economy benchmark](docs/verification/ECONOMY_PACE.md), [asset sources](assets/README.md), and [setup](docs/SETUP.md). The original handoff remains unchanged in `Merge_a_Brainrot_Pack/`; subsequent explicit user requests govern this prototype.

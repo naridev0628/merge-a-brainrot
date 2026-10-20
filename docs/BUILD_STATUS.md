@@ -1,10 +1,12 @@
-# Build status - 2026-10-19
+# Build status — 2026-10-19
 
-Current work is on `codex/stacked-brainrot-farm`, based on `codex/first-playable`. Six compact plots, six tiers, 100-slot vertical farms, timed processing, upgrades, Lucky Blocks, rebirth, original Blender assets and revised HUD are implemented. See [current verification](verification/STACKED_FARM.md) and [economy audit](verification/ECONOMY_PACE.md).
+Current work is on `codex/stacked-brainrot-farm`, based on `codex/first-playable`, in draft PR #2. The latest pass adds walk-on farm actions, aura pickup, merge-all, rising prices, compact high-capacity storage, rebirth-tier bulk purchases, a 90-second Mini Multiplier, a reference-shaped hub and plots, leaderboard styling and original scenery. See [current verification](verification/SEAMLESS_FARM.md) and [economy benchmark](verification/ECONOMY_PACE.md).
 
-Build `default.project.json` to `build/MergeABrainrot-StackedFarm.rbxlx` and press Play. Memory only: progress resets on Stop. No experience has been published. Start with $5, walk onto BUY 1, collect three Tong Tong Minis, deposit and collect $6, then buy and merge a second Tong Tong. Shift and touch sprint are supported. The welcome popup has been removed.
+Build `default.project.json` to `build/MergeABrainrot-StackedFarm.rbxlx` and press Play. Memory only: progress resets on Stop. First rebirth is now $25,000 plus Level 6. Processor upgrades start at $10. Buy 5/10 are available immediately; Buy 100 starts at rebirth 1 and advances the species on that same pad. Ground cash bundles clear after two seconds.
 
-Pending release work: persistence, configured gamepasses/products, friend boost, real multiplayer/device load tests, balance tuning and asset permission verification for the eventual experience owner. Current leaderboards rank this server only. First rebirth remains $1 million plus owned Level 6; measured manual progression is much slower than first-species discovery. Collaborator invitation and Mac verification remain pending.
+Eleven new original characters, eleven matching Minis and three stall props include Blender source, GLBs and previews. The new character packs await Roblox import and progression assignment; the three stall props already render as native parts derived from their Blender layout.
+
+Pending release work: saving, global rankings, configured purchases/group reward, friend boost, real multiplayer/device load tests and final-owner asset permissions. A user-supplied water texture is still pending. Collaborator invitation and Mac verification remain pending. No live experience was published.
 
 ## Historical Checkpoint 0 record â€” 2026-10-14
 

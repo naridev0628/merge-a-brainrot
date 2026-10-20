@@ -1,0 +1,324 @@
+{
+  "NoobiniPizzanini": {
+    "triangles": 3808,
+    "vertices": 2080,
+    "dimensions_xyz": [
+      3.25111,
+      1.42946,
+      5.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 290776,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "NoobiniPizzanini_Mini": {
+    "triangles": 748,
+    "vertices": 408,
+    "dimensions_xyz": [
+      1.31524,
+      0.57829,
+      2.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 58900,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "LiriliLarila": {
+    "triangles": 8292,
+    "vertices": 4552,
+    "dimensions_xyz": [
+      3.2822,
+      4.136,
+      5.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 629476,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "LiriliLarila_Mini": {
+    "triangles": 1456,
+    "vertices": 800,
+    "dimensions_xyz": [
+      1.33012,
+      1.67613,
+      2.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 112296,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "TimCheese": {
+    "triangles": 2932,
+    "vertices": 1608,
+    "dimensions_xyz": [
+      2.5125,
+      1.42469,
+      5.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 223052,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "TimCheese_Mini": {
+    "triangles": 1364,
+    "vertices": 744,
+    "dimensions_xyz": [
+      0.97099,
+      0.44716,
+      2.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 104576,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "Fluriflura": {
+    "triangles": 5104,
+    "vertices": 2784,
+    "dimensions_xyz": [
+      2.50363,
+      2.48434,
+      5.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 387640,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "Fluriflura_Mini": {
+    "triangles": 1848,
+    "vertices": 1008,
+    "dimensions_xyz": [
+      1.00145,
+      0.99374,
+      2.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 140760,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "TalpaDiFero": {
+    "triangles": 5224,
+    "vertices": 2864,
+    "dimensions_xyz": [
+      2.80694,
+      1.46045,
+      5.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 392716,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "TalpaDiFero_Mini": {
+    "triangles": 2088,
+    "vertices": 1152,
+    "dimensions_xyz": [
+      1.12278,
+      0.58418,
+      2.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 156028,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "RaccooniJandelini": {
+    "triangles": 3956,
+    "vertices": 2174,
+    "dimensions_xyz": [
+      3.14359,
+      2.29824,
+      5.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 297880,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "RaccooniJandelini_Mini": {
+    "triangles": 1536,
+    "vertices": 854,
+    "dimensions_xyz": [
+      1.2709,
+      0.92914,
+      2.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 115408,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "PipiPotato": {
+    "triangles": 3488,
+    "vertices": 1920,
+    "dimensions_xyz": [
+      3.08797,
+      2.06533,
+      5.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 260692,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  },
+  "PipiPotato_Mini": {
+    "triangles": 1036,
+    "vertices": 568,
+    "dimensions_xyz": [
+      1.23519,
+      0.82613,
+      2.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "bottom_z": 0.0,
+    "glb_bytes": 77532,
+    "glb_verified": {
+      "one_mesh": true,
+      "one_primitive": true,
+      "only_uv0": true,
+      "embedded_palette": true
+    }
+  }
+}

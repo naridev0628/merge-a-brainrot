@@ -1,0 +1,5106 @@
+{
+  "name": "CashStash",
+  "schema_version": 1,
+  "coordinates": "Blender Z-up; Roblox values already converted X,Z,Y. Use position_roblox and row-major rotation_matrix_roblox directly in CFrame.new. Cylinder size X is its thickness. All parts anchored; cosmetic parts CanCollide=false.",
+  "parts": [
+    {
+      "name": "Gold pile base",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "golddark",
+      "color_linear": [
+        0.6,
+        0.28,
+        0.008
+      ],
+      "color_srgb": [
+        0.797738,
+        0.565728,
+        0.086104
+      ],
+      "position_blender": [
+        0.0,
+        0.0,
+        0.10000000149011612
+      ],
+      "size_blender": [
+        3.35,
+        2.14,
+        0.2
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        0.10000000149011612,
+        0.0
+      ],
+      "size_roblox": [
+        3.35,
+        0.2,
+        2.14
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bullion bar",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        -0.8799999952316284,
+        -0.36000001430511475,
+        0.28999999165534973
+      ],
+      "size_blender": [
+        0.84,
+        0.67,
+        0.32
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.8799999952316284,
+        0.28999999165534973,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.84,
+        0.32,
+        0.67
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Bullion top plate",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -0.8799999952316284,
+        -0.36000001430511475,
+        0.46000000834465027
+      ],
+      "size_blender": [
+        0.66,
+        0.49,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.8799999952316284,
+        0.46000000834465027,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.66,
+        0.055,
+        0.49
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bullion bar.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        -0.8799999952316284,
+        0.36000001430511475,
+        0.28999999165534973
+      ],
+      "size_blender": [
+        0.84,
+        0.67,
+        0.32
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        -0.02500000037252903
+      ],
+      "position_roblox": [
+        -0.8799999952316284,
+        0.28999999165534973,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.84,
+        0.32,
+        0.67
+      ],
+      "rotation_matrix_roblox": [
+        0.99968749,
+        0.0,
+        0.0249974,
+        0.0,
+        1.0,
+        0.0,
+        -0.0249974,
+        0.0,
+        0.99968749
+      ]
+    },
+    {
+      "name": "Bullion top plate.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -0.8799999952316284,
+        0.36000001430511475,
+        0.46000000834465027
+      ],
+      "size_blender": [
+        0.66,
+        0.49,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.8799999952316284,
+        0.46000000834465027,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.66,
+        0.055,
+        0.49
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bullion bar.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.0,
+        -0.36000001430511475,
+        0.28999999165534973
+      ],
+      "size_blender": [
+        0.84,
+        0.67,
+        0.32
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.02500000037252903
+      ],
+      "position_roblox": [
+        0.0,
+        0.28999999165534973,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.84,
+        0.32,
+        0.67
+      ],
+      "rotation_matrix_roblox": [
+        0.99968749,
+        0.0,
+        -0.0249974,
+        0.0,
+        1.0,
+        0.0,
+        0.0249974,
+        0.0,
+        0.99968749
+      ]
+    },
+    {
+      "name": "Bullion top plate.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.0,
+        -0.36000001430511475,
+        0.46000000834465027
+      ],
+      "size_blender": [
+        0.66,
+        0.49,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        0.46000000834465027,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.66,
+        0.055,
+        0.49
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bullion bar.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.0,
+        0.36000001430511475,
+        0.28999999165534973
+      ],
+      "size_blender": [
+        0.84,
+        0.67,
+        0.32
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        0.28999999165534973,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.84,
+        0.32,
+        0.67
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Bullion top plate.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.0,
+        0.36000001430511475,
+        0.46000000834465027
+      ],
+      "size_blender": [
+        0.66,
+        0.49,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.0,
+        0.46000000834465027,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.66,
+        0.055,
+        0.49
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bullion bar.004",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.8799999952316284,
+        -0.36000001430511475,
+        0.28999999165534973
+      ],
+      "size_blender": [
+        0.84,
+        0.67,
+        0.32
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.05000000074505806
+      ],
+      "position_roblox": [
+        0.8799999952316284,
+        0.28999999165534973,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.84,
+        0.32,
+        0.67
+      ],
+      "rotation_matrix_roblox": [
+        0.99875027,
+        0.0,
+        -0.04997917,
+        0.0,
+        1.0,
+        0.0,
+        0.04997917,
+        0.0,
+        0.99875027
+      ]
+    },
+    {
+      "name": "Bullion top plate.004",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.8799999952316284,
+        -0.36000001430511475,
+        0.46000000834465027
+      ],
+      "size_blender": [
+        0.66,
+        0.49,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.8799999952316284,
+        0.46000000834465027,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.66,
+        0.055,
+        0.49
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bullion bar.005",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.8799999952316284,
+        0.36000001430511475,
+        0.28999999165534973
+      ],
+      "size_blender": [
+        0.84,
+        0.67,
+        0.32
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.02500000037252903
+      ],
+      "position_roblox": [
+        0.8799999952316284,
+        0.28999999165534973,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.84,
+        0.32,
+        0.67
+      ],
+      "rotation_matrix_roblox": [
+        0.99968749,
+        0.0,
+        -0.0249974,
+        0.0,
+        1.0,
+        0.0,
+        0.0249974,
+        0.0,
+        0.99968749
+      ]
+    },
+    {
+      "name": "Bullion top plate.005",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.8799999952316284,
+        0.36000001430511475,
+        0.46000000834465027
+      ],
+      "size_blender": [
+        0.66,
+        0.49,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.8799999952316284,
+        0.46000000834465027,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.66,
+        0.055,
+        0.49
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bullion bar.006",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        -0.4399999976158142,
+        -0.36000001430511475,
+        0.6299999952316284
+      ],
+      "size_blender": [
+        0.84,
+        0.67,
+        0.32
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.4399999976158142,
+        0.6299999952316284,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.84,
+        0.32,
+        0.67
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Bullion top plate.006",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -0.4399999976158142,
+        -0.36000001430511475,
+        0.800000011920929
+      ],
+      "size_blender": [
+        0.66,
+        0.49,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.4399999976158142,
+        0.800000011920929,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.66,
+        0.055,
+        0.49
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bar square studs",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -0.5799999833106995,
+        -0.36000001430511475,
+        0.8450000286102295
+      ],
+      "size_blender": [
+        0.14,
+        0.14,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.5799999833106995,
+        0.8450000286102295,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.14,
+        0.055,
+        0.14
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bar square studs.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -0.30000001192092896,
+        -0.36000001430511475,
+        0.8450000286102295
+      ],
+      "size_blender": [
+        0.14,
+        0.14,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.30000001192092896,
+        0.8450000286102295,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.14,
+        0.055,
+        0.14
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bullion bar.007",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        -0.4399999976158142,
+        0.36000001430511475,
+        0.6299999952316284
+      ],
+      "size_blender": [
+        0.84,
+        0.67,
+        0.32
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        -0.02500000037252903
+      ],
+      "position_roblox": [
+        -0.4399999976158142,
+        0.6299999952316284,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.84,
+        0.32,
+        0.67
+      ],
+      "rotation_matrix_roblox": [
+        0.99968749,
+        0.0,
+        0.0249974,
+        0.0,
+        1.0,
+        0.0,
+        -0.0249974,
+        0.0,
+        0.99968749
+      ]
+    },
+    {
+      "name": "Bullion top plate.007",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -0.4399999976158142,
+        0.36000001430511475,
+        0.800000011920929
+      ],
+      "size_blender": [
+        0.66,
+        0.49,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.4399999976158142,
+        0.800000011920929,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.66,
+        0.055,
+        0.49
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bar square studs.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -0.5799999833106995,
+        0.36000001430511475,
+        0.8450000286102295
+      ],
+      "size_blender": [
+        0.14,
+        0.14,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.5799999833106995,
+        0.8450000286102295,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.14,
+        0.055,
+        0.14
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bar square studs.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -0.30000001192092896,
+        0.36000001430511475,
+        0.8450000286102295
+      ],
+      "size_blender": [
+        0.14,
+        0.14,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.30000001192092896,
+        0.8450000286102295,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.14,
+        0.055,
+        0.14
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bullion bar.008",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.4399999976158142,
+        -0.36000001430511475,
+        0.6299999952316284
+      ],
+      "size_blender": [
+        0.84,
+        0.67,
+        0.32
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.02500000037252903
+      ],
+      "position_roblox": [
+        0.4399999976158142,
+        0.6299999952316284,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.84,
+        0.32,
+        0.67
+      ],
+      "rotation_matrix_roblox": [
+        0.99968749,
+        0.0,
+        -0.0249974,
+        0.0,
+        1.0,
+        0.0,
+        0.0249974,
+        0.0,
+        0.99968749
+      ]
+    },
+    {
+      "name": "Bullion top plate.008",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.4399999976158142,
+        -0.36000001430511475,
+        0.800000011920929
+      ],
+      "size_blender": [
+        0.66,
+        0.49,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.4399999976158142,
+        0.800000011920929,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.66,
+        0.055,
+        0.49
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bar square studs.004",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.30000001192092896,
+        -0.36000001430511475,
+        0.8450000286102295
+      ],
+      "size_blender": [
+        0.14,
+        0.14,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.30000001192092896,
+        0.8450000286102295,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.14,
+        0.055,
+        0.14
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bar square studs.005",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.5799999833106995,
+        -0.36000001430511475,
+        0.8450000286102295
+      ],
+      "size_blender": [
+        0.14,
+        0.14,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.5799999833106995,
+        0.8450000286102295,
+        -0.36000001430511475
+      ],
+      "size_roblox": [
+        0.14,
+        0.055,
+        0.14
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bullion bar.009",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.4399999976158142,
+        0.36000001430511475,
+        0.6299999952316284
+      ],
+      "size_blender": [
+        0.84,
+        0.67,
+        0.32
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.4399999976158142,
+        0.6299999952316284,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.84,
+        0.32,
+        0.67
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Bullion top plate.009",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.4399999976158142,
+        0.36000001430511475,
+        0.800000011920929
+      ],
+      "size_blender": [
+        0.66,
+        0.49,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.4399999976158142,
+        0.800000011920929,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.66,
+        0.055,
+        0.49
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bar square studs.006",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.30000001192092896,
+        0.36000001430511475,
+        0.8450000286102295
+      ],
+      "size_blender": [
+        0.14,
+        0.14,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.30000001192092896,
+        0.8450000286102295,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.14,
+        0.055,
+        0.14
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Gold bar square studs.007",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.5799999833106995,
+        0.36000001430511475,
+        0.8450000286102295
+      ],
+      "size_blender": [
+        0.14,
+        0.14,
+        0.055
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.5799999833106995,
+        0.8450000286102295,
+        0.36000001430511475
+      ],
+      "size_roblox": [
+        0.14,
+        0.055,
+        0.14
+      ],
+      "rotation_matrix_roblox": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        -0.949999988079071,
+        -0.41999998688697815,
+        0.9100000262260437
+      ],
+      "size_blender": [
+        0.52,
+        0.52,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.949999988079071,
+        0.9100000262260437,
+        -0.41999998688697815
+      ],
+      "size_roblox": [
+        0.065,
+        0.52,
+        0.52
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.001",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -0.949999988079071,
+        -0.41999998688697815,
+        0.9850000143051147
+      ],
+      "size_blender": [
+        0.52,
+        0.52,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.949999988079071,
+        0.9850000143051147,
+        -0.41999998688697815
+      ],
+      "size_roblox": [
+        0.065,
+        0.52,
+        0.52
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.002",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        -0.949999988079071,
+        -0.41999998688697815,
+        1.059999942779541
+      ],
+      "size_blender": [
+        0.52,
+        0.52,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.949999988079071,
+        1.059999942779541,
+        -0.41999998688697815
+      ],
+      "size_roblox": [
+        0.065,
+        0.52,
+        0.52
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.003",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -0.949999988079071,
+        -0.41999998688697815,
+        1.1349999904632568
+      ],
+      "size_blender": [
+        0.52,
+        0.52,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.949999988079071,
+        1.1349999904632568,
+        -0.41999998688697815
+      ],
+      "size_roblox": [
+        0.065,
+        0.52,
+        0.52
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Coin embossed face",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "shine",
+      "color_linear": [
+        1,
+        0.91,
+        0.38
+      ],
+      "color_srgb": [
+        1.0,
+        0.959347,
+        0.649956
+      ],
+      "position_blender": [
+        -0.949999988079071,
+        -0.41999998688697815,
+        1.1759999990463257
+      ],
+      "size_blender": [
+        0.39,
+        0.39,
+        0.02
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.949999988079071,
+        1.1759999990463257,
+        -0.41999998688697815
+      ],
+      "size_roblox": [
+        0.02,
+        0.39,
+        0.39
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.004",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.3700000047683716,
+        -0.550000011920929,
+        0.9100000262260437
+      ],
+      "size_blender": [
+        0.6,
+        0.6,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.3700000047683716,
+        0.9100000262260437,
+        -0.550000011920929
+      ],
+      "size_roblox": [
+        0.065,
+        0.6,
+        0.6
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.005",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.3700000047683716,
+        -0.550000011920929,
+        0.9850000143051147
+      ],
+      "size_blender": [
+        0.6,
+        0.6,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.3700000047683716,
+        0.9850000143051147,
+        -0.550000011920929
+      ],
+      "size_roblox": [
+        0.065,
+        0.6,
+        0.6
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.006",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.3700000047683716,
+        -0.550000011920929,
+        1.059999942779541
+      ],
+      "size_blender": [
+        0.6,
+        0.6,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.3700000047683716,
+        1.059999942779541,
+        -0.550000011920929
+      ],
+      "size_roblox": [
+        0.065,
+        0.6,
+        0.6
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Coin embossed face.001",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "shine",
+      "color_linear": [
+        1,
+        0.91,
+        0.38
+      ],
+      "color_srgb": [
+        1.0,
+        0.959347,
+        0.649956
+      ],
+      "position_blender": [
+        0.3700000047683716,
+        -0.550000011920929,
+        1.1009999513626099
+      ],
+      "size_blender": [
+        0.44999999999999996,
+        0.44999999999999996,
+        0.02
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.3700000047683716,
+        1.1009999513626099,
+        -0.550000011920929
+      ],
+      "size_roblox": [
+        0.02,
+        0.44999999999999996,
+        0.44999999999999996
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.007",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.9700000286102295,
+        0.3100000023841858,
+        0.9100000262260437
+      ],
+      "size_blender": [
+        0.5,
+        0.5,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.9700000286102295,
+        0.9100000262260437,
+        0.3100000023841858
+      ],
+      "size_roblox": [
+        0.065,
+        0.5,
+        0.5
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.008",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.9700000286102295,
+        0.3100000023841858,
+        0.9850000143051147
+      ],
+      "size_blender": [
+        0.5,
+        0.5,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.9700000286102295,
+        0.9850000143051147,
+        0.3100000023841858
+      ],
+      "size_roblox": [
+        0.065,
+        0.5,
+        0.5
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.009",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.9700000286102295,
+        0.3100000023841858,
+        1.059999942779541
+      ],
+      "size_blender": [
+        0.5,
+        0.5,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.9700000286102295,
+        1.059999942779541,
+        0.3100000023841858
+      ],
+      "size_roblox": [
+        0.065,
+        0.5,
+        0.5
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.010",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.9700000286102295,
+        0.3100000023841858,
+        1.1349999904632568
+      ],
+      "size_blender": [
+        0.5,
+        0.5,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.9700000286102295,
+        1.1349999904632568,
+        0.3100000023841858
+      ],
+      "size_roblox": [
+        0.065,
+        0.5,
+        0.5
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.011",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.9700000286102295,
+        0.3100000023841858,
+        1.2100000381469727
+      ],
+      "size_blender": [
+        0.5,
+        0.5,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.9700000286102295,
+        1.2100000381469727,
+        0.3100000023841858
+      ],
+      "size_roblox": [
+        0.065,
+        0.5,
+        0.5
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Coin embossed face.002",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "shine",
+      "color_linear": [
+        1,
+        0.91,
+        0.38
+      ],
+      "color_srgb": [
+        1.0,
+        0.959347,
+        0.649956
+      ],
+      "position_blender": [
+        0.9700000286102295,
+        0.3100000023841858,
+        1.2510000467300415
+      ],
+      "size_blender": [
+        0.375,
+        0.375,
+        0.02
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.9700000286102295,
+        1.2510000467300415,
+        0.3100000023841858
+      ],
+      "size_roblox": [
+        0.02,
+        0.375,
+        0.375
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.012",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        -0.3799999952316284,
+        0.4000000059604645,
+        0.9100000262260437
+      ],
+      "size_blender": [
+        0.56,
+        0.56,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.3799999952316284,
+        0.9100000262260437,
+        0.4000000059604645
+      ],
+      "size_roblox": [
+        0.065,
+        0.56,
+        0.56
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.013",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -0.3799999952316284,
+        0.4000000059604645,
+        0.9850000143051147
+      ],
+      "size_blender": [
+        0.56,
+        0.56,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.3799999952316284,
+        0.9850000143051147,
+        0.4000000059604645
+      ],
+      "size_roblox": [
+        0.065,
+        0.56,
+        0.56
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.014",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        -0.3799999952316284,
+        0.4000000059604645,
+        1.059999942779541
+      ],
+      "size_blender": [
+        0.56,
+        0.56,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.3799999952316284,
+        1.059999942779541,
+        0.4000000059604645
+      ],
+      "size_roblox": [
+        0.065,
+        0.56,
+        0.56
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.015",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -0.3799999952316284,
+        0.4000000059604645,
+        1.1349999904632568
+      ],
+      "size_blender": [
+        0.56,
+        0.56,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.3799999952316284,
+        1.1349999904632568,
+        0.4000000059604645
+      ],
+      "size_roblox": [
+        0.065,
+        0.56,
+        0.56
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Coin embossed face.003",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "shine",
+      "color_linear": [
+        1,
+        0.91,
+        0.38
+      ],
+      "color_srgb": [
+        1.0,
+        0.959347,
+        0.649956
+      ],
+      "position_blender": [
+        -0.3799999952316284,
+        0.4000000059604645,
+        1.1759999990463257
+      ],
+      "size_blender": [
+        0.42000000000000004,
+        0.42000000000000004,
+        0.02
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        -0.3799999952316284,
+        1.1759999990463257,
+        0.4000000059604645
+      ],
+      "size_roblox": [
+        0.02,
+        0.42000000000000004,
+        0.42000000000000004
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.016",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.25999999046325684,
+        0.25999999046325684,
+        0.9100000262260437
+      ],
+      "size_blender": [
+        0.48,
+        0.48,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.25999999046325684,
+        0.9100000262260437,
+        0.25999999046325684
+      ],
+      "size_roblox": [
+        0.065,
+        0.48,
+        0.48
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.017",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.25999999046325684,
+        0.25999999046325684,
+        0.9850000143051147
+      ],
+      "size_blender": [
+        0.48,
+        0.48,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.25999999046325684,
+        0.9850000143051147,
+        0.25999999046325684
+      ],
+      "size_roblox": [
+        0.065,
+        0.48,
+        0.48
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Stacked gold coin.018",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "gold",
+      "color_linear": [
+        0.96,
+        0.53,
+        0.015
+      ],
+      "color_srgb": [
+        0.982207,
+        0.754781,
+        0.128354
+      ],
+      "position_blender": [
+        0.25999999046325684,
+        0.25999999046325684,
+        1.059999942779541
+      ],
+      "size_blender": [
+        0.48,
+        0.48,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.25999999046325684,
+        1.059999942779541,
+        0.25999999046325684
+      ],
+      "size_roblox": [
+        0.065,
+        0.48,
+        0.48
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Coin embossed face.004",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "shine",
+      "color_linear": [
+        1,
+        0.91,
+        0.38
+      ],
+      "color_srgb": [
+        1.0,
+        0.959347,
+        0.649956
+      ],
+      "position_blender": [
+        0.25999999046325684,
+        0.25999999046325684,
+        1.1009999513626099
+      ],
+      "size_blender": [
+        0.36,
+        0.36,
+        0.02
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_roblox": [
+        0.25999999046325684,
+        1.1009999513626099,
+        0.25999999046325684
+      ],
+      "size_roblox": [
+        0.02,
+        0.36,
+        0.36
+      ],
+      "rotation_matrix_roblox": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Loose gold coin",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        -1.4500000476837158,
+        -0.550000011920929,
+        0.25
+      ],
+      "size_blender": [
+        0.48,
+        0.48,
+        0.07
+      ],
+      "rotation_euler_blender": [
+        0.12999999523162842,
+        0.0,
+        0.12999999523162842
+      ],
+      "position_roblox": [
+        -1.4500000476837158,
+        0.25,
+        -0.550000011920929
+      ],
+      "size_roblox": [
+        0.07,
+        0.48,
+        0.48
+      ],
+      "rotation_matrix_roblox": [
+        0.01680501,
+        -0.12854028,
+        0.99156189,
+        0.99156189,
+        0.12963414,
+        0.0,
+        -0.12854028,
+        0.98319501,
+        0.12963414
+      ]
+    },
+    {
+      "name": "Loose gold coin.001",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        1.350000023841858,
+        -0.5,
+        0.25
+      ],
+      "size_blender": [
+        0.48,
+        0.48,
+        0.07
+      ],
+      "rotation_euler_blender": [
+        -0.15000000596046448,
+        0.0,
+        -0.15000000596046448
+      ],
+      "position_roblox": [
+        1.350000023841858,
+        0.25,
+        -0.5
+      ],
+      "size_roblox": [
+        0.07,
+        0.48,
+        0.48
+      ],
+      "rotation_matrix_roblox": [
+        0.02233176,
+        0.14776011,
+        0.98877108,
+        0.98877108,
+        -0.14943814,
+        0.0,
+        0.14776011,
+        0.97766823,
+        -0.14943814
+      ]
+    },
+    {
+      "name": "Loose gold coin.002",
+      "type": "Cylinder",
+      "material": "SmoothPlastic",
+      "palette": "goldlight",
+      "color_linear": [
+        1,
+        0.76,
+        0.055
+      ],
+      "color_srgb": [
+        1.0,
+        0.886004,
+        0.260067
+      ],
+      "position_blender": [
+        0.6000000238418579,
+        -0.9100000262260437,
+        0.25
+      ],
+      "size_blender": [
+        0.48,
+        0.48,
+        0.07
+      ],
+      "rotation_euler_blender": [
+        0.20000000298023224,
+        0.0,
+        0.20000000298023224
+      ],
+      "position_roblox": [
+        0.6000000238418579,
+        0.25,
+        -0.9100000262260437
+      ],
+      "size_roblox": [
+        0.07,
+        0.48,
+        0.48
+      ],
+      "rotation_matrix_roblox": [
+        0.0394695,
+        -0.19470917,
+        0.9800666,
+        0.9800666,
+        0.19866933,
+        0.0,
+        -0.19470917,
+        0.96053052,
+        0.19866933
+      ]
+    },
+    {
+      "name": "Cash bag base",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "bag",
+      "color_linear": [
+        0.75,
+        0.54,
+        0.25
+      ],
+      "color_srgb": [
+        0.880825,
+        0.761112,
+        0.537099
+      ],
+      "position_blender": [
+        -2.0799999237060547,
+        0.03999999910593033,
+        0.23000000417232513
+      ],
+      "size_blender": [
+        0.85,
+        0.7,
+        0.43
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.0799999237060547,
+        0.23000000417232513,
+        0.03999999910593033
+      ],
+      "size_roblox": [
+        0.85,
+        0.43,
+        0.7
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Cash bag broad body",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "baglight",
+      "color_linear": [
+        0.91,
+        0.73,
+        0.4
+      ],
+      "color_srgb": [
+        0.959347,
+        0.870345,
+        0.665185
+      ],
+      "position_blender": [
+        -2.0799999237060547,
+        0.03999999910593033,
+        0.5899999737739563
+      ],
+      "size_blender": [
+        1.0,
+        0.8,
+        0.44
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.0799999237060547,
+        0.5899999737739563,
+        0.03999999910593033
+      ],
+      "size_roblox": [
+        1.0,
+        0.44,
+        0.8
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Cash bag shoulders",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "bag",
+      "color_linear": [
+        0.75,
+        0.54,
+        0.25
+      ],
+      "color_srgb": [
+        0.880825,
+        0.761112,
+        0.537099
+      ],
+      "position_blender": [
+        -2.0799999237060547,
+        0.03999999910593033,
+        0.9100000262260437
+      ],
+      "size_blender": [
+        0.78,
+        0.65,
+        0.25
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.0799999237060547,
+        0.9100000262260437,
+        0.03999999910593033
+      ],
+      "size_roblox": [
+        0.78,
+        0.25,
+        0.65
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Gathered bag neck",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "bagshade",
+      "color_linear": [
+        0.54,
+        0.34,
+        0.13
+      ],
+      "color_srgb": [
+        0.761112,
+        0.618031,
+        0.395881
+      ],
+      "position_blender": [
+        -2.0799999237060547,
+        0.03999999910593033,
+        1.1399999856948853
+      ],
+      "size_blender": [
+        0.45,
+        0.4,
+        0.26
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.0799999237060547,
+        1.1399999856948853,
+        0.03999999910593033
+      ],
+      "size_roblox": [
+        0.45,
+        0.26,
+        0.4
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Bag folded mouth",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "baglight",
+      "color_linear": [
+        0.91,
+        0.73,
+        0.4
+      ],
+      "color_srgb": [
+        0.959347,
+        0.870345,
+        0.665185
+      ],
+      "position_blender": [
+        -2.0799999237060547,
+        0.03999999910593033,
+        1.3600000143051147
+      ],
+      "size_blender": [
+        0.66,
+        0.54,
+        0.22
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.0799999237060547,
+        1.3600000143051147,
+        0.03999999910593033
+      ],
+      "size_roblox": [
+        0.66,
+        0.22,
+        0.54
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Bag mouth dark inset",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "bagshade",
+      "color_linear": [
+        0.54,
+        0.34,
+        0.13
+      ],
+      "color_srgb": [
+        0.761112,
+        0.618031,
+        0.395881
+      ],
+      "position_blender": [
+        -2.0815930366516113,
+        0.03012772649526596,
+        1.4800000190734863
+      ],
+      "size_blender": [
+        0.4,
+        0.29,
+        0.025
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.0815930366516113,
+        1.4800000190734863,
+        0.03012772649526596
+      ],
+      "size_roblox": [
+        0.4,
+        0.025,
+        0.29
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Bag neck rope",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        -2.116643190383911,
+        -0.18706226348876953,
+        1.149999976158142
+      ],
+      "size_blender": [
+        0.54,
+        0.075,
+        0.1
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.116643190383911,
+        1.149999976158142,
+        -0.18706226348876953
+      ],
+      "size_roblox": [
+        0.54,
+        0.1,
+        0.075
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Bag neck rope.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        -2.0433566570281982,
+        0.2670622766017914,
+        1.149999976158142
+      ],
+      "size_blender": [
+        0.54,
+        0.075,
+        0.1
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.0433566570281982,
+        1.149999976158142,
+        0.2670622766017914
+      ],
+      "size_roblox": [
+        0.54,
+        0.1,
+        0.075
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Bag neck rope.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        -2.3268067836761475,
+        0.07982957363128662,
+        1.149999976158142
+      ],
+      "size_blender": [
+        0.07,
+        0.44,
+        0.1
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.3268067836761475,
+        1.149999976158142,
+        0.07982957363128662
+      ],
+      "size_roblox": [
+        0.07,
+        0.1,
+        0.44
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Bag neck rope.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        -1.833193063735962,
+        0.00017042458057403564,
+        1.149999976158142
+      ],
+      "size_blender": [
+        0.07,
+        0.44,
+        0.1
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -1.833193063735962,
+        1.149999976158142,
+        0.00017042458057403564
+      ],
+      "size_roblox": [
+        0.07,
+        0.1,
+        0.44
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Rope knot",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        -2.127795457839966,
+        -0.2561681866645813,
+        1.149999976158142
+      ],
+      "size_blender": [
+        0.17,
+        0.13,
+        0.15
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.127795457839966,
+        1.149999976158142,
+        -0.2561681866645813
+      ],
+      "size_roblox": [
+        0.17,
+        0.15,
+        0.13
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Loose rope tail",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        -2.242763042449951,
+        -0.27813225984573364,
+        1.0299999713897705
+      ],
+      "size_blender": [
+        0.065,
+        0.055,
+        0.2473863396475215
+      ],
+      "rotation_euler_blender": [
+        0.16240344941616058,
+        -2.5308666229248047,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.242763042449951,
+        1.0299999713897705,
+        -0.27813225984573364
+      ],
+      "size_roblox": [
+        0.065,
+        0.2473863396475215,
+        0.055
+      ],
+      "rotation_matrix_roblox": [
+        -0.80876803,
+        -0.58444846,
+        0.06568283,
+        0.57346243,
+        -0.80845201,
+        -0.13246201,
+        0.13051863,
+        -0.06946441,
+        0.98900938
+      ]
+    },
+    {
+      "name": "Loose rope tail.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        -2.020637035369873,
+        -0.3139788806438446,
+        1.0199999809265137
+      ],
+      "size_blender": [
+        0.065,
+        0.055,
+        0.2586503228275178
+      ],
+      "rotation_euler_blender": [
+        0.15527217090129852,
+        2.607884407043457,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.020637035369873,
+        1.0199999809265137,
+        -0.3139788806438446
+      ],
+      "size_roblox": [
+        0.065,
+        0.2586503228275178,
+        0.055
+      ],
+      "rotation_matrix_roblox": [
+        -0.84993011,
+        0.47155097,
+        0.23507123,
+        -0.50872934,
+        -0.85056913,
+        -0.13314143,
+        0.13716134,
+        -0.23274854,
+        0.96281612
+      ]
+    },
+    {
+      "name": "Green dollar mark",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "mark",
+      "color_linear": [
+        0.025,
+        0.32,
+        0.065
+      ],
+      "color_srgb": [
+        0.171844,
+        0.601243,
+        0.282779
+      ],
+      "position_blender": [
+        -2.145798444747925,
+        -0.36772486567497253,
+        0.6299999952316284
+      ],
+      "size_blender": [
+        0.055,
+        0.026,
+        0.58
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.145798444747925,
+        0.6299999952316284,
+        -0.36772486567497253
+      ],
+      "size_roblox": [
+        0.055,
+        0.58,
+        0.026
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Green dollar mark.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "mark",
+      "color_linear": [
+        0.025,
+        0.32,
+        0.065
+      ],
+      "color_srgb": [
+        0.171844,
+        0.601243,
+        0.282779
+      ],
+      "position_blender": [
+        -2.132901906967163,
+        -0.3819614052772522,
+        0.8299999833106995
+      ],
+      "size_blender": [
+        0.32,
+        0.027,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.132901906967163,
+        0.8299999833106995,
+        -0.3819614052772522
+      ],
+      "size_roblox": [
+        0.32,
+        0.065,
+        0.027
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Green dollar mark.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "mark",
+      "color_linear": [
+        0.025,
+        0.32,
+        0.065
+      ],
+      "color_srgb": [
+        0.171844,
+        0.601243,
+        0.282779
+      ],
+      "position_blender": [
+        -2.285922050476074,
+        -0.3572670519351959,
+        0.7300000190734863
+      ],
+      "size_blender": [
+        0.065,
+        0.027,
+        0.2
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.285922050476074,
+        0.7300000190734863,
+        -0.3572670519351959
+      ],
+      "size_roblox": [
+        0.065,
+        0.2,
+        0.027
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Green dollar mark.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "mark",
+      "color_linear": [
+        0.025,
+        0.32,
+        0.065
+      ],
+      "color_srgb": [
+        0.171844,
+        0.601243,
+        0.282779
+      ],
+      "position_blender": [
+        -2.1477103233337402,
+        -0.3795716166496277,
+        0.6299999952316284
+      ],
+      "size_blender": [
+        0.31,
+        0.027,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.1477103233337402,
+        0.6299999952316284,
+        -0.3795716166496277
+      ],
+      "size_roblox": [
+        0.31,
+        0.065,
+        0.027
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Green dollar mark.004",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "mark",
+      "color_linear": [
+        0.025,
+        0.32,
+        0.065
+      ],
+      "color_srgb": [
+        0.171844,
+        0.601243,
+        0.282779
+      ],
+      "position_blender": [
+        -2.009498357772827,
+        -0.40187618136405945,
+        0.5299999713897705
+      ],
+      "size_blender": [
+        0.065,
+        0.027,
+        0.2
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.009498357772827,
+        0.5299999713897705,
+        -0.40187618136405945
+      ],
+      "size_roblox": [
+        0.065,
+        0.2,
+        0.027
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Green dollar mark.005",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "mark",
+      "color_linear": [
+        0.025,
+        0.32,
+        0.065
+      ],
+      "color_srgb": [
+        0.171844,
+        0.601243,
+        0.282779
+      ],
+      "position_blender": [
+        -2.1625185012817383,
+        -0.3771818280220032,
+        0.4300000071525574
+      ],
+      "size_blender": [
+        0.32,
+        0.027,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        -0.16000010073184967
+      ],
+      "position_roblox": [
+        -2.1625185012817383,
+        0.4300000071525574,
+        -0.3771818280220032
+      ],
+      "size_roblox": [
+        0.32,
+        0.065,
+        0.027
+      ],
+      "rotation_matrix_roblox": [
+        0.98722726,
+        0.0,
+        0.15931831,
+        0.0,
+        1.0,
+        0.0,
+        -0.15931831,
+        0.0,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Fabric crease",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "bag",
+      "color_linear": [
+        0.75,
+        0.54,
+        0.25
+      ],
+      "color_srgb": [
+        0.880825,
+        0.761112,
+        0.537099
+      ],
+      "position_blender": [
+        -2.5688722133636475,
+        -0.29033297300338745,
+        0.6700000166893005
+      ],
+      "size_blender": [
+        0.025,
+        0.026,
+        0.25
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.11999999731779099,
+        -0.16000008583068848
+      ],
+      "position_roblox": [
+        -2.5688722133636475,
+        0.6700000166893005,
+        -0.29033297300338745
+      ],
+      "size_roblox": [
+        0.025,
+        0.25,
+        0.026
+      ],
+      "rotation_matrix_roblox": [
+        0.98012775,
+        -0.11818315,
+        0.1593183,
+        0.1197122,
+        0.99280864,
+        0.0,
+        -0.15817258,
+        0.01907234,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Fabric crease.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "bag",
+      "color_linear": [
+        0.75,
+        0.54,
+        0.25
+      ],
+      "color_srgb": [
+        0.880825,
+        0.761112,
+        0.537099
+      ],
+      "position_blender": [
+        -1.7198567390441895,
+        -0.42734670639038086,
+        0.6700000166893005
+      ],
+      "size_blender": [
+        0.025,
+        0.026,
+        0.25
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.11999999731779099,
+        -0.16000008583068848
+      ],
+      "position_roblox": [
+        -1.7198567390441895,
+        0.6700000166893005,
+        -0.42734670639038086
+      ],
+      "size_roblox": [
+        0.025,
+        0.25,
+        0.026
+      ],
+      "rotation_matrix_roblox": [
+        0.98012775,
+        0.11818315,
+        0.1593183,
+        -0.1197122,
+        0.99280864,
+        0.0,
+        -0.15817258,
+        -0.01907234,
+        0.98722726
+      ]
+    },
+    {
+      "name": "Cash bag base.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "bag",
+      "color_linear": [
+        0.75,
+        0.54,
+        0.25
+      ],
+      "color_srgb": [
+        0.880825,
+        0.761112,
+        0.537099
+      ],
+      "position_blender": [
+        2.0799999237060547,
+        0.20000000298023224,
+        0.23000000417232513
+      ],
+      "size_blender": [
+        0.85,
+        0.7,
+        0.43
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.0799999237060547,
+        0.23000000417232513,
+        0.20000000298023224
+      ],
+      "size_roblox": [
+        0.85,
+        0.43,
+        0.7
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Cash bag broad body.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "baglight",
+      "color_linear": [
+        0.91,
+        0.73,
+        0.4
+      ],
+      "color_srgb": [
+        0.959347,
+        0.870345,
+        0.665185
+      ],
+      "position_blender": [
+        2.0799999237060547,
+        0.20000000298023224,
+        0.5899999737739563
+      ],
+      "size_blender": [
+        1.0,
+        0.8,
+        0.44
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.0799999237060547,
+        0.5899999737739563,
+        0.20000000298023224
+      ],
+      "size_roblox": [
+        1.0,
+        0.44,
+        0.8
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Cash bag shoulders.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "bag",
+      "color_linear": [
+        0.75,
+        0.54,
+        0.25
+      ],
+      "color_srgb": [
+        0.880825,
+        0.761112,
+        0.537099
+      ],
+      "position_blender": [
+        2.0799999237060547,
+        0.20000000298023224,
+        0.9100000262260437
+      ],
+      "size_blender": [
+        0.78,
+        0.65,
+        0.25
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.0799999237060547,
+        0.9100000262260437,
+        0.20000000298023224
+      ],
+      "size_roblox": [
+        0.78,
+        0.25,
+        0.65
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Gathered bag neck.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "bagshade",
+      "color_linear": [
+        0.54,
+        0.34,
+        0.13
+      ],
+      "color_srgb": [
+        0.761112,
+        0.618031,
+        0.395881
+      ],
+      "position_blender": [
+        2.0799999237060547,
+        0.20000000298023224,
+        1.1399999856948853
+      ],
+      "size_blender": [
+        0.45,
+        0.4,
+        0.26
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.0799999237060547,
+        1.1399999856948853,
+        0.20000000298023224
+      ],
+      "size_roblox": [
+        0.45,
+        0.26,
+        0.4
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Bag folded mouth.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "baglight",
+      "color_linear": [
+        0.91,
+        0.73,
+        0.4
+      ],
+      "color_srgb": [
+        0.959347,
+        0.870345,
+        0.665185
+      ],
+      "position_blender": [
+        2.0799999237060547,
+        0.20000000298023224,
+        1.3600000143051147
+      ],
+      "size_blender": [
+        0.66,
+        0.54,
+        0.22
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.0799999237060547,
+        1.3600000143051147,
+        0.20000000298023224
+      ],
+      "size_roblox": [
+        0.66,
+        0.22,
+        0.54
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Bag mouth dark inset.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "bagshade",
+      "color_linear": [
+        0.54,
+        0.34,
+        0.13
+      ],
+      "color_srgb": [
+        0.761112,
+        0.618031,
+        0.395881
+      ],
+      "position_blender": [
+        2.08129620552063,
+        0.19008438289165497,
+        1.4800000190734863
+      ],
+      "size_blender": [
+        0.4,
+        0.29,
+        0.025
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.08129620552063,
+        1.4800000190734863,
+        0.19008438289165497
+      ],
+      "size_roblox": [
+        0.4,
+        0.025,
+        0.29
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Bag neck rope.004",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        2.109815835952759,
+        -0.028059229254722595,
+        1.149999976158142
+      ],
+      "size_blender": [
+        0.54,
+        0.075,
+        0.1
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.109815835952759,
+        1.149999976158142,
+        -0.028059229254722595
+      ],
+      "size_roblox": [
+        0.54,
+        0.1,
+        0.075
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Bag neck rope.005",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        2.0501840114593506,
+        0.4280592203140259,
+        1.149999976158142
+      ],
+      "size_blender": [
+        0.54,
+        0.075,
+        0.1
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.0501840114593506,
+        1.149999976158142,
+        0.4280592203140259
+      ],
+      "size_roblox": [
+        0.54,
+        0.1,
+        0.075
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Bag neck rope.006",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        1.8321094512939453,
+        0.16759149730205536,
+        1.149999976158142
+      ],
+      "size_blender": [
+        0.07,
+        0.44,
+        0.1
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        1.8321094512939453,
+        1.149999976158142,
+        0.16759149730205536
+      ],
+      "size_roblox": [
+        0.07,
+        0.1,
+        0.44
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Bag neck rope.007",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        2.327890396118164,
+        0.23240850865840912,
+        1.149999976158142
+      ],
+      "size_blender": [
+        0.07,
+        0.44,
+        0.1
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.327890396118164,
+        1.149999976158142,
+        0.23240850865840912
+      ],
+      "size_roblox": [
+        0.07,
+        0.1,
+        0.44
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Rope knot.001",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        2.1188900470733643,
+        -0.09746856987476349,
+        1.149999976158142
+      ],
+      "size_blender": [
+        0.17,
+        0.13,
+        0.15
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.1188900470733643,
+        1.149999976158142,
+        -0.09746856987476349
+      ],
+      "size_roblox": [
+        0.17,
+        0.15,
+        0.13
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Loose rope tail.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        2.0150036811828613,
+        -0.15139080584049225,
+        1.0299999713897705
+      ],
+      "size_blender": [
+        0.065,
+        0.055,
+        0.2473863396475215
+      ],
+      "rotation_euler_blender": [
+        0.16240346431732178,
+        -2.5308666229248047,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.0150036811828613,
+        1.0299999713897705,
+        -0.15139080584049225
+      ],
+      "size_roblox": [
+        0.065,
+        0.2473863396475215,
+        0.055
+      ],
+      "rotation_matrix_roblox": [
+        -0.81231916,
+        -0.54018068,
+        -0.21986926,
+        0.57346243,
+        -0.80845201,
+        -0.13246202,
+        -0.10620032,
+        -0.23368818,
+        0.96649432
+      ]
+    },
+    {
+      "name": "Loose rope tail.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "rope",
+      "color_linear": [
+        0.35,
+        0.2,
+        0.055
+      ],
+      "color_srgb": [
+        0.62621,
+        0.484529,
+        0.260067
+      ],
+      "position_blender": [
+        2.238105058670044,
+        -0.12222312390804291,
+        1.0199999809265137
+      ],
+      "size_blender": [
+        0.065,
+        0.055,
+        0.2586503228275178
+      ],
+      "rotation_euler_blender": [
+        0.15527218580245972,
+        2.607884407043457,
+        0.12999989092350006
+      ],
+      "position_roblox": [
+        2.238105058670044,
+        1.0199999809265137,
+        -0.12222312390804291
+      ],
+      "size_roblox": [
+        0.065,
+        0.2586503228275178,
+        0.055
+      ],
+      "rotation_matrix_roblox": [
+        -0.85366189,
+        0.51841581,
+        -0.05006384,
+        -0.50872934,
+        -0.85056913,
+        -0.13314144,
+        -0.11160538,
+        -0.08818883,
+        0.98983181
+      ]
+    },
+    {
+      "name": "Green dollar mark.006",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "mark",
+      "color_linear": [
+        0.025,
+        0.32,
+        0.065
+      ],
+      "color_srgb": [
+        0.171844,
+        0.601243,
+        0.282779
+      ],
+      "position_blender": [
+        2.1335387229919434,
+        -0.2095150500535965,
+        0.6299999952316284
+      ],
+      "size_blender": [
+        0.055,
+        0.026,
+        0.58
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.1335387229919434,
+        0.6299999952316284,
+        -0.2095150500535965
+      ],
+      "size_roblox": [
+        0.055,
+        0.58,
+        0.026
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Green dollar mark.007",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "mark",
+      "color_linear": [
+        0.025,
+        0.32,
+        0.065
+      ],
+      "color_srgb": [
+        0.171844,
+        0.601243,
+        0.282779
+      ],
+      "position_blender": [
+        2.149967908859253,
+        -0.21946929395198822,
+        0.8299999833106995
+      ],
+      "size_blender": [
+        0.32,
+        0.027,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.149967908859253,
+        0.8299999833106995,
+        -0.21946929395198822
+      ],
+      "size_roblox": [
+        0.32,
+        0.065,
+        0.027
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Green dollar mark.008",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "mark",
+      "color_linear": [
+        0.025,
+        0.32,
+        0.065
+      ],
+      "color_srgb": [
+        0.171844,
+        0.601243,
+        0.282779
+      ],
+      "position_blender": [
+        1.9962756633758545,
+        -0.23956255614757538,
+        0.7300000190734863
+      ],
+      "size_blender": [
+        0.065,
+        0.027,
+        0.2
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        1.9962756633758545,
+        0.7300000190734863,
+        -0.23956255614757538
+      ],
+      "size_roblox": [
+        0.065,
+        0.2,
+        0.027
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Green dollar mark.009",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "mark",
+      "color_linear": [
+        0.025,
+        0.32,
+        0.065
+      ],
+      "color_srgb": [
+        0.171844,
+        0.601243,
+        0.282779
+      ],
+      "position_blender": [
+        2.135094404220581,
+        -0.22141380608081818,
+        0.6299999952316284
+      ],
+      "size_blender": [
+        0.31,
+        0.027,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.135094404220581,
+        0.6299999952316284,
+        -0.22141380608081818
+      ],
+      "size_roblox": [
+        0.31,
+        0.065,
+        0.027
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Green dollar mark.010",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "mark",
+      "color_linear": [
+        0.025,
+        0.32,
+        0.065
+      ],
+      "color_srgb": [
+        0.171844,
+        0.601243,
+        0.282779
+      ],
+      "position_blender": [
+        2.2739131450653076,
+        -0.20326505601406097,
+        0.5299999713897705
+      ],
+      "size_blender": [
+        0.065,
+        0.027,
+        0.2
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.2739131450653076,
+        0.5299999713897705,
+        -0.20326505601406097
+      ],
+      "size_roblox": [
+        0.065,
+        0.2,
+        0.027
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Green dollar mark.011",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "mark",
+      "color_linear": [
+        0.025,
+        0.32,
+        0.065
+      ],
+      "color_srgb": [
+        0.171844,
+        0.601243,
+        0.282779
+      ],
+      "position_blender": [
+        2.120220899581909,
+        -0.22335831820964813,
+        0.4300000071525574
+      ],
+      "size_blender": [
+        0.32,
+        0.027,
+        0.065
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.0,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.120220899581909,
+        0.4300000071525574,
+        -0.22335831820964813
+      ],
+      "size_roblox": [
+        0.32,
+        0.065,
+        0.027
+      ],
+      "rotation_matrix_roblox": [
+        0.99156189,
+        0.0,
+        -0.12963402,
+        0.0,
+        1.0,
+        0.0,
+        0.12963402,
+        0.0,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Fabric crease.002",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "bag",
+      "color_linear": [
+        0.75,
+        0.54,
+        0.25
+      ],
+      "color_srgb": [
+        0.880825,
+        0.761112,
+        0.537099
+      ],
+      "position_blender": [
+        1.7060004472732544,
+        -0.2563336491584778,
+        0.6700000166893005
+      ],
+      "size_blender": [
+        0.025,
+        0.026,
+        0.25
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        -0.11999999731779099,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        1.7060004472732544,
+        0.6700000166893005,
+        -0.2563336491584778
+      ],
+      "size_roblox": [
+        0.025,
+        0.25,
+        0.026
+      ],
+      "rotation_matrix_roblox": [
+        0.98443121,
+        -0.11870206,
+        -0.12963402,
+        0.1197122,
+        0.99280864,
+        0.0,
+        0.12870178,
+        -0.01551877,
+        0.99156189
+      ]
+    },
+    {
+      "name": "Fabric crease.003",
+      "type": "Block",
+      "material": "SmoothPlastic",
+      "palette": "bag",
+      "color_linear": [
+        0.75,
+        0.54,
+        0.25
+      ],
+      "color_srgb": [
+        0.880825,
+        0.761112,
+        0.537099
+      ],
+      "position_blender": [
+        2.558743715286255,
+        -0.14484839141368866,
+        0.6700000166893005
+      ],
+      "size_blender": [
+        0.025,
+        0.026,
+        0.25
+      ],
+      "rotation_euler_blender": [
+        0.0,
+        0.11999999731779099,
+        0.12999987602233887
+      ],
+      "position_roblox": [
+        2.558743715286255,
+        0.6700000166893005,
+        -0.14484839141368866
+      ],
+      "size_roblox": [
+        0.025,
+        0.25,
+        0.026
+      ],
+      "rotation_matrix_roblox": [
+        0.98443121,
+        0.11870206,
+        -0.12963402,
+        -0.1197122,
+        0.99280864,
+        0.0,
+        0.12870178,
+        0.01551877,
+        0.99156189
+      ]
+    }
+  ],
+  "metadata": {
+    "purpose": "Gold bullion, stacked and loose coins, and two tied beige dollar-marked cash bags."
+  }
+}

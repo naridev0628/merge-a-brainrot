@@ -35,7 +35,8 @@ function Panel.new(view: any,button: any,text: any,frame: any,Art: any,C: any)
         render=function(state: any)
             local cost=Config.RebirthBase+state.rebirths*Config.RebirthStep
             boostText.Text='x'..(1+(state.rebirths+1)*.25)..' Cash'
-            bulkText.Text=({'Unlock Buy 5','Unlock Buy 10','Unlock Buy 100'})[state.rebirths+1] or 'Keep bulk buys'
+            local buyTier=math.clamp(state.rebirths+1,1,Config.MaxTier)
+            bulkText.Text='Buy 100 '..Catalog[string.format('tier_%02d',buyTier)].name
             fill.Size=UDim2.fromScale(math.clamp(state.coinUnits/cost,0,1),1)
             amount.Text='$'..view.coins(state.coinUnits)..' / '..(if cost>=4000000 then string.format('%gM',cost/4000000) else view.coins(cost))
             local top=false; for _,producer in state.producers do if Catalog[producer.speciesId].tier==6 then top=true end end

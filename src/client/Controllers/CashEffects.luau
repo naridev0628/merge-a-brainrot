@@ -12,8 +12,25 @@ end
 local function celebrateCharacter(character: Model?)
     local root=character and character:FindFirstChild('HumanoidRootPart')
     if not root or not root:IsA('BasePart') then return end
-    local burst=Instance.new('Folder'); burst.Name='CashCollectionBurst'; burst.Parent=workspace; Debris:AddItem(burst,1.9)
-    local origin=root.Position-Vector3.new(0,1.75,0)
+    local burst=Instance.new('Folder'); burst.Name='CashCollectionBurst'; burst.Parent=workspace; Debris:AddItem(burst,2)
+    local params=RaycastParams.new();params.FilterType=Enum.RaycastFilterType.Exclude;params.FilterDescendantsInstances={character :: Model,burst}
+    local ground=workspace:Raycast(root.Position,Vector3.new(0,-12,0),params)
+    local origin=(if ground then ground.Position else root.Position-Vector3.new(0,3,0))+Vector3.new(0,.3,0)
+    -- Eight tiny outlined cash bundles fan out above the ground and dissolve.
+    for index=1,8 do
+        local angle=index*math.pi/4+.17;local radius=2.2+(index%3)*.8
+        local target=CFrame.new(origin+Vector3.new(math.cos(angle)*radius,.2,math.sin(angle)*radius))*CFrame.Angles(0,angle,0)
+        local start=CFrame.new(origin+Vector3.new(0,.55,0))*CFrame.Angles(0,angle-.5,0)
+        for _,piece in {
+            {name='CashOutline',size=Vector3.new(.86,.27,.49),offset=CFrame.identity,color=Color3.fromRGB(14,91,34)},
+            {name='CashNote',size=Vector3.new(.74,.3,.39),offset=CFrame.new(0,.025,0),color=Color3.fromRGB(89,247,106)},
+            {name='CashBand',size=Vector3.new(.19,.33,.42),offset=CFrame.new(0,.04,0),color=Color3.fromRGB(255,227,78)},
+        } do
+            local cash=neon(burst,piece.name,piece.size,start*piece.offset,piece.color);cash.Material=Enum.Material.SmoothPlastic
+            TweenService:Create(cash,TweenInfo.new(.5,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{CFrame=target*piece.offset}):Play()
+            task.delay(1.3,function()if cash.Parent then TweenService:Create(cash,TweenInfo.new(.7),{Transparency=1,CFrame=target*piece.offset+Vector3.new(0,.35,0)}):Play() end end)
+        end
+    end
     for ray=1,8 do
         local angle=ray*math.pi/4
         local direction=Vector3.new(math.cos(angle),0,math.sin(angle))

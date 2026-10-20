@@ -1,0 +1,210 @@
+{
+  "GorilloSubwoofero": {
+    "triangles": 6732,
+    "vertices": 3800,
+    "dimensions_xyz": [
+      4.4628,
+      1.6457,
+      5.0
+    ],
+    "bounds_min": [
+      -2.23141,
+      -1.04339,
+      0.0
+    ],
+    "bounds_max": [
+      2.23141,
+      0.60228,
+      5.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "glb_bytes": 468076
+  },
+  "GorilloSubwoofero_Mini": {
+    "triangles": 2636,
+    "vertices": 1464,
+    "dimensions_xyz": [
+      1.796,
+      0.6589,
+      2.0
+    ],
+    "bounds_min": [
+      -0.89802,
+      -0.41736,
+      0.0
+    ],
+    "bounds_max": [
+      0.89802,
+      0.24159,
+      2.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "glb_bytes": 179052
+  },
+  "ToilettoFocaccino": {
+    "triangles": 4156,
+    "vertices": 2354,
+    "dimensions_xyz": [
+      4.2874,
+      2.0639,
+      5.0
+    ],
+    "bounds_min": [
+      -2.14371,
+      -1.2069,
+      0.0
+    ],
+    "bounds_max": [
+      2.14371,
+      0.857,
+      5.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "glb_bytes": 300744
+  },
+  "ToilettoFocaccino_Mini": {
+    "triangles": 1508,
+    "vertices": 910,
+    "dimensions_xyz": [
+      1.715,
+      0.8256,
+      2.0
+    ],
+    "bounds_min": [
+      -0.85748,
+      -0.48276,
+      0.0
+    ],
+    "bounds_max": [
+      0.85748,
+      0.3428,
+      2.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "glb_bytes": 101688
+  },
+  "OdinDinDinDun": {
+    "triangles": 3284,
+    "vertices": 1992,
+    "dimensions_xyz": [
+      4.8945,
+      1.5368,
+      5.0
+    ],
+    "bounds_min": [
+      -2.44723,
+      -0.88452,
+      0.0
+    ],
+    "bounds_max": [
+      2.44723,
+      0.65227,
+      5.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "glb_bytes": 241552
+  },
+  "OdinDinDinDun_Mini": {
+    "triangles": 588,
+    "vertices": 392,
+    "dimensions_xyz": [
+      1.964,
+      0.6142,
+      2.0
+    ],
+    "bounds_min": [
+      -0.98198,
+      -0.35351,
+      0.0
+    ],
+    "bounds_max": [
+      0.98198,
+      0.26069,
+      2.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "glb_bytes": 43380
+  },
+  "TukannoBananno": {
+    "triangles": 2960,
+    "vertices": 1770,
+    "dimensions_xyz": [
+      2.2111,
+      4.5994,
+      5.0
+    ],
+    "bounds_min": [
+      -1.08186,
+      -2.91103,
+      0.0
+    ],
+    "bounds_max": [
+      1.12924,
+      1.68834,
+      5.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "glb_bytes": 214472
+  },
+  "TukannoBananno_Mini": {
+    "triangles": 744,
+    "vertices": 442,
+    "dimensions_xyz": [
+      0.8667,
+      1.8533,
+      2.0
+    ],
+    "bounds_min": [
+      -0.43333,
+      -1.16851,
+      0.0
+    ],
+    "bounds_max": [
+      0.43333,
+      0.6848,
+      2.0
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "front": "-Y Blender / -Z Roblox",
+    "glb_bytes": 52172
+  }
+}

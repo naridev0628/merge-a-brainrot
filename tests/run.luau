@@ -1,3 +1,4 @@
+local Economy=require('../src/shared/Economy')
 --!strict
 local Core = require("../src/server/Domain/FarmCore")
 local Config = require("../src/shared/Config")
@@ -46,7 +47,7 @@ local function fingerprint(s)
     for _, p in st.producers do table.insert(pieces, p.id .. p.speciesId .. tostring(p.slot)) end
     return table.concat(pieces, "|")
 end
-test("starting $5 buys Tong Tong and three Minis fund the first merge", function()
+test("starting $5 buys TungTung and three Minis fund the first merge", function()
     local core, s = fixture()
     eq(#s.state.producers, 1, "starter producer")
     eq(s.state.coinUnits, 0)
@@ -56,7 +57,7 @@ test("starting $5 buys Tong Tong and three Minis fund the first merge", function
         eq(#s.state.tokens, 1)
         eq(collect(core, s, s.state.tokens[1], i * 6).code, "OK")
     end
-    eq(#s.state.bag, 3)
+    eq(Economy.count(s.state.bag), 3)
     eq(command(core, s, "Sell", "sell1", nil, 18).creditUnits, 24)
     eq(command(core, s, "Buy", "buy1", nil, 18).code, "OK")
     eq(s.state.coinUnits, 4)
@@ -125,7 +126,7 @@ test("dead distant malformed and nonfinite requests are rejected", function()
 end)
 test("full bag leaves token; coin overflow leaves entire bag",function()
     local core,s=fixture()
-    for i=1,96 do table.insert(s.state.bag,{speciesId="tier_01",baseCoinValue=2}) end
+    s.state.bag={{speciesId="tier_01",baseCoinValue=2,count=Config.BagCap}}
     core:step(s,6); local token=s.state.tokens[1]; local before=fingerprint(s)
     eq(collect(core,s,token,6).code,"BagFull"); eq(fingerprint(s),before)
     s.state.coinUnits=Config.CoinCap
