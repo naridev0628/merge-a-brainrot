@@ -2,6 +2,7 @@
 -- Cosmetic settings are local to one client session; no economy state or remotes.
 local Preferences={}
 Preferences.__index=Preferences
+type Listeners = {[number]: (number) -> ()}
 local defaults: {[string]: number}={sfxVolume=1,musicVolume=.35}
 table.freeze(defaults)
 
@@ -19,7 +20,7 @@ function Preferences.set(self: any,key: string,value: any): (boolean,string?)
     local bounded=math.clamp(value,0,1)
     if self.values[key]==bounded then return true,nil end
     self.values[key]=bounded
-    local listeners=self.listeners[key]
+    local listeners: Listeners?=self.listeners[key]
     if listeners then
         for id,callback in table.clone(listeners) do
             if listeners[id]==callback then callback(bounded) end
@@ -30,8 +31,9 @@ end
 
 function Preferences.subscribe(self: any,key: string,callback: (number) -> ()): () -> ()
     assert(defaults[key]~=nil,'Unknown preference: '..key)
-    local listeners=self.listeners[key]
-    if not listeners then listeners={};self.listeners[key]=listeners end
+    local existing: Listeners?=self.listeners[key]
+    local listeners: Listeners=existing or {}
+    if not existing then self.listeners[key]=listeners end
     self.nextListener+=1
     local id=self.nextListener
     listeners[id]=callback

@@ -9,8 +9,11 @@ local modules={
     Tutorial=require('../src/shared/Tutorial'),
     FarmCapacity=require('../src/shared/FarmCapacity'),
     PassConfig=require('../src/shared/PassConfig'),
+    MultiplierCuePresentation=require('../src/shared/MultiplierCuePresentation'),
+    MiniEvent=require('../src/shared/MiniEvent'),
     CreatureCatalog={tier_01={tier=1}},
-    TextStyle={},LuckyPanel={Height=__LUCKY_HEIGHT__},SettingsPanel={Height=__SETTINGS_HEIGHT__},
+    TextStyle={apply=function(label) label.TextOutline={Thickness=3} end},
+    LuckyPanel={Height=__LUCKY_HEIGHT__},SettingsPanel={Height=__SETTINGS_HEIGHT__},
 }
 local function require(name) return modules[name] or {} end
 local enumMT={__index=function(self,key) local value=setmetatable({},getmetatable(self));rawset(self,key,value);return value end}
@@ -30,10 +33,14 @@ local game={GetService=function(_,name)
     if name=='TextService' then return {GetTextSize=function(_,value,size) return {X=#value*size*.5} end} end
     return {}
 end}
+local signal={Connect=function() return {Disconnect=function() end} end}
 local function object(parent)
     return {Parent=parent,Visible=true,Active=true,Text='',Font=Enum.Font.FredokaOne,
         Position=UDim2.fromOffset(0,0),Size=UDim2.fromOffset(0,0),AnchorPoint=Vector2.new(0,0),
-        FindFirstChildOfClass=function() return {} end}
+        FindFirstChildOfClass=function() return {} end,FindFirstChild=function() return nil end,
+        GetPropertyChangedSignal=function() return signal end,GetChildren=function() return {} end,
+        Destroying=signal,AncestryChanged=signal,ChildAdded=signal,
+        Destroy=function(self) self.Parent=nil end}
 end
 local Instance={new=function() return object() end}
 '@
@@ -44,9 +51,10 @@ foreach ($panel in @(@('LuckyPanel','__LUCKY_HEIGHT__'),@('SettingsPanel','__SET
     $runtime = $runtime.Replace($panel[1], $height)
 }
 $source = [System.IO.File]::ReadAllText((Join-Path $repo 'src/client/Controllers/FarmUI.luau'))
-$scriptText = $runtime + "`nlocal UI=(function()`n" + $source + "`nend)()`n" + @'
+$cueSource = [System.IO.File]::ReadAllText((Join-Path $repo 'src/client/Controllers/MultiplierCue.luau'))
+$scriptText = $runtime + "`nlocal UI=(function()`n" + $source + "`nend)()`nlocal Cue=(function()`n" + $cueSource + "`nend)()`n" + @'
 local ui=setmetatable({mode='Merge',selected={},shopInfo={},quantity='1'},UI)
-ui.root=object()
+ui.gui=object();ui.root=object(ui.gui)
 for _,key in {'hud','cashBar','stats','cashPlus','multiplier','cashFog','rebirthCount','bag','total','title','objective','hint',
     'actions','mergeButton','indexButton','rebirthButton','settingsButton','boostButton','permanent','boostPrice','autoButton',
     'homeButton','contextPanel','contextButton','toast','toastText','panel','closeButton','preview','list','layout','detail','bagText',
@@ -54,6 +62,7 @@ for _,key in {'hud','cashBar','stats','cashPlus','multiplier','cashFog','rebirth
 ui.cashBar.Parent=ui.hud;ui.cashPlus.Parent=ui.cashBar
 ui.overlay.Visible=false
 for _,key in {'mergeButton','indexButton','rebirthButton','settingsButton'} do ui[key].Parent=ui.actions end
+ui.settingsButton.Icon=object(ui.settingsButton)
 ui.contextPanel.AnchorPoint=Vector2.new(.5,1)
 ui.indexView={resize=function() end};ui.luckyView={resize=function() end};ui.settingsView={resize=function() end}
 ui.drawMerge=function() end
@@ -72,6 +81,13 @@ end
 local function inside(item)
     local r=rect(item);local size=ui.root.AbsoluteSize
     assert(r.w>0 and r.h>0 and r.x>=0 and r.y>=0 and r.x+r.w<=size.X and r.y+r.h<=size.Y,'Control leaves safe area')
+end
+local function visible(item)
+    while item do
+        if item.Visible==false then return false end
+        item=item.Parent
+    end
+    return true
 end
 local state={status='Ready',coinUnits=20,rebirths=0,purchased=0,bag={},tokens={},saleQueue={},soldUnits=0,
     processorLevel=0,starterClaimed=false,cashMultiplier=1,miniMultiplier=1,autoCollect=false,autoSell=false,
@@ -123,7 +139,83 @@ for _,size in {{320,480},{390,440},{360,568},{390,844},{600,280},{640,280},{640,
     ui:unavailable('Waiting for a plot.')
     assert(not ui.homeButton.Visible,'Unavailable farms must hide Home again')
 end
-print('PASS actual FarmUI: early Home, guidance, twelve viewport bounds/separation, short-phone Shop access, mature/side-panel restoration and unavailable state')
+-- A held Lucky must not force a drop just to reach the audio controls. This
+-- checks the actual button's ancestry/geometry, not only UI.open('Settings').
+state.tutorialStep=7
+state.lucky={id='held-settings',held=true,baseTier=2}
+local drops=0
+ui.onDropLucky=function() drops+=1 end
+for _,size in {{320,480},{320,568},{390,440},{360,568},{390,844},{600,280},{640,280},{640,450},{640,500},{700,500},{780,500},{800,500},{800,573},{900,600},{1440,900}} do
+    ui.root.AbsoluteSize=Vector2.new(size[1],size[2]);ui:update(state);ui:open('Lucky')
+    assert(visible(ui.settingsButton) and ui.settingsButton.Active,
+        'Held Lucky hides the Settings entry at '..size[1]..'x'..size[2])
+    inside(ui.settingsButton)
+    local r=rect(ui.settingsButton)
+    assert(r.w>=40 and r.h>=40,'Held Settings needs a usable touch target')
+    local home=rect(ui.homeButton)
+    assert(r.x>=home.x+home.w+12,'Held Settings must stay right of Home, away from the open chat pane')
+    if size[1]==800 then
+        assert(ui.panel.Size.Y.Offset==math.min(modules.LuckyPanel.Height,size[2]-120),
+            'A gear-only crossing must retain the full Lucky card height when it fits')
+    end
+    for _,key in {'homeButton','panel','bag','contextPanel','boostButton','boostPrice','autoButton','cashPlus'} do
+        assert(separate(ui.settingsButton,ui[key]),'Held Settings overlaps '..key..' at '..size[1]..'x'..size[2])
+    end
+    ui:open('Settings')
+    assert(ui:isSettingsOpen() and not ui:isOpen() and not ui.overlay.Active)
+    ui:close()
+    assert(ui:isLuckyOpen() and state.lucky.held and drops==0,'Settings close must retain and restore the held card')
+    assert(visible(ui.settingsButton),'Returning to Lucky must restore Settings access')
+    state.lucky=nil;ui:close()
+    assert(ui.settingsButton.Parent==ui.actions and visible(ui.settingsButton)
+        and ui.settingsButton.Text=='Settings','Normal Settings rail placement/caption must return')
+    assert(ui.settingsButton.Icon.Position.Y.Scale==.01 and ui.settingsButton.Icon.Size.Y.Scale==.73,
+        'Normal Settings icon geometry must return')
+    state.lucky={id='held-settings',held=true,baseTier=2}
+end
+local swept=0
+for width=320,1600,20 do
+    for height=if width<600 then 440 else 280,960,20 do
+        ui.root.AbsoluteSize=Vector2.new(width,height);ui:update(state);ui:open('Lucky');ui:setContext('Buy','1')
+        for _,key in {'settingsButton','homeButton','panel'} do
+            assert(visible(ui[key]),key..' is hidden at '..width..'x'..height)
+            inside(ui[key])
+        end
+        for _,pair in {{'settingsButton','homeButton'},{'settingsButton','panel'},
+            {'panel','homeButton'},{'panel','bag'},{'panel','contextPanel'}} do
+            assert(separate(ui[pair[1]],ui[pair[2]]),pair[1]..' overlaps '..pair[2]..' at '..width..'x'..height)
+        end
+        swept+=1
+    end
+end
+ui:open('Lucky');ui:open('Shop')
+assert(ui.settingsButton.Parent==ui.actions,'Changing to another mode must restore the rail')
+ui:close();assert(ui:isLuckyOpen() and visible(ui.settingsButton))
+ui:unavailable('Waiting for a plot.')
+assert(ui.settingsButton.Parent==ui.actions and ui.settingsButton.Text=='Settings',
+    'Unavailable must not leave a loose Settings entry')
+-- Use the actual Cue constructor's watched obstacles with the actual layout
+-- helper. A short landscape event cue previously covered the relocated gear.
+local cue=Cue.new(ui)
+local function region(item)
+    local r=rect(item);return {x=r.x,y=r.y,width=r.w,height=r.h}
+end
+for _,size in {{320,480},{320,568},{390,440},{360,568},{390,844},{600,280},{640,280},{640,450},{640,500},{700,500},{780,500},{800,500},{800,573},{900,600},{1440,900}} do
+    ui.root.AbsoluteSize=Vector2.new(size[1],size[2]);ui:update(state);ui:open('Lucky');ui:setContext('Buy','1')
+    local obstacles={}
+    for _,item in cue.obstacles do if visible(item) then table.insert(obstacles,region(item)) end end
+    for _,pickups in {false,true} do
+        local layout=modules.MultiplierCuePresentation.layout(size[1],size[2],region(ui.bag),obstacles,pickups)
+        if layout then
+            local gear=region(ui.settingsButton)
+            assert(layout.x+layout.width<=gear.x or gear.x+gear.width<=layout.x
+                or layout.y+layout.height<=gear.y or gear.y+gear.height<=layout.y,
+                'Multiplier cue covers held Settings at '..size[1]..'x'..size[2])
+        end
+    end
+end
+cue:destroy()
+print('PASS actual FarmUI/Cue: early Home/guidance, held-Lucky Settings reachability, card/rail restoration, event-cue separation and '..swept..' supported viewport bounds/separation checks')
 '@
 $target = Join-Path $repo '.tools/home-layout-cli.luau'
 [System.IO.File]::WriteAllText($target, $scriptText)

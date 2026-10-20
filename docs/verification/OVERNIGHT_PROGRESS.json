@@ -1,5 +1,5 @@
 {
-  "updatedAtUTC": "2026-10-20T10:47:24Z",
+  "updatedAtUTC": "2026-10-20T11:17:25Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
@@ -7,15 +7,11 @@
   "studioId": "ef89b65f-2f6a-4fe7-8272-bae9e8007fd1",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Normal Play: ea5de16 plus verified rear title working tree.",
-    "mainScripts": "Both production Main scripts are enabled (Disabled=false), confirmed by root.",
-    "temporaryScripts": [],
-    "harnessCleanup": "OwnerTitlePreview removed; normal Main scripts and HUD enabled, Custom camera, character health100.",
-    "productionSync": "80/80 source hashes match at10:47:24UTC;44 suites,80 sources,seven fixtures,native owner title/affordability/endpoint checks,peer,Rojo pass.",
-    "currentTrial": "Owner title verified and ready to commit; next producer label camera anchoring.",
-    "sourceFreeze": "Historical capacity samples remain fixed earlier source based on 70786a3. The completed snapshot-toggle probe froze production cbbd765 before the counter and DepositEffects changes were synced. The historical harness uses deep Core.snapshot rather than production SnapshotPacket; its saved metrics and source scope are unchanged.",
-    "console": "Final cleanup and source parity are saved in counter-deposit-native.json and studio-source-verification.json. Native regression results are GREEN. This checkpoint makes no broader full-Studio-Script-Analysis claim; external plugin errors are not reclassified as project defects.",
-    "computerUse": "Physical Escape stopped UI work in the earlier 07:56 turn. Root subsequently completed native/render checks; no overnight cancellation was requested."
+    "mode": "Normal Play: c0204a1 plus verified Settings/pad-index/shared-types batch",
+    "mainScripts": "Both enabled",
+    "harnessCleanup": "Fresh Play, no temporary UI, HUD enabled, Custom camera, health100",
+    "productionSync": "80/80 hashes plus 80/80 saved Studio XML sources match",
+    "currentTrial": "Verified batch ready for commit; next FarmUI warning cleanup"
   },
   "candidateConfig": {
     "producerSlots": 50,
@@ -213,12 +209,12 @@
     }
   },
   "active": [
-    "Commit verified rear owner-title batch.",
-    "Investigate remaining lower-row producer-name clipping with clone A/B views."
+    "FarmUI warning cleanup and remaining highest-value polish through13:30UTC"
   ],
   "next": [
-    "Continue producer-label anchoring and UI audit.",
-    "Continue authorized overnight coding until13:30UTC."
+    "Commit verified Settings/pad-index/shared-types batch",
+    "Validate FarmUI warning cleanup in native Studio",
+    "Continue reference-guided map/UI improvements"
   ],
   "constraints": [
     "User permits expanding former 50 limits if performance supports it; producer count remains 50.",
@@ -264,7 +260,7 @@
     "leaderboardFacesCLI": "PASS",
     "frozenSnapshotProbeSourceFile": "docs/verification/capacity-96-snapshot-toggle-2026-10-20.json"
   },
-  "latestVerifiedCommit": "ea5de16",
+  "latestVerifiedCommit": "c0204a1",
   "newBatchEvidence": {
     "status": "Gameplay/allocation/Lucky/shelf batch committed/pushed as 0059fb2. Subsequent canopy/hub/packet batch committed/pushed as 4d4fd29, synced and natively verified.",
     "normalFarmFlow": {
@@ -736,7 +732,7 @@
   },
   "foltynMapEvidence": {
     "baseline": "699931c",
-    "status": "All gates pass; ready to commit.",
+    "status": "Committed/pushed as ea5de16",
     "native": "docs/verification/wide-tray-native.json",
     "lawnPalette": "docs/verification/lawn-palette-native.json",
     "board": "docs/reference/chicken-farm-foltyn-study/index.html",
@@ -747,5 +743,14 @@
     "capture": "docs/verification/moved-pad-normal-owned-plot.jpg",
     "cleanup": "Fresh normal Play, both Main scripts enabled, HUD/Custom camera restored, synthetic session and runtime bootstrap removed."
   },
-  "ownerTitleEvidence": "docs/verification/owner-title-native.json"
+  "ownerTitleEvidence": "docs/verification/owner-title-native.json",
+  "settingsPadEvidence": {
+    "native": "docs/verification/settings-access-native.json",
+    "padIndex": "docs/verification/pad-piece-index-native.json",
+    "savedStudio": "build/MergeABrainrot-FirstPlayable.rbxlx",
+    "savedAtUTC": "2026-10-20T11:17:25.0166435Z",
+    "savedSourceMatches": 80,
+    "gates": "44 suites,80 compile/parity,2163 layouts,native regressions,peer,Rojo,diff",
+    "limitations": "Synthetic UI input and virtual viewport checks; broader697 Studio warnings; no new FPS/memory/capacity acceptance"
+  }
 }

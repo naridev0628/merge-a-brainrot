@@ -47,7 +47,7 @@ function Cue.new(view: any)
     end
     -- These are the existing HUD regions; their geometry/visibility signals
     -- coalesce into one layout pass on the caller's next regular update.
-    for _,name in {'panel','contextPanel','actions','hud','total','homeButton','boostButton',
+    for _,name in {'panel','contextPanel','actions','hud','total','homeButton','settingsButton','boostButton',
         'boostPrice','autoButton','title','objective','hint','toast'} do
         local object=view[name]
         if object then

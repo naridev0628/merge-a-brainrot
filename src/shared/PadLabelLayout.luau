@@ -1,27 +1,35 @@
 --!strict
 local Layout={}
-local function rectangle(item: any,scale: number): any
+export type Candidate = {
+    key: string,x: number,y: number,width: number,height: number,
+    distance: number,priority: number,near: boolean,
+}
+export type Rectangle = {x: number,y: number,width: number,height: number}
+export type Placement = {visible: boolean,scale: number,rect: Rectangle?}
+local function rectangle(item: Candidate,scale: number): Rectangle
     local w,h=item.width*scale,item.height*scale
     return {x=item.x-w/2,y=item.y-h/2,width=w,height=h}
 end
-local function separate(a: any,b: any,gap: number): boolean
+local function separate(a: Rectangle,b: Rectangle,gap: number): boolean
     return a.x+a.width+gap<=b.x or b.x+b.width+gap<=a.x
         or a.y+a.height+gap<=b.y or b.y+b.height+gap<=a.y
 end
-function Layout.solve(items: {any},previous: {[string]: boolean}): {[string]: any}
-    local output,ordered={},table.clone(items)
+function Layout.solve(items: {Candidate},previous: {[string]: boolean}): {[string]: Placement}
+    local output: {[string]: Placement}={}
+    local ordered=table.clone(items)
     for _,item in items do
         output[item.key]={visible=false,scale=1}
     end
-    table.sort(ordered,function(a: any,b: any)
+    table.sort(ordered,function(a: Candidate,b: Candidate)
         if a.near~=b.near then return a.near end
         if a.priority~=b.priority then return a.priority<b.priority end
         return a.key<b.key
     end)
-    local admitted={}
-    local function fits(rect: any,key: string,gap: number): boolean
+    local admitted: {Candidate}={}
+    local function fits(rect: Rectangle,key: string,gap: number): boolean
         for _,other in admitted do
-            if other.key~=key and not separate(rect,output[other.key].rect,gap) then return false end
+            -- Admission always installs a rectangle before adding the candidate.
+            if other.key~=key and not separate(rect,output[other.key].rect :: Rectangle,gap) then return false end
         end
         return true
     end

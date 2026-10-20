@@ -263,15 +263,24 @@ function UI.resize(self: any)
         local contextTop=size.Y+self.contextPanel.Position.Y.Offset-self.contextPanel.Size.Y.Offset
         local height=if phone then math.min(432,contextTop-top-12) elseif short then size.Y-28 else math.min(LuckyPanel.Height,size.Y-120)
         local aboveHud=phone
+        if short and not phone and size.X-12-width<size.X/2+self.homeButton.Size.X.Offset/2+64 then
+            -- Narrow landscape reserves the Home/Settings strip; the existing
+            -- Lucky viewport scrolls its full reward and action content.
+            aboveHud=true; height=math.min(height,size.Y-top-12)
+        end
         if not phone and not short then
             local left=size.X-12-width; local upper=(size.Y-height)/2; local lower=upper+height
             local crossesHome=left<size.X/2+self.homeButton.Size.X.Offset/2 and upper<top-12
             local crossesBag=left<size.X/2+bagWidth/2 and lower>size.Y-24-self.bag.Size.Y.Offset
             local crossesContext=left<size.X/2+self.contextPanel.Size.X.Offset/2 and lower>contextTop and upper<contextTop+self.contextPanel.Size.Y.Offset
-            aboveHud=crossesHome or crossesBag or crossesContext
+            local settingsBottom=self.homeButton.Position.Y.Offset+(self.homeButton.Size.Y.Offset+44)/2
+            local crossesSettings=left<size.X/2+self.homeButton.Size.X.Offset/2+64 and upper<settingsBottom+8
+            local crossesHud=crossesHome or crossesBag or crossesContext
+            aboveHud=crossesHud or crossesSettings
             -- Intermediate landscape widths need the same scrolling space as
             -- phones when the centered card would cover a persistent control.
-            if aboveHud then height=math.min(height,contextTop-top-12) end
+            if crossesHud then height=math.min(height,contextTop-top-12)
+            elseif crossesSettings then height=math.min(height,size.Y-top-12) end
         end
         self.panel.Size=UDim2.fromOffset(width,height); self.panel.BackgroundTransparency=1
         self.closeButton.Size=UDim2.fromOffset(28,28); self.closeButton.Position=UDim2.new(1,-30,0,3); self.closeButton.TextSize=19
@@ -301,6 +310,17 @@ function UI.resize(self: any)
         self.panel.Position=if aboveHud then UDim2.new(1,-12,0,top) else UDim2.new(1,-12,.5,0)
         self.panel.BackgroundTransparency=.08
         self.closeButton.Size=UDim2.fromOffset(40,40);self.closeButton.Position=UDim2.new(1,-46,0,5)
+    end
+    -- Keep the existing Settings entry reachable while the held card hides its rail.
+    local heldSettings=self:isLuckyOpen()
+    local settingsParent=if heldSettings then self.root else self.actions
+    if self.settingsButton.Parent~=settingsParent then self.settingsButton.Parent=settingsParent end
+    self.settingsButton.Text=if heldSettings then '' else 'Settings'
+    self.settingsButton.Icon.Position=if heldSettings then UDim2.fromScale(.1,.1) else UDim2.fromScale(.1,.01)
+    self.settingsButton.Icon.Size=if heldSettings then UDim2.fromScale(.8,.8) else UDim2.fromScale(.8,.73)
+    if heldSettings then
+        self.settingsButton.Size=UDim2.fromOffset(44,44)
+        self.settingsButton.Position=self.homeButton.Position+UDim2.fromOffset(self.homeButton.Size.X.Offset/2+12,(self.homeButton.Size.Y.Offset-44)/2)
     end
     self.preview.Size=UDim2.new(1,-24,0,if short then 44 else 76); self.preview.TextSize=if short then 14 else 16
     self.list.Position=UDim2.fromOffset(12,if short then 112 else 144); self.list.Size=UDim2.new(1,-24,1,if short then -180 else -212)

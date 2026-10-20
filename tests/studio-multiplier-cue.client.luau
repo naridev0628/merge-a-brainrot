@@ -38,7 +38,7 @@ local function verify()
     assert(p.X>=rp.X and p.Y>=rp.Y and p.X+s.X<=rp.X+rs.X and p.Y+s.Y<=rp.Y+rs.Y,'Cue clips outside the safe area')
     assert(label.TextBounds.X<=s.X+1 and label.TextBounds.Y<=s.Y+1,'Multiplier text does not fit')
     assert(separate(label,ui.bag),'Cue overlaps basket')
-    for _,name in {'panel','contextPanel','actions','hud','total','homeButton','boostButton','boostPrice','autoButton','title','objective','hint','toast'} do
+    for _,name in {'panel','contextPanel','actions','hud','total','homeButton','settingsButton','boostButton','boostPrice','autoButton','title','objective','hint','toast'} do
         local object=ui[name]
         if visible(object) then assert(separate(label,object),'Cue overlaps '..name) end
     end
@@ -51,9 +51,16 @@ local ok,err=xpcall(function()
     ui:update(state)
     controller:receive(state,now)
     assert(not controller.label.Visible,'Initial event baseline must be quiet')
+    -- No pickup rows: reserve the Settings gear after it leaves Lucky's hidden
+    -- rail, including the compact top strip on short landscape screens.
+    ui.root.Size=UDim2.fromOffset(640,280)
+    state.lucky={id='cue-settings-entry',held=true,baseTier=2}
+    ui:update(state);ui:open('Lucky');ui:setContext('Buy','1');task.wait()
+    receive(110);task.wait();controller:update(now);task.wait();verify()
+    state.lucky=nil;ui:close();ui:update(state);receive(100)
     local shown=0
     for _,size in {Vector2.new(320,480),Vector2.new(390,440),Vector2.new(360,568),
-        Vector2.new(390,844),Vector2.new(640,280),Vector2.new(640,450),Vector2.new(1440,900)} do
+        Vector2.new(390,844),Vector2.new(640,280),Vector2.new(640,450),Vector2.new(800,500),Vector2.new(800,573),Vector2.new(1440,900)} do
         ui.root.Size=UDim2.fromOffset(size.X,size.Y)
         ui:setContext('Buy','1');ui:update(state);task.wait()
         receive(110);controller:update(now);task.wait()

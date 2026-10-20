@@ -59,9 +59,9 @@ function Visuals.apply(block: BasePart,baseTier: number?)
     local isMesh=block:IsA('MeshPart')
     if block:GetAttribute('LuckyOriginalColor')==nil then
         block:SetAttribute('LuckyOriginalColor',block.Color)
-        if isMesh then block:SetAttribute('LuckyOriginalTexture',block.TextureID) end
+        if block:IsA('MeshPart') then block:SetAttribute('LuckyOriginalTexture',block.TextureID) end
     end
-    if isMesh then
+    if block:IsA('MeshPart') then
         block.TextureID=if appearance.key=='basic' then block:GetAttribute('LuckyOriginalTexture') else ''
         block.Color=if appearance.key=='basic' then block:GetAttribute('LuckyOriginalColor') else Color3.fromRGB(table.unpack(appearance.body))
     else

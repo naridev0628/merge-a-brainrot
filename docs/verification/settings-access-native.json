@@ -1,0 +1,120 @@
+{
+  "recordedAtUTC": "2026-10-20T11:17:25Z",
+  "baseline": "c0204a1",
+  "scope": "Actual production FarmUI in a temporary native UI; callback-only held-state preview for real mouse input, not an actual server-held block or physical-device acceptance.",
+  "red": {
+    "content": [
+      {
+        "type": "text",
+        "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:107: AssistantCommand:24: Hidden Settings ancestor: Actions"
+      }
+    ],
+    "isError": true
+  },
+  "cueRed": {
+    "content": [
+      {
+        "type": "text",
+        "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:98: AssistantCommand:43: Cue overlaps settingsButton\nAssistantCommand:43 function verify\nAssistantCommand:59\nAssistantCommand:50\n"
+      }
+    ],
+    "isError": true
+  },
+  "nativeSettings": {
+    "content": [
+      {
+        "type": "text",
+        "text": "nil"
+      }
+    ],
+    "isError": false
+  },
+  "nativeCue": {
+    "content": [
+      {
+        "type": "text",
+        "text": "PASS one bounded multiplier cue, actual values/colors, replay/expiry, phone/short layouts, pickup/Lucky/Settings separation and GUI teardown"
+      }
+    ],
+    "isError": false
+  },
+  "actualOpen": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"drops\":0,\"overlayActive\":false,\"held\":true,\"luckyId\":\"held-input-test\",\"music\":0.35,\"gear\":\"Players.NEH4A.PlayerGui.SettingsAccessPreview.SafeArea.Actions.Settings\",\"mode\":\"Settings\",\"close\":\"Players.NEH4A.PlayerGui.SettingsAccessPreview.SafeArea.PanelOverlay.MergePanel.Close\",\"modal\":false}"
+      }
+    ],
+    "isError": false
+  },
+  "actualMusic": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"drops\":0,\"overlayActive\":false,\"held\":true,\"luckyId\":\"held-input-test\",\"music\":0.45,\"gear\":\"Players.NEH4A.PlayerGui.SettingsAccessPreview.SafeArea.Actions.Settings\",\"mode\":\"Settings\",\"close\":\"Players.NEH4A.PlayerGui.SettingsAccessPreview.SafeArea.PanelOverlay.MergePanel.Close\",\"modal\":false}"
+      }
+    ],
+    "isError": false
+  },
+  "actualClose": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"drops\":0,\"overlayActive\":false,\"held\":true,\"luckyId\":\"held-input-test\",\"music\":0.45,\"gear\":\"Players.NEH4A.PlayerGui.SettingsAccessPreview.SafeArea.Settings\",\"mode\":\"Lucky\",\"close\":\"Players.NEH4A.PlayerGui.SettingsAccessPreview.SafeArea.PanelOverlay.MergePanel.Close\",\"modal\":false}"
+      }
+    ],
+    "isError": false
+  },
+  "shortDiscardClick": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"drops\":0,\"overlayActive\":false,\"close\":\"Players.NEH4A.PlayerGui.SettingsAccessPreview.SafeArea.PanelOverlay.MergePanel.Close\",\"held\":true,\"luckyId\":\"held-input-test\",\"music\":0.35,\"gear\":\"Players.NEH4A.PlayerGui.SettingsAccessPreview.SafeArea.Settings\",\"mode\":\"Lucky\",\"discardCallbackClicks\":1,\"modal\":false}"
+      }
+    ],
+    "isError": false
+  },
+  "settledScroll": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"discardBottom\":268,\"height\":210,\"viewportBottom\":268,\"content\":252,\"scrollY\":42}"
+      }
+    ],
+    "isError": false
+  },
+  "cleanup": {
+    "hud": true,
+    "camera": "Custom",
+    "health": 100,
+    "temporaryUI": [],
+    "mode": "fresh normal Play"
+  },
+  "layoutSweep": {
+    "count": 2163,
+    "tool": "tests/home-layout-cli.ps1",
+    "result": "PASS",
+    "nativeVirtualSizes": 15
+  },
+  "savedStudio": {
+    "path": "build/MergeABrainrot-FirstPlayable.rbxlx",
+    "matchedSources": 80,
+    "lastWriteUTC": "2026-10-20T11:17:25.0166435Z",
+    "bytes": 2146819
+  },
+  "diagnostics": {
+    "editErrors": 0,
+    "editWarnings": 697,
+    "priorEditWarnings": 703,
+    "scope": "Visible native Script Analysis aggregate; entire virtualized warning list was not inspected. Broader existing warnings remain."
+  },
+  "limitations": [
+    "Synthetic held preview does not replace actual full gameplay acceptance.",
+    "First short scroll assertion ran before settling and failed; settled read showed all content reachable at scrollY42; dummy Discard callback received once.",
+    "No FPS, memory-recovery, multiplayer, additional capacity or exact 1:1 claim."
+  ],
+  "captures": [
+    "docs/verification/held-settings-gear.jpg",
+    "docs/verification/held-settings-panel.jpg"
+  ]
+}

@@ -53,17 +53,33 @@ local function pad(parent: Instance,name: string,size: Vector3,cf: CFrame,color:
     end end
     return p
 end
-local function padAvailability(part: BasePart,affordable: boolean)
-    if part:GetAttribute('Affordable')==affordable then return end
+type PadPieces = {[string]: {BasePart}}
+local function padAvailability(world: any,part: BasePart,affordable: boolean,pieces: PadPieces?): PadPieces?
+    if part:GetAttribute('Affordable')==affordable then return pieces end
     part:SetAttribute('Affordable',affordable)
     local color=if affordable then Color3.fromRGB(96,238,43) else Color3.fromRGB(244,90,94)
     part.Color=color
-    for _,detail in part.Parent:GetChildren() do
-        if detail:IsA('BasePart') then
-            if detail.Name==part.Name..'Stud' then detail.Color=color:Lerp(Color3.new(1,1,1),.12)
-            elseif detail.Name==part.Name..'Edge' then detail.Color=color:Lerp(Color3.new(1,1,1),.3) end
+    if not pieces then
+        -- One lazy scan for this render; use current identities after clones or
+        -- replacements, without retaining plot parts between renders.
+        local indexed: PadPieces={}
+        for _,label in world.pads do
+            local name=label.Parent.Parent.Name
+            indexed[name..'Stud']={};indexed[name..'Edge']={}
         end
+        local upgradeName=world.upgradeLabel.Parent.Parent.Name
+        indexed[upgradeName..'Stud']={};indexed[upgradeName..'Edge']={}
+        for _,detail in world.root:GetChildren() do
+            local group=indexed[detail.Name]
+            if group and detail:IsA('BasePart') then table.insert(group,detail) end
+        end
+        pieces=indexed
     end
+    local studColor=color:Lerp(Color3.new(1,1,1),.12)
+    local edgeColor=color:Lerp(Color3.new(1,1,1),.3)
+    for _,detail in pieces[part.Name..'Stud'] do detail.Color=studColor end
+    for _,detail in pieces[part.Name..'Edge'] do detail.Color=edgeColor end
+    return pieces
 end
 local function actionLabel(part: BasePart,action: string,value: string,width: number?)
     local title=Factory.label(part,action,width or 180,102)
@@ -453,11 +469,12 @@ function World.render(world: any,state: any)
         end
     end
     for _,child in world.tokens:GetChildren() do if not present[child.Name] then child:Destroy() end end
+    local padPieces: PadPieces?=nil
     for quantity,label in world.pads do
         local quote=Economy.purchaseQuote(Config,state,quantity)
         local amount,tier,cost=quote.amount,quote.tier,quote.cost
         local unlocked=state.rebirths>=Config.BuyUnlocks[quantity]
-        padAvailability(label.Parent.Parent,quote.code=='OK')
+        padPieces=padAvailability(world,label.Parent.Parent,quote.code=='OK',padPieces)
         label.Text=if amount==0 then 'Stack full' else 'Buy '..quantity
         local price=label.Parent.Price
         price.Text=if amount==0 then '' else cashText(cost)
@@ -469,7 +486,7 @@ function World.render(world: any,state: any)
     world.processorLabel.Text=if queued==0 then 'No Minis queued' else tostring(queued)..' Minis queued'
     world.processorRate.Text=Config.ProcessorRates[state.processorLevel+1]..' per second'
     local upgradeCost=Config.ProcessorCosts[state.processorLevel+1]
-    padAvailability(world.upgradeLabel.Parent.Parent,upgradeCost~=nil and state.coinUnits>=upgradeCost)
+    padAvailability(world,world.upgradeLabel.Parent.Parent,upgradeCost~=nil and state.coinUnits>=upgradeCost,padPieces)
     world.upgradeLabel.Text=if upgradeCost then '+'..(Config.ProcessorRates[state.processorLevel+2]-Config.ProcessorRates[state.processorLevel+1])..' per second' else 'PROCESSOR MAXED'
     world.upgradePrice.Text=if upgradeCost then '$'..(upgradeCost/4) else ''
 end
