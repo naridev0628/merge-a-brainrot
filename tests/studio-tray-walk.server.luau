@@ -1,6 +1,10 @@
 -- Studio-only disposable QA. Execute this on Server, then execute the matching
 -- client fixture. No shipped Main scripts, normal farm sessions, or Config are
 -- changed. The clone and isolated Core session expire after 120 seconds.
+-- For the all-Crocodilo variant, replace only the following literal's value with
+-- 'tier_06' in the executor source. Keep the committed default mixed.
+local SPECIES_MODE='mixed'
+assert(SPECIES_MODE=='mixed' or SPECIES_MODE=='tier_06','Species mode must be mixed or tier_06')
 local RunService=game:GetService('RunService')
 assert(RunService:IsStudio() and RunService:IsServer(),'Studio Server required')
 local Players=game:GetService('Players')
@@ -21,7 +25,8 @@ local generated=assert(workspace:FindFirstChild('MergeABrainrotGenerated'),'Norm
 local source=assert(generated:FindFirstChild('Plot1'),'Plot1 geometry required')
 local models=assert(Replicated:FindFirstChild('CharacterModels'),'Imported characters required')
 for tier=1,6 do
-    assert(models:FindFirstChild(string.format('tier_%02d_Mini',tier)),'Import all six actual Mini meshes')
+    local template=models:FindFirstChild(string.format('tier_%02d_Mini',tier))
+    assert(template and template:IsA('MeshPart') and template.MeshId~='','Import all six actual Mini meshes')
 end
 local config=table.clone(Config)
 config.GroundCap=96;config.LuckyChance=0
@@ -31,7 +36,7 @@ local session=core:newSession(player.UserId,0,'tray-walk-'..Http:GenerateGUID(fa
 local seeded=core:snapshot(session)
 seeded.starterClaimed=true
 for slot=1,50 do
-    local species=string.format('tier_%02d',(slot-1)%6+1)
+    local species=if SPECIES_MODE=='mixed' then string.format('tier_%02d',(slot-1)%6+1) else SPECIES_MODE
     seeded.producers[slot]={id=core:id(session),speciesId=species,slot=slot,due=1}
     seeded.discoveries[species]=true
 end
@@ -46,6 +51,27 @@ for _,token in settled.tokens do
 end
 for _,producer in settled.producers do producer.due=os.clock()+10000 end
 assert(core:commit(session,settled))
+if SPECIES_MODE=='tier_06' then
+    assert(expected.tier_06==96 and Catalog.tier_06.value==170,'Crocodilo variant requires 96 highest-tier Minis at base value 170')
+end
+local verifiedMeshIds={}
+local function verifyMiniMeshes(tokens)
+    local checked=0
+    for _,token in session.state.tokens do
+        local model=assert(tokens:FindFirstChild(token.id),'Missing rendered Mini')
+        local mesh=model:FindFirstChild('Character')
+        local template=models:FindFirstChild(token.speciesId..'_Mini')
+        assert(mesh and mesh:IsA('MeshPart') and template and mesh.MeshId==template.MeshId,
+            'Every rendered Mini must use its actual imported species MeshId')
+        if SPECIES_MODE=='tier_06' then
+            assert(token.speciesId=='tier_06' and mesh.MeshId==models.tier_06_Mini.MeshId,
+                'All 96 Crocodilo variant models must use tier_06_Mini')
+        end
+        verifiedMeshIds[token.speciesId]=mesh.MeshId
+        checked+=1
+    end
+    return checked
+end
 
 local fixture=source:Clone()
 fixture.Name='TrayWalkPlot'
@@ -66,6 +92,7 @@ local route={
     {name='tray center',x=0,z=config.TrayZ},
 }
 local visited,serial,total,partial,repacked=0,0,0,false,false
+local initialMeshChecks=0
 local samples,events={},{}
 local lastPosition,lastSampleAt=nil,nil
 local walked=0
@@ -115,9 +142,12 @@ local ok,err=xpcall(function()
     -- Render the real imported meshes and shelf geometry before publishing.
     World.render(world,session.state)
     assert(#world.tokens:GetChildren()==96)
+    initialMeshChecks=verifyMiniMeshes(world.tokens)
+    assert(initialMeshChecks==96)
     fixture.Parent=workspace
     status:SetAttribute('Status','Ready')
     status:SetAttribute('OwnerId',player.UserId)
+    status:SetAttribute('Scenario',SPECIES_MODE)
     status:SetAttribute('Remaining',96);status:SetAttribute('Visited',0)
     status.Parent=Replicated
 end,debug.traceback)
@@ -146,7 +176,8 @@ remote.OnServerInvoke=function(who,action)
         return {points=points,offset=offset}
     end
     if action=='Finish' then
-        local result={remaining=#session.state.tokens,collected=total,bag=Economy.count(session.state.bag),
+        local result={scenario=SPECIES_MODE,initialMeshChecks=initialMeshChecks,verifiedMeshIds=verifiedMeshIds,
+            remaining=#session.state.tokens,collected=total,bag=Economy.count(session.state.bag),
             visited=visited,walkedStuds=walked,partial=partial,repacked=repacked,expectedSpecies=expected,
             events=events,recentSamples=samples,cloneMiniModels=#world.tokens:GetChildren()}
         local checked,problem=pcall(function()
@@ -155,7 +186,9 @@ remote.OnServerInvoke=function(who,action)
             assert(total==96 and result.bag==96 and result.remaining==0 and result.cloneMiniModels==0,
                 'All 96 real Mini models must be collected and accounted for')
             assert(partial and repacked,'A partial pickup must visibly repack surviving upper-layer Minis')
-            for tier=1,6 do assert((expected[string.format('tier_%02d',tier)] or 0)>0) end
+            if SPECIES_MODE=='mixed' then
+                for tier=1,6 do assert((expected[string.format('tier_%02d',tier)] or 0)>0) end
+            else assert(expected.tier_06==96) end
             local counts={}
             for _,good in session.state.bag do
                 assert(good.baseCoinValue==Catalog[good.speciesId].value,'Collection changed cash value')
@@ -224,6 +257,7 @@ task.spawn(function()
                 assert(Economy.count(session.state.bag)+after==96,'A pickup lost or duplicated Minis')
                 boundedPush(events,{count=result.count,remaining=after,x=pos.X,z=pos.Z},96)
                 World.render(world,session.state)
+                assert(verifyMiniMeshes(world.tokens)==after,'Repacked survivors must retain their imported meshes')
                 status:SetAttribute('Remaining',after)
             else assert(result.code=='NothingNearby','Unexpected pickup rejection: '..result.code) end
         end,debug.traceback)
@@ -231,4 +265,5 @@ task.spawn(function()
     end
     cleanup()
 end)
-return {status='Ready',instructions='Run studio-tray-walk.client.luau now in this disposable single-player Play session',timeoutSeconds=120}
+return {status='Ready',scenario=SPECIES_MODE,initialMeshChecks=initialMeshChecks,verifiedMeshIds=verifiedMeshIds,
+    instructions='Run studio-tray-walk.client.luau now in this disposable single-player Play session',timeoutSeconds=120}

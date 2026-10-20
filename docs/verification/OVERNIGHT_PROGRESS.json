@@ -1,5 +1,5 @@
 {
-  "updatedAtUTC": "2026-10-20T09:31:53Z",
+  "updatedAtUTC": "2026-10-20T09:43:00Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
@@ -7,12 +7,12 @@
   "studioId": "ef89b65f-2f6a-4fe7-8272-bae9e8007fd1",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Normal Play on committed cbbd765 plus the verified, uncommitted counter/deposit batch. Final counter color and lowered proportions are synced across all plots. Both Main scripts and HUD are enabled, CameraType.Custom is restored, and temporary harness/QA objects are removed.",
+    "mode": "Normal Play on committed and pushed 4ae9a52, including the verified counter/deposit batch. Both Main scripts are enabled. The isolated all-Crocodilo route passed at 09:39:10 UTC; cleanup restored the character, HUD and Custom camera and removed the cloned plot/fixture. Home/onboarding UI changes are local and awaiting native acceptance.",
     "mainScripts": "Both production Main scripts are enabled (Disabled=false), confirmed by root.",
     "temporaryScripts": [],
-    "harnessCleanup": "The snapshot-toggle harness was removed in Edit before normal Play restarted. After counter/deposit native checks, final cleanup confirms no harness, temporary spawn, QA or fixture remnants, both Main scripts enabled, HUD enabled and CameraType.Custom.",
-    "productionSync": "Final counter/deposit source is synced. At 09:30:30 UTC, all 79 running-Server project source hashes match the working tree; the lowered-counter native fixture and Rojo rebuild pass. Eight deposit native cases and existing effects regression remain passing, together with 43 standalone tests, actual-module Deposit CLI, changed source/fixture compilation, peer review and diff checks. Batch is verified and ready to commit.",
-    "currentTrial": "Counter/deposit native validation and final gates are complete; root will commit the uncommitted counter/deposit and profiling-evidence batch. The completed snapshot-toggle probe remains frozen at earlier cbbd765 and is not a measurement of these later changes.",
+    "harnessCleanup": "The snapshot-toggle harness was removed in Edit before normal Play restarted. After counter/deposit native checks, final cleanup confirms no harness, temporary spawn, QA or fixture remnants, both Main scripts enabled, HUD enabled and CameraType.Custom. After the all-Crocodilo route, cleanup at 09:39:10 UTC confirms no TrayWalk plot or fixture, avatar health 100, HUD enabled and CameraType.Custom. HUD hiding was capture-only.",
+    "productionSync": "Final counter/deposit source is synced. At 09:30:30 UTC, all 79 running-Server project source hashes match the working tree; the lowered-counter native fixture and Rojo rebuild pass. Eight deposit native cases and existing effects regression remain passing, together with 43 standalone tests, actual-module Deposit CLI, changed source/fixture compilation, peer review and diff checks. Batch is committed and pushed as 4ae9a52.",
+    "currentTrial": "All-Crocodilo physical pickup is verified on 4ae9a52 with 96 collected, five walking waypoints and partial repacking. Home/onboarding UI implementation and independent review are underway; native UI acceptance is pending. The snapshot-toggle probe remains frozen at cbbd765, and no all-Crocodilo performance benchmark was run.",
     "sourceFreeze": "Historical capacity samples remain fixed earlier source based on 70786a3. The completed snapshot-toggle probe froze production cbbd765 before the counter and DepositEffects changes were synced. The historical harness uses deep Core.snapshot rather than production SnapshotPacket; its saved metrics and source scope are unchanged.",
     "console": "Final cleanup and source parity are saved in counter-deposit-native.json and studio-source-verification.json. Native regression results are GREEN. This checkpoint makes no broader full-Studio-Script-Analysis claim; external plugin errors are not reclassified as project defects.",
     "computerUse": "Physical Escape stopped UI work in the earlier 07:56 turn. Root subsequently completed native/render checks; no overnight cancellation was requested."
@@ -20,7 +20,7 @@
   "candidateConfig": {
     "producerSlots": 50,
     "groundCap": 96,
-    "status": "GroundCap=96 may remain in the Studio preview after six-farm trials and native mixed-species collection. Slots=50 remains. This is not release, multiplayer, physical-device, worst-case species, or long-term memory certification."
+    "status": "GroundCap=96 may remain in the Studio preview after six-farm trials plus native mixed-species and all-Crocodilo physical collection. Slots=50 remains. This is not release, multiplayer, physical-device, all-Crocodilo performance, or long-term memory certification."
   },
   "completed": [
     "100 annotated reference frames and map geometry pass committed 821200a.",
@@ -77,8 +77,10 @@
     "Endpoint batch committed and pushed as cbbd765e194280b804762ee43b9e6e3905d261ff. The raw endpoint timestamp is corrected to 08:59:42 UTC.",
     "Snapshot-toggle probe completed at 09:16:36 UTC on frozen cbbd765: ON1/OFF/ON2 each measured about 60 seconds. ON1/OFF memory grew 13.234375/12.94921875 MB with 168/0 received packets and matching 576-Mini endpoints. ON2 memory fell 9.9921875 MB but started with 300 Minis and ended with 576. This does not isolate a memory root cause or establish recovery.",
     "After the snapshot-toggle probe, root removed the harness in Edit, enabled both Main scripts, and restarted normal Play on cbbd765. The later counter and DepositEffects changes had not been synced at that cleanup point; their subsequent native acceptance is recorded separately.",
-    "Counter/deposit final acceptance at 09:30:30 UTC: final RGB(55, 66, 165) counter panels synced on all six plots; mirrored fixture passes 18 inert panels and route/fence/face clearance. Eight deposit native cases and existing effects regression pass; 43 pure suites, Deposit CLI, changed source/fixture compilation, peer review, Rojo and diff checks pass. All 79 running-Server source hashes match, normal Main/HUD/Custom camera restored, and temporary objects removed. Three 1759x567 counter captures are validated and root-inspected. Verified batch remains uncommitted.",
-    "Counter proportions finalized at 09:30:30 UTC after a dedicated native height RED/GREEN: center Y 3.2 logical studs, top 2.275 world studs, panel height 2.455 logical studs, farmer height unchanged at 5.5 world studs. Final front/elevated captures reveal shirt, sleeves and pocket; all images decoded, Rojo rebuilt, and 79/79 source hashes match. This supersedes the earlier 09:22:38 counter geometry acceptance, without changing the snapshot-toggle source or measurements."
+    "Counter/deposit final acceptance at 09:30:30 UTC: final RGB(55, 66, 165) counter panels synced on all six plots; mirrored fixture passes 18 inert panels and route/fence/face clearance. Eight deposit native cases and existing effects regression pass; 43 pure suites, Deposit CLI, changed source/fixture compilation, peer review, Rojo and diff checks pass. All 79 running-Server source hashes match, normal Main/HUD/Custom camera restored, and temporary objects removed. Three 1759x567 counter captures are validated and root-inspected. The batch was subsequently committed and pushed as 4ae9a52.",
+    "Counter proportions finalized at 09:30:30 UTC after a dedicated native height RED/GREEN: center Y 3.2 logical studs, top 2.275 world studs, panel height 2.455 logical studs, farmer height unchanged at 5.5 world studs. Final front/elevated captures reveal shirt, sleeves and pocket; all images decoded, Rojo rebuilt, and 79/79 source hashes match. This supersedes the earlier 09:22:38 counter geometry acceptance, without changing the snapshot-toggle source or measurements.",
+    "Counter/deposit and profiling-evidence batch committed and pushed as 4ae9a5282da8b8135284d1add925b2d461d32a6e. Snapshot-toggle source remains frozen at earlier cbbd765; historical capacity benchmarks remain unchanged.",
+    "All-Crocodilo actual-Humanoid route PASS at 09:39:10 UTC on 4ae9a52: 96 collected/bagged, zero remaining tokens or cloned Mini models, five waypoints over 51.45506834213393 world studs, partial repacking, and all 96 initial imported mesh identities checked. One isolated cloned farm/Core session and one Studio client; cleanup restored the character, HUD and Custom camera. No all-Crocodilo FPS, device, multiplayer or memory-recovery claim."
   ],
   "benchmarkEvidence": {
     "baselineFiles": [
@@ -205,17 +207,17 @@
     }
   },
   "active": [
-    "Root: commit the verified counter/deposit and profiling-evidence batch. Endpoint cbbd765 remains the latest committed and pushed checkpoint until that commit exists.",
-    "Checkpoint documentation is frozen after final evidence validation. No source, Studio or raw-record changes were made by the documentation reviewer.",
+    "Home/onboarding UI fix is underway locally, with independent review and native acceptance pending; root owns Studio.",
+    "All-Crocodilo actual-Humanoid collection passed on committed production 4ae9a52 at 09:39:10 UTC; checkpoint evidence and limitations are recorded separately from historical performance samples.",
     "15-minute heartbeat remains active through the minimum 13:30 UTC cutoff; overnight work is not complete."
   ],
   "next": [
-    "Commit the verified counter/deposit and profiling-evidence batch, then update the current source pointer. Preserve the separate frozen cbbd765 provenance of the snapshot-toggle measurement.",
+    "Finish independent review and native validation of the Home/onboarding UI fix, preserving existing nonmodal gameplay. Keep the committed 4ae9a52 source pointer until the next verified commit exists.",
     "Treat the snapshot-toggle result as evidence that disabling the full historical send pipeline did not eliminate short-window memory growth. It does not establish zero packet cost, a particular leak, engine caching as the cause, or full recovery.",
     "Keep frame-window metrics separate from the longer tag and server-counter brackets. Do not average ON2 with ON1/OFF as a matched-population experiment.",
     "Any follow-up memory probe needs a changed hypothesis and controlled conditions; do not repeat the long benchmark without a concrete reason.",
     "Further producer-label readability needs actual player-camera evidence for remaining top-row cropping and oblique overlap; normal depth occlusion stays enabled.",
-    "Preserve 50 producers and 96 preview Minis, with memory, device, species and multiplayer limits explicit. Keep PR 2 draft and unmerged, do not publish, and continue through 13:30 UTC with the 15-minute heartbeat."
+    "Preserve 50 producers and 96 preview Minis, with memory, device, all-Crocodilo performance and multiplayer limits explicit. Keep PR 2 draft and unmerged, do not publish, and continue through 13:30 UTC with the 15-minute heartbeat."
   ],
   "constraints": [
     "User permits expanding former 50 limits if performance supports it; producer count remains 50.",
@@ -231,7 +233,7 @@
     "sourceFilesCompiled": 79,
     "standaloneLuauTestFilesPassed": 43,
     "rojoBuild": "PASS",
-    "finalScopedFix": "Counter/deposit batch is synced, natively verified and ready to commit: final mirrored fixture, eight deposit cases, existing effects regression, 43 pure suites, actual-module Deposit CLI, changed source/fixture compilation, peer review, Rojo and diff checks pass. At 09:30:30 UTC all 79 running-Server project sources match. Main.server full Studio Script Analysis was not re-read; earlier isolated type probes remain the warning evidence.",
+    "finalScopedFix": "Counter/deposit batch is synced, natively verified and committed in 4ae9a52: final mirrored fixture, eight deposit cases, existing effects regression, 43 pure suites, actual-module Deposit CLI, changed source/fixture compilation, peer review, Rojo and diff checks pass. At 09:30:30 UTC all 79 running-Server project sources match. Main.server full Studio Script Analysis was not re-read; earlier isolated type probes remain the warning evidence.",
     "studioSourceFile": "docs/verification/studio-source-verification.json",
     "studioSourceMatched": 79,
     "studioSourceLocalCount": 79,
@@ -241,7 +243,7 @@
     "studioSourceScope": "Project sources in running Server DataModel, normalized CRLF, DJB2 bytes; excludes engine-injected scripts.",
     "padLabelsBefore": "docs/verification/fresh-hud-pad-spacing.jpg",
     "padLabelsAfter": "docs/verification/pad-labels-after.jpg",
-    "commitStatus": "cbbd765e194280b804762ee43b9e6e3905d261ff is the latest verified, committed and pushed checkpoint. The later counter/deposit and profiling-evidence batch is synced, verified and ready to commit, but remains uncommitted. PR 2 remains open, draft and unmerged.",
+    "commitStatus": "4ae9a5282da8b8135284d1add925b2d461d32a6e is the latest verified, committed and pushed production checkpoint, including counter/deposit and profiling evidence. PR 2 remains open, draft and unmerged. The local Home/onboarding UI fix is in progress and not yet natively accepted.",
     "shelfStructureCLI": "PASS red/green regression and unchanged original geometry",
     "diffCheck": "PASS",
     "priorExcludedEngineScripts": 6,
@@ -261,7 +263,7 @@
     "leaderboardFacesCLI": "PASS",
     "frozenSnapshotProbeSourceFile": "docs/verification/capacity-96-snapshot-toggle-2026-10-20.json"
   },
-  "latestVerifiedCommit": "cbbd765e194280b804762ee43b9e6e3905d261ff",
+  "latestVerifiedCommit": "4ae9a5282da8b8135284d1add925b2d461d32a6e",
   "newBatchEvidence": {
     "status": "Gameplay/allocation/Lucky/shelf batch committed/pushed as 0059fb2. Subsequent canopy/hub/packet batch committed/pushed as 4d4fd29, synced and natively verified.",
     "normalFarmFlow": {
@@ -655,7 +657,7 @@
   },
   "counterDepositEvidence": {
     "baseline": "cbbd765",
-    "status": "Synced and verified at 09:30:30 UTC; ready to commit, still uncommitted.",
+    "status": "Verified at 09:30:30 UTC; committed and pushed as 4ae9a52.",
     "counter": {
       "native": "Initial panel-count RED and later proportion RED observed; final mirrored fixture GREEN verifies the lowered counter with torso allowance, 18 inert panels, unchanged XZ footprint, farmer/sign/awning visibility, clear deposit approach, routes and fences.",
       "panelsPerPlot": 3,
@@ -688,14 +690,47 @@
       "otherRuntimeLoadTimeoutSeconds": 3,
       "nativeScope": "Disposable native clones inject load outcomes while using real UI, models, tweens and tasks; stalled/failed loads, warm desktop/phone/short layouts, replacement, GUI destruction and worker cleanup pass."
     },
-    "pending": [
-      "Commit the verified batch"
-    ],
+    "pending": [],
     "scope": "Behavior, bounded lifecycle and geometry acceptance; no additional frame-time, capacity or memory-recovery claim. These patches were not synced during the frozen snapshot-toggle probe.",
     "recordedAtUTC": "2026-10-20T09:30:30Z",
     "nativeEvidence": "docs/verification/counter-deposit-native.json",
     "sourceParityEvidence": "docs/verification/studio-source-verification.json",
     "gates": "43 pure suites, actual-module Deposit CLI, changed source/fixture compilation, native regressions, peer review, Rojo build, diff check and 79/79 running-Server source parity pass.",
-    "cleanup": "Both Main scripts enabled, HUD enabled, CameraType.Custom, and zero harness, temporary spawn, QA or fixture remnants."
+    "cleanup": "Both Main scripts enabled, HUD enabled, CameraType.Custom, and zero harness, temporary spawn, QA or fixture remnants.",
+    "commit": "4ae9a5282da8b8135284d1add925b2d461d32a6e"
+  },
+  "crocodiloTrayEvidence": {
+    "recordedAtUTC": "2026-10-20T09:39:10Z",
+    "sourceCommit": "4ae9a5282da8b8135284d1add925b2d461d32a6e",
+    "scenario": "tier_06",
+    "result": "PASS",
+    "nativeEvidence": "docs/verification/crocodilo-tray-native.json",
+    "capture": "docs/verification/crocodilo-tray-96.jpg",
+    "walkedWorldStuds": 51.45506834213393,
+    "visitedWaypoints": 5,
+    "collected": 96,
+    "bag": 96,
+    "remaining": 0,
+    "cloneMiniModels": 0,
+    "initialMeshChecks": 96,
+    "verifiedMeshIds": {
+      "tier_06": "rbxassetid://132112159852307"
+    },
+    "partial": true,
+    "repacked": true,
+    "method": "Isolated cloned Plot1 and Core session, one Studio client, one staging teleport followed by real Humanoid walking; server pickup contexts came from the actual HRP. Production was frozen only in the test session. Initial and surviving imported mesh identities were checked.",
+    "captureScope": "First route also passed, but its capture faced the shelf rear. Saved result and front-view image use the second successful route. HUD was hidden only for capture.",
+    "cleanup": {
+      "plot": false,
+      "camera": "Enum.CameraType.Custom",
+      "health": 100,
+      "fixture": false,
+      "hud": true
+    },
+    "limitations": [
+      "Isolated cloned Plot1 and Core session; one Studio client; one staging teleport followed by five real Humanoid walking waypoints.",
+      "Not a native all-Crocodilo performance benchmark or multiplayer/device acceptance.",
+      "First route also passed, but capture faced shelf rear. Evidence route repeated once with front camera; saved full result is second route."
+    ]
   }
 }

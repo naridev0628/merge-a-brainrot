@@ -15,11 +15,14 @@ assert(remote:IsA('RemoteFunction'),'Fixture control must be a RemoteFunction')
 local metadataDeadline=os.clock()+5
 repeat
     assert(status.Parent,'Server fixture stopped during replication')
-    if status:GetAttribute('OwnerId')~=nil and status:GetAttribute('Status')~=nil then break end
+    if status:GetAttribute('OwnerId')~=nil and status:GetAttribute('Status')~=nil
+        and status:GetAttribute('Scenario')~=nil then break end
     task.wait(.03)
 until os.clock()>=metadataDeadline
 assert(status:GetAttribute('OwnerId')==player.UserId,'Fixture owner metadata is missing or belongs to another player')
 assert(status:GetAttribute('Status')=='Ready','Server fixture is not ready: '..tostring(status:GetAttribute('Status')))
+local scenario=status:GetAttribute('Scenario')
+assert(scenario=='mixed' or scenario=='tier_06','Fixture scenario metadata is missing or invalid')
 local character=assert(player.Character)
 local humanoid=assert(character:FindFirstChildOfClass('Humanoid'))
 local root=assert(character:FindFirstChild('HumanoidRootPart'))
@@ -74,6 +77,7 @@ local ok,err=xpcall(function()
     end
     result=remote:InvokeServer('Finish')
     assert(result.pass,game:GetService('HttpService'):JSONEncode(result))
+    assert(result.scenario==scenario and result.initialMeshChecks==96,'Server result must match the advertised scenario and imported-mesh checks')
 end,debug.traceback)
 connection:Disconnect()
 if not ok and remote.Parent then pcall(function() remote:InvokeServer('Cancel') end) end
@@ -85,4 +89,6 @@ if player.Character==character and character.Parent then
     character:PivotTo(original);root.AssemblyLinearVelocity=Vector3.zero;root.AssemblyAngularVelocity=Vector3.zero
 end
 assert(ok,err)
-return {result='PASS real Humanoid tray route, 96 accounted Minis, six species and partial-pile repack',server=result}
+return {result='PASS real Humanoid tray route, 96 accounted '
+    ..(if scenario=='mixed' then 'mixed-species Minis' else 'Bombardiro Crocodilo Minis')
+    ..', partial-pile repack and five waypoints',scenario=scenario,server=result}
