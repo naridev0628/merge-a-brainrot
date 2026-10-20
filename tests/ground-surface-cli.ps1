@@ -46,7 +46,7 @@ for _,p in objects do if p.Parent==cover then
 end end
 local minGreen,maxGreen=1,0
 for _,p in objects do if p.Parent==cover then minGreen=math.min(minGreen,p.Color.R);maxGreen=math.max(maxGreen,p.Color.R) end end
-assert(maxGreen-minGreen>.035,'Broad grass patches must have meaningful deterministic variation')
+assert(maxGreen-minGreen>.01 and maxGreen-minGreen<.06,'Broad grass patches must retain subtle, bounded variation')
 local replacement=Surface.cover(floor,'Green');assert(cover.destroyed and replacement:GetAttribute('TileCount')==42,'Repeat integration replaces the old cover')
 local board=Surface.panel(root,CFrame.new(0,-2,-.52),19.8,18.8,'Brown')
 assert(board:GetAttribute('TileCount')==4)

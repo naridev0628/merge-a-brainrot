@@ -4,20 +4,20 @@ local FarmLighting={}
 function FarmLighting.apply()
     Lighting.ClockTime=14.4
     Lighting.GeographicLatitude=25
-    Lighting.Brightness=2.35
+    Lighting.Brightness=2
     Lighting.GlobalShadows=true
-    Lighting.ShadowSoftness=.35
-    Lighting.Ambient=Color3.fromRGB(92,104,125)
-    Lighting.OutdoorAmbient=Color3.fromRGB(132,143,155)
-    Lighting.ColorShift_Top=Color3.fromRGB(255,235,203)
+    Lighting.ShadowSoftness=.5
+    Lighting.Ambient=Color3.fromRGB(100,108,120)
+    Lighting.OutdoorAmbient=Color3.fromRGB(132,140,149)
+    Lighting.ColorShift_Top=Color3.fromRGB(0,0,0)
     Lighting.ColorShift_Bottom=Color3.fromRGB(0,0,0)
     Lighting.EnvironmentDiffuseScale=.55
-    Lighting.EnvironmentSpecularScale=.35
-    Lighting.ExposureCompensation=.04
+    Lighting.EnvironmentSpecularScale=.2
+    Lighting.ExposureCompensation=0
     local correction=Lighting:FindFirstChild('FarmColorGrade') :: ColorCorrectionEffect?
     if not correction then correction=Instance.new('ColorCorrectionEffect');correction.Name='FarmColorGrade';correction.Parent=Lighting end
-    correction.Brightness=0;correction.Contrast=.07;correction.Saturation=.08
-    correction.TintColor=Color3.fromRGB(255,250,241);correction.Enabled=true
+    correction.Brightness=0;correction.Contrast=.025;correction.Saturation=0
+    correction.TintColor=Color3.fromRGB(255,255,255);correction.Enabled=true
     local models=game:GetService('ReplicatedStorage'):FindFirstChild('MapModels')
     local legacyDome=workspace:FindFirstChild('FarmSkyDome')
     if legacyDome then legacyDome:Destroy() end

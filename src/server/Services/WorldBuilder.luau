@@ -20,7 +20,7 @@ local TextStyle=require(Shared.TextStyle)
 local Core=require(script.Parent.Parent.Domain.FarmCore)
 local layout=Core.new(Config,Catalog)
 local World={}
-local orange=Color3.fromRGB(255,174,22)
+local orange=Color3.fromRGB(234,183,76)
 local function cashText(units: number): string
     local digits=string.format('%.0f',units/4)
     local grouped=string.reverse(digits):gsub('(%d%d%d)','%1,')
@@ -47,7 +47,7 @@ local function positionOwnerTitle(world: any,rowCount: number)
     if gui.StudsOffsetWorldSpace~=offset then gui.StudsOffsetWorldSpace=offset end
 end
 local function pad(parent: Instance,name: string,size: Vector3,cf: CFrame,color: Color3)
-    Factory.part(parent,name..'Base',size+Vector3.new(.7,.25,.7),cf-Vector3.new(0,.22,0),Color3.fromRGB(112,65,30))
+    Factory.part(parent,name..'Base',size+Vector3.new(.7,.25,.7),cf-Vector3.new(0,.22,0),Color3.fromRGB(112,80,54))
     for _,side in {-1,1} do
         Factory.part(parent,name..'Edge',Vector3.new(size.X+.5,.12,.15),cf*CFrame.new(0,.05,side*(size.Z/2+.15)),color:Lerp(Color3.new(1,1,1),.3))
         Factory.part(parent,name..'Edge',Vector3.new(.15,.12,size.Z+.5),cf*CFrame.new(side*(size.X/2+.15),.05,0),color:Lerp(Color3.new(1,1,1),.3))
@@ -62,7 +62,7 @@ type PadPieces = {[string]: {BasePart}}
 local function padAvailability(world: any,part: BasePart,affordable: boolean,pieces: PadPieces?): PadPieces?
     if part:GetAttribute('Affordable')==affordable then return pieces end
     part:SetAttribute('Affordable',affordable)
-    local color=if affordable then Color3.fromRGB(96,238,43) else Color3.fromRGB(244,90,94)
+    local color=if affordable then Color3.fromRGB(133,198,105) else Color3.fromRGB(220,128,128)
     part.Color=color
     if not pieces then
         -- One lazy scan for this render; use current identities after clones or
@@ -108,26 +108,26 @@ local function actionLabel(part: BasePart,action: string,value: string,width: nu
     return title,price,detail
 end
 local function fence(parent: Instance,cf: CFrame,length: number)
-    local wood=Color3.fromRGB(171,111,65)
+    local wood=Color3.fromRGB(164,124,84)
     for _,y in {1.7,4.1} do
         Factory.part(parent,'FenceRail',Vector3.new(length,.85,.55),cf*CFrame.new(0,y,0),wood)
-        Factory.part(parent,'RailTopHighlight',Vector3.new(length,.12,.62),cf*CFrame.new(0,y+.46,0),Color3.fromRGB(204,147,92))
+        Factory.part(parent,'RailTopHighlight',Vector3.new(length,.12,.62),cf*CFrame.new(0,y+.46,0),Color3.fromRGB(196,157,112))
         for x=-length/2+1.8,length/2-1.8,3 do
-            for _,side in {-1,1} do Factory.part(parent,'FenceStud',Vector3.new(.75,.65,.17),cf*CFrame.new(x,y,side*.34),Color3.fromRGB(202,146,93)) end
+            for _,side in {-1,1} do Factory.part(parent,'FenceStud',Vector3.new(.75,.65,.17),cf*CFrame.new(x,y,side*.34),Color3.fromRGB(189,148,105)) end
         end
     end
     local count=math.ceil(length/16)
     for index=0,count do
         local x=-length/2+index*length/count
-        local post=Factory.part(parent,'FencePost',Vector3.new(1.5,5.7,1.5),cf*CFrame.new(x,2.85,0),Color3.fromRGB(112,67,37)); post.TopSurface=Enum.SurfaceType.Studs
-        Factory.part(parent,'PostCap',Vector3.new(1.8,.35,1.8),cf*CFrame.new(x,5.85,0),Color3.fromRGB(151,92,48))
-        for _,y in {1.7,4.1} do Factory.part(parent,'PostPeg',Vector3.new(.38,.38,.16),cf*CFrame.new(x,y,-.84),Color3.fromRGB(91,51,27)) end
+        local post=Factory.part(parent,'FencePost',Vector3.new(1.5,5.7,1.5),cf*CFrame.new(x,2.85,0),Color3.fromRGB(115,83,57)); post.TopSurface=Enum.SurfaceType.Studs
+        Factory.part(parent,'PostCap',Vector3.new(1.8,.35,1.8),cf*CFrame.new(x,5.85,0),Color3.fromRGB(151,112,75))
+        for _,y in {1.7,4.1} do Factory.part(parent,'PostPeg',Vector3.new(.38,.38,.16),cf*CFrame.new(x,y,-.84),Color3.fromRGB(94,68,46)) end
     end
     local barrier=Factory.part(parent,'FenceBarrier',Vector3.new(length,8,.8),cf*CFrame.new(0,4,0),wood,nil,true);barrier.Transparency=1
 end
 local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local root=Instance.new('Model'); root.Name='Plot'..id; root.WorldPivot=CFrame.identity
-    local lawn=Factory.part(root,'StuddedLawn',Vector3.new(Map.FrontWidth,1,82),CFrame.new(0,-.5,3),Color3.fromRGB(114,210,37),nil,true)
+    local lawn=Factory.part(root,'StuddedLawn',Vector3.new(Map.FrontWidth,1,82),CFrame.new(0,-.5,3),Color3.fromRGB(121,185,87),nil,true)
     lawn.TopSurface=Enum.SurfaceType.Studs
     local rearDepth=Config.PlotBackZ-Config.PlotRearStartZ
     local rearCenter=(Config.PlotBackZ+Config.PlotRearStartZ)/2
@@ -148,7 +148,7 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     fence(root,CFrame.new(Map.FarmerAlcoveCenter.X,0,-52),Map.FarmerAlcoveSize.X)
     for _,x in {alcoveLeft,alcoveRight} do fence(root,CFrame.new(x,0,-45)*CFrame.Angles(0,math.pi/2,0),14) end
     local back=Factory.part(root,'BackWall',Vector3.new(Map.RearWidth,5,1.5),CFrame.new(0,2.5,Config.PlotBackZ),orange,nil,true); back.TopSurface=Enum.SurfaceType.Smooth
-    back.Color=Color3.fromRGB(239,185,89)
+    back.Color=Color3.fromRGB(223,187,125)
     GroundSurface.cover(back,'Gold')
     for _,side in {-1,1} do
         GroundSurface.panel(root,CFrame.new(0,2.5,Config.PlotBackZ+side*.76)*CFrame.Angles(0,if side==1 then math.pi else 0,0),Map.RearWidth,5,'Gold')
@@ -156,22 +156,22 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     Factory.part(root,'RearPerimeterRim',Vector3.new(Map.RearWidth,.28,.65),CFrame.new(0,.18,Config.PlotBackZ+.72),Color3.fromRGB(155,97,48))
     local pads={}
     for _,quantity in {'1','5','10','100'} do
-        local purchase=pad(root,'Buy'..quantity,Vector3.new(10,.4,7),CFrame.new(Config.BuyPads[quantity],.2,Config.BuyZ),if quantity=='1' then Color3.fromRGB(96,238,43) else Color3.fromRGB(244,90,94))
+        local purchase=pad(root,'Buy'..quantity,Vector3.new(10,.4,7),CFrame.new(Config.BuyPads[quantity],.2,Config.BuyZ),if quantity=='1' then Color3.fromRGB(133,198,105) else Color3.fromRGB(220,128,128))
         local title=actionLabel(purchase,'Buy '..quantity,if quantity=='1' then '$5' else cashText(Economy.buyCost(0,tonumber(quantity),1)))
         if quantity=='100' then title.Parent.Detail.Text='(Auto Merge)' end
         pads[quantity]=title
     end
-    local deposit=pad(root,'DepositPad',Vector3.new(Map.DepositHalfSize.X*2,.4,Map.DepositHalfSize.Y*2),CFrame.new(Map.Sell),Color3.fromRGB(255,229,95))
+    local deposit=pad(root,'DepositPad',Vector3.new(Map.DepositHalfSize.X*2,.4,Map.DepositHalfSize.Y*2),CFrame.new(Map.Sell),Color3.fromRGB(244,217,124))
     local depositLabel=Factory.label(deposit,'Deposit Minis',230,44);TextStyle.apply(depositLabel,30,TextStyle.Cream,2.6);depositLabel.Parent.StudsOffset=Vector3.new(0,3.3,0)
     -- A broad warm halo reads from the bridge; the studded top stays solid.
-    local depositHalo=Factory.part(root,'DepositWarmHalo',Vector3.new(20.6,.06,12.6),CFrame.new(Map.Sell+Vector3.new(0,.06,0)),Color3.fromRGB(255,218,65));depositHalo.Material=Enum.Material.Neon;depositHalo.Transparency=.68;depositHalo.CanQuery=false
+    local depositHalo=Factory.part(root,'DepositWarmHalo',Vector3.new(20.6,.06,12.6),CFrame.new(Map.Sell+Vector3.new(0,.06,0)),Color3.fromRGB(255,218,65));depositHalo.Material=Enum.Material.Neon;depositHalo.Transparency=.88;depositHalo.CanQuery=false
     for _,side in {-1,1} do
-        local a=Factory.part(root,'DepositGlow',Vector3.new(18.6,.2,.5),CFrame.new(Map.Sell+Vector3.new(0,.28,side*5)),Color3.fromRGB(255,255,65));a.Material=Enum.Material.Neon
-        local b=Factory.part(root,'DepositGlow',Vector3.new(.5,.2,10),CFrame.new(Map.Sell+Vector3.new(side*9,.28,0)),Color3.fromRGB(255,255,65));b.Material=Enum.Material.Neon
-        local haloA=Factory.part(root,'DepositGlowHalo',Vector3.new(19.1,.08,1.05),CFrame.new(Map.Sell+Vector3.new(0,.22,side*5)),Color3.fromRGB(255,240,24));haloA.Material=Enum.Material.Neon;haloA.Transparency=.55
-        local haloB=Factory.part(root,'DepositGlowHalo',Vector3.new(1.05,.08,10),CFrame.new(Map.Sell+Vector3.new(side*9,.22,0)),Color3.fromRGB(255,240,24));haloB.Material=Enum.Material.Neon;haloB.Transparency=.55
+        local a=Factory.part(root,'DepositGlow',Vector3.new(18.6,.2,.5),CFrame.new(Map.Sell+Vector3.new(0,.28,side*5)),Color3.fromRGB(255,236,151));a.Material=Enum.Material.Neon
+        local b=Factory.part(root,'DepositGlow',Vector3.new(.5,.2,10),CFrame.new(Map.Sell+Vector3.new(side*9,.28,0)),Color3.fromRGB(255,236,151));b.Material=Enum.Material.Neon
+        local haloA=Factory.part(root,'DepositGlowHalo',Vector3.new(19.1,.08,1.05),CFrame.new(Map.Sell+Vector3.new(0,.22,side*5)),Color3.fromRGB(255,240,24));haloA.Material=Enum.Material.Neon;haloA.Transparency=.82
+        local haloB=Factory.part(root,'DepositGlowHalo',Vector3.new(1.05,.08,10),CFrame.new(Map.Sell+Vector3.new(side*9,.22,0)),Color3.fromRGB(255,240,24));haloB.Material=Enum.Material.Neon;haloB.Transparency=.82
     end
-    local glow=Instance.new('PointLight');glow.Color=Color3.fromRGB(255,230,65);glow.Brightness=2.8;glow.Range=12;glow.Parent=deposit
+    local glow=Instance.new('PointLight');glow.Color=Color3.fromRGB(255,230,65);glow.Brightness=.65;glow.Range=12;glow.Parent=deposit
     FarmerBooth.build(root)
     for index,x in {Config.SellX+9,Config.SellX-9} do
         local crateCF=CFrame.new(x,0,-36)*CFrame.Angles(0,math.pi,0)
@@ -191,13 +191,13 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     -- 12 studs tall including the legs, with a 7.5-stud-high board face.
     -- These dimensions are logical; the completed plot scales by .65.
     local processorGroup=Instance.new('Model');processorGroup.Name='ProcessorSign';processorGroup.Parent=root
-    for _,x in {-42.5,-25.5} do Factory.part(processorGroup,'ProcessorPost',Vector3.new(.8,9.5,.8),CFrame.new(x,4.75,29),Color3.fromRGB(102,65,34)) end
-    local processor=Factory.part(processorGroup,'Processor',Vector3.new(21,11.5,1),CFrame.new(-34,12.5,29),Color3.fromRGB(143,94,49),nil,true)
+    for _,x in {-42.5,-25.5} do Factory.part(processorGroup,'ProcessorPost',Vector3.new(.8,9.5,.8),CFrame.new(x,4.75,29),Color3.fromRGB(112,80,54)) end
+    local processor=Factory.part(processorGroup,'Processor',Vector3.new(21,11.5,1),CFrame.new(-34,12.5,29),Color3.fromRGB(158,118,82),nil,true)
     for _,side in {-1,1} do
-        for x=-9.6,9.6,1.6 do for y=-4.8,4.8,1.6 do Factory.part(processorGroup,'SignStud',Vector3.new(.72,.72,.16),CFrame.new(-34+x,12.5+y,29+side*.56),Color3.fromRGB(181,126,78)) end end
+        for x=-9.6,9.6,1.6 do for y=-4.8,4.8,1.6 do Factory.part(processorGroup,'SignStud',Vector3.new(.72,.72,.16),CFrame.new(-34+x,12.5+y,29+side*.56),Color3.fromRGB(190,150,107)) end end
     end
-    for _,y in {6.55,18.45} do Factory.part(processorGroup,'SignFrame',Vector3.new(21.6,.55,1.4),CFrame.new(-34,y,29),Color3.fromRGB(103,61,31)) end
-    for _,x in {-44.7,-23.3} do Factory.part(processorGroup,'SignFrame',Vector3.new(.55,11.9,1.4),CFrame.new(x,12.5,29),Color3.fromRGB(103,61,31)) end
+    for _,y in {6.55,18.45} do Factory.part(processorGroup,'SignFrame',Vector3.new(21.6,.55,1.4),CFrame.new(-34,y,29),Color3.fromRGB(112,80,54)) end
+    for _,x in {-44.7,-23.3} do Factory.part(processorGroup,'SignFrame',Vector3.new(.55,11.9,1.4),CFrame.new(x,12.5,29),Color3.fromRGB(112,80,54)) end
     local textFace=Factory.part(processorGroup,'ProcessorTextFace',Vector3.new(21,11.5,.02),CFrame.new(-34,12.5,28.3),Color3.new(1,1,1));textFace.Transparency=1;textFace.CanQuery=false
     local surface=Instance.new('SurfaceGui'); surface.Name='ProcessorDisplay'; surface.Adornee=textFace; surface.Face=Enum.NormalId.Front; surface.SizingMode=Enum.SurfaceGuiSizingMode.FixedSize;surface.CanvasSize=Vector2.new(690,375);surface.LightInfluence=0;surface.MaxDistance=100;surface.Parent=processor
     local function signLine(name: string,value: string,y: number,height: number,size: number,color: Color3)
@@ -212,15 +212,15 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local processorRate=signLine('Rate','2 per second',285,70,58,TextStyle.Cream)
     local signTransform=CFrame.new(-Map.FrontWidth/2+1,0,10)*CFrame.Angles(0,-math.pi/2,0)*CFrame.new(34,0,-29)
     for _,part in processorGroup:GetDescendants() do if part:IsA('BasePart') then part.CFrame=signTransform*part.CFrame end end
-    local upgrade=pad(root,'UpgradePad',Vector3.new(11,.4,7),CFrame.new(Map.Upgrade),Color3.fromRGB(95,245,70))
+    local upgrade=pad(root,'UpgradePad',Vector3.new(11,.4,7),CFrame.new(Map.Upgrade),Color3.fromRGB(133,198,105))
     local upgradeLabel,upgradePrice=actionLabel(upgrade,'+3 per second','$10',240)
     upgradeLabel.TextScaled=true
     local upgradeSize=Instance.new('UITextSizeConstraint');upgradeSize.MinTextSize=18;upgradeSize.MaxTextSize=30;upgradeSize.Parent=upgradeLabel
-    local claim=pad(root,'CoinPad',Vector3.new(15,.4,10),CFrame.new(Map.Claim),Color3.fromRGB(92,231,139))
+    local claim=pad(root,'CoinPad',Vector3.new(15,.4,10),CFrame.new(Map.Claim),Color3.fromRGB(111,199,154))
     local _,saleLabel=actionLabel(claim,'Collect Cash','$0',230)
-    local merge=pad(root,'MergePad',Vector3.new(10,.4,7),CFrame.new(Map.Merge),Color3.fromRGB(252,219,50))
+    local merge=pad(root,'MergePad',Vector3.new(10,.4,7),CFrame.new(Map.Merge),Color3.fromRGB(244,207,80))
     local mergeLabel=Factory.label(merge,'Merge',160,44);TextStyle.apply(mergeLabel,32,TextStyle.Cream,2.6)
-    local sign=Factory.part(root,'OwnerSign',Vector3.new(14,4,1),CFrame.new(0,4,Config.PlotBackZ-2),Color3.fromRGB(157,91,31))
+    local sign=Factory.part(root,'OwnerSign',Vector3.new(14,4,1),CFrame.new(0,4,Config.PlotBackZ-2),Color3.fromRGB(158,118,82))
     local ownerLabel=Factory.label(sign,'BRAINROT FARM',260,58)
     ownerLabel.Parent.Size=UDim2.fromScale(32,4)
     ownerLabel.Parent.StudsOffset=Vector3.zero
@@ -309,12 +309,12 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     end
     local groupCF=CFrame.new(47,9,6)*CFrame.Angles(0,math.pi/2,0)
     for _,x in {-6.5,6.5} do
-        local support=Factory.part(root,'GroupBoardSupport',Vector3.new(.9,9,.9),groupCF*CFrame.new(x,-4.5,.1),Color3.fromRGB(101,62,34));support.TopSurface=Enum.SurfaceType.Studs
+        local support=Factory.part(root,'GroupBoardSupport',Vector3.new(.9,9,.9),groupCF*CFrame.new(x,-4.5,.1),Color3.fromRGB(112,80,54));support.TopSurface=Enum.SurfaceType.Studs
     end
-    local groupBoard=Factory.part(root,'GroupRewardBoard',Vector3.new(17,10,.8),groupCF,Color3.fromRGB(153,101,56),nil,true)
-    for x=-7,7,2 do for y=-4,4,2 do Factory.part(root,'GroupBoardStud',Vector3.new(.7,.7,.15),groupCF*CFrame.new(x,y,-.48),Color3.fromRGB(188,133,82)) end end
-    for _,y in {-5,5} do Factory.part(root,'GroupBoardFrame',Vector3.new(17.6,.55,1),groupCF*CFrame.new(0,y,0),Color3.fromRGB(103,61,31)) end
-    for _,x in {-8.5,8.5} do Factory.part(root,'GroupBoardFrame',Vector3.new(.55,10,1),groupCF*CFrame.new(x,0,0),Color3.fromRGB(103,61,31)) end
+    local groupBoard=Factory.part(root,'GroupRewardBoard',Vector3.new(17,10,.8),groupCF,Color3.fromRGB(158,118,82),nil,true)
+    for x=-7,7,2 do for y=-4,4,2 do Factory.part(root,'GroupBoardStud',Vector3.new(.7,.7,.15),groupCF*CFrame.new(x,y,-.48),Color3.fromRGB(190,150,107)) end end
+    for _,y in {-5,5} do Factory.part(root,'GroupBoardFrame',Vector3.new(17.6,.55,1),groupCF*CFrame.new(0,y,0),Color3.fromRGB(112,80,54)) end
+    for _,x in {-8.5,8.5} do Factory.part(root,'GroupBoardFrame',Vector3.new(.55,10,1),groupCF*CFrame.new(x,0,0),Color3.fromRGB(112,80,54)) end
     -- Render through the same world-space path as the processor. In the verified
     -- Studio view AlwaysOnTop made this surface disappear; the forward plane also
     -- keeps the wood studs from cutting through the lettering.
@@ -355,9 +355,10 @@ function World.build()
     local root=Instance.new('Folder'); root.Name='MergeABrainrotGenerated'; root.Parent=workspace
     local water=Factory.part(root,'Water',Vector3.new(1000,1,1000),CFrame.new(0,-5,0),Color3.fromRGB(46,174,224),nil,true);water.Transparency=1
     local terrain=workspace.Terrain
-    terrain.WaterColor=Color3.fromRGB(41,156,231)
-    terrain.WaterTransparency=.24;terrain.WaterReflectance=.12
-    terrain.WaterWaveSize=.12;terrain.WaterWaveSpeed=9
+    -- Terrain water renders brighter than its swatch under the daytime sky.
+    terrain.WaterColor=Color3.fromRGB(58,139,150)
+    terrain.WaterTransparency=.18;terrain.WaterReflectance=.04
+    terrain.WaterWaveSize=.08;terrain.WaterWaveSpeed=5
     terrain:FillBlock(CFrame.new(0,-6.6,0),Vector3.new(1000,4,1000),Enum.Material.Water)
     Landmarks.buildHub(root)
     for i=1,6 do
@@ -371,7 +372,7 @@ function World.build()
     end
     local circle=Factory.part(root,'GatheringCircle',Vector3.new(.3,68,68),CFrame.new(0,.15,0)*CFrame.Angles(0,0,math.pi/2),Color3.fromRGB(255,192,98),Enum.PartType.Cylinder,true)
     circle.TopSurface=Enum.SurfaceType.Studs
-    local hubGround=Environment.octagon(root,CFrame.identity,96,1,Color3.fromRGB(115,210,38),nil,true)
+    local hubGround=Environment.octagon(root,CFrame.identity,96,1,Color3.fromRGB(121,185,87),nil,true)
     for _,part in hubGround:GetDescendants() do
         if part:IsA('BasePart') then part.TopSurface=Enum.SurfaceType.Smooth;part.RightSurface=Enum.SurfaceType.Smooth end
     end

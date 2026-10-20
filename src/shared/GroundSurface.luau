@@ -2,8 +2,8 @@
 -- Blender-authored recessed tiles. Existing floors remain the walking surface.
 local Surface={}
 local Replicated=game:GetService('ReplicatedStorage')
-local shades={Green=Color3.fromRGB(108,160,48),Gold=Color3.fromRGB(218,169,80),
-    Brown=Color3.fromRGB(140,91,50),Edge=Color3.fromRGB(64,122,38)}
+local shades={Green=Color3.fromRGB(121,185,87),Gold=Color3.fromRGB(220,188,133),
+    Brown=Color3.fromRGB(158,118,82),Edge=Color3.fromRGB(78,128,65)}
 local function model(parent: Instance,name: string): Model
     local result=Instance.new('Model');result.Name=name
     result:SetAttribute('BlenderAuthored',true);result:SetAttribute('TileCount',0)
@@ -23,7 +23,7 @@ local function tile(parent: Model,cf: CFrame,width: number,depth: number,palette
         local p=cf.Position
         local field=(math.sin(p.X/41+p.Z/63)+math.cos(p.Z/53-p.X/79))*.5
         if palette=='Green' then
-            part.Color=Color3.new(.92+.07*field,.95+.04*field,.91+.07*field)
+            part.Color=Color3.new(.975+.025*field,.98+.02*field,.97+.03*field)
         else
             local tint=.97+.025*field
             part.Color=Color3.new(tint,tint,tint)

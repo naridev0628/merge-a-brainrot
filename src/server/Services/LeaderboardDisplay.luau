@@ -3,8 +3,8 @@
 local Players = game:GetService('Players')
 local GroundSurface = require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('GroundSurface'))
 local Display = {}
-local wood = Color3.fromRGB(146, 98, 76)
-local trim = Color3.fromRGB(76, 47, 31)
+local wood = Color3.fromRGB(158, 118, 82)
+local trim = Color3.fromRGB(112, 80, 54)
 local ink = Color3.fromRGB(23, 18, 14)
 local rankColors = {
     Color3.fromRGB(255, 226, 61),

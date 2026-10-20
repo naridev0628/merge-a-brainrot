@@ -4,10 +4,10 @@
 local Environment = {}
 local BrickStudOcclusion = require(script.Parent.BrickStudOcclusion)
 
-local wood = Color3.fromRGB(105, 64, 32)
-local bark = Color3.fromRGB(128, 80, 39)
-local leafBottom = Color3.fromRGB(37, 105, 26)
-local leafTop = Color3.fromRGB(143, 205, 44)
+local wood = Color3.fromRGB(112, 80, 54)
+local bark = Color3.fromRGB(128, 93, 62)
+local leafBottom = Color3.fromRGB(65, 113, 50)
+local leafTop = Color3.fromRGB(139, 184, 95)
 local cream = Color3.fromRGB(255, 239, 190)
 local red = Color3.fromRGB(211, 43, 36)
 local white = Color3.fromRGB(255, 249, 224)

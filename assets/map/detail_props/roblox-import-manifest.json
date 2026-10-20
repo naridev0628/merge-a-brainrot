@@ -7,7 +7,7 @@
     ],
     "mesh": "rbxassetid://135676997614344",
     "name": "BrickBridge",
-    "texture": "rbxassetid://109316861381300"
+    "texture": "rbxassetid://91075571522936"
   },
   {
     "size": [
@@ -17,7 +17,7 @@
     ],
     "mesh": "rbxassetid://103319339504803",
     "name": "BrickBush",
-    "texture": "rbxassetid://109316861381300"
+    "texture": "rbxassetid://91075571522936"
   },
   {
     "size": [
@@ -27,7 +27,7 @@
     ],
     "mesh": "rbxassetid://113414642274746",
     "name": "BrickGrass",
-    "texture": "rbxassetid://109316861381300"
+    "texture": "rbxassetid://91075571522936"
   },
   {
     "size": [
@@ -37,6 +37,6 @@
     ],
     "mesh": "rbxassetid://116689423764847",
     "name": "BrickLog",
-    "texture": "rbxassetid://109316861381300"
+    "texture": "rbxassetid://91075571522936"
   }
 ]

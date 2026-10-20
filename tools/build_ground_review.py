@@ -13,14 +13,14 @@ OUT.mkdir(parents=True,exist_ok=True)
 bpy.ops.object.select_all(action='SELECT')
 bpy.ops.object.delete(use_global=False)
 # Explicit sRGB PNG bytes avoid generated-image colour-space ambiguity.
-# These palettes shift hue as they brighten: dark forest, moss, then sunlit grass.
+# Narrower greens retain the molded detail without a fluorescent, dark-lined grid.
 PALETTES={
- 'Green':((26,65,26),(85,146,35),(159,207,63)),
- 'Gold':((104,63,23),(192,135,49),(247,207,114)),
- 'Brown':((55,30,20),(126,77,43),(187,133,78)),
- 'Edge':((20,55,25),(47,105,33),(101,159,47)),
- 'Bark':((42,25,16),(107,63,31),(163,113,59)),
- 'Leaf':((24,64,27),(66,127,37),(138,183,61)),
+ 'Green':((84,132,67),(112,171,81),(139,197,103)),
+ 'Gold':((142,111,66),(202,166,108),(237,208,155)),
+ 'Brown':((94,66,47),(151,110,78),(191,151,111)),
+ 'Edge':((49,85,43),(71,116,59),(100,149,77)),
+ 'Bark':((65,46,34),(116,83,56),(162,123,83)),
+ 'Leaf':((48,91,43),(87,140,62),(133,179,89)),
 }
 palette=[];lookup={}
 for name,stops in PALETTES.items():
