@@ -23,7 +23,7 @@ function Runtime.new(gui: ScreenGui,onFinish: (string)->()): any
     Runtime.watch(scope,gui)
     return scope
 end
-function Runtime.load(scope: any,assets: {Instance},callback: (boolean)->())
+function Runtime.load(scope: any,assets: {Instance},callback: (boolean)->(),timeout: number?)
     scope:load(function(done)
         local worker=task.defer(function()
             local failed=false
@@ -37,7 +37,7 @@ function Runtime.load(scope: any,assets: {Instance},callback: (boolean)->())
         -- Engine fetching may finish later, but no suspended visual coroutine
         -- or late callback may keep its UI/animation lock alive.
         return function() cancel(worker) end
-    end,Runtime.LoadTimeout,function(success) callback(success) end)
+    end,timeout or Runtime.LoadTimeout,function(success) callback(success) end)
 end
 function Runtime.tween(scope: any,instance: Instance,info: TweenInfo,properties: any)
     if not scope:alive() then return end

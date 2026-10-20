@@ -140,7 +140,21 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
         Factory.part(booth,'AwningFringe',Vector3.new(1.7,2.4,.8),CFrame.new(-37.65+stripe*1.7,14.7,-6.15),stripeColor)
         for _,y in {14,14.9} do Factory.part(booth,'AwningStud',Vector3.new(.65,.45,.18),CFrame.new(-37.65+stripe*1.7,y,-6.62),stripeColor:Lerp(Color3.new(1,1,1),.1)) end
     end
-    Factory.part(booth,'Counter',Vector3.new(13,.6,3),CFrame.new(-30,5.2,-5),Color3.fromRGB(134,82,36))
+    local counter=Factory.part(booth,'Counter',Vector3.new(13,.6,3),CFrame.new(-30,3.2,-5),Color3.fromRGB(134,82,36))
+    -- Broad blue counter body, informed by reference frames 015/079. Three
+    -- inert panels stay under the existing slab; native studs add no Parts.
+    local panelBottom=boothFloor.Position.Y+boothFloor.Size.Y/2
+    local panelTop=counter.Position.Y-counter.Size.Y/2
+    local panelHeight,panelY=panelTop-panelBottom,(panelTop+panelBottom)/2
+    local function counterPanel(name: string,size: Vector3,position: Vector3)
+        -- Deeper blue stays legible under the warm yellow deposit light.
+        local panel=Factory.part(booth,name,size,CFrame.new(position),Color3.fromRGB(55,66,165))
+        panel.CanCollide=false;panel.CanQuery=false;panel.CanTouch=false
+        panel.FrontSurface=Enum.SurfaceType.Studs;panel.LeftSurface=Enum.SurfaceType.Studs;panel.RightSurface=Enum.SurfaceType.Studs
+    end
+    counterPanel('CounterFrontPanel',Vector3.new(13,panelHeight,.4),Vector3.new(-30,panelY,-6.3))
+    counterPanel('CounterSidePanel',Vector3.new(.4,panelHeight,2.6),Vector3.new(-36.3,panelY,-4.8))
+    counterPanel('CounterSidePanel',Vector3.new(.4,panelHeight,2.6),Vector3.new(-23.7,panelY,-4.8))
     local farmer=Factory.prop(booth,'Shopkeeper',CFrame.new(-30,.45,-2))
     if farmer then
         farmer.Size*=(5.5/Map.PlotScale)/farmer.Size.Y

@@ -1,7 +1,490 @@
 {
-  "mismatches": [],
-  "studioProjectCount": 79,
-  "localCount": 79,
-  "recordedAtUTC": "2026-10-20 08:49:25 UTC",
-  "scope": "Project sources in running Server DataModel, normalized CRLF/DJB2 bytes; excludes engine-injected scripts."
+  "recordedAtUTC": "2026-10-20 09:30:30 UTC",
+  "algorithm": "DJB2 UTF8 normalized CRLF",
+  "expected": [
+    {
+      "path": "src/client/Controllers/AudioConfig.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioConfig",
+      "bytes": 1817,
+      "hash": 1355774271
+    },
+    {
+      "path": "src/client/Controllers/AudioLoadCache.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioLoadCache",
+      "bytes": 1499,
+      "hash": 4266290176
+    },
+    {
+      "path": "src/client/Controllers/AudioPreloader.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioPreloader",
+      "bytes": 911,
+      "hash": 2264041363
+    },
+    {
+      "path": "src/client/Controllers/BrickArt.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.BrickArt",
+      "bytes": 14952,
+      "hash": 3622115064
+    },
+    {
+      "path": "src/client/Controllers/CashEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.CashEffects",
+      "bytes": 8666,
+      "hash": 1993647839
+    },
+    {
+      "path": "src/client/Controllers/Conveyor.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Conveyor",
+      "bytes": 11683,
+      "hash": 260859283
+    },
+    {
+      "path": "src/client/Controllers/DepositEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.DepositEffects",
+      "bytes": 5347,
+      "hash": 4208418881
+    },
+    {
+      "path": "src/client/Controllers/DiscoveryEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.DiscoveryEffects",
+      "bytes": 5358,
+      "hash": 4260401030
+    },
+    {
+      "path": "src/client/Controllers/FarmUI.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.FarmUI",
+      "bytes": 47407,
+      "hash": 3796338480
+    },
+    {
+      "path": "src/client/Controllers/FeedbackAudio.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.FeedbackAudio",
+      "bytes": 2571,
+      "hash": 3594663762
+    },
+    {
+      "path": "src/client/Controllers/IndexPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.IndexPanel",
+      "bytes": 4287,
+      "hash": 2009869249
+    },
+    {
+      "path": "src/client/Controllers/LeaderboardFooter.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LeaderboardFooter",
+      "bytes": 4153,
+      "hash": 168197014
+    },
+    {
+      "path": "src/client/Controllers/Locale.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Locale",
+      "bytes": 13121,
+      "hash": 3109011756
+    },
+    {
+      "path": "src/client/Controllers/LuckyCarryPose.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LuckyCarryPose",
+      "bytes": 1266,
+      "hash": 1356096286
+    },
+    {
+      "path": "src/client/Controllers/LuckyEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LuckyEffects",
+      "bytes": 3159,
+      "hash": 1300373331
+    },
+    {
+      "path": "src/client/Controllers/LuckyPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LuckyPanel",
+      "bytes": 9257,
+      "hash": 3212206537
+    },
+    {
+      "path": "src/client/Controllers/MultiplierCue.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.MultiplierCue",
+      "bytes": 6386,
+      "hash": 3696008440
+    },
+    {
+      "path": "src/client/Controllers/MusicController.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.MusicController",
+      "bytes": 1549,
+      "hash": 3863349779
+    },
+    {
+      "path": "src/client/Controllers/ObbyHUD.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.ObbyHUD",
+      "bytes": 3166,
+      "hash": 3628778414
+    },
+    {
+      "path": "src/client/Controllers/PadLabels.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.PadLabels",
+      "bytes": 8101,
+      "hash": 1520614423
+    },
+    {
+      "path": "src/client/Controllers/PickupAudio.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.PickupAudio",
+      "bytes": 115,
+      "hash": 1276655569
+    },
+    {
+      "path": "src/client/Controllers/Preferences.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Preferences",
+      "bytes": 1415,
+      "hash": 169429656
+    },
+    {
+      "path": "src/client/Controllers/PurchaseEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.PurchaseEffects",
+      "bytes": 2659,
+      "hash": 1346644719
+    },
+    {
+      "path": "src/client/Controllers/RebirthPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.RebirthPanel",
+      "bytes": 5449,
+      "hash": 1828661788
+    },
+    {
+      "path": "src/client/Controllers/SettingsPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.SettingsPanel",
+      "bytes": 4923,
+      "hash": 1392403852
+    },
+    {
+      "path": "src/client/Controllers/Sprint.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Sprint",
+      "bytes": 2397,
+      "hash": 3237135792
+    },
+    {
+      "path": "src/client/Controllers/TierEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.TierEffects",
+      "bytes": 4265,
+      "hash": 182927692
+    },
+    {
+      "path": "src/client/Controllers/TutorialGuide.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.TutorialGuide",
+      "bytes": 2817,
+      "hash": 3971758770
+    },
+    {
+      "path": "src/client/Controllers/UpgradeEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.UpgradeEffects",
+      "bytes": 2604,
+      "hash": 3585285506
+    },
+    {
+      "path": "src/client/Controllers/VisualLifecycle.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.VisualLifecycle",
+      "bytes": 3146,
+      "hash": 3084145907
+    },
+    {
+      "path": "src/client/Controllers/VisualQueue.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.VisualQueue",
+      "bytes": 735,
+      "hash": 3293701413
+    },
+    {
+      "path": "src/client/Controllers/VisualRuntime.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.VisualRuntime",
+      "bytes": 2203,
+      "hash": 3262151429
+    },
+    {
+      "path": "src/client/Main.client.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Main",
+      "bytes": 16485,
+      "hash": 2833741939
+    },
+    {
+      "path": "src/server/Domain/FarmCore.luau",
+      "studioPath": "ServerScriptService.Domain.FarmCore",
+      "bytes": 25989,
+      "hash": 2525806392
+    },
+    {
+      "path": "src/server/Domain/ObbyRun.luau",
+      "studioPath": "ServerScriptService.Domain.ObbyRun",
+      "bytes": 9897,
+      "hash": 2708217954
+    },
+    {
+      "path": "src/server/Domain/RateLimiter.luau",
+      "studioPath": "ServerScriptService.Domain.RateLimiter",
+      "bytes": 407,
+      "hash": 1814919448
+    },
+    {
+      "path": "src/server/Domain/SnapshotPacket.luau",
+      "studioPath": "ServerScriptService.Domain.SnapshotPacket",
+      "bytes": 871,
+      "hash": 1180100454
+    },
+    {
+      "path": "src/server/Main.server.luau",
+      "studioPath": "ServerScriptService.Main",
+      "bytes": 10485,
+      "hash": 2668365389
+    },
+    {
+      "path": "src/server/Services/LeaderboardDisplay.luau",
+      "studioPath": "ServerScriptService.Services.LeaderboardDisplay",
+      "bytes": 12335,
+      "hash": 3168681226
+    },
+    {
+      "path": "src/server/Services/LuckyCarry.luau",
+      "studioPath": "ServerScriptService.Services.LuckyCarry",
+      "bytes": 1234,
+      "hash": 1619090280
+    },
+    {
+      "path": "src/server/Services/MultiplierDisplay.luau",
+      "studioPath": "ServerScriptService.Services.MultiplierDisplay",
+      "bytes": 3915,
+      "hash": 4271822002
+    },
+    {
+      "path": "src/server/Services/ObbyService.luau",
+      "studioPath": "ServerScriptService.Services.ObbyService",
+      "bytes": 2428,
+      "hash": 1582445173
+    },
+    {
+      "path": "src/server/Services/PassService.luau",
+      "studioPath": "ServerScriptService.Services.PassService",
+      "bytes": 1669,
+      "hash": 1521537439
+    },
+    {
+      "path": "src/server/Services/WorldBuilder.luau",
+      "studioPath": "ServerScriptService.Services.WorldBuilder",
+      "bytes": 40346,
+      "hash": 2795400442
+    },
+    {
+      "path": "src/shared/AnimationVisibility.luau",
+      "studioPath": "ReplicatedStorage.Shared.AnimationVisibility",
+      "bytes": 2872,
+      "hash": 2356728715
+    },
+    {
+      "path": "src/shared/BrickStudOcclusion.luau",
+      "studioPath": "ReplicatedStorage.Shared.BrickStudOcclusion",
+      "bytes": 681,
+      "hash": 2419261846
+    },
+    {
+      "path": "src/shared/ClientPreferences.luau",
+      "studioPath": "ReplicatedStorage.Shared.ClientPreferences",
+      "bytes": 1723,
+      "hash": 2464216568
+    },
+    {
+      "path": "src/shared/Config.luau",
+      "studioPath": "ReplicatedStorage.Shared.Config",
+      "bytes": 1212,
+      "hash": 2937979990
+    },
+    {
+      "path": "src/shared/ConveyorFacade.luau",
+      "studioPath": "ReplicatedStorage.Shared.ConveyorFacade",
+      "bytes": 7487,
+      "hash": 1177948626
+    },
+    {
+      "path": "src/shared/CreatureCatalog.luau",
+      "studioPath": "ReplicatedStorage.Shared.CreatureCatalog",
+      "bytes": 758,
+      "hash": 408561483
+    },
+    {
+      "path": "src/shared/DisplayShelves.luau",
+      "studioPath": "ReplicatedStorage.Shared.DisplayShelves",
+      "bytes": 4109,
+      "hash": 4292630380
+    },
+    {
+      "path": "src/shared/Economy.luau",
+      "studioPath": "ReplicatedStorage.Shared.Economy",
+      "bytes": 1922,
+      "hash": 2034319916
+    },
+    {
+      "path": "src/shared/EnvironmentArt.luau",
+      "studioPath": "ReplicatedStorage.Shared.EnvironmentArt",
+      "bytes": 14699,
+      "hash": 2066822974
+    },
+    {
+      "path": "src/shared/FarmCapacity.luau",
+      "studioPath": "ReplicatedStorage.Shared.FarmCapacity",
+      "bytes": 1117,
+      "hash": 1869060455
+    },
+    {
+      "path": "src/shared/FarmLandmarks.luau",
+      "studioPath": "ReplicatedStorage.Shared.FarmLandmarks",
+      "bytes": 8320,
+      "hash": 3955826094
+    },
+    {
+      "path": "src/shared/HubScenery.luau",
+      "studioPath": "ReplicatedStorage.Shared.HubScenery",
+      "bytes": 3832,
+      "hash": 3813139439
+    },
+    {
+      "path": "src/shared/HubStudOcclusion.luau",
+      "studioPath": "ReplicatedStorage.Shared.HubStudOcclusion",
+      "bytes": 1362,
+      "hash": 4090918228
+    },
+    {
+      "path": "src/shared/LuckyAppearance.luau",
+      "studioPath": "ReplicatedStorage.Shared.LuckyAppearance",
+      "bytes": 947,
+      "hash": 77282798
+    },
+    {
+      "path": "src/shared/LuckyBlockVisuals.luau",
+      "studioPath": "ReplicatedStorage.Shared.LuckyBlockVisuals",
+      "bytes": 4512,
+      "hash": 2636422656
+    },
+    {
+      "path": "src/shared/MapSpec.luau",
+      "studioPath": "ReplicatedStorage.Shared.MapSpec",
+      "bytes": 1043,
+      "hash": 934954449
+    },
+    {
+      "path": "src/shared/MiniEvent.luau",
+      "studioPath": "ReplicatedStorage.Shared.MiniEvent",
+      "bytes": 1119,
+      "hash": 3391137824
+    },
+    {
+      "path": "src/shared/MiniMotion.luau",
+      "studioPath": "ReplicatedStorage.Shared.MiniMotion",
+      "bytes": 1475,
+      "hash": 1517595939
+    },
+    {
+      "path": "src/shared/MiniNeighborIndex.luau",
+      "studioPath": "ReplicatedStorage.Shared.MiniNeighborIndex",
+      "bytes": 2081,
+      "hash": 2871076507
+    },
+    {
+      "path": "src/shared/ModelFactory.luau",
+      "studioPath": "ReplicatedStorage.Shared.ModelFactory",
+      "bytes": 12570,
+      "hash": 624270356
+    },
+    {
+      "path": "src/shared/MultiplierCuePresentation.luau",
+      "studioPath": "ReplicatedStorage.Shared.MultiplierCuePresentation",
+      "bytes": 4249,
+      "hash": 129815
+    },
+    {
+      "path": "src/shared/ObbyConfig.luau",
+      "studioPath": "ReplicatedStorage.Shared.ObbyConfig",
+      "bytes": 1245,
+      "hash": 72124670
+    },
+    {
+      "path": "src/shared/ObbyCourse.luau",
+      "studioPath": "ReplicatedStorage.Shared.ObbyCourse",
+      "bytes": 6384,
+      "hash": 4151611946
+    },
+    {
+      "path": "src/shared/ObbyPresentation.luau",
+      "studioPath": "ReplicatedStorage.Shared.ObbyPresentation",
+      "bytes": 3941,
+      "hash": 139213136
+    },
+    {
+      "path": "src/shared/PadGeometry.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadGeometry",
+      "bytes": 1262,
+      "hash": 2415185484
+    },
+    {
+      "path": "src/shared/PadHold.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadHold",
+      "bytes": 1117,
+      "hash": 464669492
+    },
+    {
+      "path": "src/shared/PadLabelLayout.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadLabelLayout",
+      "bytes": 2152,
+      "hash": 3672379319
+    },
+    {
+      "path": "src/shared/PadTargeting.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadTargeting",
+      "bytes": 2739,
+      "hash": 1667320723
+    },
+    {
+      "path": "src/shared/PassConfig.luau",
+      "studioPath": "ReplicatedStorage.Shared.PassConfig",
+      "bytes": 595,
+      "hash": 3493598911
+    },
+    {
+      "path": "src/shared/PickupGeometry.luau",
+      "studioPath": "ReplicatedStorage.Shared.PickupGeometry",
+      "bytes": 406,
+      "hash": 3364822973
+    },
+    {
+      "path": "src/shared/ProductionInfo.luau",
+      "studioPath": "ReplicatedStorage.Shared.ProductionInfo",
+      "bytes": 449,
+      "hash": 4224798783
+    },
+    {
+      "path": "src/shared/StallDecor.luau",
+      "studioPath": "ReplicatedStorage.Shared.StallDecor",
+      "bytes": 29810,
+      "hash": 959061757
+    },
+    {
+      "path": "src/shared/StarterPad.luau",
+      "studioPath": "ReplicatedStorage.Shared.StarterPad",
+      "bytes": 322,
+      "hash": 2104672444
+    },
+    {
+      "path": "src/shared/TextStyle.luau",
+      "studioPath": "ReplicatedStorage.Shared.TextStyle",
+      "bytes": 927,
+      "hash": 1931289147
+    },
+    {
+      "path": "src/shared/Tutorial.luau",
+      "studioPath": "ReplicatedStorage.Shared.Tutorial",
+      "bytes": 1589,
+      "hash": 1178793125
+    }
+  ],
+  "native": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"serverMain\":false,\"clientMain\":false,\"checked\":79,\"mismatches\":[]}"
+      }
+    ],
+    "isError": false
+  },
+  "scope": "79 project scripts runningServer; engine/plugin extras excluded."
 }

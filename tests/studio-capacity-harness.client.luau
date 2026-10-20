@@ -62,6 +62,8 @@ end
 local function updateCamera(now: number)
     local camera=workspace.CurrentCamera
     if not camera then return end
+    -- Studio tools can restore Custom after an executor call. Keep trial camera ownership.
+    camera.CameraType=Enum.CameraType.Scriptable
     if cameraMode=='overview' then
         camera.CFrame=CFrame.lookAt(Vector3.new(240,190,240),Vector3.new(0,15,0))
     elseif cameraMode=='route' then

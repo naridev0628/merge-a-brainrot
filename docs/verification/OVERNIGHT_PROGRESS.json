@@ -1,5 +1,5 @@
 {
-  "updatedAtUTC": "2026-10-20T08:59:47Z",
+  "updatedAtUTC": "2026-10-20T09:31:53Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
@@ -7,14 +7,14 @@
   "studioId": "ef89b65f-2f6a-4fe7-8272-bae9e8007fd1",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Fresh normal Play on 2dc70b1 plus the synced, verified, uncommitted WorldBuilder endpoint patch. Both Main scripts and HUD are enabled, CameraType.Custom is restored, and no temporary fixture remains.",
+    "mode": "Normal Play on committed cbbd765 plus the verified, uncommitted counter/deposit batch. Final counter color and lowered proportions are synced across all plots. Both Main scripts and HUD are enabled, CameraType.Custom is restored, and temporary harness/QA objects are removed.",
     "mainScripts": "Both production Main scripts are enabled (Disabled=false), confirmed by root.",
     "temporaryScripts": [],
-    "harnessCleanup": "Root removed the strict-refactor gameplay drivers and observers and restored fresh normal Play. Earlier hidden-panel, label, and packet probe cleanup is complete; those earlier zero-population checks are historical.",
-    "productionSync": "Endpoint native GREEN, 43 standalone Luau tests, source compilation, Rojo build, and 79/79 running-Server hash parity pass. Latest parity is saved in conveyor-end-writes-native.json; its 09:02 UTC timestamp is provisional and awaits root's correction. No project errors reported.",
-    "currentTrial": "Shop is committed and pushed in 2dc70b1. The endpoint patch is synced and verified but uncommitted. The matched snapshot-traffic memory probe remains planned with protocol support from map_pass_review; no new probe measurements are recorded.",
-    "sourceFreeze": "Capacity benchmark remains earlier fixed source based on 70786a3, excluding later lighthouse/UI/canopy/hub/packet work. Its metrics/provenance are unchanged.",
-    "console": "Root latest console includes Ready and no project errors. Previously observed external plugin/asset errors were not treated as project defects; plugins untouched.",
+    "harnessCleanup": "The snapshot-toggle harness was removed in Edit before normal Play restarted. After counter/deposit native checks, final cleanup confirms no harness, temporary spawn, QA or fixture remnants, both Main scripts enabled, HUD enabled and CameraType.Custom.",
+    "productionSync": "Final counter/deposit source is synced. At 09:30:30 UTC, all 79 running-Server project source hashes match the working tree; the lowered-counter native fixture and Rojo rebuild pass. Eight deposit native cases and existing effects regression remain passing, together with 43 standalone tests, actual-module Deposit CLI, changed source/fixture compilation, peer review and diff checks. Batch is verified and ready to commit.",
+    "currentTrial": "Counter/deposit native validation and final gates are complete; root will commit the uncommitted counter/deposit and profiling-evidence batch. The completed snapshot-toggle probe remains frozen at earlier cbbd765 and is not a measurement of these later changes.",
+    "sourceFreeze": "Historical capacity samples remain fixed earlier source based on 70786a3. The completed snapshot-toggle probe froze production cbbd765 before the counter and DepositEffects changes were synced. The historical harness uses deep Core.snapshot rather than production SnapshotPacket; its saved metrics and source scope are unchanged.",
+    "console": "Final cleanup and source parity are saved in counter-deposit-native.json and studio-source-verification.json. Native regression results are GREEN. This checkpoint makes no broader full-Studio-Script-Analysis claim; external plugin errors are not reclassified as project defects.",
     "computerUse": "Physical Escape stopped UI work in the earlier 07:56 turn. Root subsequently completed native/render checks; no overnight cancellation was requested."
   },
   "candidateConfig": {
@@ -72,8 +72,13 @@
     "db4ec65 gates PASS: 79 source files compile, 43 standalone Luau test files pass, leaderboard CLI and Rojo build pass, and 79/79 running-Server source parity passes at 08:45:07 UTC. Root removed temporary gameplay drivers and observers and restored fresh normal Play.",
     "Shop-only redraw signature is synced, verified, and committed/pushed in 2dc70b1. Native RED rebuilt 36 offers and added 1,296 descendants across six irrelevant updates; GREEN creates zero offers, adds zero descendants, retains all six identities, and keeps the list at 997 descendants. Relevant ownership, metadata, pending-state, mode, and upgrade-key refresh checks pass.",
     "Shop final gates PASS: native Shop and hidden-panel fixtures, 43 standalone tests, build, and 79/79 source parity at 08:49:25 UTC. Raw evidence saved to shop-redraw-native.json; this is construction/identity evidence, not a new FPS or memory benchmark.",
-    "WorldBuilder endpoint patch native GREEN: create 6, recreate 6, unchanged 6, repack 5, remove 0. RED creation/recreation counts were 12 each. Actual World.render/Core checks pass initialization before parent/tag, unchanged identity, repack, removal and recreation. Verified but uncommitted; setter/point-conversion counts only.",
-    "Endpoint batch gates PASS: 43 standalone tests, compilation, Rojo build, and 79/79 running-Server hashes. Root reports no project errors and restored fresh normal Play with both Main scripts/HUD enabled, Custom camera, and no temporary fixture."
+    "WorldBuilder endpoint patch native GREEN: create 6, recreate 6, unchanged 6, repack 5, remove 0. RED creation/recreation counts were 12 each. Actual World.render/Core checks pass initialization before parent/tag, unchanged identity, repack, removal and recreation. Committed and pushed in cbbd765; setter/point-conversion counts only.",
+    "Endpoint batch gates PASS: 43 standalone tests, compilation, Rojo build, and 79/79 running-Server hashes. Root reports no project errors and restored fresh normal Play with both Main scripts/HUD enabled, Custom camera, and no temporary fixture.",
+    "Endpoint batch committed and pushed as cbbd765e194280b804762ee43b9e6e3905d261ff. The raw endpoint timestamp is corrected to 08:59:42 UTC.",
+    "Snapshot-toggle probe completed at 09:16:36 UTC on frozen cbbd765: ON1/OFF/ON2 each measured about 60 seconds. ON1/OFF memory grew 13.234375/12.94921875 MB with 168/0 received packets and matching 576-Mini endpoints. ON2 memory fell 9.9921875 MB but started with 300 Minis and ended with 576. This does not isolate a memory root cause or establish recovery.",
+    "After the snapshot-toggle probe, root removed the harness in Edit, enabled both Main scripts, and restarted normal Play on cbbd765. The later counter and DepositEffects changes had not been synced at that cleanup point; their subsequent native acceptance is recorded separately.",
+    "Counter/deposit final acceptance at 09:30:30 UTC: final RGB(55, 66, 165) counter panels synced on all six plots; mirrored fixture passes 18 inert panels and route/fence/face clearance. Eight deposit native cases and existing effects regression pass; 43 pure suites, Deposit CLI, changed source/fixture compilation, peer review, Rojo and diff checks pass. All 79 running-Server source hashes match, normal Main/HUD/Custom camera restored, and temporary objects removed. Three 1759x567 counter captures are validated and root-inspected. Verified batch remains uncommitted.",
+    "Counter proportions finalized at 09:30:30 UTC after a dedicated native height RED/GREEN: center Y 3.2 logical studs, top 2.275 world studs, panel height 2.455 logical studs, farmer height unchanged at 5.5 world studs. Final front/elevated captures reveal shirt, sleeves and pocket; all images decoded, Rojo rebuilt, and 79/79 source hashes match. This supersedes the earlier 09:22:38 counter geometry acceptance, without changing the snapshot-toggle source or measurements."
   ],
   "benchmarkEvidence": {
     "baselineFiles": [
@@ -200,18 +205,17 @@
     }
   },
   "active": [
-    "Root: commit the verified WorldBuilder endpoint patch when ready. Native RED/GREEN and scoped build/source-parity gates have passed.",
-    "Root: prepare a matched snapshot-traffic memory probe; map_pass_review is drafting its protocol. No new measurements are recorded yet.",
-    "Root: correct the provisional timestamp in conveyor-end-writes-native.json. Studio runs 2dc70b1 plus the verified endpoint patch; the Shop batch is committed and pushed.",
-    "15-minute heartbeat active through minimum 13:30 UTC; overnight work not complete."
+    "Root: commit the verified counter/deposit and profiling-evidence batch. Endpoint cbbd765 remains the latest committed and pushed checkpoint until that commit exists.",
+    "Checkpoint documentation is frozen after final evidence validation. No source, Studio or raw-record changes were made by the documentation reviewer.",
+    "15-minute heartbeat remains active through the minimum 13:30 UTC cutoff; overnight work is not complete."
   ],
   "next": [
-    "Commit the already verified endpoint patch and update the checkpoint source pointer without extending its setter/conversion evidence into replication, FPS, or memory claims.",
-    "Use an explicit matched protocol and fixed source for the snapshot-traffic memory probe; distinguish packet/deserialization behavior from model churn and engine caching.",
-    "Do not present the planned snapshot probe as measured or accepted. Keep PR 2 draft and unmerged; do not publish.",
-    "Further producer-label readability needs actual player-camera evidence for remaining top-row cropping/oblique overlap; normal depth occlusion stays enabled.",
-    "The new probe is preparation only at this checkpoint. Do not repeat a long benchmark without a changed hypothesis or claim memory recovery from allocation counts.",
-    "Preserve 50 producers/96 preview Minis and unresolved memory/device/species/multiplayer limits; continue through 13:30 UTC with 15-minute heartbeat."
+    "Commit the verified counter/deposit and profiling-evidence batch, then update the current source pointer. Preserve the separate frozen cbbd765 provenance of the snapshot-toggle measurement.",
+    "Treat the snapshot-toggle result as evidence that disabling the full historical send pipeline did not eliminate short-window memory growth. It does not establish zero packet cost, a particular leak, engine caching as the cause, or full recovery.",
+    "Keep frame-window metrics separate from the longer tag and server-counter brackets. Do not average ON2 with ON1/OFF as a matched-population experiment.",
+    "Any follow-up memory probe needs a changed hypothesis and controlled conditions; do not repeat the long benchmark without a concrete reason.",
+    "Further producer-label readability needs actual player-camera evidence for remaining top-row cropping and oblique overlap; normal depth occlusion stays enabled.",
+    "Preserve 50 producers and 96 preview Minis, with memory, device, species and multiplayer limits explicit. Keep PR 2 draft and unmerged, do not publish, and continue through 13:30 UTC with the 15-minute heartbeat."
   ],
   "constraints": [
     "User permits expanding former 50 limits if performance supports it; producer count remains 50.",
@@ -227,17 +231,17 @@
     "sourceFilesCompiled": 79,
     "standaloneLuauTestFilesPassed": 43,
     "rojoBuild": "PASS",
-    "finalScopedFix": "The uncommitted WorldBuilder endpoint patch passes native behavior/count checks, 43 standalone tests, compilation, Rojo build, and 79/79 source parity. Main.server full Studio Script Analysis was not re-read; the earlier isolated type probes remain the warning evidence. The snapshot-traffic memory probe remains unmeasured.",
-    "studioSourceFile": "docs/verification/conveyor-end-writes-native.json",
+    "finalScopedFix": "Counter/deposit batch is synced, natively verified and ready to commit: final mirrored fixture, eight deposit cases, existing effects regression, 43 pure suites, actual-module Deposit CLI, changed source/fixture compilation, peer review, Rojo and diff checks pass. At 09:30:30 UTC all 79 running-Server project sources match. Main.server full Studio Script Analysis was not re-read; earlier isolated type probes remain the warning evidence.",
+    "studioSourceFile": "docs/verification/studio-source-verification.json",
     "studioSourceMatched": 79,
     "studioSourceLocalCount": 79,
     "studioSourceMismatchCount": 0,
-    "studioSourceRecordedAtUTC": null,
-    "studioSourceTimestampStatus": "The endpoint raw record currently says 09:02 UTC; root identified that timestamp as provisional and will correct it.",
+    "studioSourceRecordedAtUTC": "2026-10-20T09:30:30Z",
+    "studioSourceTimestampStatus": "Final counter/deposit source parity recorded at 09:30:30 UTC. Endpoint evidence separately retains its corrected 08:59:42 UTC timestamp.",
     "studioSourceScope": "Project sources in running Server DataModel, normalized CRLF, DJB2 bytes; excludes engine-injected scripts.",
     "padLabelsBefore": "docs/verification/fresh-hud-pad-spacing.jpg",
     "padLabelsAfter": "docs/verification/pad-labels-after.jpg",
-    "commitStatus": "2dc70b13a041b91703bff34da3a7ee031db3d02a is the latest verified, committed, and pushed checkpoint. The synced endpoint patch is verified but uncommitted. PR 2 remains open, draft, and unmerged.",
+    "commitStatus": "cbbd765e194280b804762ee43b9e6e3905d261ff is the latest verified, committed and pushed checkpoint. The later counter/deposit and profiling-evidence batch is synced, verified and ready to commit, but remains uncommitted. PR 2 remains open, draft and unmerged.",
     "shelfStructureCLI": "PASS red/green regression and unchanged original geometry",
     "diffCheck": "PASS",
     "priorExcludedEngineScripts": 6,
@@ -254,9 +258,10 @@
       "studioSourceMismatchCount": 0,
       "studioSourceRecordedAtUTC": "2026-10-20T08:15:56Z"
     },
-    "leaderboardFacesCLI": "PASS"
+    "leaderboardFacesCLI": "PASS",
+    "frozenSnapshotProbeSourceFile": "docs/verification/capacity-96-snapshot-toggle-2026-10-20.json"
   },
-  "latestVerifiedCommit": "2dc70b13a041b91703bff34da3a7ee031db3d02a",
+  "latestVerifiedCommit": "cbbd765e194280b804762ee43b9e6e3905d261ff",
   "newBatchEvidence": {
     "status": "Gameplay/allocation/Lucky/shelf batch committed/pushed as 0059fb2. Subsequent canopy/hub/packet batch committed/pushed as 4d4fd29, synced and natively verified.",
     "normalFarmFlow": {
@@ -320,7 +325,7 @@
       "target": "src/server/Services/WorldBuilder.luau World.render",
       "proposal": "New Minis receive ConveyorEnd twice. Restrict outer update to existing-Mini branch to remove one redundant write per creation.",
       "scope": "Source-proven duplicate, not a measured native CPU gain; review creation/repack/removal and preserve attribute-before-tag ordering.",
-      "status": "Synced and verified with native RED/GREEN; uncommitted.",
+      "status": "Synced and verified with native RED/GREEN; committed and pushed in cbbd765.",
       "nativeEvidence": "docs/verification/conveyor-end-writes-native.json",
       "nativeRedPhaseCounters": {
         "create": 12,
@@ -337,7 +342,8 @@
         "remove": 0
       },
       "coverage": "Actual World.render/Core; initialization before parent/tag, unchanged identity, repack, removal and recreation pass.",
-      "interpretation": "One redundant endpoint setter and point conversion removed per newly created Mini. No replication, FPS, or memory savings claim."
+      "interpretation": "One redundant endpoint setter and point conversion removed per newly created Mini. No replication, FPS, or memory savings claim.",
+      "commit": "cbbd765e194280b804762ee43b9e6e3905d261ff"
     }
   ],
   "canopyEvidence": {
@@ -523,5 +529,173 @@
     "refreshCoverage": "Ownership, metadata, pending-state, mode, and upgrade-key changes all pass.",
     "gates": "Native Shop and hidden-panel fixtures pass; root reports final build, 43 standalone tests, and 79/79 source parity pass.",
     "scope": "Isolated actual FarmUI, with observation after three heartbeats to exclude deferred startup. Normal gameplay state and preferences are unchanged. Construction/identity evidence only, not FPS or memory-recovery evidence."
+  },
+  "snapshotToggleEvidence": {
+    "file": "docs/verification/capacity-96-snapshot-toggle-2026-10-20.json",
+    "completedAtUTC": "2026-10-20T09:16:36Z",
+    "sourceCommit": "cbbd765e194280b804762ee43b9e6e3905d261ff",
+    "productionSourceCount": 79,
+    "status": "Saved and independently reviewed; raw data unchanged. Normal Play restored afterward by root.",
+    "protocol": "One continuous six-farm mixed-species churn epoch, 50 producers and up to 96 Minis per farm, one Studio client, fixed farm1 camera at FOV 60 and viewport 1759x567. ON/OFF/ON frame samples each last about 60 seconds after at least 10 seconds of drain or warmup.",
+    "phases": [
+      {
+        "name": "on1",
+        "sampleSeconds": 60.0060364000019,
+        "meanFrameMs": 16.902560533981926,
+        "p95FrameMs": 17.75,
+        "p99FrameMs": 22.75,
+        "maxFrameMs": 145.86779475212097,
+        "meanConveyorWorkMs": 1.8977052393729281,
+        "received": 168,
+        "memoryBeforeMb": 4596.62109375,
+        "memoryAfterMb": 4609.85546875,
+        "memoryDeltaMb": 13.234375,
+        "minisBefore": 576,
+        "minisAfter": 576,
+        "serverBracket": {
+          "seconds": 97.2795769000004,
+          "ticks": 361,
+          "created": 12948,
+          "removed": 12948,
+          "sent": 270,
+          "meanWorkMs": 9.227771468582619,
+          "createdPerSecond": 133.10090784327772
+        },
+        "frameWindowSnapshotEntitiesReceived": 23184,
+        "memoryTagBracket": {
+          "seconds": 97.16309609999735,
+          "totalBeforeMb": 4592.43359375,
+          "totalAfterMb": 4622.12109375,
+          "totalDeltaMb": 29.6875,
+          "globalInstancesBefore": 89129,
+          "globalInstancesAfter": 89129,
+          "scope": "Separate diagnostic bracket, not the approximately 60-second frame sample. Category values may overlap and are not summed."
+        }
+      },
+      {
+        "name": "off",
+        "sampleSeconds": 60.00674159999471,
+        "meanFrameMs": 16.89329837566359,
+        "p95FrameMs": 17.75,
+        "p99FrameMs": 22.5,
+        "maxFrameMs": 209.9841982126236,
+        "meanConveyorWorkMs": 2.0177559403265635,
+        "received": 0,
+        "memoryBeforeMb": 4638.22265625,
+        "memoryAfterMb": 4651.171875,
+        "memoryDeltaMb": 12.94921875,
+        "minisBefore": 576,
+        "minisAfter": 576,
+        "serverBracket": {
+          "seconds": 73.36355609999737,
+          "ticks": 272,
+          "created": 9792,
+          "removed": 9792,
+          "sent": 0,
+          "meanWorkMs": 8.94711102963651,
+          "createdPerSecond": 133.47226498471701
+        },
+        "frameWindowSnapshotEntitiesReceived": 0,
+        "memoryTagBracket": {
+          "seconds": 73.39667679999548,
+          "totalBeforeMb": 4630.765625,
+          "totalAfterMb": 4655.43359375,
+          "totalDeltaMb": 24.66796875,
+          "globalInstancesBefore": 89129,
+          "globalInstancesAfter": 89129,
+          "scope": "Separate diagnostic bracket, not the approximately 60-second frame sample. Category values may overlap and are not summed."
+        }
+      },
+      {
+        "name": "on2",
+        "sampleSeconds": 60.00932990000001,
+        "meanFrameMs": 16.82775887173344,
+        "p95FrameMs": 17.75,
+        "p99FrameMs": 19.75,
+        "maxFrameMs": 52.06729844212532,
+        "meanConveyorWorkMs": 1.8917202749086188,
+        "received": 167,
+        "memoryBeforeMb": 4670.0390625,
+        "memoryAfterMb": 4660.046875,
+        "memoryDeltaMb": -9.9921875,
+        "minisBefore": 300,
+        "minisAfter": 576,
+        "serverBracket": {
+          "seconds": 108.58557859999564,
+          "ticks": 403,
+          "created": 14676,
+          "removed": 14676,
+          "sent": 303,
+          "meanWorkMs": 9.293056079308588,
+          "createdPerSecond": 135.15606942670553
+        },
+        "frameWindowSnapshotEntitiesReceived": 23084,
+        "memoryTagBracket": {
+          "seconds": 108.48636989999795,
+          "totalBeforeMb": 4666.46875,
+          "totalAfterMb": 4667.80859375,
+          "totalDeltaMb": 1.33984375,
+          "globalInstancesBefore": 89129,
+          "globalInstancesAfter": 89129,
+          "scope": "Separate diagnostic bracket, not the approximately 60-second frame sample. Category values may overlap and are not summed."
+        }
+      }
+    ],
+    "interpretation": "ON1 and OFF have matching 576-Mini endpoints and similar short-window memory growth despite zero OFF packets. Disabling the full historical snapshot send pipeline did not eliminate that growth. ON2 decreases memory but starts with fewer Minis. This sequence does not isolate a root cause, prove no snapshot cost, establish a leak or its absence, prove engine caching, or demonstrate full memory recovery or an overall FPS gain.",
+    "limitations": [
+      "The harness uses deep Core.snapshot; OFF skips snapshot copying and FireClient together. This does not benchmark current production SnapshotPacket or isolate deserialization.",
+      "Frame-window memory is measured over roughly 60 seconds. Separate tag brackets span 97.1631, 73.3967 and 108.4864 seconds; server-counter brackets span 97.2796, 73.3636 and 108.5856 seconds. Their deltas and distributions are not matched 60-second values.",
+      "ON2 starts with 300 Minis and ends with 576, adding 276 Minis and 552 Instances within the frame sample. Do not pool all three as a matched-population average.",
+      "One Studio client; production HUD, audio and ordinary player commands are excluded. Six-farm model churn continues throughout, but six real clients and physical devices are untested.",
+      "Saved graphics quality is Automatic; actual dynamic quality and frame cap are unavailable. Fixed camera setup was repaired before measured windows, and no user preference was changed.",
+      "No forced GC, repeated trials or counterbalanced order. Carryover allocations from ON1 may persist into OFF, and category tags have overlapping scopes. The small ON1/OFF difference does not quantify a packet contribution.",
+      "Light agent text work continued; one 0.54-second targeted compile occurred during ON1. Full builds and suites were held outside the windows.",
+      "Production cbbd765 was frozen during measurement. Later disk counter and DepositEffects changes were not synced and are outside this evidence."
+    ]
+  },
+  "counterDepositEvidence": {
+    "baseline": "cbbd765",
+    "status": "Synced and verified at 09:30:30 UTC; ready to commit, still uncommitted.",
+    "counter": {
+      "native": "Initial panel-count RED and later proportion RED observed; final mirrored fixture GREEN verifies the lowered counter with torso allowance, 18 inert panels, unchanged XZ footprint, farmer/sign/awning visibility, clear deposit approach, routes and fences.",
+      "panelsPerPlot": 3,
+      "addedPartsAllPlots": 18,
+      "addedColliders": 0,
+      "panelRGB": [
+        55,
+        66,
+        165
+      ],
+      "colorStatus": "Final panel-only color synced across all plots; root inspected paired front and elevated views under the warm pad light.",
+      "captures": [
+        "docs/verification/farmer-counter-before.jpg",
+        "docs/verification/farmer-counter-after.jpg",
+        "docs/verification/farmer-counter-elevated.jpg"
+      ],
+      "captureStatus": "Final front/after and elevated JPEGs replaced and all three validated at 1759x567. Root inspected shirt, both sleeves and pocket visibility; farmer size, sign, canopy and XZ footprint are unchanged.",
+      "counterCenterLogicalY": 3.2,
+      "counterTopWorldY": 2.275,
+      "panelHeightLogical": 2.455,
+      "farmerHeightWorld": 5.5
+    },
+    "deposit": {
+      "nativeCasesPassed": 8,
+      "existingEffectsRegression": "PASS, reported by root",
+      "sourceStatus": "Frozen; 43 standalone Luau tests, actual-module CLI, compilation and peer review pass, reported by root.",
+      "portraitTimeoutSeconds": 0.35,
+      "pulseAtSeconds": 0.5,
+      "lifetimeSeconds": 1.9,
+      "otherRuntimeLoadTimeoutSeconds": 3,
+      "nativeScope": "Disposable native clones inject load outcomes while using real UI, models, tweens and tasks; stalled/failed loads, warm desktop/phone/short layouts, replacement, GUI destruction and worker cleanup pass."
+    },
+    "pending": [
+      "Commit the verified batch"
+    ],
+    "scope": "Behavior, bounded lifecycle and geometry acceptance; no additional frame-time, capacity or memory-recovery claim. These patches were not synced during the frozen snapshot-toggle probe.",
+    "recordedAtUTC": "2026-10-20T09:30:30Z",
+    "nativeEvidence": "docs/verification/counter-deposit-native.json",
+    "sourceParityEvidence": "docs/verification/studio-source-verification.json",
+    "gates": "43 pure suites, actual-module Deposit CLI, changed source/fixture compilation, native regressions, peer review, Rojo build, diff check and 79/79 running-Server source parity pass.",
+    "cleanup": "Both Main scripts enabled, HUD enabled, CameraType.Custom, and zero harness, temporary spawn, QA or fixture remnants."
   }
 }

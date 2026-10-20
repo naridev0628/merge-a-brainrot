@@ -1,12 +1,12 @@
-# Overnight engineering handoff — 2026-10-20, 08:59 UTC
+# Overnight engineering handoff — 2026-10-20, 09:31 UTC
 
 This is a live work checkpoint, not a completion or release report. The minimum work window continues until **13:30 UTC**. The continuation heartbeat now runs every **15 minutes**, as reported by root. See [machine-readable progress](OVERNIGHT_PROGRESS.json) for the current task pointer.
 
 ## Current Studio state
 
-The latest verified, committed, and pushed batch is **`2dc70b1`** on `origin/codex/stacked-brainrot-farm`; PR 2 remains open, draft, and unmerged. Studio now runs **`2dc70b1` plus the verified, uncommitted WorldBuilder endpoint patch**. Root restored fresh normal Play with both Main scripts and the normal HUD enabled, CameraType.Custom, and no temporary fixture. The Shop redraw optimization is committed, following the Main.server type fixes and reference documentation in `db4ec65`.
+The latest verified, committed, and pushed batch is **`cbbd765`** on `origin/codex/stacked-brainrot-farm`; PR 2 remains open, draft, and unmerged. Studio now runs **`cbbd765` plus the verified, uncommitted counter/deposit batch**, including the final counter color. At **09:30:30 UTC**, native checks, final source parity and build passed. Both Main scripts and the HUD are enabled, CameraType.Custom is restored, and no harness, temporary spawn, QA or fixture remnants remain. The batch is ready for root to commit.
 
-The current endpoint batch passes **43 standalone Luau tests, source compilation, Rojo build, and all 79 running-Server source hashes**, with no project errors reported by root. Its [native endpoint evidence](conveyor-end-writes-native.json) contains the latest source-parity result; the raw record's **09:02 UTC timestamp is provisional and awaits root's correction**. The separate [08:49:25 UTC source comparison](studio-source-verification.json) describes the earlier Shop checkpoint. Earlier board/menu/label and strict-refactor gameplay records retain their own provenance. **The full Studio Script Analysis panel was not re-read**; the five warning fixes passed isolated probes using the actual Core types.
+The current batch passes **43 standalone Luau suites, actual-module Deposit CLI, changed source/fixture compilation, peer review, Rojo build, diff check, and all 79 running-Server source hashes**. The latest [source comparison](studio-source-verification.json) and [counter/deposit native evidence](counter-deposit-native.json) are recorded at **09:30:30 UTC**. The earlier [endpoint evidence](conveyor-end-writes-native.json) retains its corrected **08:59:42 UTC** timestamp; the [snapshot-toggle record](capacity-96-snapshot-toggle-2026-10-20.json) preserves the separate 79-source mapping frozen at `cbbd765`. Earlier Shop/gameplay records retain their own provenance. **The full Studio Script Analysis panel was not re-read**; the five warning fixes passed isolated probes using the actual Core types.
 
 The 07:56 physical Escape stop is historical: root ended UI inspection in that earlier turn and later completed the native/render checks below. No overnight cancellation was requested. The active 15-minute heartbeat and **13:30 UTC** minimum cutoff remain. Saved capacity benchmarks retain their earlier fixed-source provenance and do not measure the complete later `0059fb2`, `4d4fd29`, `88818e4`, `db4ec65`, or `2dc70b1` builds.
 
@@ -88,7 +88,7 @@ The [native Shop regression](shop-redraw-native.json), recorded at **08:49:25 UT
 
 The fixture exercises the actual FarmUI in an isolated HUD, starting observation after three heartbeats to exclude deferred startup construction. It does not change normal gameplay state or preferences. These results establish avoided redundant construction and preserved refresh behavior; they are not a new FPS, capacity, or memory-recovery measurement.
 
-## Verified endpoint-write batch — uncommitted
+## Endpoint-write batch committed as cbbd765
 
 The [native endpoint regression](conveyor-end-writes-native.json) executes the actual `World.render` and Core against disposable, unparented models and modules. RED completed every phase before the expected duplicate-call assertion: **create 12 / recreate 12 / unchanged 6 / repack 5 / remove 0**. GREEN passes all phases with **create 6 / recreate 6 / unchanged 6 / repack 5 / remove 0**.
 
@@ -118,19 +118,39 @@ Baseline 96 retained 576 Minis / 39,797 Instances at both churn endpoints, while
 
 All benchmark samples use **one Studio client** and exclude production HUD/audio, ordinary player commands, six real clients, and low-end device conditions. Percentiles use 0.25 ms bins. The [96-Mini pile capture](capacity-96-pile.png) is visual evidence; the separate actual-character tray walk now supplies mixed-species physical pickup evidence. Neither establishes worst-case all-Crocodilo acceptance.
 
+## Snapshot-toggle probe on frozen cbbd765
+
+The [three-phase raw record](capacity-96-snapshot-toggle-2026-10-20.json), completed at **09:16:36 UTC**, samples one continuous six-farm mixed-species churn epoch with one Studio client. Production source was frozen at `cbbd765`; the later counter and DepositEffects patches were not synced. Each phase had at least ten seconds of drain or warmup before its approximately 60-second frame sample.
+
+| Frame sample | Duration | Mini endpoints | Received snapshots | Client memory before → after | Delta | Mean / p95 / p99 frame |
+|---|---:|---:|---:|---:|---:|---:|
+| ON1 | 60.0060 s | 576 → 576 | 168 | 4596.6211 → 4609.8555 MB | +13.2344 MB | 16.9026 / 17.75 / 22.75 ms |
+| OFF | 60.0067 s | 576 → 576 | 0 | 4638.2227 → 4651.1719 MB | +12.9492 MB | 16.8933 / 17.75 / 22.50 ms |
+| ON2 | 60.0093 s | 300 → 576 | 167 | 4670.0391 → 4660.0469 MB | −9.9922 MB | 16.8278 / 17.75 / 19.75 ms |
+
+**Disabling the full historical snapshot send pipeline did not eliminate short-window memory growth.** ON1 and OFF had matching population endpoints and similar growth despite zero OFF packets. This does not establish zero snapshot cost or rule out carryover allocations from ON1. ON2 began with fewer Minis, so its decrease does not prove recovery and must not be averaged with ON1/OFF as a matched-population comparison. The frame results do not establish an overall FPS gain.
+
+The separate memory/tag brackets last **97.1631 / 73.3967 / 108.4864 seconds**, and server-counter brackets last **97.2796 / 73.3636 / 108.5856 seconds**. Their measurements include collection and polling time outside the frame windows. Do not relabel them as 60-second deltas or equate their packet totals with the frame-sample packet counts. Global Instances were 89,129 at the tag-bracket endpoints; stable live counts do not establish why memory was retained.
+
+The harness uses **deep `Core.snapshot`**, and OFF skips both copying and `FireClient`. This is not a performance measurement of production `SnapshotPacket` or an isolated deserialization test. Production HUD/audio and ordinary player commands are excluded. The camera was fixed at farm 1, FOV 60, viewport 1759 × 567, but saved graphics quality was **Automatic** and actual dynamic quality was unavailable. Initial spawn/control and camera setup repairs happened before measurement. No GC was forced; this is one ordered sequence with no repeated or counterbalanced trials. Light text work continued and a 0.54-second targeted compile occurred during ON1; full suites and builds were held outside the windows. These limits preclude a packet root-cause, resolved-leak, engine-cache, multiplayer, or further-capacity claim.
+
 ## Source state and next actions
 
 The measured shelf refactor from `70786a3` used **221 Parts per row / 6,630 across six full farms**. The rear joins committed in `0059fb2` raise the current full-farm total to **6,702**, without changing the recorded benchmark inventory. The older 1,021-per-row estimate is historical. Cheap settled-Mini handling and conservative offscreen animation scheduling are already included in pushed `58c7875`; the original “no distance scheduling” observation is superseded.
 
 The lighthouse native fixture now **passes**: **744 → 379 Parts**, with **365 hidden studs removed**, **328 visible studs retained**, and **51 body Parts / 22 colliders unchanged**. This is additional to the **557 hub studs** already removed and verified in Studio. The fixture's byte-quantization comparison was corrected while preserving the trees' fractional palette.
 
-Commit **`2dc70b1` is pushed**, and PR 2 remains open, draft, and unmerged. The Shop, server-type, canopy/hub/packet, and board/menu/label batches are committed checkpoints, not pending work. Retain 96 Minis for the Studio preview with the measured memory, device, species, and multiplayer limits explicit; do not describe memory growth as resolved.
+Commit **`cbbd765` is pushed**, and PR 2 remains open, draft, and unmerged. The endpoint, Shop, server-type, canopy/hub/packet, and board/menu/label batches are committed checkpoints. Retain 96 Minis for the Studio preview with the measured memory, device, species, and multiplayer limits explicit; do not describe memory growth as resolved.
 
-**Current work:** root is preparing to commit the verified WorldBuilder endpoint patch. The matched snapshot-traffic memory probe remains planned, with `map_pass_review` drafting the protocol. No snapshot-probe measurements are recorded.
+**Current work:** root is ready to commit the verified counter/deposit and profiling-evidence batch. The [native record](counter-deposit-native.json) saves expected RED on `cbbd765` followed by GREEN. The final mirrored fixture passes **18 inert counter panels**, existing footprints, farmer/face/sign clearance, deposit approach, routes and fences. Final **panel-only RGB(55, 66, 165)** and lowered proportions are synced on all six plots. A dedicated native height check observed RED then GREEN: counter center **Y = 3.2 logical studs**, counter top **2.275 world studs**, and panel height **2.455 logical studs**; the farmer remains **5.5 world studs tall**. The [before](farmer-counter-before.jpg), [after](farmer-counter-after.jpg), and [elevated](farmer-counter-elevated.jpg) JPEGs are validated at **1759 × 567**. Root inspected the replaced final front/elevated captures showing the shirt, both sleeves and pocket; farmer size, sign, canopy and XZ footprint remain unchanged.
+
+DepositEffects passes **eight native cases plus the existing effects regression**. Its pulse occurs independently at 0.5 seconds, portraits have a 0.35-second loading budget, and the scope expires after 1.9 seconds; the default runtime loading budget for other effects remains three seconds. The native fixture injects loading outcomes in disposable clones while retaining real UI/models/tweens/tasks. Stalled/failed loads, warm desktop/phone/short layouts, replacement, GUI destruction and worker cleanup pass. These are bounded behavior/lifecycle checks, not a new FPS or memory-recovery result.
+
+Final **43 pure suites / Deposit CLI / changed source and fixture compilation / peer review / Rojo / diff / 79-source parity** pass. Cleanup restores normal Main scripts, HUD and Custom camera with zero temporary remnants. This later batch is **verified but uncommitted**, and remains outside the frozen snapshot-toggle measurement.
 
 Producer-label top-row cropping and oblique overlap remain; any further change needs actual player-camera evidence. Keep the existing 50-producer / 96-preview-Mini scope and nonmodal gameplay intact.
 
-The endpoint patch has passed its scoped behavior and source-sync gates. The snapshot-traffic probe still needs matched conditions and explicit source scope before measurement. Do not repeat the completed long benchmark without a changed hypothesis, or treat setter/conversion counts as resolved memory growth.
+The endpoint patch has passed its scoped behavior and source-sync gates. Any further memory experiment needs a changed hypothesis and controlled conditions. Do not repeat the completed long benchmark without a concrete reason, or treat setter/conversion counts or the short toggle sequence as resolved memory growth.
 
 The [additional reference research](../reference/ADDITIONAL_CHICKEN_FARM_RESEARCH.md#browser-follow-up--20-october-2026) remains the basis for visual comparisons. The newly completed Lucky identity pass does not establish exact reference economy rules.
 
