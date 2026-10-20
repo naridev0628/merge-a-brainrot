@@ -1,7 +1,7 @@
 {
   "recordedAt": "2026-10-20 12:58:42 UTC",
   "baseline": "6756b31",
-  "status": "Native-verified pending commit",
+  "status": "Native-verified, committed and pushed as8909891",
   "scope": "Visual/geometry and instance-count acceptance; no FPS or memory-recovery claim.",
   "source": [
     "src/shared/EnvironmentArt.luau",

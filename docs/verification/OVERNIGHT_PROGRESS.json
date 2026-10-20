@@ -1,5 +1,5 @@
 {
-  "updatedAtUTC": "2026-10-20T13:01:31.210Z",
+  "updatedAtUTC": "2026-10-20T13:31:02.447Z",
   "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
   "heartbeat": "overnight-chicken-farm-polish",
   "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
@@ -7,10 +7,10 @@
   "studioId": "bef730c2-c3be-48da-a77b-b19cd8746e97",
   "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
   "currentStudioState": {
-    "mode": "Disposable six-farm96-Mini churn soak, started13:00:31UTC",
-    "mainScripts": "Temporarily disabled inEdit for harness; must re-enable before morning handoff",
-    "productionSync": "80/80 frozen source match; morningRojoXML80source proof updated",
-    "currentTrial": "Two consecutive600-second route/churn samples planned; no results claimed yet"
+    "mode": "Fresh normal desktop Play restored after soak",
+    "mainScripts": "Both enabled in Edit and runtime",
+    "productionSync": "80/80 final native sources match; morningRojo artifact and StackedFarm alias match all80sources and47bundledmeshes",
+    "currentTrial": "None; harness controls/scripts/scenario absent; HUDenabled,Customcamera,health100,zero starter producers/Minis"
   },
   "candidateConfig": {
     "producerSlots": 50,
@@ -88,7 +88,11 @@
     "Seeded actual-Humanoid normal flow passed Buy5/Buy10 immediate entry and standing repeats, then free Lucky pickup; same held ID survives Settings music35→45→35 and close. Short card wheel reaches Discard; no physicaltouch claim.",
     "Final44pure/80compile, three layout/cue/lifecycle CLI suites plus40 actcontexts, native80source parity and morningRojoXML80source parity pass. Fresh normal desktop Play restored.",
     "6756b31 committed/pushed: native-control-safe touch HUD, Sprint/cue observer lifecycle and reference-board evidence.",
-    "Hub native grid accepted:1480 decorativeParts removed, same9slabs,864foundation probes,6routes/8664clearancechecks,6bridgelandings/environment pass;44pure/80compile plusactual-generator CLI/peer/build/parity pass."
+    "Hub native grid accepted:1480 decorativeParts removed, same9slabs,864foundation probes,6routes/8664clearancechecks,6bridgelandings/environment pass;44pure/80compile plusactual-generator CLI/peer/build/parity pass.",
+    "8909891 committed/pushed: native hub grid,1480 fewer decorativeParts,9foundation slabs preserved and native route/probe acceptance.",
+    "Final frozen8909891 soak: two600-second windows with stable33209worldInstance endpoints;mean17.027/16.980ms,sharedStudio memory+161.5625/+165.734375MB.60ssettledreturn did not establishrecovery.",
+    "Harness destroyed,Playstopped,bothEditMains re-enabled,freshnormalPlay restored;80-source native parity rechecked; Morning andStackedFarm artifactSHA256 identical.",
+    "Minimum13:30UTC overnight window reached; heartbeat pause confirmed from saved automation state."
   ],
   "benchmarkEvidence": {
     "baselineFiles": [
@@ -214,13 +218,11 @@
       "interpretation": "One observed normal Studio first-buy smoke, not a latency guarantee. Earlier movement target stopped outside a corner; corrected driver target, no production change."
     }
   },
-  "active": [
-    "Complete current six-farm96-Mini churn sampling on frozen final source",
-    "Commit/push hub native grid and annotated comparison"
-  ],
+  "active": [],
   "next": [
-    "Finish final safe verification and handoff at13:30UTC",
-    "Pause overnight heartbeat only after minimum window"
+    "Investigate BaseParts-category memory growth in a fresh controlled client; evaluate bounded Mini recycling before any further capacity expansion",
+    "Resolve denseCrocodilo overlap and lower stacked-name occlusion with verified native rendering",
+    "Complete persistence/configured monetization/global rankings/group/friend integrations and real-device/multiplayer QA before release"
   ],
   "constraints": [
     "User permits expanding former 50 limits if performance supports it; producer count remains 50.",
@@ -231,7 +233,7 @@
     "Do not report the overnight window or final 96-Mini validation complete."
   ],
   "heartbeatIntervalMinutes": 15,
-  "heartbeatStatus": "Root confirms the 15-minute continuation heartbeat remains active.",
+  "heartbeatStatus": "PAUSED",
   "verification": {
     "pureSuites": 44,
     "compiledSources": 80,
@@ -242,9 +244,10 @@
     "native": "touch HUD/control separation; full-count text fit; scroll action reachability; cue lifecycle; actual held-block Settings mouse and short-card wheel input",
     "artifact": "build/MergeABrainrot-Morning-2026-10-20.rbxlx",
     "artifactProof": "docs/verification/morning-build-verification.json",
-    "nativeSave": "Existing FirstPlayable native document last verified at11:51UTC; latest source is live inStudio and in separate Rojo morning artifact. Native Ctrl+S not reverified."
+    "nativeSave": "Existing FirstPlayable native document last verified at11:51UTC; latest source is live inStudio and in separate Rojo morning artifact. Native Ctrl+S not reverified.",
+    "cleanup": "PASS; normalPlay,HUD,Customcamera,health100,bothMains enabled,noharness remnants"
   },
-  "latestVerifiedCommit": "6756b31 (hub-native-grid follow-up verified, commit pending)",
+  "latestVerifiedCommit": "8909891",
   "newBatchEvidence": {
     "status": "Gameplay/allocation/Lucky/shelf batch committed/pushed as 0059fb2. Subsequent canopy/hub/packet batch committed/pushed as 4d4fd29, synced and natively verified.",
     "normalFarmFlow": {
@@ -742,5 +745,6 @@
   "coreLeaderboardEvidence": "core-leaderboard-native.json",
   "touchHudEvidence": "docs/verification/touch-hud-native.json",
   "morningBuildEvidence": "docs/verification/morning-build-verification.json",
-  "hubNativeStudsEvidence": "docs/verification/hub-native-studs.json"
+  "hubNativeStudsEvidence": "docs/verification/hub-native-studs.json",
+  "morningCapacitySoak": "docs/verification/morning-capacity-soak.json"
 }

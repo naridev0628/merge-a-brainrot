@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-10-20 13:00:01 UTC",
+  "recordedAt": "2026-10-20T13:26:24.517Z",
   "algorithm": "DJB2 over UTF-8 source with CRLF normalized to LF",
   "sources": [
     {
@@ -484,8 +484,8 @@
     }
   ],
   "studioResult": {
+    "matched": 80,
     "total": 80,
-    "mismatches": [],
-    "matched": 80
+    "mismatches": []
   }
 }
