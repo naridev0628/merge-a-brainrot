@@ -8,22 +8,36 @@ local function smooth(t: number): number
     return t*t*(3-2*t)
 end
 function Conveyor.new()
-    local self: any=setmetatable({models={},producers={},tierEffects=TierEffects.new()},Conveyor)
+    local self: any=setmetatable({models={},producers={},connections={},tierEffects=TierEffects.new(),destroyed=false},Conveyor)
     local function add(instance: Instance)
         if instance:IsA('Model') then self.models[instance]={rotation=instance:GetPivot().Rotation,settled=false,landed=false} end
     end
     for _,m in Collection:GetTagged('ConveyorMini') do add(m) end
-    Collection:GetInstanceAddedSignal('ConveyorMini'):Connect(add)
-    Collection:GetInstanceRemovedSignal('ConveyorMini'):Connect(function(m) self.models[m]=nil end)
+    table.insert(self.connections,Collection:GetInstanceAddedSignal('ConveyorMini'):Connect(add))
+    table.insert(self.connections,Collection:GetInstanceRemovedSignal('ConveyorMini'):Connect(function(m) self.models[m]=nil end))
     local function addProducer(instance: Instance)
         if instance:IsA('Model') then self.producers[instance]={active=false} end
     end
     for _,m in Collection:GetTagged('BrainrotProducer') do addProducer(m) end
-    Collection:GetInstanceAddedSignal('BrainrotProducer'):Connect(addProducer)
-    Collection:GetInstanceRemovedSignal('BrainrotProducer'):Connect(function(m) self.producers[m]=nil;self.tierEffects:remove(m) end)
+    table.insert(self.connections,Collection:GetInstanceAddedSignal('BrainrotProducer'):Connect(addProducer))
+    table.insert(self.connections,Collection:GetInstanceRemovedSignal('BrainrotProducer'):Connect(function(m) self.producers[m]=nil;self.tierEffects:remove(m) end))
     return self
 end
+function Conveyor.destroy(self: any)
+    if self.destroyed then return end
+    self.destroyed=true
+    for _,connection in self.connections do connection:Disconnect() end
+    table.clear(self.connections)
+    self.tierEffects:destroy()
+    for model,record in self.producers do
+        local rest=model:GetAttribute('RestingPivot')
+        if record.active and rest and model.Parent then model:PivotTo(rest) end
+    end
+    table.clear(self.models)
+    table.clear(self.producers)
+end
 function Conveyor.update(self: any,now: number)
+    if self.destroyed then return end
     if self.tierEffects then self.tierEffects:update(self.producers,now) end
     -- Nearby settled minis give slightly when an arriving mini joins the pile.
     -- This is a brief visual contact response; final pickup centers stay fixed.

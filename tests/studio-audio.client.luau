@@ -1,4 +1,6 @@
 local audio=require(game.Players.LocalPlayer.PlayerScripts.Controllers.FeedbackAudio)
+local Config=require(game.Players.LocalPlayer.PlayerScripts.Controllers.AudioConfig)
+local Preferences=require(game.Players.LocalPlayer.PlayerScripts.Controllers.Preferences)
 assert(not audio.play('InsufficientFunds'),'Rejected purchases must stay silent')
 assert(audio.play('Rebirth'),'A first successful event must play')
 assert(not audio.play('Rebirth'),'Immediate repeats must be throttled')
@@ -7,7 +9,10 @@ local count=0
 for _,sound in game.SoundService:GetChildren() do
     if sound:IsA('Sound') and string.match(sound.Name,'^FarmFeedback%d$') then
         count+=1;assert(not sound.Looped and sound.Volume<=.25,'Feedback must be short and quiet')
-        assert(sound.SoundId=='rbxassetid://135483737426662','Use the cleared project cue')
+        local known=false
+        for _,id in Config.Assets do if sound.SoundId==id then known=true end end
+        assert(known,'Only the verified Creator Store palette may play')
+        assert(sound.SoundGroup==Preferences.getSoundGroup('sfx'),'SFX must respect its independent preference')
     end
 end
 assert(count==3,'Bursts must reuse exactly three voices')

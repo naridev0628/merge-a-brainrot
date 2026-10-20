@@ -30,11 +30,13 @@ require(Controllers:WaitForChild('LuckyCarryPose')).start()
 local Conveyor=require(Controllers:WaitForChild('Conveyor'))
 local PickupAudio=require(Controllers:WaitForChild('PickupAudio'))
 local FeedbackAudio=require(Controllers:WaitForChild('FeedbackAudio'))
+local MusicController=require(Controllers:WaitForChild('MusicController'))
 local Locale=require(Controllers:WaitForChild('Locale'))
 Locale.bind(workspace)
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
 local player=Players.LocalPlayer
 local view=UI.new(player:WaitForChild('PlayerGui'))
+MusicController.start()
 local guide=Guide.new()
 local conveyor=Conveyor.new()
 local showDiscovery=Discovery.new(view.gui)
@@ -181,9 +183,10 @@ result.OnClientEvent:Connect(function(response)
             showDiscovery(response.speciesId,not completed.discoveries[response.speciesId])
         end)
     elseif response.action=='Rebirth' then view:close(); view:clearSelection(); view:notice('Rebirth complete! Your earnings and bulk-buy unlocks increased.')
-    else view:clearSelection(); if not view:isLuckyOpen() then view:close() end; view:notice('Merged '..(response.count or 1)..' pairs!') end
+    else view:clearSelection(); if not view:isLuckyOpen() and not view:isSettingsOpen() then view:close() end; view:notice('Merged '..(response.count or 1)..' pairs!') end
 end)
 UserInputService.InputBegan:Connect(function(input,processed)
+    if input.KeyCode==Enum.KeyCode.Escape and view:isSettingsOpen() then view:close(); return end
     if processed then return end
     if input.KeyCode==Enum.KeyCode.Escape then if view:isLuckyOpen() then view.onDropLucky() else view:close() end
     end

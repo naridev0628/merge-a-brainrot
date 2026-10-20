@@ -11,6 +11,7 @@ local Locale=require(script.Parent:WaitForChild('Locale'))
 local RebirthPanel=require(script.Parent:WaitForChild('RebirthPanel'))
 local IndexPanel=require(script.Parent:WaitForChild('IndexPanel'))
 local LuckyPanel=require(script.Parent:WaitForChild('LuckyPanel'))
+local SettingsPanel=require(script.Parent:WaitForChild('SettingsPanel'))
 local TweenService=game:GetService('TweenService')
 local UI={}; UI.__index=UI
 local C={navy=Color3.fromRGB(26,37,49),cream=Style.Cream,green=Style.Price,blue=Color3.fromRGB(32,191,243),amber=Color3.fromRGB(255,204,36),violet=Color3.fromRGB(172,94,235),pink=Color3.fromRGB(248,120,174)}
@@ -93,10 +94,11 @@ function UI.new(parent: Instance)
     self.mergeButton=button(self.actions,'Merge','Merge [M]',C.amber)
     self.indexButton=button(self.actions,'Index','Index',C.blue)
     self.rebirthButton=button(self.actions,'Rebirth','Rebirth',C.pink)
-    for i,b in {self.mergeButton,self.indexButton,self.rebirthButton} do
+    self.settingsButton=button(self.actions,'Settings','Settings',C.blue)
+    for i,b in {self.mergeButton,self.indexButton,self.rebirthButton,self.settingsButton} do
         b.TextYAlignment=Enum.TextYAlignment.Bottom; b.TextColor3=C.cream; b.TextStrokeTransparency=1; b.BackgroundTransparency=1
         b:FindFirstChildOfClass('UIStroke').Transparency=1
-        Art.icon(b,({'merge','book','rebirth'})[i],UDim2.fromScale(.1,.01),UDim2.fromScale(.8,.73))
+        Art.icon(b,({'merge','book','rebirth','gear'})[i],UDim2.fromScale(.1,.01),UDim2.fromScale(.8,.73))
     end
     self.rebirthBadge=frame(self.rebirthButton,'ReadyBadge',Color3.fromRGB(255,62,69)); self.rebirthBadge.Size=UDim2.fromOffset(28,28); self.rebirthBadge.Position=UDim2.fromOffset(-9,-9); self.rebirthBadge.ZIndex=6; self.rebirthBadge.Visible=false
     self.rebirthBadge:FindFirstChildOfClass('UICorner').CornerRadius=UDim.new(1,0)
@@ -151,9 +153,11 @@ function UI.new(parent: Instance)
     self.rebirthView=RebirthPanel.new(self,button,text,frame,Art,C)
     self.indexView=IndexPanel.new(self,text,frame,Art,C)
     self.luckyView=LuckyPanel.new(self,button,text,frame,Art,C)
+    self.settingsView=SettingsPanel.new(self,button,text,frame,Art,C)
     self.mergeButton.Activated:Connect(function() self:toggleMerge() end)
     self.indexButton.Activated:Connect(function() self:open('Index') end)
     self.rebirthButton.Activated:Connect(function() self:open('Rebirth') end)
+    self.settingsButton.Activated:Connect(function() self:open('Settings') end)
     self.boostButton.Activated:Connect(function() self:open('Shop') end)
     self.autoButton.Activated:Connect(function() self:open('Shop') end)
     self.homeButton.Activated:Connect(function() if not self:isOpen() then self.onHome() end end)
@@ -195,21 +199,24 @@ function UI.resize(self: any)
     local bagWidth=if phone then math.clamp(size.X-214,106,138) elseif short then 138 else 204
     self.bag.Size=UDim2.fromOffset(bagWidth,if phone then bagWidth*116/138 elseif short then 116 else 170); self.bag.AnchorPoint=Vector2.new(.5,1); self.bag.Position=if phone then UDim2.new(1,-12-bagWidth/2,1,-36) else UDim2.new(if short then .51 else .5,0,1,-24)
     self.total.AnchorPoint=Vector2.new(if phone then 0 else 1,1); self.total.Position=UDim2.new(if phone then 0 else 1,if phone then 12 else -12,1,if phone then -30 else -25); self.total.Size=UDim2.fromOffset(if phone then 210 elseif short then 230 else 330,30); self.total.TextSize=if phone then 18 elseif short then 20 else 25
-    self.total.Visible=not (short and self:isLuckyOpen())
+    self.total.Visible=not (short and (self:isLuckyOpen() or self:isSettingsOpen()))
     local w=math.min(size.X-(if phone then 24 else 300),520)
     for _,l in {self.title,self.objective,self.hint} do l.AnchorPoint=Vector2.new(.5,0); l.Size=UDim2.fromOffset(w,if l==self.hint then 34 else 36) end
     if self.state then
-        local tutorialVisible=Tutorial.goal(self.state).kind~='Done' and not self:isLuckyOpen()
+        local tutorialVisible=Tutorial.goal(self.state).kind~='Done' and not self:isLuckyOpen() and not self:isSettingsOpen()
         for _,label in {self.title,self.objective,self.hint} do label.Visible=tutorialVisible end
     end
     self.title.Position=UDim2.new(.5,0,0,0); self.objective.Position=UDim2.new(.5,0,0,34); self.hint.Position=UDim2.new(.5,0,0,70)
     self.title.TextSize=if short then 23 else 28; self.objective.TextSize=if phone or short then 19 else 24; self.hint.TextSize=if phone or short then 13 else 16
-    local actionWidth=if phone or short then 72 else 92
-    local actionHeight=if short then 52 elseif phone then 62 else 86
-    self.actions.Size=UDim2.fromOffset(actionWidth,3*(actionHeight+8)); self.actions.Position=UDim2.new(1,-actionWidth-12,0,if short then 48 else 140)
-    for i,b in {self.mergeButton,self.indexButton,self.rebirthButton} do b.Size=UDim2.new(1,0,0,actionHeight); b.Position=UDim2.fromOffset(0,(i-1)*(actionHeight+8)); b.TextSize=if short or phone then 16 else 23 end
+    local compactRail=phone or size.Y<650
+    local actionWidth=if compactRail then 72 else 92
+    local actionHeight=if short then 52 elseif compactRail then 62 else 86
+    local actionColumns=if phone or short then 2 else 1
+    local actionsWidth=actionColumns*actionWidth+(actionColumns-1)*8
+    self.actions.Size=UDim2.fromOffset(actionsWidth,math.ceil(4/actionColumns)*(actionHeight+8)); self.actions.Position=UDim2.new(1,-actionsWidth-12,0,if short then 48 elseif compactRail and not phone then 70 else 140)
+    for i,b in {self.mergeButton,self.indexButton,self.rebirthButton,self.settingsButton} do b.Size=UDim2.fromOffset(actionWidth,actionHeight); b.Position=UDim2.fromOffset(((i-1)%actionColumns)*(actionWidth+8),math.floor((i-1)/actionColumns)*(actionHeight+8)); b.TextSize=if compactRail then 16 else 23 end
     self.mergeButton.Text='Merge Pad'
-    self.actions.Visible=not self:isLuckyOpen()
+    self.actions.Visible=not self:isLuckyOpen() and not self:isSettingsOpen()
     self.boostButton.Position=UDim2.fromOffset(16,if short then 70 else 150); self.boostButton.Size=UDim2.fromOffset(if short then 106 elseif phone then 126 else 184,if short then 64 elseif phone then 86 else 112); self.boostButton.TextSize=if short then 24 elseif phone then 28 else 38
     self.permanent.TextSize=if phone or short then 17 else 23
     self.boostPrice.Position=self.boostButton.Position+UDim2.fromOffset(-4,self.boostButton.Size.Y.Offset+9); self.boostPrice.Size=UDim2.fromOffset(self.boostButton.Size.X.Offset+8,if short then 24 else 30); self.boostPrice.TextSize=if phone or short then 17 else 25
@@ -241,10 +248,22 @@ function UI.resize(self: any)
             self.autoButton.Position=UDim2.fromOffset(12,top); self.autoButton.Size=UDim2.fromOffset(math.min(90,left-24),36)
         end
     end
+    if self.mode=='Settings' then
+        local aboveHud=phone or (not short and size.X<864)
+        local top=self.homeButton.Position.Y.Offset+self.homeButton.Size.Y.Offset+12
+        local contextTop=size.Y+self.contextPanel.Position.Y.Offset-self.contextPanel.Size.Y.Offset
+        local width=if aboveHud then math.min(292,size.X-24) elseif short then math.min(224,math.floor(size.X*.49-93)) else 300
+        local height=if aboveHud then math.min(SettingsPanel.Height,contextTop-top-12) else math.min(SettingsPanel.Height,size.Y-24)
+        self.panel.Size=UDim2.fromOffset(width,math.max(100,height))
+        self.panel.AnchorPoint=Vector2.new(1,if aboveHud then 0 else .5)
+        self.panel.Position=if aboveHud then UDim2.new(1,-12,0,top) else UDim2.new(1,-12,.5,0)
+        self.panel.BackgroundTransparency=.08
+        self.closeButton.Size=UDim2.fromOffset(40,40);self.closeButton.Position=UDim2.new(1,-46,0,5)
+    end
     self.preview.Size=UDim2.new(1,-24,0,if short then 44 else 76); self.preview.TextSize=if short then 14 else 16
     self.list.Position=UDim2.fromOffset(12,if short then 112 else 144); self.list.Size=UDim2.new(1,-24,1,if short then -180 else -212)
     self.layout.CellSize=UDim2.new(if phone then 1 else .5,-8,0,if short then 48 else 70)
-    self.indexView.resize(phone); self.luckyView.resize()
+    self.indexView.resize(phone); self.luckyView.resize(); self.settingsView.resize()
 end
 function UI.notice(self: any,message: string)
     if self.noticeFade then self.noticeFade:Cancel() end
@@ -302,9 +321,10 @@ end
 function UI.unavailable(self: any,reason: string) self.state=nil; self.stats.Text='Unavailable'; self.objective.Text=reason; self:close(); self.contextPanel.Visible=false end
 function UI.setPending(self: any,value: boolean) self.pending=value; self.signature=nil; self:drawMerge(); self:setContext(self.context,self.quantity) end
 function UI.clearSelection(self: any) self.selected={}; self.signature=nil; self:drawMerge() end
--- Lucky is a side panel: input, proximity pickups, and pad actions stay live.
-function UI.isOpen(self: any): boolean return self.overlay.Visible and self.mode~='Lucky' end
+-- Side panels leave input, proximity pickups, and pad actions live.
+function UI.isOpen(self: any): boolean return self.overlay.Visible and self.mode~='Lucky' and self.mode~='Settings' end
 function UI.isLuckyOpen(self: any): boolean return self.overlay.Visible and self.mode=='Lucky' end
+function UI.isSettingsOpen(self: any): boolean return self.overlay.Visible and self.mode=='Settings' end
 -- Programmatic closes never drop a block; only the close button requests a drop.
 function UI.close(self: any)
     if self.mode~='Lucky' and self.state and self.state.lucky and self.state.lucky.held then
@@ -313,7 +333,8 @@ function UI.close(self: any)
     self.overlay.Visible=false; self.overlay.Active=false; self:resize(); self:setContext(self.context,self.quantity)
 end
 function UI.open(self: any,mode: string)
-    self.mode=mode; self.overlay.Visible=true; self.overlay.Active=mode~='Lucky'; self.overlay.BackgroundTransparency=if mode=='Lucky' then 1 else .35
+    local sidePanel=mode=='Lucky' or mode=='Settings'
+    self.mode=mode; self.overlay.Visible=true; self.overlay.Active=not sidePanel; self.overlay.BackgroundTransparency=if sidePanel then 1 else .35
     self.toast.Visible=false; self.signature=nil; self:resize(); self:drawMerge(); self:setContext(self.context,self.quantity)
 end
 function UI.toggleMerge(self: any) self.onMerge() end
@@ -401,6 +422,14 @@ function UI.update(self: any,state: any)
     self:resize(); self:setContext(self.context,self.quantity); self:drawMerge()
 end
 function UI.drawMerge(self: any)
+    local settings=self.mode=='Settings'
+    self.settingsView.setVisible(settings)
+    if settings then
+        self.rebirthView.setVisible(false);self.indexView.setVisible(false);self.luckyView.setVisible(false)
+        self.heading.Visible=true;self.heading.Text='Settings';self.heading.Position=UDim2.fromOffset(54,4);self.heading.Size=UDim2.new(1,-108,0,48);self.heading.TextXAlignment=Enum.TextXAlignment.Left
+        self.preview.Visible=false;self.list.Visible=false;self.confirm.Visible=false
+        return
+    end
     local s=self.state
     if not s then return end
     local signature=self.mode..tostring(self.pending)..table.concat(self.selected,',')
