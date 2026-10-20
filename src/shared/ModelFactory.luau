@@ -1,6 +1,8 @@
 --!strict
 -- Original Blender meshes with procedural fallbacks; no embedded third-party scripts.
 local Factory={}
+local TextStyle=require(script.Parent.TextStyle)
+local Config=require(script.Parent.Config)
 local cream=Color3.fromRGB(255,241,209)
 local dark=Color3.fromRGB(39,27,22)
 Factory.expansionKeys={
@@ -49,22 +51,28 @@ function Factory.label(part: BasePart,value: string,width: number?,height: numbe
     local gui=Instance.new('BillboardGui'); gui.Name='Label'; gui.Size=UDim2.fromOffset(width or 170,height or 48)
     gui.StudsOffset=Vector3.new(0,3.2,0); gui.MaxDistance=100; gui.Parent=part
     local l=Instance.new('TextLabel'); l.Name='Text'; l.Size=UDim2.fromScale(1,1); l.BackgroundTransparency=1
-    l.Text=value; l.TextColor3=Color3.new(1,1,1); l.TextStrokeColor3=Color3.new(0,0,0); l.TextStrokeTransparency=0
-    l.Font=Enum.Font.FredokaOne; l.TextSize=22; l.TextWrapped=true; l.TextStrokeTransparency=1;l.Parent=gui
-    local outline=Instance.new('UIStroke');outline.Color=dark;outline.Thickness=2;outline.Parent=l
+    l.Text=value; l.TextWrapped=true;l.Parent=gui
+    TextStyle.apply(l,22,TextStyle.Cream,2)
     return l
 end
 function Factory.characterLabel(part: BasePart,species: any,offset: number)
-    local gui=Instance.new('BillboardGui'); gui.Name='CharacterLabel'; gui.Size=UDim2.fromOffset(174,59); gui.StudsOffset=Vector3.new(0,offset-.3,0); gui.MaxDistance=65; gui.Parent=part
+    -- Scale with the physical bay and camera distance. Model:ScaleTo applies the
+    -- plot scale to these stud dimensions together with the producer itself.
+    local gui=Instance.new('BillboardGui'); gui.Name='CharacterLabel'; gui.Size=UDim2.fromScale(Config.ColumnSpacing*.88,3.6); gui.StudsOffset=Vector3.new(0,offset-.3,0); gui.MaxDistance=65; gui.Parent=part
     local function line(name: string,value: string,y: number,height: number,fontSize: number,color: Color3)
-        local label=Instance.new('TextLabel'); label.Name=name; label.Text=value; label.Position=UDim2.fromOffset(0,y); label.Size=UDim2.new(1,0,0,height); label.BackgroundTransparency=1; label.Font=Enum.Font.FredokaOne; label.TextSize=fontSize; label.TextColor3=color; label.TextStrokeTransparency=0; label.TextStrokeColor3=Color3.fromRGB(28,18,15); label.Parent=gui
-        label.TextStrokeTransparency=1;local outline=Instance.new('UIStroke');outline.Thickness=if name=='Name' then 2.5 else 1.6;outline.Color=dark;outline.Parent=label
+        local label=Instance.new('TextLabel'); label.Name=name; label.Text=value; label.Position=UDim2.fromScale(0,y); label.Size=UDim2.fromScale(1,height); label.BackgroundTransparency=1; label.Parent=gui
+        label.TextWrapped=name=='Name';label.TextScaled=true
+        label.TextYAlignment=if name=='Name' then Enum.TextYAlignment.Bottom else Enum.TextYAlignment.Top
+        TextStyle.apply(label,fontSize,color,if name=='Name' then 2 else 1.3)
+        local constraint=Instance.new('UITextSizeConstraint');constraint.MinTextSize=if name=='Name' then 6 else 5;constraint.MaxTextSize=fontSize;constraint.Parent=label
     end
-    line('Name',species.name,0,33,if #species.name>16 then 18 else 24,Color3.fromRGB(table.unpack(species.color)))
-    line('Level','Level '..species.tier,33,23,16,Color3.fromRGB(255,244,222))
+    local displayName=if #species.name>13 then (species.name:gsub(' ','\n',1)) else species.name
+    line('Name',displayName,0,.72,24,Color3.fromRGB(table.unpack(species.color)))
+    line('Level','Level '..species.tier,.76,.24,16,Color3.fromRGB(255,244,222))
 end
 function Factory.producer(parent: Instance,id: string,species: any,position: Vector3,mini: boolean?): Model
     local m=Instance.new('Model'); m.Name=id
+    m:SetAttribute('SpeciesId',string.format('tier_%02d',species.tier));m:SetAttribute('Tier',species.tier)
     local templates=game:GetService('ReplicatedStorage'):FindFirstChild('CharacterModels')
     local key=string.format('tier_%02d',species.tier)..(if mini then '_Mini' else '')
     local template=templates and templates:FindFirstChild(key)

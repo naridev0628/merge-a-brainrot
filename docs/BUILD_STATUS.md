@@ -1,10 +1,18 @@
 # Build status — 2026-10-20
 
-## Refactor and Chicken Farm video preparation
+## Chicken Farm reference implementation
+
+The annotated [reference board](reference/chicken-farm-video/index.html) now maps all twelve captured moments to concrete applied changes and includes four implementation previews. Shared rounded typography, separate pad title/price labels, a larger woven Mini basket, responsive nonmodal Lucky odds and two real rebirth reward tiles follow the reference hierarchy. Small-phone Lucky content scrolls when necessary, keeping both actions reachable.
+
+The rear display spans about 90% of the conveyor width; character names wrap and scale within their physical bays. The group board's blank face is repaired, the processor board exposes implemented status/rate, and the deposit pad has a broader warm glow. Cash, pickup, deposit, purchase and discovery effects use bounded bursts. Higher-tier accents affect at most sixteen nearby producers. Successful actions use three reusable quiet audio voices and distinct pitch patterns from the existing cleared project cue; original video audio has not been audited or copied.
+
+Verification: all 46 source files compile, all 22 standalone Luau test files pass, and Rojo builds the place. Studio checks pass for ten HUD sizes (including short portrait and landscape), reachable Lucky actions, pickup aggregation/expiry, mirrored environment, pad affordability, producer grounding, cash/deposit/tier effect budgets and cleanup, and the three-voice audio pool. Populated-row, Lucky, rebirth, farmer/deposit and utility-board views were inspected. These are Studio checks, not physical-device or multiplayer certification. See [verification details](verification/CHICKEN_FARM_REFERENCE_PASS.md).
+
+## Prior refactor and reference preparation
 
 Client pad targeting now lives in the pure `Shared/PadTargeting` module. `Main.client` retains the interaction scheduler, remote handling, Lucky pickup and aura. The extraction preserves action precedence, full-pad corner ownership, exact Buy quantities, merge eligibility, immediate entry and the existing two-second/half-second repeat. No balance or visual behavior changed in this preparation pass.
 
-The supplied Chicken Farm video was inspected in Chrome at selected early, middle and late moments. Twelve timestamped screenshots and an annotated [reference board](reference/chicken-farm-video/index.html) document the HUD, conveyor/pad row, farmer/deposit, plot proportions, Lucky card, pickup numbers, processing board, cash effects and rebirth layout. The board distinguishes observed details, proposed adaptations and the user's existing overrides. It is not a continuous viewing or audio audit; sounds remain to be reviewed. Reference screenshots are documentation only and are outside the Rojo project mapping.
+The supplied Chicken Farm video was inspected in Chrome at selected early, middle and late moments. Twelve timestamped screenshots document the HUD, conveyor/pad row, farmer/deposit, plot proportions, Lucky card, pickup numbers, processing board, cash effects and rebirth layout. The board distinguishes observed details, adaptations and the user's existing overrides. It is not a continuous viewing or audio audit. Reference screenshots are documentation only and are outside the Rojo project mapping.
 
 Verification for this pass: all 22 standalone Luau test files pass; all 43 source files compile; Rojo builds `MergeABrainrot-StackedFarm.rbxlx`; the new targeting module passes standalone analysis; independent refactor review found no actionable regressions. In Studio, the new module resolved Buy1 correctly, the HUD loaded, and moving the avatar onto Buy1 produced a successful starter purchase followed by the expected insufficient-funds response on the held repeat. This smoke check does not replace a full live Lucky-open/device regression run. The temporary result observer was disconnected afterward.
 

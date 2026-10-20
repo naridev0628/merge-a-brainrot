@@ -5,6 +5,7 @@ local Config=require(Shared:WaitForChild('Config'))
 local Economy=require(Shared:WaitForChild('Economy'))
 local Tutorial=require(Shared:WaitForChild('Tutorial'))
 local PassConfig=require(Shared:WaitForChild('PassConfig'))
+local Style=require(Shared:WaitForChild('TextStyle'))
 local Art=require(script.Parent:WaitForChild('BrickArt'))
 local Locale=require(script.Parent:WaitForChild('Locale'))
 local RebirthPanel=require(script.Parent:WaitForChild('RebirthPanel'))
@@ -12,7 +13,7 @@ local IndexPanel=require(script.Parent:WaitForChild('IndexPanel'))
 local LuckyPanel=require(script.Parent:WaitForChild('LuckyPanel'))
 local TweenService=game:GetService('TweenService')
 local UI={}; UI.__index=UI
-local C={navy=Color3.fromRGB(26,37,49),cream=Color3.fromRGB(255,248,216),green=Color3.fromRGB(115,245,42),blue=Color3.fromRGB(32,191,243),amber=Color3.fromRGB(255,204,36),violet=Color3.fromRGB(172,94,235),pink=Color3.fromRGB(248,120,174)}
+local C={navy=Color3.fromRGB(26,37,49),cream=Style.Cream,green=Style.Price,blue=Color3.fromRGB(32,191,243),amber=Color3.fromRGB(255,204,36),violet=Color3.fromRGB(172,94,235),pink=Color3.fromRGB(248,120,174)}
 function UI.coins(units: number): string
     local result=string.format('%.2f',units/4); return (result:gsub('%.?0+$',''))
 end
@@ -24,11 +25,11 @@ local function frame(parent: Instance,name: string,color: Color3): Frame
 end
 local function text(parent: Instance,name: string,size: number,color: Color3): TextLabel
     local l=Instance.new('TextLabel'); l.Name=name; l.BackgroundTransparency=1; l.Text=''; l.TextColor3=color
-    l.TextSize=size; l.Font=Enum.Font.FredokaOne; l.TextWrapped=true; l.TextStrokeColor3=Color3.fromRGB(12,10,8); l.TextStrokeTransparency=0; l.Parent=parent; return l
+    l.TextSize=size; l.Font=Enum.Font.FredokaOne; l.TextWrapped=true; l.TextStrokeColor3=Color3.fromRGB(12,10,8); l.TextStrokeTransparency=1; l.Parent=parent; Style.apply(l,size,color); return l
 end
 local function button(parent: Instance,name: string,label: string,color: Color3): TextButton
     local b=Instance.new('TextButton'); b.Name=name; b.Text=label; b.BackgroundColor3=color; b.TextColor3=C.cream
-    b.Font=Enum.Font.FredokaOne; b.TextSize=22; b.TextWrapped=true; b.TextStrokeColor3=Color3.fromRGB(12,10,8); b.TextStrokeTransparency=0; b.BorderSizePixel=0; b.Parent=parent
+    b.Font=Enum.Font.FredokaOne; b.TextSize=22; b.TextWrapped=true; b.TextStrokeColor3=Color3.fromRGB(12,10,8); b.TextStrokeTransparency=1; b.BorderSizePixel=0; b.Parent=parent
     local corner=Instance.new('UICorner'); corner.CornerRadius=UDim.new(0,5); corner.Parent=b
     local stroke=Instance.new('UIStroke'); stroke.ApplyStrokeMode=Enum.ApplyStrokeMode.Border; stroke.Color=C.navy; stroke.Thickness=3; stroke.Parent=b
     local gradient=Instance.new('UIGradient'); gradient.Color=ColorSequence.new(Color3.new(1,1,1),Color3.fromRGB(204,204,204)); gradient.Rotation=90; gradient.Parent=b
@@ -43,6 +44,7 @@ local function button(parent: Instance,name: string,label: string,color: Color3)
     b.MouseLeave:Connect(function() hovering=false; pressed=false; animate() end)
     b.InputBegan:Connect(function(input) if b.AutoButtonColor and (input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch) then pressed=true; animate() end end)
     b.InputEnded:Connect(function(input) if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then pressed=false; animate() end end)
+    Style.apply(b,22,C.cream)
     return b
 end
 function UI.new(parent: Instance)
@@ -57,12 +59,12 @@ function UI.new(parent: Instance)
     local borderFade=hudFade:Clone(); borderFade.Parent=hudBorder
     self.stats=text(self.hud,'Stats',27,C.navy); self.stats.Size=UDim2.new(1,-12,0,40); self.stats.Position=UDim2.fromOffset(6,0)
     self.detail=text(self.hud,'Details',16,C.navy); self.detail.Position=UDim2.fromOffset(6,40); self.detail.Size=UDim2.new(1,-12,0,40)
-    self.stats.TextColor3=C.green; self.stats.TextStrokeTransparency=0; self.stats.TextStrokeColor3=Color3.fromRGB(23,47,12); self.stats.TextXAlignment=Enum.TextXAlignment.Left
-    self.detail.TextColor3=C.cream; self.detail.TextStrokeTransparency=0; self.detail.TextXAlignment=Enum.TextXAlignment.Left
-    self.rebirthCount=text(self.hud,'RebirthCount',24,Color3.new(1,1,1)); self.rebirthCount.TextStrokeTransparency=0; self.rebirthCount.TextXAlignment=Enum.TextXAlignment.Left
+    self.stats.TextColor3=C.green; self.stats.TextStrokeTransparency=1; self.stats.TextStrokeColor3=Color3.fromRGB(23,47,12); self.stats.TextXAlignment=Enum.TextXAlignment.Left
+    self.detail.TextColor3=C.cream; self.detail.TextStrokeTransparency=1; self.detail.TextXAlignment=Enum.TextXAlignment.Left
+    self.rebirthCount=text(self.hud,'RebirthCount',24,Color3.new(1,1,1)); self.rebirthCount.TextStrokeTransparency=1; self.rebirthCount.TextXAlignment=Enum.TextXAlignment.Left
     local rebirthGradient=Instance.new('UIGradient'); rebirthGradient.Rotation=90; rebirthGradient.Color=ColorSequence.new(Color3.fromRGB(255,172,179),Color3.fromRGB(255,61,67)); rebirthGradient.Parent=self.rebirthCount
-    self.multiplier=text(root,'CashMultiplier',22,Color3.fromRGB(179,183,178)); self.multiplier.TextStrokeTransparency=0; self.multiplier.TextXAlignment=Enum.TextXAlignment.Left
-    self.cashPlus=button(self.hud,'CashPlus','+',C.green); self.cashPlus.TextSize=30; self.cashPlus.TextColor3=C.cream; self.cashPlus.TextStrokeTransparency=0
+    self.multiplier=text(root,'CashMultiplier',22,Color3.fromRGB(179,183,178)); self.multiplier.TextStrokeTransparency=1; self.multiplier.TextXAlignment=Enum.TextXAlignment.Left
+    self.cashPlus=button(self.hud,'CashPlus','+',C.green); self.cashPlus.TextSize=30; self.cashPlus.TextColor3=C.cream; self.cashPlus.TextStrokeTransparency=1
     self.multiplier.Parent=self.hud; self.detail.Visible=false
     self.cashFog=Instance.new('Frame'); self.cashFog.Name='MultiplierFog'; self.cashFog.BackgroundTransparency=1; self.cashFog.Parent=self.hud
     for layer=1,6 do
@@ -71,34 +73,34 @@ function UI.new(parent: Instance)
     end
     self.multiplier.ZIndex=2; self.cashPlus.ZIndex=2
     self.stats.TextStrokeTransparency=1
-    local cashOutline=Instance.new('UIStroke'); cashOutline.Thickness=3; cashOutline.Color=Color3.fromRGB(20,49,5); cashOutline.Parent=self.stats
+    Style.apply(self.stats,nil,nil,3)
     self.stats.TextColor3=Color3.new(1,1,1)
     local cashGradient=Instance.new('UIGradient'); cashGradient.Rotation=90; cashGradient.Color=ColorSequence.new(Color3.fromRGB(184,255,25),Color3.fromRGB(76,211,0)); cashGradient.Parent=self.stats
     self.stats.Parent=self.cashBar; self.cashPlus.Parent=self.cashBar; self.multiplier.Parent=self.cashBar; self.cashFog.Parent=self.cashBar
     self.total=text(root,'TotalBrainrots',24,Color3.new(1,1,1)); self.total.TextStrokeTransparency=1; self.total.TextXAlignment=Enum.TextXAlignment.Right
-    local totalOutline=Instance.new('UIStroke'); totalOutline.Thickness=2.5; totalOutline.Color=Color3.fromRGB(49,35,10); totalOutline.Parent=self.total
+    Style.apply(self.total,nil,nil,2.5)
     local totalGradient=Instance.new('UIGradient'); totalGradient.Rotation=90; totalGradient.Color=ColorSequence.new(Color3.fromRGB(255,249,188),Color3.fromRGB(255,203,68)); totalGradient.Parent=self.total
     self.bag=Instance.new('Frame'); self.bag.Name='MiniBag'; self.bag.BackgroundTransparency=1; self.bag.Parent=root; Art.basket(self.bag)
-    self.bagText=text(self.bag,'Count',32,C.cream); self.bagText.Size=UDim2.fromScale(.60,.32); self.bagText.Position=UDim2.fromScale(.20,.60); self.bagText.TextStrokeTransparency=0; self.bagText.ZIndex=4
+    self.bagText=text(self.bag,'Count',32,C.cream); self.bagText.Size=UDim2.fromScale(.68,.29); self.bagText.Position=UDim2.fromScale(.16,.65); self.bagText.TextStrokeTransparency=1; self.bagText.ZIndex=4
     self.bagText.TextScaled=true
     local countSize=Instance.new('UITextSizeConstraint'); countSize.MinTextSize=12; countSize.MaxTextSize=32; countSize.Parent=self.bagText
-    local bagCaption=text(self.bag,'Caption',23,C.cream); bagCaption.Text='Minis'; bagCaption.Position=UDim2.fromScale(.12,.30); bagCaption.Size=UDim2.fromScale(.76,.25); bagCaption.TextStrokeTransparency=0; bagCaption.ZIndex=4
-    self.bagValue=text(self.bag,'Value',16,C.green); self.bagValue.Size=UDim2.new(1,40,0,24); self.bagValue.Position=UDim2.new(0,-20,1,0); self.bagValue.TextStrokeTransparency=0; self.bagValue.ZIndex=4; self.bagValue.Visible=false
-    self.title=text(root,'TutorialTitle',28,C.blue); self.title.TextStrokeTransparency=0; self.title.TextStrokeColor3=C.navy
-    self.objective=text(root,'Objective',24,Color3.new(1,1,1)); self.objective.TextStrokeTransparency=0; self.objective.TextStrokeColor3=C.navy
-    self.hint=text(root,'Hint',16,Color3.new(1,1,1)); self.hint.TextStrokeTransparency=0; self.hint.TextStrokeColor3=C.navy
+    local bagCaption=text(self.bag,'Caption',23,C.cream); bagCaption.Text='Minis'; bagCaption.Position=UDim2.fromScale(.12,.39); bagCaption.Size=UDim2.fromScale(.76,.23); bagCaption.TextStrokeTransparency=1; bagCaption.ZIndex=4
+    self.bagValue=text(self.bag,'Value',16,C.green); self.bagValue.Size=UDim2.new(1,40,0,24); self.bagValue.Position=UDim2.new(0,-20,1,0); self.bagValue.TextStrokeTransparency=1; self.bagValue.ZIndex=4; self.bagValue.Visible=false
+    self.title=text(root,'TutorialTitle',28,C.blue); self.title.TextStrokeTransparency=1; self.title.TextStrokeColor3=C.navy
+    self.objective=text(root,'Objective',24,Color3.new(1,1,1)); self.objective.TextStrokeTransparency=1; self.objective.TextStrokeColor3=C.navy
+    self.hint=text(root,'Hint',16,Color3.new(1,1,1)); self.hint.TextStrokeTransparency=1; self.hint.TextStrokeColor3=C.navy
     self.actions=Instance.new('Frame'); self.actions.Name='Actions'; self.actions.BackgroundTransparency=1; self.actions.Parent=root
     self.mergeButton=button(self.actions,'Merge','Merge [M]',C.amber)
     self.indexButton=button(self.actions,'Index','Index',C.blue)
     self.rebirthButton=button(self.actions,'Rebirth','Rebirth',C.pink)
     for i,b in {self.mergeButton,self.indexButton,self.rebirthButton} do
-        b.TextYAlignment=Enum.TextYAlignment.Bottom; b.TextColor3=C.cream; b.TextStrokeTransparency=0; b.BackgroundTransparency=1
+        b.TextYAlignment=Enum.TextYAlignment.Bottom; b.TextColor3=C.cream; b.TextStrokeTransparency=1; b.BackgroundTransparency=1
         b:FindFirstChildOfClass('UIStroke').Transparency=1
         Art.icon(b,({'merge','book','rebirth'})[i],UDim2.fromScale(.1,.01),UDim2.fromScale(.8,.73))
     end
     self.rebirthBadge=frame(self.rebirthButton,'ReadyBadge',Color3.fromRGB(255,62,69)); self.rebirthBadge.Size=UDim2.fromOffset(28,28); self.rebirthBadge.Position=UDim2.fromOffset(-9,-9); self.rebirthBadge.ZIndex=6; self.rebirthBadge.Visible=false
     self.rebirthBadge:FindFirstChildOfClass('UICorner').CornerRadius=UDim.new(1,0)
-    local alert=text(self.rebirthBadge,'Alert',25,C.cream); alert.Text='!'; alert.TextStrokeTransparency=0; alert.Size=UDim2.fromScale(1,1); alert.ZIndex=7
+    local alert=text(self.rebirthBadge,'Alert',25,C.cream); alert.Text='!'; alert.TextStrokeTransparency=1; alert.Size=UDim2.fromScale(1,1); alert.ZIndex=7
     self.homeButton=button(root,'Home','Home',Color3.fromRGB(29,190,242))
     self.boostButton=button(root,'MoneyBoost','2x Cash',C.green)
     self.autoButton=button(root,'Automation','Auto Collect\nAuto Sell',C.amber)
@@ -115,28 +117,28 @@ function UI.new(parent: Instance)
         TweenService:Create(glowSpectrum,TweenInfo.new(3,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut,-1),{Rotation=360}):Play()
         TweenService:Create(glowStroke,TweenInfo.new(1.2,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut,-1,true),{Transparency=.72+layer*.08}):Play()
     end
-    local boostOutline=Instance.new('UIStroke'); boostOutline.Thickness=3.5; boostOutline.Color=Color3.new(0,0,0); boostOutline.Parent=self.boostButton.BrickCaption
+    Style.apply(self.boostButton.BrickCaption,nil,nil,3.5)
     self.permanent=text(self.boostButton,'Permanent',23,Color3.fromRGB(255,93,104)); self.permanent.Text='PERMANENT!'; self.permanent.Rotation=-4; self.permanent.Position=UDim2.fromScale(-.03,-.19); self.permanent.Size=UDim2.fromScale(1.06,.30); self.permanent.TextStrokeTransparency=1; self.permanent.ZIndex=4
-    local permanentOutline=Instance.new('UIStroke'); permanentOutline.Thickness=2.5; permanentOutline.Color=Color3.new(0,0,0); permanentOutline.Parent=self.permanent
+    Style.apply(self.permanent,nil,nil,2.5)
     self.boostPrice=text(root,'BoostPrice',25,Color3.new(1,1,1)); self.boostPrice.Text='Coming soon'; self.boostPrice.TextStrokeTransparency=1
-    local priceOutline=Instance.new('UIStroke'); priceOutline.Thickness=2.5; priceOutline.Color=Color3.new(0,0,0); priceOutline.Parent=self.boostPrice
+    Style.apply(self.boostPrice,nil,nil,2.5)
     Art.brick(self.homeButton,self.homeButton.BackgroundColor3); self.homeButton.TextColor3=Color3.new(1,1,1); self.homeButton.TextStrokeTransparency=1
     local homeBorder=self.homeButton:FindFirstChildOfClass('UIStroke'); homeBorder.Color=Color3.fromRGB(4,39,48); homeBorder.Thickness=4
     local homeRim=Instance.new('Frame'); homeRim.Name='InsetRim'; homeRim.Position=UDim2.fromOffset(5,5); homeRim.Size=UDim2.new(1,-10,1,-10); homeRim.BackgroundTransparency=1; homeRim.ZIndex=2; homeRim.Parent=self.homeButton
     local rimStroke=Instance.new('UIStroke'); rimStroke.Color=Color3.fromRGB(176,241,255); rimStroke.Transparency=.35; rimStroke.Thickness=2; rimStroke.Parent=homeRim
-    local homeOutline=Instance.new('UIStroke'); homeOutline.Thickness=3.5; homeOutline.Color=Color3.new(0,0,0); homeOutline.Parent=self.homeButton.BrickCaption
+    Style.apply(self.homeButton.BrickCaption,nil,nil,3.5)
     Art.icon(self.autoButton,'gear',UDim2.fromScale(0,.05),UDim2.fromScale(.3,.8)); self.autoButton.Text='Auto'; self.autoButton.TextXAlignment=Enum.TextXAlignment.Right
-    self.autoButton.BackgroundTransparency=1; self.autoButton:FindFirstChildOfClass('UIStroke').Transparency=1; self.autoButton.TextColor3=C.cream; self.autoButton.TextStrokeTransparency=0
-    self.memory=text(root,'MemoryNotice',12,Color3.new(1,1,1)); self.memory.Text='STUDIO PREVIEW - progress resets on Stop'; self.memory.TextStrokeTransparency=0; self.memory.Size=UDim2.new(1,0,0,18); self.memory.Position=UDim2.new(0,0,1,-18)
+    self.autoButton.BackgroundTransparency=1; self.autoButton:FindFirstChildOfClass('UIStroke').Transparency=1; self.autoButton.TextColor3=C.cream; self.autoButton.TextStrokeTransparency=1
+    self.memory=text(root,'MemoryNotice',12,Color3.new(1,1,1)); self.memory.Text='STUDIO PREVIEW - progress resets on Stop'; self.memory.TextStrokeTransparency=1; self.memory.Size=UDim2.new(1,0,0,18); self.memory.Position=UDim2.new(0,0,1,-18)
     self.toast=frame(root,'Feedback',C.navy); self.toast.Visible=false; self.toast.ZIndex=20; self.toast.AnchorPoint=Vector2.new(.5,0)
     self.toast.BackgroundTransparency=1; self.toast:FindFirstChildOfClass('UIStroke').Transparency=1
     self.toastText=text(self.toast,'Message',16,C.cream); self.toastText.Size=UDim2.new(1,-16,1,-8); self.toastText.Position=UDim2.fromOffset(8,4); self.toastText.ZIndex=21
-    self.toastOutline=Instance.new('UIStroke'); self.toastOutline.Color=Color3.fromRGB(28,29,24); self.toastOutline.Thickness=2; self.toastOutline.Parent=self.toastText
+    self.toastOutline=self.toastText:FindFirstChild('TextOutline')
     self.contextPanel=frame(root,'PadAction',C.navy); self.contextPanel.Visible=false; self.contextPanel.AnchorPoint=Vector2.new(.5,1)
     self.contextPanel.BackgroundTransparency=1; self.contextPanel:FindFirstChildOfClass('UIStroke').Transparency=1
-    self.contextText=text(self.contextPanel,'Summary',13,C.cream); self.contextText.Size=UDim2.new(1,-12,0,22); self.contextText.Position=UDim2.fromOffset(6,0); self.contextText.TextStrokeTransparency=0
+    self.contextText=text(self.contextPanel,'Summary',13,C.cream); self.contextText.Size=UDim2.new(1,-12,0,22); self.contextText.Position=UDim2.fromOffset(6,0); self.contextText.TextStrokeTransparency=1
     self.contextButton=button(self.contextPanel,'Act','',C.amber); self.contextButton.Position=UDim2.fromOffset(6,22); self.contextButton.Size=UDim2.new(1,-12,0,40)
-    self.contextButton.BackgroundTransparency=1; self.contextButton:FindFirstChildOfClass('UIStroke').Transparency=1; self.contextButton.TextColor3=C.cream; self.contextButton.TextSize=20; self.contextButton.TextStrokeTransparency=0
+    self.contextButton.BackgroundTransparency=1; self.contextButton:FindFirstChildOfClass('UIStroke').Transparency=1; self.contextButton.TextColor3=C.cream; self.contextButton.TextSize=20; self.contextButton.TextStrokeTransparency=1
     self.overlay=Instance.new('Frame'); self.overlay.Name='PanelOverlay'; self.overlay.Active=false; self.overlay.BorderSizePixel=0; self.overlay.Size=UDim2.fromScale(1,1); self.overlay.BackgroundColor3=Color3.new(0,0,0); self.overlay.BackgroundTransparency=.35; self.overlay.ZIndex=10; self.overlay.Visible=false; self.overlay.Parent=root
     self.panel=frame(self.overlay,'MergePanel',C.navy); self.panel.AnchorPoint=Vector2.new(.5,.5); self.panel.Position=UDim2.fromScale(.5,.5); self.panel.ZIndex=11
     self.heading=text(self.panel,'Heading',23,C.cream); self.heading.Position=UDim2.fromOffset(12,4); self.heading.Size=UDim2.new(1,-80,0,48)
@@ -176,13 +178,13 @@ function UI.new(parent: Instance)
     self:resize(); self:drawMerge(); return self
 end
 function UI.resize(self: any)
-    local size=self.root.AbsoluteSize; local short=size.Y<440; local phone=size.X<600
+    local size=self.root.AbsoluteSize; local short=size.Y<500; local phone=size.X<600
     local compactCash=phone or (short and size.X<900)
     self.stats.TextSize=if compactCash then 30 elseif short then 40 else 52
-    local amountWidth=math.min(if compactCash then 116 else 270,math.max(if compactCash then 66 else 96,game:GetService('TextService'):GetTextSize(self.stats.Text,self.stats.TextSize,self.stats.Font,Vector2.new(1000,80)).X+14))
+    local amountWidth=math.min(if phone then 100 elseif compactCash then 116 else 270,math.max(if compactCash then 66 else 96,game:GetService('TextService'):GetTextSize(self.stats.Text,self.stats.TextSize,self.stats.Font,Vector2.new(1000,80)).X+14))
     local plusSize=if compactCash then 26 else 38; local multiplierWidth=if compactCash then 64 else 118
-    local cashWidth=amountWidth+plusSize+multiplierWidth+32; local cashHeight=if phone then 50 elseif short then 58 else 76
-    self.hud.Size=UDim2.fromOffset(cashWidth,cashHeight+29); self.hud.Position=UDim2.new(0,12,1,-cashHeight-(if phone then 164 else 53))
+    local cashWidth=amountWidth+plusSize+multiplierWidth+32; local cashHeight=if phone then 50 elseif short then 42 else 76
+    self.hud.Size=UDim2.fromOffset(cashWidth,cashHeight+29); self.hud.Position=UDim2.new(0,12,1,-cashHeight-(if phone then 132 else 49))
     self.cashBar.Position=UDim2.fromOffset(0,29); self.cashBar.Size=UDim2.fromOffset(cashWidth,cashHeight)
     self.stats.Position=UDim2.fromOffset(8,0); self.stats.Size=UDim2.new(0,amountWidth,1,0); self.stats.TextScaled=true
     local constraint=self.stats:FindFirstChildOfClass('UITextSizeConstraint') or Instance.new('UITextSizeConstraint',self.stats); constraint.MaxTextSize=self.stats.TextSize; constraint.MinTextSize=20
@@ -190,36 +192,54 @@ function UI.resize(self: any)
     self.cashPlus.Position=UDim2.new(0,amountWidth+14,.5,-plusSize/2); self.cashPlus.Size=UDim2.fromOffset(plusSize,plusSize)
     self.multiplier.Position=UDim2.new(0,amountWidth+plusSize+22,0,0); self.multiplier.Size=UDim2.new(0,multiplierWidth,1,0); self.multiplier.TextSize=if compactCash then 16 else 24; self.multiplier.Visible=true
     self.cashFog.Position=self.multiplier.Position; self.cashFog.Size=self.multiplier.Size
-    self.bag.Size=UDim2.fromOffset(if phone or short then 126 else 178,if phone or short then 102 else 145); self.bag.AnchorPoint=Vector2.new(.5,1); self.bag.Position=UDim2.new(if phone then .78 else .5,0,1,if phone then -250 else -44)
-    self.total.AnchorPoint=Vector2.new(1,1); self.total.Position=UDim2.new(1,-12,1,if phone then -103 else -25); self.total.Size=UDim2.fromOffset(if phone then 210 elseif short then 230 else 330,30); self.total.TextSize=if phone then 18 elseif short then 20 else 25
+    local bagWidth=if phone then math.clamp(size.X-214,106,138) elseif short then 138 else 204
+    self.bag.Size=UDim2.fromOffset(bagWidth,if phone then bagWidth*116/138 elseif short then 116 else 170); self.bag.AnchorPoint=Vector2.new(.5,1); self.bag.Position=if phone then UDim2.new(1,-12-bagWidth/2,1,-36) else UDim2.new(if short then .51 else .5,0,1,-24)
+    self.total.AnchorPoint=Vector2.new(if phone then 0 else 1,1); self.total.Position=UDim2.new(if phone then 0 else 1,if phone then 12 else -12,1,if phone then -30 else -25); self.total.Size=UDim2.fromOffset(if phone then 210 elseif short then 230 else 330,30); self.total.TextSize=if phone then 18 elseif short then 20 else 25
+    self.total.Visible=not (short and self:isLuckyOpen())
     local w=math.min(size.X-(if phone then 24 else 300),520)
     for _,l in {self.title,self.objective,self.hint} do l.AnchorPoint=Vector2.new(.5,0); l.Size=UDim2.fromOffset(w,if l==self.hint then 34 else 36) end
+    if self.state then
+        local tutorialVisible=Tutorial.goal(self.state).kind~='Done' and not self:isLuckyOpen()
+        for _,label in {self.title,self.objective,self.hint} do label.Visible=tutorialVisible end
+    end
     self.title.Position=UDim2.new(.5,0,0,0); self.objective.Position=UDim2.new(.5,0,0,34); self.hint.Position=UDim2.new(.5,0,0,70)
     self.title.TextSize=if short then 23 else 28; self.objective.TextSize=if phone or short then 19 else 24; self.hint.TextSize=if phone or short then 13 else 16
     local actionWidth=if phone or short then 72 else 92
-    local actionHeight=if phone or short then 62 else 86
-    self.actions.Size=UDim2.fromOffset(actionWidth,3*(actionHeight+8)); self.actions.Position=UDim2.new(1,-actionWidth-12,0,if short then 65 else 140)
+    local actionHeight=if short then 52 elseif phone then 62 else 86
+    self.actions.Size=UDim2.fromOffset(actionWidth,3*(actionHeight+8)); self.actions.Position=UDim2.new(1,-actionWidth-12,0,if short then 48 else 140)
     for i,b in {self.mergeButton,self.indexButton,self.rebirthButton} do b.Size=UDim2.new(1,0,0,actionHeight); b.Position=UDim2.fromOffset(0,(i-1)*(actionHeight+8)); b.TextSize=if short or phone then 16 else 23 end
     self.mergeButton.Text='Merge Pad'
     self.actions.Visible=not self:isLuckyOpen()
-    self.boostButton.Position=UDim2.fromOffset(16,if short then 78 else 150); self.boostButton.Size=UDim2.fromOffset(if phone or short then 126 else 184,if phone or short then 86 else 112); self.boostButton.TextSize=if short or phone then 28 else 38
+    self.boostButton.Position=UDim2.fromOffset(16,if short then 70 else 150); self.boostButton.Size=UDim2.fromOffset(if short then 106 elseif phone then 126 else 184,if short then 64 elseif phone then 86 else 112); self.boostButton.TextSize=if short then 24 elseif phone then 28 else 38
     self.permanent.TextSize=if phone or short then 17 else 23
-    self.boostPrice.Position=self.boostButton.Position+UDim2.fromOffset(-4,self.boostButton.Size.Y.Offset+9); self.boostPrice.Size=UDim2.fromOffset(self.boostButton.Size.X.Offset+8,30); self.boostPrice.TextSize=if phone or short then 17 else 25
-    self.autoButton.Position=UDim2.fromOffset(12,if short then 216 else 310); self.autoButton.Size=UDim2.fromOffset(if phone or short then 90 else 130,44)
-    self.homeButton.AnchorPoint=Vector2.new(.5,0); self.homeButton.Position=UDim2.new(.5,0,0,6); self.homeButton.Size=UDim2.fromOffset(if phone or short then 190 else 252,if phone or short then 50 else 66); self.homeButton.TextSize=if phone or short then 30 else 39; self.homeButton.Visible=self.state~=nil and (self.state.tutorialStep>=7 or self:isLuckyOpen())
-    self.contextPanel.Position=UDim2.new(.5,0,1,if phone then -300 elseif short then -178 else -226); self.contextPanel.Size=UDim2.fromOffset(math.min(320,size.X-36),62); self.contextButton.TextSize=if phone or short then 18 else 20
+    self.boostPrice.Position=self.boostButton.Position+UDim2.fromOffset(-4,self.boostButton.Size.Y.Offset+9); self.boostPrice.Size=UDim2.fromOffset(self.boostButton.Size.X.Offset+8,if short then 24 else 30); self.boostPrice.TextSize=if phone or short then 17 else 25
+    self.autoButton.Position=UDim2.fromOffset(if short then 128 else 12,if short then 145 else 310); self.autoButton.Size=UDim2.fromOffset(if phone or short then 90 else 130,if short then 36 else 44)
+    self.homeButton.AnchorPoint=Vector2.new(.5,0); self.homeButton.Position=UDim2.new(.5,0,0,6); self.homeButton.Size=UDim2.fromOffset(if short then 154 elseif phone then 190 else 252,if short then 40 elseif phone then 50 else 66); self.homeButton.TextSize=if phone or short then 30 else 39; self.homeButton.Visible=self.state~=nil and (self.state.tutorialStep>=7 or self:isLuckyOpen())
+    self.contextPanel.Position=UDim2.new(if short then .42 else .5,0,1,if phone then -200 elseif short then -150 else -226); self.contextPanel.Size=UDim2.fromOffset(if short then 230 else math.min(320,size.X-36),62); self.contextButton.TextSize=if phone or short then 18 else 20
     self.toast.Position=UDim2.new(.5,0,0,if short then 104 else 108); self.toast.Size=UDim2.fromOffset(math.min(size.X-32,410),44); self.toastText.TextSize=if phone or short then 14 else 16
     self.panel.Size=UDim2.fromOffset(math.min(size.X-24,640),math.min(size.Y-24,620))
     self.panel.AnchorPoint=Vector2.new(.5,.5); self.panel.Position=UDim2.fromScale(.5,.5); self.panel.BackgroundColor3=C.navy; self.panel.BackgroundTransparency=if self.mode=='Rebirth' then .25 elseif self.mode=='Index' then .28 else 0
     self.panel:FindFirstChildOfClass('UIStroke').Transparency=if self.mode=='Lucky' then 1 else 0
     self.closeButton.Size=UDim2.fromOffset(48,48); self.closeButton.Position=UDim2.new(1,-60,0,6); self.closeButton.TextSize=22
+    if self.mode=='Rebirth' then self.panel.Size=UDim2.fromOffset(math.min(size.X-24,500),math.min(size.Y-24,460)) end
     if self.mode=='Index' then self.panel.Size=UDim2.fromOffset(math.min(size.X-24,820),math.min(size.Y-24,650)) end
     if self.mode=='Lucky' then
-        local width=if phone then math.min(238,size.X*.60) else 306
-        local scale=math.max(.05,math.min(width/LuckyPanel.Width,(size.Y-28)/LuckyPanel.Height))
-        self.panel.Size=UDim2.fromOffset(LuckyPanel.Width*scale,LuckyPanel.Height*scale); self.panel.BackgroundTransparency=1
-        self.closeButton.Size=UDim2.fromOffset(32*scale,32*scale); self.closeButton.Position=UDim2.new(1,-38*scale,0,6*scale); self.closeButton.TextSize=24*scale
-        self.panel.AnchorPoint=Vector2.new(1,.5); self.panel.Position=UDim2.new(1,-12,.5,0)
+        -- Native pixels keep odds and actions legible, including short landscape.
+        local width=if phone then math.min(200,size.X-132) elseif short then 208 else math.clamp(size.X/6,220,280)
+        local top=self.homeButton.Position.Y.Offset+self.homeButton.Size.Y.Offset+12
+        local contextTop=size.Y+self.contextPanel.Position.Y.Offset-self.contextPanel.Size.Y.Offset
+        local height=if phone then math.min(432,contextTop-top-12) elseif short then size.Y-28 else math.min(LuckyPanel.Height,size.Y-120)
+        self.panel.Size=UDim2.fromOffset(width,height); self.panel.BackgroundTransparency=1
+        self.closeButton.Size=UDim2.fromOffset(28,28); self.closeButton.Position=UDim2.new(1,-30,0,3); self.closeButton.TextSize=19
+        self.panel.AnchorPoint=Vector2.new(1,if phone then 0 else .5); self.panel.Position=if phone then UDim2.new(1,-12,0,top) else UDim2.new(1,-12,.5,0)
+        if phone then
+            local left=size.X-12-width
+            self.boostButton.Size=UDim2.fromOffset(math.min(self.boostButton.Size.X.Offset,left-28),self.boostButton.Size.Y.Offset)
+            self.boostButton.Position=UDim2.fromOffset(16,math.max(self.boostButton.Position.Y.Offset,top+52))
+            self.boostPrice.Position=self.boostButton.Position+UDim2.fromOffset(-4,self.boostButton.Size.Y.Offset+9); self.boostPrice.Size=UDim2.fromOffset(self.boostButton.Size.X.Offset+8,if short then 24 else 30)
+            self.permanent.TextScaled=true
+            self.autoButton.Position=UDim2.fromOffset(12,top); self.autoButton.Size=UDim2.fromOffset(math.min(90,left-24),36)
+        end
     end
     self.preview.Size=UDim2.new(1,-24,0,if short then 44 else 76); self.preview.TextSize=if short then 14 else 16
     self.list.Position=UDim2.fromOffset(12,if short then 112 else 144); self.list.Size=UDim2.new(1,-24,1,if short then -180 else -212)
@@ -240,20 +260,44 @@ function UI.notice(self: any,message: string)
     end)
 end
 function UI.pickup(self: any,count: number,speciesId: string?)
-    self.pickupSerial=(self.pickupSerial or 0)+1
-    local lane=({-42,34,-12,54,-52,12})[(self.pickupSerial-1)%6+1]
-    local popup=text(self.bag,'PickupGain',25,if speciesId and Catalog[speciesId] then Color3.fromRGB(table.unpack(Catalog[speciesId].color)) else C.cream)
-    popup.AnchorPoint=Vector2.new(.5,1); popup.Position=UDim2.new(.5,lane,0,12); popup.Size=UDim2.fromOffset(120,45); popup.Text='+'..count; popup.TextSize=34; popup.Rotation=lane/9; popup.ZIndex=9
-    local outline=Instance.new('UIStroke'); outline.Color=Color3.fromRGB(20,15,12); outline.Thickness=3; outline.Parent=popup
-    local scale=Instance.new('UIScale'); scale.Scale=.65; scale.Parent=popup
-    TweenService:Create(scale,TweenInfo.new(.18,Enum.EasingStyle.Back),{Scale=1}):Play()
-    TweenService:Create(popup,TweenInfo.new(.75,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Position=UDim2.new(.5,lane*1.2,0,-72)}):Play()
-    task.delay(.65,function()
-        if not popup.Parent then return end
-        TweenService:Create(popup,TweenInfo.new(.35),{TextTransparency=1}):Play()
-        TweenService:Create(outline,TweenInfo.new(.35),{Transparency=1}):Play()
+    if count<=0 then return end
+    self.pickupPool=self.pickupPool or {}
+    local now=os.clock(); local entry=nil
+    -- A quick sweep becomes one readable gain per species, rather than 50 labels.
+    for _,candidate in self.pickupPool do
+        if candidate.root.Visible and candidate.speciesId==speciesId and now-candidate.started<.22 then entry=candidate; break end
+    end
+    if not entry then
+        for _,candidate in self.pickupPool do if not candidate.root.Visible then entry=candidate; break end end
+        if not entry and #self.pickupPool<6 then
+            local root=Instance.new('Frame'); root.Name='PickupGain'; root.BackgroundTransparency=1; root.Size=UDim2.fromOffset(144,58); root.AnchorPoint=Vector2.new(.5,1); root.ZIndex=9; root.Parent=self.bag
+            local amount=text(root,'Amount',38,Style.Gold); amount.Size=UDim2.new(1,0,0,40); amount.ZIndex=10
+            local species=text(root,'Species',14,Style.Cream); species.Position=UDim2.fromOffset(0,39); species.Size=UDim2.new(1,0,0,18); species.ZIndex=10
+            species.TextScaled=true; local limit=Instance.new('UITextSizeConstraint'); limit.MinTextSize=12; limit.MaxTextSize=14; limit.Parent=species
+            entry={root=root,amount=amount,species=species,index=#self.pickupPool+1,version=0}; table.insert(self.pickupPool,entry)
+        end
+        if not entry then
+            -- All six lanes are occupied: fold into the newest gain, preserving count.
+            entry=self.pickupPool[1]
+            for _,candidate in self.pickupPool do if candidate.started>entry.started then entry=candidate end end
+            entry.speciesId=nil; entry.species.Text='Minis'; entry.species.TextColor3=Style.Cream
+        else
+            entry.count=0; entry.speciesId=speciesId
+            local species=speciesId and Catalog[speciesId]
+            entry.species.Text=if species then species.name else 'Minis'
+            entry.species.TextColor3=if species then Color3.fromRGB(table.unpack(species.color)) else Style.Cream
+        end
+    end
+    entry.count+=count; entry.version+=1; local version=entry.version
+    entry.started=now; entry.root.Visible=true; entry.root:SetAttribute('Count',entry.count); entry.amount.Text='+'..entry.count
+    if entry.motion then entry.motion:Cancel() end
+    local lane=({-25,25,0,-38,38,0})[entry.index]
+    local lift=math.floor((entry.index-1)/2)*22
+    entry.root.Position=UDim2.new(.5,lane,0,8-lift)
+    entry.motion=TweenService:Create(entry.root,TweenInfo.new(.85,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Position=UDim2.new(.5,lane,0,-58-lift)}); entry.motion:Play()
+    task.delay(1,function()
+        if entry.version==version and entry.root.Parent then entry.root.Visible=false end
     end)
-    game:GetService('Debris'):AddItem(popup,1.05)
 end
 function UI.unavailable(self: any,reason: string) self.state=nil; self.stats.Text='Unavailable'; self.objective.Text=reason; self:close(); self.contextPanel.Visible=false end
 function UI.setPending(self: any,value: boolean) self.pending=value; self.signature=nil; self:drawMerge(); self:setContext(self.context,self.quantity) end
@@ -390,7 +434,7 @@ function UI.drawMerge(self: any)
             local price=if owned then 'OWNED' elseif available then tostring(info.price)..' Robux' else 'Coming soon'
             local colors={cash2=C.green,cash4=C.blue,cash8=C.violet,autoCollect=C.amber,autoSell=C.pink,mini2=C.green}
             local b=card(key,pass.name..'\n'..price,colors[key],i,function() if not owned and available then self.onPass(key) end end)
-            b.TextColor3=Color3.new(1,1,1); b.TextStrokeTransparency=0; b.TextStrokeColor3=C.navy; b.TextSize=20
+            b.TextColor3=Color3.new(1,1,1); b.TextStrokeTransparency=1; b.TextStrokeColor3=C.navy; b.TextSize=20
             Art.brick(b,colors[key]); b.AutoButtonColor=available and not owned
             local caption=b:FindFirstChild('BrickCaption'); if caption then caption.TextScaled=true; local limit=Instance.new('UITextSizeConstraint');limit.MaxTextSize=23;limit.MinTextSize=12;limit.Parent=caption end
         end

@@ -26,6 +26,11 @@ eq(buy(c,s,'capacity','50').code,'PlotFull'); eq(s.state.coinUnits,4000000-Econo
 eq(buy(c,s,'forged','99').code,'BadRequest')
 local one=c:slotPosition(1); local ten=c:slotPosition(10); local eleven=c:slotPosition(11)
 assert(ten.x<one.x); eq(eleven.x,one.x); assert(eleven.y>one.y); eq(eleven.z,one.z)
+assert(one.x-ten.x>=90,'Ten producer bays must span the broad rear bank')
+assert(math.abs(one.x)<=46 and math.abs(ten.x)<=46,'End producers must drop onto the existing 102-stud conveyor')
+for slot=2,Config.Columns do
+    eq(c:slotPosition(slot-1).x-c:slotPosition(slot).x,10)
+end
 local due=s.state.producers[4].due; local survivor=s.state.producers[4].id
 eq(c:dispatch(s,'Merge',{'merge',s.state.producers[2].id,s.state.producers[3].id},{now=2,alive=true,position={x=0,y=3,z=36}}).code,'OK')
 local seen={}

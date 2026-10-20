@@ -2,7 +2,20 @@
 -- Local collection celebration. Text has no panel; all 3D accents are native parts.
 local TweenService=game:GetService('TweenService')
 local Debris=game:GetService('Debris')
+local Style=require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('TextStyle'))
 local CashEffects={}
+local bursts: {{folder: Folder,count: number,expires: number}}={}
+local lastBurst=-math.huge
+local function reserveBurst(now: number,count: number): boolean
+    local active=0
+    for index=#bursts,1,-1 do
+        local item=bursts[index]
+        if not item.folder.Parent or now>=item.expires then
+            item.folder:Destroy();table.remove(bursts,index)
+        else active+=item.count end
+    end
+    return active+count<=150
+end
 local green=Color3.fromRGB(154,255,35)
 local function neon(parent: Instance,name: string,size: Vector3,cf: CFrame,color: Color3): Part
     local part=Instance.new('Part'); part.Name=name; part.Size=size; part.CFrame=cf; part.Color=color
@@ -12,34 +25,42 @@ end
 local function celebrateCharacter(character: Model?)
     local root=character and character:FindFirstChild('HumanoidRootPart')
     if not root or not root:IsA('BasePart') then return end
-    local burst=Instance.new('Folder'); burst.Name='CashCollectionBurst'; burst.Parent=workspace; Debris:AddItem(burst,2)
+    local now=os.clock();local repeatClaim=now-lastBurst<1
+    local count=if repeatClaim then 18 else 60
+    if now-lastBurst<.12 or not reserveBurst(now,count) then return end
+    lastBurst=now
+    local burst=Instance.new('Folder'); burst.Name='CashCollectionBurst'; burst.Parent=workspace; Debris:AddItem(burst,1.8)
+    table.insert(bursts,{folder=burst,count=count,expires=now+1.8})
     local params=RaycastParams.new();params.FilterType=Enum.RaycastFilterType.Exclude;params.FilterDescendantsInstances={character :: Model,burst}
     local ground=workspace:Raycast(root.Position,Vector3.new(0,-12,0),params)
     local origin=(if ground then ground.Position else root.Position-Vector3.new(0,3,0))+Vector3.new(0,.3,0)
-    -- Eight tiny outlined cash bundles fan out above the ground and dissolve.
-    for index=1,8 do
-        local angle=index*math.pi/4+.17;local radius=2.2+(index%3)*.8
+    -- Larger high-contrast bundles read at the normal play camera.
+    local bundles=if repeatClaim then 3 else 6
+    local rays=if repeatClaim then 3 else 6
+    local segments=if repeatClaim then 3 else 5
+    for index=1,bundles do
+        local angle=index*math.pi*2/bundles+.17;local radius=2.2+(index%3)*.8
         local target=CFrame.new(origin+Vector3.new(math.cos(angle)*radius,.2,math.sin(angle)*radius))*CFrame.Angles(0,angle,0)
         local start=CFrame.new(origin+Vector3.new(0,.55,0))*CFrame.Angles(0,angle-.5,0)
         for _,piece in {
-            {name='CashOutline',size=Vector3.new(.86,.27,.49),offset=CFrame.identity,color=Color3.fromRGB(14,91,34)},
-            {name='CashNote',size=Vector3.new(.74,.3,.39),offset=CFrame.new(0,.025,0),color=Color3.fromRGB(89,247,106)},
-            {name='CashBand',size=Vector3.new(.19,.33,.42),offset=CFrame.new(0,.04,0),color=Color3.fromRGB(255,227,78)},
+            {name='CashOutline',size=Vector3.new(1.18,.34,.68),offset=CFrame.identity,color=Color3.fromRGB(12,73,28)},
+            {name='CashNote',size=Vector3.new(1.04,.37,.56),offset=CFrame.new(0,.025,0),color=Color3.fromRGB(124,255,70)},
+            {name='CashBand',size=Vector3.new(.26,.4,.59),offset=CFrame.new(0,.04,0),color=Color3.fromRGB(255,227,78)},
         } do
             local cash=neon(burst,piece.name,piece.size,start*piece.offset,piece.color);cash.Material=Enum.Material.SmoothPlastic
             TweenService:Create(cash,TweenInfo.new(.5,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{CFrame=target*piece.offset}):Play()
-            task.delay(1.3,function()if cash.Parent then TweenService:Create(cash,TweenInfo.new(.7),{Transparency=1,CFrame=target*piece.offset+Vector3.new(0,.35,0)}):Play() end end)
+            task.delay(.95,function()if cash.Parent then TweenService:Create(cash,TweenInfo.new(.65),{Transparency=1,CFrame=target*piece.offset+Vector3.new(0,.35,0)}):Play() end end)
         end
     end
-    for ray=1,8 do
-        local angle=ray*math.pi/4
+    for ray=1,rays do
+        local angle=ray*math.pi*2/rays
         local direction=Vector3.new(math.cos(angle),0,math.sin(angle))
         local function point(t: number): Vector3
             return origin+direction*(.35+t*3.5)+Vector3.new(0,math.sin(t*math.pi)*1.55-t*.4,0)
         end
-        for segment=1,7 do
-            local a=point((segment-1)/7); local b=point(segment/7)
-            local streak=neon(burst,'Arc',Vector3.new(.065,.065,(b-a).Magnitude+.025),CFrame.lookAt((a+b)/2,b),if ray%2==0 then green else Color3.fromRGB(226,255,167))
+        for segment=1,segments do
+            local a=point((segment-1)/segments); local b=point(segment/segments)
+            local streak=neon(burst,'Arc',Vector3.new(.11,.11,(b-a).Magnitude+.025),CFrame.lookAt((a+b)/2,b),if ray%2==0 then green else Color3.fromRGB(241,255,201))
             streak.Transparency=1
             task.delay((segment-1)*.035,function()
                 if not streak.Parent then return end
@@ -50,12 +71,12 @@ local function celebrateCharacter(character: Model?)
             end)
         end
     end
-    for index=1,10 do
-        local angle=index*math.pi*.2; local radius=1.3+(index%3)*.45
+    for index=1,(if repeatClaim then 0 else 6) do
+        local angle=index*math.pi/3; local radius=1.3+(index%3)*.45
         local offset=Vector3.new(math.cos(angle)*radius,.4+(index%4)*.35,math.sin(angle)*radius)
         local center=origin+offset
         local drift=Vector3.new(offset.X*.5,1.1+(index%3)*.3,offset.Z*.5)
-        for axis=1,3 do
+        for axis=1,2 do
             local size=if axis==1 then Vector3.new(.4,.075,.075) elseif axis==2 then Vector3.new(.075,.4,.075) else Vector3.new(.075,.075,.4)
             local sparkle=neon(burst,'Sparkle',size,CFrame.new(center),if index%2==0 then Color3.fromRGB(236,255,197) else green)
             TweenService:Create(sparkle,TweenInfo.new(.85+(index%3)*.1,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{CFrame=CFrame.new(center+drift)*CFrame.Angles(.3,.5,.2),Size=size*.15,Transparency=1}):Play()
@@ -72,7 +93,8 @@ function CashEffects.play(gui: ScreenGui,character: Model?,amountText: string)
     label.BackgroundTransparency=1; label.BorderSizePixel=0; label.Text='Collected $'..amountText..' Cash!'
     label.Font=Enum.Font.FredokaOne; label.TextColor3=Color3.new(1,1,1); label.TextScaled=true; label.ZIndex=35; label.Parent=parent
     local constraint=Instance.new('UITextSizeConstraint'); constraint.MaxTextSize=42; constraint.MinTextSize=16; constraint.Parent=label
-    local outline=Instance.new('UIStroke'); outline.Color=Color3.fromRGB(22,57,4); outline.Thickness=3; outline.Parent=label
+    Style.apply(label,42,Style.Price,3)
+    local outline=label:FindFirstChild('TextOutline') :: UIStroke
     local gradient=Instance.new('UIGradient'); gradient.Rotation=90; gradient.Color=ColorSequence.new(Color3.fromRGB(194,255,47),Color3.fromRGB(86,223,0)); gradient.Parent=label
     local scale=Instance.new('UIScale'); scale.Scale=.72; scale.Parent=label
     local rise=Instance.new('NumberValue'); rise.Name='Rise'; rise.Parent=label

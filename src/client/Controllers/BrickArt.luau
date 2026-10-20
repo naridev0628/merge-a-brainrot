@@ -1,6 +1,7 @@
 --!strict
 -- Native UI artwork and model portraits: no placeholder image IDs or external fonts.
 local Shared=game:GetService('ReplicatedStorage'):WaitForChild('Shared')
+local Style=require(Shared:WaitForChild('TextStyle'))
 local Factory=require(Shared:WaitForChild('ModelFactory'))
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
 local ContentProvider=game:GetService('ContentProvider')
@@ -13,6 +14,7 @@ local function rect(parent: Instance,pos: UDim2,size: UDim2,color: Color3,rotati
 end
 local function glyph(parent: Instance,value: string,pos: UDim2,size: UDim2,color: Color3)
     local l=Instance.new('TextLabel'); l.Text=value; l.Position=pos; l.Size=size; l.BackgroundTransparency=1; l.Font=Enum.Font.FredokaOne; l.TextColor3=color; l.TextScaled=true; l.TextStrokeTransparency=0; l.TextStrokeColor3=ink; l.Parent=parent
+    Style.apply(l,nil,color)
     return l
 end
 function Art.brick(parent: GuiObject,color: Color3)
@@ -58,7 +60,8 @@ function Art.brick(parent: GuiObject,color: Color3)
         local function sync()
             label.Text=parent.Text; label.Font=parent.Font; label.TextSize=parent.TextSize; label.TextColor3=parent.TextColor3
             label.TextWrapped=parent.TextWrapped; label.TextXAlignment=parent.TextXAlignment; label.TextYAlignment=parent.TextYAlignment
-            label.TextStrokeColor3=parent.TextStrokeColor3; label.TextStrokeTransparency=parent.TextStrokeTransparency
+            Style.apply(label,parent.TextSize,parent.TextColor3)
+            local parentOutline=parent:FindFirstChild('TextOutline'); if parentOutline then parentOutline.Enabled=false end
         end
         for _,property in {'Text','Font','TextSize','TextColor3','TextWrapped','TextXAlignment','TextYAlignment','TextStrokeColor3','TextStrokeTransparency'} do parent:GetPropertyChangedSignal(property):Connect(sync) end
         parent.TextTransparency=1; sync()
@@ -108,7 +111,7 @@ function Art.cardPortrait(entry: TextButton,speciesId: string)
     Art.portrait(entry,speciesId,UDim2.fromOffset(0,0),UDim2.new(0,60,1,0))
     local label=Instance.new('TextLabel'); label.Name='Caption'; label.BackgroundTransparency=1
     label.Position=UDim2.fromOffset(64,0); label.Size=UDim2.new(1,-68,1,0); label.Text=caption
-    label.TextColor3=entry.TextColor3; label.Font=entry.Font; label.TextSize=14; label.TextWrapped=true; label.Parent=entry
+    label.TextColor3=entry.TextColor3; label.Font=entry.Font; label.TextSize=16; label.TextWrapped=true; label.Parent=entry; Style.apply(label,16)
 end
 function Art.icon(parent: Instance,kind: string,pos: UDim2,size: UDim2)
     local f=Instance.new('Frame'); f.Name='Icon'; f.Position=pos; f.Size=size; f.BackgroundTransparency=1; f.Parent=parent
@@ -166,13 +169,25 @@ function Art.icon(parent: Instance,kind: string,pos: UDim2,size: UDim2)
     return f
 end
 function Art.basket(parent: GuiObject)
-    for index=1,3 do Art.portrait(parent,if index==2 then 'tier_02' else 'tier_01',UDim2.fromScale((index-1)*.22+.04,-.10),UDim2.fromScale(.48,.68)) end
-    local body=rect(parent,UDim2.fromScale(.08,.43),UDim2.fromScale(.84,.55),Color3.fromRGB(197,116,32),0,4)
-    local corner=Instance.new('UICorner'); corner.CornerRadius=UDim.new(.28,0); corner.Parent=body
-    for i=1,5 do local slat=rect(body,UDim2.fromScale(i*.15,.06),UDim2.fromScale(.035,.85),Color3.fromRGB(238,166,64)); slat.BackgroundTransparency=.3 end
-    local rim=rect(parent,UDim2.fromScale(.02,.43),UDim2.fromScale(.96,.10),Color3.fromRGB(255,191,80),0,3)
+    -- Broad character silhouettes sit above a rounded, woven basket.
+    for index=1,3 do
+        local face=Art.portrait(parent,if index==2 then 'tier_02' else 'tier_01',UDim2.fromScale((index-1)*.22-.04,if index==2 then -.13 else -.05),UDim2.fromScale(.64,.76))
+        face.ZIndex=1
+    end
+    local body=rect(parent,UDim2.fromScale(.08,.48),UDim2.fromScale(.84,.51),Color3.fromRGB(213,128,32),0,4); body.Name='WovenBody'; body.ClipsDescendants=true; body.ZIndex=2
+    local corner=Instance.new('UICorner'); corner.CornerRadius=UDim.new(.34,0); corner.Parent=body
+    local shade=Instance.new('UIGradient'); shade.Color=ColorSequence.new(Color3.fromRGB(255,232,167),Color3.fromRGB(188,100,23)); shade.Rotation=90; shade.Parent=body
+    for direction=-1,1,2 do
+        for i=-3,8 do
+            local slat=rect(body,UDim2.fromScale(i*.17,-.32),UDim2.fromScale(.045,1.65),if direction==1 then Color3.fromRGB(255,196,84) else Color3.fromRGB(163,79,20),direction*38)
+            slat.Name='CrossWeave'; slat.BackgroundTransparency=.15; slat.ZIndex=2
+        end
+    end
+    local rim=rect(parent,UDim2.fromScale(.02,.46),UDim2.fromScale(.96,.14),Color3.fromRGB(255,181,57),0,3); rim.Name='BasketRim'; rim.ZIndex=3
     local r=Instance.new('UICorner'); r.CornerRadius=UDim.new(1,0); r.Parent=rim
-    local plate=rect(parent,UDim2.fromScale(.20,.60),UDim2.fromScale(.60,.32),Color3.fromRGB(255,232,163),0,2)
-    local p=Instance.new('UICorner'); p.CornerRadius=UDim.new(.3,0); p.Parent=plate
+    local highlight=rect(rim,UDim2.fromScale(.04,.08),UDim2.fromScale(.92,.22),Color3.fromRGB(255,221,129)); highlight.ZIndex=3
+    local h=Instance.new('UICorner'); h.CornerRadius=UDim.new(1,0); h.Parent=highlight
+    local plate=rect(parent,UDim2.fromScale(.16,.64),UDim2.fromScale(.68,.30),Color3.fromRGB(255,234,177),0,2); plate.Name='CountInset'; plate.ZIndex=3
+    local p=Instance.new('UICorner'); p.CornerRadius=UDim.new(.4,0); p.Parent=plate
 end
 return Art

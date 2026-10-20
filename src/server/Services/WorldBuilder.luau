@@ -9,6 +9,7 @@ local Catalog=require(Shared.CreatureCatalog)
 local Config=require(Shared.Config)
 local Economy=require(Shared.Economy)
 local PassConfig=require(Shared.PassConfig)
+local TextStyle=require(Shared.TextStyle)
 local Core=require(script.Parent.Parent.Domain.FarmCore)
 local layout=Core.new(Config,Catalog)
 local World={}
@@ -49,6 +50,19 @@ local function padAvailability(part: BasePart,affordable: boolean)
             elseif detail.Name==part.Name..'Edge' then detail.Color=color:Lerp(Color3.new(1,1,1),.3) end
         end
     end
+end
+local function actionLabel(part: BasePart,action: string,value: string,width: number?)
+    local title=Factory.label(part,action,width or 180,102)
+    title.Size=UDim2.new(1,0,0,38);title.TextWrapped=false
+    TextStyle.apply(title,30,TextStyle.Cream,2.4)
+    title.Parent.StudsOffset=Vector3.new(0,4.3,0);title.Parent.MaxDistance=75
+    local price=title:Clone();price.Name='Price';price.Position=UDim2.fromOffset(0,38);price.Size=UDim2.new(1,0,0,42);price.Text=value;price.Parent=title.Parent
+    TextStyle.apply(price,36,TextStyle.Price,2.6);price.TextScaled=true
+    local priceSize=Instance.new('UITextSizeConstraint');priceSize.MinTextSize=18;priceSize.MaxTextSize=36;priceSize.Parent=price
+    local detail=title:Clone();detail.Name='Detail';detail.Position=UDim2.fromOffset(0,80);detail.Size=UDim2.new(1,0,0,22);detail.Text='';detail.Parent=title.Parent
+    TextStyle.apply(detail,13,TextStyle.Cream,1.5);detail.TextScaled=true
+    local detailSize=Instance.new('UITextSizeConstraint');detailSize.MinTextSize=9;detailSize.MaxTextSize=13;detailSize.Parent=detail
+    return title,price,detail
 end
 local function fence(parent: Instance,cf: CFrame,length: number)
     local wood=Color3.fromRGB(171,111,65)
@@ -94,21 +108,13 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local pads={}
     for _,quantity in {'1','5','10','50'} do
         local purchase=pad(root,'Buy'..quantity,Vector3.new(10,.4,7),CFrame.new(Config.BuyPads[quantity],.2,Config.BuyZ),if quantity=='1' then Color3.fromRGB(96,238,43) else Color3.fromRGB(244,90,94))
-        local title=Factory.label(purchase,'Buy '..quantity,170,102)
-        title.Size=UDim2.new(1,0,0,38);title.TextSize=32;title.TextWrapped=false;title.TextColor3=Color3.fromRGB(255,241,209)
-        title.Parent.StudsOffset=Vector3.new(0,4.1,0);title.Parent.MaxDistance=32
-        local outline=Instance.new('UIStroke');outline.Color=Color3.new(0,0,0);outline.Thickness=2.2;outline.Parent=title
-        local price=title:Clone();price.Name='Price';price.Position=UDim2.fromOffset(0,36);price.Size=UDim2.new(1,0,0,40);price.TextSize=36;price.Text=if quantity=='1' then '$5' else cashText(Economy.buyCost(0,tonumber(quantity),1));price.TextColor3=Color3.fromRGB(132,255,0);price.Parent=title.Parent
-        price.TextScaled=true
-        local priceSize=Instance.new('UITextSizeConstraint');priceSize.MinTextSize=18;priceSize.MaxTextSize=36;priceSize.Parent=price
-        local detail=title:Clone();detail.Name='Detail';detail.Position=UDim2.fromOffset(0,78);detail.Size=UDim2.new(1,0,0,24);detail.TextSize=13;detail.Text='';detail.Parent=title.Parent
-        detail.TextScaled=true
-        local detailSize=Instance.new('UITextSizeConstraint');detailSize.MinTextSize=9;detailSize.MaxTextSize=13;detailSize.Parent=detail
+        local title=actionLabel(purchase,'Buy '..quantity,if quantity=='1' then '$5' else cashText(Economy.buyCost(0,tonumber(quantity),1)))
         pads[quantity]=title
     end
     local deposit=pad(root,'DepositPad',Vector3.new(Map.DepositHalfSize.X*2,.4,Map.DepositHalfSize.Y*2),CFrame.new(Map.Sell),Color3.fromRGB(255,229,95))
-    local depositLabel=Factory.label(deposit,'Deposit Minis',220,42);depositLabel.TextSize=26;depositLabel.TextColor3=Color3.fromRGB(255,235,166);depositLabel.Parent.StudsOffset=Vector3.new(0,3.3,0)
-    local depositOutline=Instance.new('UIStroke');depositOutline.Thickness=2;depositOutline.Color=Color3.fromRGB(45,28,12);depositOutline.Parent=depositLabel
+    local depositLabel=Factory.label(deposit,'Deposit Minis',230,44);TextStyle.apply(depositLabel,30,TextStyle.Cream,2.6);depositLabel.Parent.StudsOffset=Vector3.new(0,3.3,0)
+    -- A broad warm halo reads from the bridge; the studded top stays solid.
+    local depositHalo=Factory.part(root,'DepositWarmHalo',Vector3.new(20.6,.06,12.6),CFrame.new(Map.Sell+Vector3.new(0,.06,0)),Color3.fromRGB(255,218,65));depositHalo.Material=Enum.Material.Neon;depositHalo.Transparency=.68;depositHalo.CanQuery=false
     for _,side in {-1,1} do
         local a=Factory.part(root,'DepositGlow',Vector3.new(18.6,.2,.5),CFrame.new(Map.Sell+Vector3.new(0,.28,side*5)),Color3.fromRGB(255,255,65));a.Material=Enum.Material.Neon
         local b=Factory.part(root,'DepositGlow',Vector3.new(.5,.2,10),CFrame.new(Map.Sell+Vector3.new(side*9,.28,0)),Color3.fromRGB(255,255,65));b.Material=Enum.Material.Neon
@@ -180,35 +186,37 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     for _,y in {3.8,14.2} do Factory.part(processorGroup,'SignFrame',Vector3.new(23.6,.55,1.4),CFrame.new(-34,y,29),Color3.fromRGB(103,61,31)) end
     for _,x in {-45.7,-22.3} do Factory.part(processorGroup,'SignFrame',Vector3.new(.55,10.4,1.4),CFrame.new(x,9,29),Color3.fromRGB(103,61,31)) end
     local textFace=Factory.part(processorGroup,'ProcessorTextFace',Vector3.new(23,10,.02),CFrame.new(-34,9,28.3),Color3.new(1,1,1));textFace.Transparency=1;textFace.CanQuery=false
-    local surface=Instance.new('SurfaceGui'); surface.Name='ProcessorDisplay'; surface.Adornee=textFace; surface.Face=Enum.NormalId.Front; surface.CanvasSize=Vector2.new(690,300); surface.Parent=processor
+    local surface=Instance.new('SurfaceGui'); surface.Name='ProcessorDisplay'; surface.Adornee=textFace; surface.Face=Enum.NormalId.Front; surface.SizingMode=Enum.SurfaceGuiSizingMode.FixedSize;surface.CanvasSize=Vector2.new(690,300);surface.LightInfluence=0;surface.MaxDistance=100;surface.Parent=processor
     local function signLine(name: string,value: string,y: number,height: number,size: number,color: Color3)
-        local label=Instance.new('TextLabel');label.Name=name;label.Text=value;label.Position=UDim2.fromOffset(0,y);label.Size=UDim2.new(1,0,0,height);label.BackgroundTransparency=1;label.Font=Enum.Font.FredokaOne;label.TextSize=size;label.TextColor3=color;label.TextStrokeTransparency=0;label.TextStrokeColor3=Color3.fromRGB(30,19,14);label.Parent=surface
-        local stroke=Instance.new('UIStroke');stroke.Thickness=2;stroke.Color=label.TextStrokeColor3;stroke.Parent=label
+        local label=Instance.new('TextLabel');label.Name=name;label.Text=value;label.Position=UDim2.fromOffset(15,y);label.Size=UDim2.new(1,-30,0,height);label.BackgroundTransparency=1;label.Parent=surface
+        TextStyle.apply(label,size,color,3)
         return label
     end
-    signLine('Title','Selling Brainrots',18,53,46,Color3.fromRGB(255,236,242))
-    signLine('FriendBoost','(No Friend Boost)',72,32,28,Color3.fromRGB(83,207,255))
-    local processorLabel=signLine('Queued','0',100,116,102,Color3.fromRGB(255,231,183))
-    local processorRate=signLine('Rate','2 per second',220,52,40,Color3.fromRGB(255,231,202))
+    signLine('Title','MINI PROCESSOR',20,48,40,TextStyle.Cream)
+    local processorLabel=signLine('Queued','No Minis queued',88,92,58,TextStyle.Cream)
+    processorLabel.TextScaled=true
+    local queueSize=Instance.new('UITextSizeConstraint');queueSize.MinTextSize=28;queueSize.MaxTextSize=58;queueSize.Parent=processorLabel
+    local processorRate=signLine('Rate','2 per second',222,58,48,TextStyle.Cream)
     local signTransform=CFrame.new(-47,0,10)*CFrame.Angles(0,-math.pi/2,0)*CFrame.new(34,0,-29)
     for _,part in processorGroup:GetDescendants() do if part:IsA('BasePart') then part.CFrame=signTransform*part.CFrame end end
     local upgrade=pad(root,'UpgradePad',Vector3.new(11,.4,7),CFrame.new(Map.Upgrade),Color3.fromRGB(95,245,70))
-    local upgradeLabel=Factory.label(upgrade,'+3 per second',220,85)
-    upgradeLabel.Size=UDim2.new(1,0,0,32); upgradeLabel.TextSize=26; upgradeLabel.TextWrapped=false
-    upgradeLabel.TextStrokeColor3=Color3.fromRGB(30,25,18)
-    local upgradePrice=upgradeLabel:Clone(); upgradePrice.Name='Price'; upgradePrice.Position=UDim2.fromOffset(0,32); upgradePrice.Size=UDim2.new(1,0,0,50); upgradePrice.Text='$10'; upgradePrice.TextSize=42; upgradePrice.TextColor3=Color3.fromRGB(133,255,0); upgradePrice.Parent=upgradeLabel.Parent
-    for _,label in {upgradeLabel,upgradePrice} do local outline=Instance.new('UIStroke');outline.Color=Color3.fromRGB(26,37,10);outline.Thickness=2;outline.Parent=label end
+    local upgradeLabel,upgradePrice=actionLabel(upgrade,'+3 per second','$10',240)
+    upgradeLabel.TextScaled=true
+    local upgradeSize=Instance.new('UITextSizeConstraint');upgradeSize.MinTextSize=18;upgradeSize.MaxTextSize=30;upgradeSize.Parent=upgradeLabel
     local finish=pad(root,'FinishNowPad',Vector3.new(10,.4,7),CFrame.new(Map.FinishNow),Color3.fromRGB(255,213,35)); finish:SetAttribute('ProductKey','finishNow')
-    Factory.label(finish,'Finish now\nComing soon',140,52)
+    local _,finishStatus=actionLabel(finish,'Finish Now','Coming soon',205);TextStyle.apply(finishStatus,25,TextStyle.Cream,2);finishStatus:FindFirstChildOfClass('UITextSizeConstraint').MaxTextSize=25
     for key,position in Map.PassPads do
         local passPad=pad(root,'Pass_'..key,Vector3.new(8,.4,6),CFrame.new(position),Color3.fromRGB(255,222,35))
-        passPad:SetAttribute('PassKey',key); local label=Factory.label(passPad,PassConfig[key].name..'\nComing soon',125,54); label.TextSize=14; label.Parent.MaxDistance=26
-        if key=='autoCollect' then label.Text='Auto Collect\nComing soon';label.TextSize=20;label.TextColor3=Color3.fromRGB(255,241,209);label.Parent.StudsOffset=Vector3.new(0,4.1,0);local outline=Instance.new('UIStroke');outline.Color=Color3.new(0,0,0);outline.Thickness=2;outline.Parent=label end
+        passPad:SetAttribute('PassKey',key)
+        local label,status=actionLabel(passPad,if key=='autoCollect' then 'Auto Collect' else PassConfig[key].name,'Coming soon',180)
+        TextStyle.apply(label,if key=='autoCollect' then 27 else 22,TextStyle.Cream,2.2);TextStyle.apply(status,22,TextStyle.Cream,2)
+        status:FindFirstChildOfClass('UITextSizeConstraint').MaxTextSize=22
+        label.Parent.MaxDistance=if key=='autoCollect' then 75 else 40
     end
-    local claim=pad(root,'CoinPad',Vector3.new(15,.4,10),CFrame.new(Map.Claim),Color3.fromRGB(107,234,82))
-    local saleLabel=Factory.label(claim,'Collect cash\n$0',155,50);saleLabel.TextColor3=Color3.fromRGB(130,255,44);saleLabel.TextSize=20
+    local claim=pad(root,'CoinPad',Vector3.new(15,.4,10),CFrame.new(Map.Claim),Color3.fromRGB(92,231,139))
+    local _,saleLabel=actionLabel(claim,'Collect Cash','$0',230)
     local merge=pad(root,'MergePad',Vector3.new(10,.4,7),CFrame.new(Map.Merge),Color3.fromRGB(252,219,50))
-    Factory.label(merge,'Merge',140,44)
+    local mergeLabel=Factory.label(merge,'Merge',160,44);TextStyle.apply(mergeLabel,32,TextStyle.Cream,2.6)
     local sign=Factory.part(root,'OwnerSign',Vector3.new(14,4,1),CFrame.new(0,4,Config.PlotBackZ-2),Color3.fromRGB(157,91,31))
     local ownerLabel=Factory.label(sign,'BRAINROT FARM',260,58)
     local badgePart=Factory.part(root,'OwnerBadgeAnchor',Vector3.one,CFrame.new(0,44,Config.DisplayZ),orange); badgePart.Transparency=1
@@ -217,7 +225,7 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local round=Instance.new('UICorner'); round.CornerRadius=UDim.new(1,0); round.Parent=portrait
     local rim=Instance.new('UIStroke'); rim.Thickness=3; rim.Color=Color3.new(0,0,0); rim.Parent=portrait
     local ownerName=Instance.new('TextLabel'); ownerName.Name='Username'; ownerName.Size=UDim2.new(1,0,0,40); ownerName.Position=UDim2.fromOffset(0,78); ownerName.BackgroundTransparency=1
-    ownerName.Font=Enum.Font.FredokaOne; ownerName.TextSize=22; ownerName.TextColor3=Color3.new(1,1,1); ownerName.TextStrokeTransparency=0; ownerName.Text='Available plot'; ownerName.Position=UDim2.fromOffset(0,40);ownerName.Parent=badge
+    ownerName.Text='Available plot'; ownerName.Position=UDim2.fromOffset(0,40);ownerName.Parent=badge;TextStyle.apply(ownerName,22,TextStyle.Cream,2.2)
     portrait.Visible=false
     -- Two red lanes converge at the center, then feed a gold-rimmed collection tray.
     local belt=Factory.part(root,'ConveyorBelt',Vector3.new(102,.4,8),CFrame.new(0,.5,Config.BeltZ),Color3.fromRGB(222,61,62),nil,true); belt.TopSurface=Enum.SurfaceType.Studs
@@ -226,7 +234,8 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local chuteStart=Config.TrayZ+6
     local chuteEnd=Config.BeltZ+4
     Factory.part(root,'ConveyorCenter',Vector3.new(14,.4,chuteEnd-chuteStart+1),CFrame.new(0,.5,(chuteStart+chuteEnd)/2),Color3.fromRGB(222,61,62),nil,true)
-    Factory.part(root,'CollectionTray',Vector3.new(16,.4,12),CFrame.new(0,.45,Config.TrayZ),Color3.fromRGB(239,95,71))
+    local tray=Factory.part(root,'CollectionTray',Vector3.new(16,.4,12),CFrame.new(0,.45,Config.TrayZ),Color3.fromRGB(222,61,62));tray.TopSurface=Enum.SurfaceType.Studs
+    for x=-6,6,2 do for z=-4,4,2 do Factory.part(root,'TrayStud',Vector3.new(.5,.1,.5),CFrame.new(x,.7,Config.TrayZ+z),Color3.fromRGB(238,84,82)) end end
     for _,x in {-8,8} do Factory.part(root,'TrayRim',Vector3.new(.7,.8,12),CFrame.new(x,.8,Config.TrayZ),orange,nil,true) end
     Factory.part(root,'TrayFront',Vector3.new(16,.6,.7),CFrame.new(0,.7,Config.TrayZ-6),orange,nil,true)
     belt.Transparency=1;belt.CanCollide=false
@@ -237,7 +246,7 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     end
     local plotDecor=Instance.new('Model');plotDecor.Name='PlotDecor';plotDecor.WorldPivot=CFrame.identity;plotDecor.Parent=root
     -- Identical authored locations, variants and sizes on every plot; keep all play areas clear.
-    for _,spec in {{Vector3.new(-48,0,Config.DisplayZ+1),.8,2,.3},{Vector3.new(48,0,Config.DisplayZ+1),.9,1,0},{Vector3.new(43,0,-7),.65,3,0}} do
+    for _,spec in {{Vector3.new(-49,0,65),.8,2,.3},{Vector3.new(49,0,65),.9,1,0},{Vector3.new(43,0,-7),.65,3,0}} do
         Environment.tree(plotDecor,CFrame.new(spec[1])*CFrame.Angles(0,spec[4],0),spec[2],spec[3])
     end
     for _,spot in {Vector3.new(43,0,18),Vector3.new(-44,0,0)} do
@@ -261,14 +270,18 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     for x=-7,7,2 do for y=-4,4,2 do Factory.part(root,'GroupBoardStud',Vector3.new(.7,.7,.15),groupCF*CFrame.new(x,y,-.48),Color3.fromRGB(188,133,82)) end end
     for _,y in {-5,5} do Factory.part(root,'GroupBoardFrame',Vector3.new(17.6,.55,1),groupCF*CFrame.new(0,y,0),Color3.fromRGB(103,61,31)) end
     for _,x in {-8.5,8.5} do Factory.part(root,'GroupBoardFrame',Vector3.new(.55,10,1),groupCF*CFrame.new(x,0,0),Color3.fromRGB(103,61,31)) end
-    local groupGui=Instance.new('SurfaceGui');groupGui.Face=Enum.NormalId.Front;groupGui.CanvasSize=Vector2.new(510,300);groupGui.AlwaysOnTop=true;groupGui.Parent=groupBoard
+    -- Render through the same world-space path as the processor. In the verified
+    -- Studio view AlwaysOnTop made this surface disappear; the forward plane also
+    -- keeps the wood studs from cutting through the lettering.
+    local groupFace=Factory.part(root,'GroupRewardTextFace',Vector3.new(17,10,.02),groupCF*CFrame.new(0,0,-.7),groupBoard.Color);groupFace.Transparency=1;groupFace.CanQuery=false
+    local groupGui=Instance.new('SurfaceGui');groupGui.Name='GroupRewardDisplay';groupGui.Adornee=groupFace;groupGui.Face=Enum.NormalId.Front;groupGui.SizingMode=Enum.SurfaceGuiSizingMode.FixedSize;groupGui.CanvasSize=Vector2.new(510,300);groupGui.AlwaysOnTop=false;groupGui.LightInfluence=0;groupGui.MaxDistance=100;groupGui.Parent=groupBoard
     for _,line in {
-        {name='Reward',text='Free money every\n10 minutes!',y=22,height=104,size=43,color=Color3.fromRGB(147,228,139)},
-        {name='Instructions',text='Like the game +\nJoin the group',y=143,height=94,size=42,color=Color3.new(1,1,1)},
-        {name='Status',text='Coming soon',y=252,height=30,size=25,color=Color3.fromRGB(255,239,194)},
+        {name='Reward',text='Group rewards',y=35,height=68,size=43,color=TextStyle.Cream},
+        {name='Instructions',text='Coming soon',y=124,height=68,size=42,color=TextStyle.Gold},
+        {name='Status',text='No reward available yet',y=237,height=34,size=25,color=TextStyle.Cream},
     } do
-        local label=Instance.new('TextLabel');label.Name=line.name;label.Size=UDim2.new(1,-30,0,line.height);label.Position=UDim2.fromOffset(15,line.y);label.BackgroundTransparency=1;label.Text=line.text;label.Font=Enum.Font.FredokaOne;label.TextSize=line.size;label.TextColor3=line.color;label.TextStrokeTransparency=0;label.TextStrokeColor3=Color3.new(0,0,0);label.Parent=groupGui
-        local outline=Instance.new('UIStroke');outline.Thickness=2.3;outline.Color=Color3.new(0,0,0);outline.Parent=label
+        local label=Instance.new('TextLabel');label.Name=line.name;label.Size=UDim2.new(1,-30,0,line.height);label.Position=UDim2.fromOffset(15,line.y);label.BackgroundTransparency=1;label.Text=line.text;label.Parent=groupGui
+        TextStyle.apply(label,line.size,line.color,2.8)
     end
     local groupLogCF=groupCF*CFrame.new(0,-8.3,-1.8)
     local groupLog=Factory.part(root,'GroupBoardFootLog',Vector3.new(7,1.4,1.6),groupLogCF,Color3.fromRGB(145,88,43));groupLog.TopSurface=Enum.SurfaceType.Studs
@@ -437,29 +450,31 @@ function World.render(world: any,state: any)
             local rowY=(row-1)*Config.RowHeight
             local platformHeight=Config.DisplayPlatformHeight
             local lift=platformHeight-.5
-            local base=Factory.part(shelf,'ShelfBase',Vector3.new(67,.45,7),CFrame.new(0,.225+rowY,Config.DisplayZ),orange)
+            local bayWidth=Config.ColumnSpacing-.1
+            local studSpread=Config.ColumnSpacing*.37
+            local base=Factory.part(shelf,'ShelfBase',Vector3.new(Config.Columns*Config.ColumnSpacing+1,.45,7),CFrame.new(0,.225+rowY,Config.DisplayZ),orange)
             base.TopSurface=Enum.SurfaceType.Studs
             for column=1,Config.Columns do
                 local slot=(row-1)*Config.Columns+column; local pos=layout:slotPosition(slot)
-                local plinth=Factory.part(shelf,'DisplayPlatform',Vector3.new(5.7,platformHeight,5.7),CFrame.new(pos.x,platformHeight/2+rowY,Config.DisplayZ),Color3.fromRGB(255,223,122)); plinth.TopSurface=Enum.SurfaceType.Studs
-                for _,dx in {-1.8,0,1.8} do for _,dz in {-1.8,0,1.8} do
+                local plinth=Factory.part(shelf,'DisplayPlatform',Vector3.new(Config.ColumnSpacing*.88,platformHeight,5.7),CFrame.new(pos.x,platformHeight/2+rowY,Config.DisplayZ),Color3.fromRGB(255,223,122)); plinth.TopSurface=Enum.SurfaceType.Studs
+                for dx=-studSpread,studSpread,studSpread/2 do for _,dz in {-1.8,0,1.8} do
                     Factory.part(shelf,'DisplayBrickStud',Vector3.new(.7,.16,.7),CFrame.new(pos.x+dx,platformHeight+.08+rowY,Config.DisplayZ+dz),Color3.fromRGB(255,237,167))
                 end end
-                Factory.part(shelf,'DisplayBack',Vector3.new(6.4,5.8,.25),CFrame.new(pos.x,3.1+lift+rowY,Config.DisplayZ+3.45),Color3.fromRGB(178,128,52))
-                Factory.part(shelf,'DisplayDivider',Vector3.new(.22,4.5,6.8),CFrame.new(pos.x-3.2,2.45+lift+rowY,Config.DisplayZ),Color3.fromRGB(217,164,66))
-                local glow=Factory.part(shelf,'Slot'..slot,Vector3.new(5.9,.12,5.9),CFrame.new(pos.x,platformHeight-.12+rowY,Config.DisplayZ),orange); glow.Material=Enum.Material.Neon
+                Factory.part(shelf,'DisplayBack',Vector3.new(bayWidth,5.8,.25),CFrame.new(pos.x,3.1+lift+rowY,Config.DisplayZ+3.45),Color3.fromRGB(178,128,52))
+                Factory.part(shelf,'DisplayDivider',Vector3.new(.22,4.5,6.8),CFrame.new(pos.x-bayWidth/2,2.45+lift+rowY,Config.DisplayZ),Color3.fromRGB(217,164,66))
+                local glow=Factory.part(shelf,'Slot'..slot,Vector3.new(Config.ColumnSpacing*.9,.12,5.9),CFrame.new(pos.x,platformHeight-.12+rowY,Config.DisplayZ),orange); glow.Material=Enum.Material.Neon
                 local h=rowY+lift
-                for x=-2.4,2.4,1.2 do
+                for x=-studSpread,studSpread,studSpread/2 do
                     for y=1,5.2,1.05 do Factory.part(shelf,'BackStud',Vector3.new(.42,.42,.15),CFrame.new(pos.x+x,h+y,Config.DisplayZ+3.25),Color3.fromRGB(212,164,87)) end
                     for _,z in {-2.7,2.7} do Factory.part(shelf,'PlatformStud',Vector3.new(.42,.12,.42),CFrame.new(pos.x+x,h+.52,Config.DisplayZ+z),Color3.fromRGB(255,234,150)) end
                 end
                 for _,side in {-1,1} do for z=-2.5,2.5,1.25 do for y=1,4.2,1.05 do
-                    Factory.part(shelf,'DividerStud',Vector3.new(.15,.42,.42),CFrame.new(pos.x-3.2+side*.18,h+y,Config.DisplayZ+z),Color3.fromRGB(242,199,112))
+                    Factory.part(shelf,'DividerStud',Vector3.new(.15,.42,.42),CFrame.new(pos.x-bayWidth/2+side*.18,h+y,Config.DisplayZ+z),Color3.fromRGB(242,199,112))
                 end end end
-                Factory.part(shelf,'DividerTopTrim',Vector3.new(.38,.22,7),CFrame.new(pos.x-3.2,h+4.8,Config.DisplayZ),Color3.fromRGB(255,215,103))
-                Factory.part(shelf,'BayTopTrim',Vector3.new(6.4,.25,.42),CFrame.new(pos.x,h+6,Config.DisplayZ+3.45),Color3.fromRGB(255,215,103))
-                Factory.part(shelf,'PlatformFrontTrim',Vector3.new(6.4,platformHeight,.4),CFrame.new(pos.x,rowY+platformHeight/2,Config.DisplayZ-3.4),Color3.fromRGB(255,195,42))
-                for x=-2.4,2.4,1.2 do Factory.part(shelf,'PlatformFrontStud',Vector3.new(.55,.55,.18),CFrame.new(pos.x+x,rowY+platformHeight/2,Config.DisplayZ-3.66),Color3.fromRGB(255,217,105)) end
+                Factory.part(shelf,'DividerTopTrim',Vector3.new(.38,.22,7),CFrame.new(pos.x-bayWidth/2,h+4.8,Config.DisplayZ),Color3.fromRGB(255,215,103))
+                Factory.part(shelf,'BayTopTrim',Vector3.new(bayWidth,.25,.42),CFrame.new(pos.x,h+6,Config.DisplayZ+3.45),Color3.fromRGB(255,215,103))
+                Factory.part(shelf,'PlatformFrontTrim',Vector3.new(bayWidth,platformHeight,.4),CFrame.new(pos.x,rowY+platformHeight/2,Config.DisplayZ-3.4),Color3.fromRGB(255,195,42))
+                for x=-studSpread,studSpread,studSpread/2 do Factory.part(shelf,'PlatformFrontStud',Vector3.new(.55,.55,.18),CFrame.new(pos.x+x,rowY+platformHeight/2,Config.DisplayZ-3.66),Color3.fromRGB(255,217,105)) end
             end
             placeScaled(shelf,world.frame); shelf.Parent=world.rows; task.wait()
             if generation~=world.renderGeneration then return end
@@ -506,11 +521,12 @@ function World.render(world: any,state: any)
         label.Text=if amount==0 then 'Stack full' else 'Buy '..quantity
         local price=label.Parent.Price
         price.Text=if amount==0 then '' else cashText(cost)
-        price.TextColor3=if unlocked then Color3.fromRGB(132,255,0) else Color3.fromRGB(255,195,195)
+        price.TextColor3=if unlocked then TextStyle.Price else Color3.fromRGB(255,195,195)
         label.Parent.Detail.Text=if not unlocked then 'Rebirth '..Config.BuyUnlocks[quantity]..' required' elseif quote.code=='PlotFull' then 'Merge to make room' elseif quantity=='50' then 'Up to 50 '..Catalog[string.format('tier_%02d',tier)].name else ''
     end
-    world.saleLabel.Text='Collect cash\n$'..string.format('%g',state.soldUnits/4)
-    world.processorLabel.Text=tostring(Economy.count(state.saleQueue))
+    world.saleLabel.Text='$'..string.format('%g',state.soldUnits/4)
+    local queued=Economy.count(state.saleQueue)
+    world.processorLabel.Text=if queued==0 then 'No Minis queued' else tostring(queued)..' Minis queued'
     world.processorRate.Text=Config.ProcessorRates[state.processorLevel+1]..' per second'
     local upgradeCost=Config.ProcessorCosts[state.processorLevel+1]
     padAvailability(world.upgradeLabel.Parent.Parent,upgradeCost~=nil and state.coinUnits>=upgradeCost)
@@ -523,6 +539,6 @@ function World.clear(world: any)
     world.producers:ClearAllChildren(); world.tokens:ClearAllChildren(); world.rows:ClearAllChildren(); world.ownerLabel.Text='BRAINROT FARM'
     world.ownerId=nil; world.ownerName.Text='Available plot'; world.portrait.Visible=false; world.portrait.Image=''
     world.ownerName.Position=UDim2.fromOffset(0,40);world.badgePart.CFrame=world.frame*CFrame.new(Vector3.new(0,44,Config.DisplayZ)*Map.PlotScale)
-    world.saleLabel.Text='Collect cash\n$0'
+    world.saleLabel.Text='$0'
 end
 return World

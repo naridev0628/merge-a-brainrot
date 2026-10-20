@@ -1,12 +1,13 @@
 --!strict
 local Collection=game:GetService('CollectionService')
 local MiniMotion=require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('MiniMotion'))
+local TierEffects=require(script.Parent:WaitForChild('TierEffects'))
 local Conveyor={}; Conveyor.__index=Conveyor
 local function smooth(t: number): number
     return t*t*(3-2*t)
 end
 function Conveyor.new()
-    local self: any=setmetatable({models={},producers={}},Conveyor)
+    local self: any=setmetatable({models={},producers={},tierEffects=TierEffects.new()},Conveyor)
     local function add(instance: Instance)
         if instance:IsA('Model') then self.models[instance]={rotation=instance:GetPivot().Rotation,settled=false,landed=false} end
     end
@@ -18,10 +19,11 @@ function Conveyor.new()
     end
     for _,m in Collection:GetTagged('BrainrotProducer') do addProducer(m) end
     Collection:GetInstanceAddedSignal('BrainrotProducer'):Connect(addProducer)
-    Collection:GetInstanceRemovedSignal('BrainrotProducer'):Connect(function(m) self.producers[m]=nil end)
+    Collection:GetInstanceRemovedSignal('BrainrotProducer'):Connect(function(m) self.producers[m]=nil;self.tierEffects:remove(m) end)
     return self
 end
 function Conveyor.update(self: any,now: number)
+    if self.tierEffects then self.tierEffects:update(self.producers,now) end
     -- Nearby settled minis give slightly when an arriving mini joins the pile.
     -- This is a brief visual contact response; final pickup centers stay fixed.
     for model,record in self.models do

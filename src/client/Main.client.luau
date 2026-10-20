@@ -29,6 +29,7 @@ local UpgradeEffects=require(Controllers:WaitForChild('UpgradeEffects'))
 require(Controllers:WaitForChild('LuckyCarryPose')).start()
 local Conveyor=require(Controllers:WaitForChild('Conveyor'))
 local PickupAudio=require(Controllers:WaitForChild('PickupAudio'))
+local FeedbackAudio=require(Controllers:WaitForChild('FeedbackAudio'))
 local Locale=require(Controllers:WaitForChild('Locale'))
 Locale.bind(workspace)
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
@@ -111,7 +112,10 @@ task.spawn(function()
     for _,part in workspace:GetDescendants() do
         local key=part:GetAttribute('PassKey')
         if key and part:IsA('BasePart') and part:FindFirstChild('Label') then
-            local info=shopInfo[key]; part.Label.Text.Text=PassConfig[key].name..'\n'..(if info and info.forSale then info.price..' Robux' else 'Coming soon')
+            local info=shopInfo[key]
+            part.Label.Text.Text=PassConfig[key].name
+            local price=part.Label:FindFirstChild('Price')
+            if price then price.Text=if info and info.forSale then info.price..' Robux' else 'Coming soon' end
         end
     end
 end)
@@ -158,6 +162,7 @@ result.OnClientEvent:Connect(function(response)
         if response.code~='InsufficientFunds' and response.action~='PickupLucky' then view:notice(messages[response.code] or 'Try again.') end
         return
     end
+    FeedbackAudio.play(response.action)
     if response.action=='Claim' then
         lastClaimRevision=revision
         CashEffects.play(view.gui,player.Character,UI.coins(response.creditUnits or 0))

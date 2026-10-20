@@ -2,6 +2,7 @@
 local root=assert(workspace:FindFirstChild('MergeABrainrotGenerated'))
 local Config=require(game.ReplicatedStorage.Shared.Config)
 local Map=require(game.ReplicatedStorage.Shared.MapSpec)
+local TextStyle=require(game.ReplicatedStorage.Shared.TextStyle)
 local function matchesColor(a: Color3,b: Color3): boolean
     -- BasePart colors are stored in 8-bit channels.
     return math.abs(a.R-b.R)<=1/255 and math.abs(a.G-b.G)<=1/255 and math.abs(a.B-b.B)<=1/255
@@ -28,7 +29,8 @@ for id=1,Config.PlotCount do
         end
     end
     local s=Map.PlotScale
-    table.insert(protected,{lo=Vector3.new(-34,0,Config.DisplayZ-4)*s,hi=Vector3.new(34,0,Config.DisplayZ+4)*s,name='Producer rows'})
+    local displayHalfWidth=(Config.Columns*Config.ColumnSpacing+1)/2
+    table.insert(protected,{lo=Vector3.new(-displayHalfWidth,0,Config.DisplayZ-4)*s,hi=Vector3.new(displayHalfWidth,0,Config.DisplayZ+4)*s,name='Producer rows'})
     table.insert(protected,{lo=Vector3.new(-52,0,Config.BeltZ-5)*s,hi=Vector3.new(52,0,Config.BeltZ+5)*s,name='Conveyor lanes'})
     for i,a in protected do for j=i+1,#protected do
         local b=protected[j]
@@ -52,6 +54,28 @@ for id=1,Config.PlotCount do
         assert(title.Font==Enum.Font.FredokaOne and title.TextSize>=30 and title:FindFirstChildOfClass('UIStroke'),'Purchase title needs a bold rounded outline')
         assert(title.Parent.Price.Position.Y.Offset>=title.Size.Y.Offset-2,'Purchase price must remain below its title')
     end
+    for _,name in {'Buy1','Buy5','Buy10','Buy50','UpgradePad','CoinPad'} do
+        local gui=plot[name].Label
+        local title,price=gui.Text,assert(gui:FindFirstChild('Price'),name..' needs a separate value line')
+        assert(title.TextColor3==TextStyle.Cream,name..' action must remain cream')
+        assert(price.Position.Y.Offset>=title.Size.Y.Offset,name..' value must not overlap its action')
+        assert(price.TextSize>=title.TextSize,name..' value must have stronger hierarchy')
+        assert(title:FindFirstChild('TextOutline') and price:FindFirstChild('TextOutline'),'World text must use the shared outlined style')
+    end
+    local processor=plot.ProcessorSign.Processor
+    local display=processor.ProcessorDisplay
+    assert(display.SizingMode==Enum.SurfaceGuiSizingMode.FixedSize,'Board canvas must retain its authored text layout')
+    assert(not display:FindFirstChild('FriendBoost'),'Do not advertise an unimplemented friend boost')
+    assert(display.Queued.Text~='' and display.Rate.Text~='','Processor status and rate must be readable')
+    local face=display.Adornee
+    assert(face and face:IsA('BasePart'),'Processor board needs an explicit text face')
+    local front=processor.CFrame:PointToObjectSpace(face.Position)
+    assert(front.Z<-processor.Size.Z/2-.08*s,'Board text must clear the studded front surface')
+    local group=plot.GroupRewardBoard
+    local groupDisplay=group.GroupRewardDisplay
+    assert(not groupDisplay.AlwaysOnTop and groupDisplay.Adornee==plot.GroupRewardTextFace,'Group board must use the verified world-space render path')
+    local groupFront=group.CFrame:PointToObjectSpace(groupDisplay.Adornee.Position)
+    assert(groupFront.Z<-group.Size.Z/2-.16*s,'Group board text must clear every raised wood stud')
     for _,name in {'Buy1','Buy5','Buy10','Buy50','UpgradePad'} do
         local pad=plot[name]
         local affordable=pad:GetAttribute('Affordable')
@@ -67,7 +91,12 @@ for id=1,Config.PlotCount do
     local farmer=assert(plot.DepositBooth:FindFirstChild('Shopkeeper'))
     assert(math.abs(farmer.Size.Y-5.5)<.01,'Farmer must be avatar height in world studs')
     for _,row in plot.StackRows:GetChildren() do for _,part in row:GetChildren() do
-        if part.Name=='DisplayPlatform' then assert(math.abs(part.Size.Y-Config.DisplayPlatformHeight*s)<.01,'Producer stands must retain their raised thickness') end
+        if part.Name=='DisplayPlatform' then
+            assert(math.abs(part.Size.Y-Config.DisplayPlatformHeight*s)<.01,'Producer stands must retain their raised thickness')
+            assert(part.Size.X>=8.8*s-.01,'Widened bays need a broad stand under each unchanged-size producer')
+        elseif part.Name=='ShelfBase' then
+            assert(part.Size.X>=plot.WideFarmRear.Size.X*.88 and part.Size.X<=plot.WideFarmRear.Size.X-8*s,'Producer row must span the rear bank with fence clearance')
+        end
     end end
     local signatures={}
     for _,p in decor:GetDescendants() do if p:IsA('BasePart') then

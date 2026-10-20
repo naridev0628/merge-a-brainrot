@@ -2,58 +2,72 @@
 local Shared=game:GetService('ReplicatedStorage'):WaitForChild('Shared')
 local Config=require(Shared:WaitForChild('Config'))
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
-local Panel={}
-Panel.Width=340
-Panel.Height=622
-local ink=Color3.fromRGB(12,10,5)
-local function outline(label: any,thickness: number)
-    label.TextStrokeTransparency=1
-    local stroke=Instance.new('UIStroke'); stroke.Name='LetterOutline'; stroke.Color=ink; stroke.Thickness=thickness; stroke.Parent=label
-end
-local function border(object: any,thickness: number)
-    local stroke=object:FindFirstChildOfClass('UIStroke')
-    if stroke then stroke.Color=ink; stroke.Thickness=thickness end
-end
+local Style=require(Shared:WaitForChild('TextStyle'))
+local Panel={Width=248,Height=452,MinContentHeight=252}
 function Panel.new(view: any,button: any,text: any,frame: any,Art: any,C: any)
-    local content=Instance.new('Frame'); content.Name='LuckyPresentation'; content.Size=UDim2.fromOffset(Panel.Width,Panel.Height); content.BackgroundTransparency=1; content.Active=false; content.Parent=view.panel
-    local scale=Instance.new('UIScale'); scale.Parent=content
-    local card=frame(content,'GoldCard',Color3.fromRGB(255,225,14)); card.Size=UDim2.fromOffset(340,442); border(card,5); Art.brick(card,card.BackgroundColor3)
-    local gradient=Instance.new('UIGradient'); gradient.Rotation=90; gradient.Color=ColorSequence.new(Color3.fromRGB(255,255,45),Color3.fromRGB(255,145,0)); gradient.Parent=card
-    local title=text(card,'Title',43,Color3.fromRGB(255,185,0)); title.Position=UDim2.fromOffset(40,12); title.Size=UDim2.fromOffset(260,49); title.Text='Basic'; title.ZIndex=3; outline(title,4)
-    local subtitle=text(card,'Subtitle',29,Color3.new(1,1,1)); subtitle.Position=UDim2.fromOffset(22,59); subtitle.Size=UDim2.fromOffset(296,36); subtitle.Text='Lucky Block'; subtitle.ZIndex=3; outline(subtitle,3)
-    local portrait=Art.luckyPortrait(card,UDim2.fromOffset(82,95),UDim2.fromOffset(176,129)); portrait.ZIndex=3
-    local rewards=frame(card,'Rewards',Color3.fromRGB(102,57,3)); rewards.BackgroundTransparency=.28; rewards.Position=UDim2.fromOffset(14,228); rewards.Size=UDim2.fromOffset(312,198); rewards.ZIndex=3; border(rewards,3)
+    local viewport=Instance.new('ScrollingFrame'); viewport.Name='LuckyViewport'; viewport.Size=UDim2.fromScale(1,1); viewport.BackgroundTransparency=1; viewport.BorderSizePixel=0; viewport.ScrollBarThickness=3; viewport.ScrollingDirection=Enum.ScrollingDirection.Y; viewport.CanvasSize=UDim2.new(); viewport.Parent=view.panel
+    local content=Instance.new('Frame'); content.Name='LuckyPresentation'; content.BackgroundTransparency=1; content.Active=false; content.Parent=viewport
+    local card=frame(content,'GoldCard',Color3.fromRGB(255,210,14)); Art.brick(card,card.BackgroundColor3)
+    local gradient=Instance.new('UIGradient'); gradient.Rotation=90; gradient.Color=ColorSequence.new(Color3.fromRGB(255,255,90),Color3.fromRGB(255,158,20)); gradient.Parent=card
+    local title=text(card,'Title',32,Style.Gold); title.Text='Basic'; title.ZIndex=3
+    local subtitle=text(card,'Subtitle',22,Style.Cream); subtitle.Text='Lucky Block'; subtitle.ZIndex=3
+    local portrait=Art.luckyPortrait(card,UDim2.new(),UDim2.new()); portrait.ZIndex=3
+    local rewards=frame(card,'Rewards',Color3.fromRGB(102,57,3)); rewards.BackgroundTransparency=.22; rewards.ZIndex=3
     local rows={}
     for index=1,3 do
-        local row=Instance.new('Frame'); row.Name='Reward'..index; row.BackgroundTransparency=1; row.Position=UDim2.fromOffset(8,6+(index-1)*62); row.Size=UDim2.fromOffset(296,62); row.Parent=rewards
-        local name=text(row,'Name',25,C.cream); name.Size=UDim2.fromOffset(209,39); name.TextXAlignment=Enum.TextXAlignment.Left; outline(name,2.5)
-        name.TextScaled=true; local nameSize=Instance.new('UITextSizeConstraint'); nameSize.MinTextSize=16; nameSize.MaxTextSize=25; nameSize.Parent=name
-        local tier=text(row,'Tier',18,Color3.new(1,1,1)); tier.Position=UDim2.fromOffset(0,39); tier.Size=UDim2.fromOffset(195,22); tier.TextXAlignment=Enum.TextXAlignment.Left; outline(tier,2)
-        local odds=text(row,'Probability',34,Color3.new(1,1,1)); odds.Position=UDim2.fromOffset(212,10); odds.Size=UDim2.fromOffset(84,42); outline(odds,3.5)
+        local row=Instance.new('Frame'); row.Name='Reward'..index; row.BackgroundTransparency=1; row.Parent=rewards
+        local name=text(row,'Name',19,Style.Cream); name.TextXAlignment=Enum.TextXAlignment.Left; name.TextScaled=true
+        local limit=Instance.new('UITextSizeConstraint'); limit.MinTextSize=14; limit.MaxTextSize=19; limit.Parent=name
+        local tier=text(row,'Tier',14,Style.Cream); tier.TextXAlignment=Enum.TextXAlignment.Left
+        local odds=text(row,'Probability',27,Style.Cream)
         rows[index]={root=row,name=name,tier=tier,odds=odds}
     end
-    local costStripe=frame(content,'CostStripe',Color3.fromRGB(75,90,13)); costStripe.BackgroundTransparency=.30; costStripe.Position=UDim2.fromOffset(0,452); costStripe.Size=UDim2.fromOffset(340,46); border(costStripe,3)
-    local costText=text(costStripe,'Cost',30,C.green); costText.Size=UDim2.fromScale(1,1); outline(costText,3)
-    local function action(name: string,label: string,color: Color3,y: number)
-        local control=button(content,name,label,color); control.Position=UDim2.fromOffset(12,y); control.Size=UDim2.fromOffset(316,50); control.TextSize=32; control.TextColor3=Color3.new(1,1,1); control.TextStrokeTransparency=1; border(control,3); Art.brick(control,color)
-        outline(control.BrickCaption,3)
-        return control
-    end
-    local unlock=action('Unlock','Unlock!',C.green,510)
-    local discard=action('Discard','Discard',Color3.fromRGB(255,62,68),572)
-    unlock.Activated:Connect(function()
-        if not view.pending and view.eligible then view.onLucky() end
-    end)
-    discard.Activated:Connect(function()
-        if not view.pending and view.state and view.state.lucky and view.state.lucky.held then view.onDiscardLucky() end
-    end)
+    local costStripe=frame(content,'CostStripe',Color3.fromRGB(75,90,13)); costStripe.BackgroundTransparency=.18
+    local costText=text(costStripe,'Cost',24,Style.Price); costText.Size=UDim2.fromScale(1,1)
+    local unlock=button(content,'Unlock','Unlock!',C.green); Art.brick(unlock,C.green)
+    local discard=button(content,'Discard','Discard',Color3.fromRGB(255,62,68)); Art.brick(discard,discard.BackgroundColor3)
+    unlock.Activated:Connect(function() if not view.pending and view.eligible then view.onLucky() end end)
+    discard.Activated:Connect(function() if not view.pending and view.state and view.state.lucky and view.state.lucky.held then view.onDiscardLucky() end end)
     return {
         setVisible=function(active: boolean)
-            content.Visible=active
+            viewport.Visible=active
             if active then view.panel.BackgroundTransparency=1; view.heading.Visible=false end
         end,
         resize=function()
-            scale.Scale=math.max(.05,math.min(view.panel.Size.X.Offset/Panel.Width,view.panel.Size.Y.Offset/Panel.Height))
+            local width=view.panel.Size.X.Offset
+            -- The viewport fits the free HUD space; the content keeps its
+            -- two-line name budget and scrolls when that space is shorter.
+            local height=math.max(Panel.MinContentHeight,view.panel.Size.Y.Offset)
+            content.Size=UDim2.fromOffset(width,height)
+            viewport.CanvasSize=UDim2.fromOffset(0,height)
+            viewport.ScrollingEnabled=height>view.panel.Size.Y.Offset
+            if not viewport.ScrollingEnabled then viewport.CanvasPosition=Vector2.zero end
+            local short=height<330
+            local actionHeight=if short then 30 else 42
+            local costHeight=if short then 27 else 35
+            local cardHeight=height-actionHeight*2-costHeight-18
+            -- Only use the large portrait header when all three reward names
+            -- still have two readable lines plus their tier subline.
+            local compactHeader=cardHeight<291
+            local headerHeight=if compactHeader then 54 else 145
+            card.Size=UDim2.fromOffset(width,cardHeight)
+            title.Position=UDim2.fromOffset(if compactHeader then 55 else 8,4); title.Size=UDim2.new(1,if compactHeader then -88 else -38,0,if compactHeader then 25 else 38); title.TextSize=if compactHeader then 24 else 32
+            subtitle.Position=UDim2.fromOffset(if compactHeader then 55 else 8,if compactHeader then 28 else 40); subtitle.Size=UDim2.new(1,if compactHeader then -62 else -16,0,25); subtitle.TextSize=if compactHeader then 18 else 22
+            portrait.Position=if compactHeader then UDim2.fromOffset(2,2) else UDim2.new(.5,-48,0,65); portrait.Size=UDim2.fromOffset(if compactHeader then 50 else 96,if compactHeader then 50 else 76)
+            rewards.Position=UDim2.fromOffset(7,headerHeight); rewards.Size=UDim2.new(1,-14,0,cardHeight-headerHeight-7)
+            local rowHeight=(cardHeight-headerHeight-11)/3
+            local showTier=rowHeight>=45
+            for index,row in rows do
+                row.root.Position=UDim2.fromOffset(5,2+(index-1)*rowHeight); row.root.Size=UDim2.new(1,-10,0,rowHeight)
+                row.name.Position=UDim2.new(); row.name.Size=UDim2.new(1,-54,0,if showTier then rowHeight-15 else rowHeight)
+                row.tier.Visible=showTier
+                row.tier.Position=UDim2.new(0,0,1,-15); row.tier.Size=UDim2.new(1,-54,0,15)
+                row.odds.Position=UDim2.new(1,-54,0,0); row.odds.Size=UDim2.new(0,54,1,0); row.odds.TextSize=if short then 24 else 27
+            end
+            costStripe.Position=UDim2.fromOffset(0,cardHeight+6); costStripe.Size=UDim2.fromOffset(width,costHeight); costText.TextSize=if short then 19 else 24
+            unlock.Position=UDim2.fromOffset(4,cardHeight+costHeight+12); unlock.Size=UDim2.fromOffset(width-8,actionHeight)
+            discard.Position=UDim2.fromOffset(4,height-actionHeight); discard.Size=UDim2.fromOffset(width-8,actionHeight)
+            unlock.TextSize=if short then 20 else 25; discard.TextSize=if short then 20 else 25
         end,
         render=function(state: any)
             for _,row in rows do row.root.Visible=false end

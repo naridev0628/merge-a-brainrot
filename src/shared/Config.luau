@@ -1,7 +1,7 @@
 --!strict
 return table.freeze({
     Interval = 1, Cadence = 0.25, BuyUnits = 20, StartingUnits = 20, CoinCap = 4000000000000,
-    Slots = 50, Columns = 10, ColumnSpacing = 6.5, RowHeight = 11, DisplayPlatformHeight = 1.8,
+    Slots = 50, Columns = 10, ColumnSpacing = 10, RowHeight = 11, DisplayPlatformHeight = 1.8,
     GroundPerProducer = 8, GroundCap = 50, BagCap = 2147483647,
     CatchupCap = 2, CollectDistance = 16, PickupRadius = 12/.65, PadDistance = 10,
     MaxTier = 6, RequestCap = 10000, PlotCount = 6, PlotScale = .65,
