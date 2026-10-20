@@ -1,0 +1,24 @@
+{
+  "recordedAtUTC": "2026-10-20 08:49:25 UTC",
+  "baseline": "db4ec65",
+  "red": {
+    "content": [
+      {
+        "type": "text",
+        "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:94: AssistantCommand:61: Unrelated snapshots rebuilt 36 offers / 1296 descendants; retained 0 of 6 identities\nAssistantCommand:61\nAssistantCommand:34\n"
+      }
+    ],
+    "isError": true
+  },
+  "green": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":\"PASS Shop identity/zero construction for irrelevant snapshots; ownership, metadata, pending, mode and upgrade-key refresh\",\"counts\":{\"addedDescendants\":0,\"irrelevantUpdates\":6,\"endingDescendants\":997,\"offerCreations\":0,\"startingDescendants\":997,\"identitiesRetained\":6}}"
+      }
+    ],
+    "isError": false
+  },
+  "scope": "Isolated actual FarmUI; observer starts after three heartbeats to exclude deferred HUD startup. No normal gameplay state or preferences changed.",
+  "limitations": "Construction and identity regression, not FPS or memory recovery evidence."
+}

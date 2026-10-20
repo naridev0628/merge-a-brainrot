@@ -435,8 +435,14 @@ function UI.drawMerge(self: any)
     end
     local s=self.state
     if not s then return end
-    local signature=self.mode..tostring(self.pending)..table.concat(self.selected,',')
-    if s then signature..=tostring(s.coinUnits)..':'..s.rebirths..':'..s.cashMultiplier..':'..tostring(s.lucky and s.lucky.id)..':'..tostring(s.lucky and s.lucky.held)..':'..tostring(s.autoCollect)..':'..tostring(s.autoSell)..':'..s.miniMultiplier..':'..tostring(s.eventHundredths)..':'..tostring(s.obbyBonusHundredths or 0); for _,p in s.producers do signature..=p.id..p.speciesId end end
+    local signature=self.mode..tostring(self.pending)
+    if self.mode=='Shop' or self.mode=='Upgrade' then
+        -- Shop metadata explicitly invalidates this signature in setShopInfo.
+        signature..=':'..tostring(self.upgradeKey)..':'..s.cashMultiplier..':'..s.miniMultiplier..':'..tostring(s.autoCollect)..':'..tostring(s.autoSell)
+    else
+        signature..=table.concat(self.selected,',')
+        if s then signature..=tostring(s.coinUnits)..':'..s.rebirths..':'..s.cashMultiplier..':'..tostring(s.lucky and s.lucky.id)..':'..tostring(s.lucky and s.lucky.held)..':'..tostring(s.autoCollect)..':'..tostring(s.autoSell)..':'..s.miniMultiplier..':'..tostring(s.eventHundredths)..':'..tostring(s.obbyBonusHundredths or 0); for _,p in s.producers do signature..=p.id..p.speciesId end end
+    end
     if self.signature==signature then return end; self.signature=signature
     local scroll=self.list.CanvasPosition
     for _,child in self.list:GetChildren() do if child:IsA('GuiObject') then child:Destroy() end end
