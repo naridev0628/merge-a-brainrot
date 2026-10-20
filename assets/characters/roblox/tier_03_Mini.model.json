@@ -1,0 +1,16 @@
+{
+  "className": "MeshPart",
+  "properties": {
+    "MeshId": "rbxassetid://131281464105642",
+    "TextureID": "rbxassetid://70625725014519",
+    "Size": [
+      5.28000020980835,
+      5.639999866485596,
+      1.99399995803833
+    ],
+    "Anchored": true,
+    "CanCollide": false,
+    "CanTouch": false,
+    "CanQuery": false
+  }
+}

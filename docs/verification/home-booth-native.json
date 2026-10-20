@@ -1,0 +1,87 @@
+{
+  "verifiedAt": "2026-10-20T09:55:44Z",
+  "baseCommit": "9ee6fda",
+  "changes": [
+    "FarmUI onboarding Home and responsive separation",
+    "FarmerBooth extraction"
+  ],
+  "layoutRed": {
+    "content": [
+      {
+        "type": "text",
+        "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:69: AssistantCommand:31: Ready farms must have Home during onboarding\nAssistantCommand:31\nAssistantCommand:20\n"
+      }
+    ],
+    "isError": true
+  },
+  "layoutFirstGreenAttempt": {
+    "content": [
+      {
+        "type": "text",
+        "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:69: AssistantCommand:15: MergePanel overlaps Home\nAssistantCommand:15 function separate\nAssistantCommand:62\nAssistantCommand:20\n"
+      }
+    ],
+    "isError": true
+  },
+  "layoutGreen": {
+    "content": [
+      {
+        "type": "text",
+        "text": "nil"
+      }
+    ],
+    "isError": false
+  },
+  "layoutConsole": "PASS onboarding Home/guidance/Shop layout, adaptive Lucky bounds/odds/cost, rebirth rewards, pooled pickup budget/expiry, million-Mini count, walk pads and cash cleanup",
+  "input": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"tutorialStep\":1,\"observed\":{\"clicks\":1,\"downs\":1},\"position\":{\"1\":1.4319084584712983e-8,\"3\":167.39999389648438,\"2\":3.645606279373169},\"status\":\"Ready\",\"producers\":1}"
+      }
+    ],
+    "isError": false
+  },
+  "boothParity": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"sourceCommit\":\"9ee6fda\",\"counts\":{\"1\":71,\"3\":71,\"2\":71,\"5\":71,\"4\":71,\"6\":71},\"partChecks\":426,\"result\":\"PASS exact previous constructor versus all six integrated booths\",\"tolerance\":0.00001}"
+      }
+    ],
+    "isError": false
+  },
+  "boothRegression": {
+    "content": [
+      {
+        "type": "text",
+        "text": "PASS mirrored utilities, lowered counter with torso allowance, 18 inert panels within existing footprints and clear of farmer meshes, farmer/sign/awning visibility, clear deposit approach, full red conveyor and fenced plot fronts"
+      }
+    ],
+    "isError": false
+  },
+  "sourceProof": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"missing\":[],\"expected\":80,\"matched\":80,\"mismatches\":[]}"
+      }
+    ],
+    "isError": false
+  },
+  "cleanup": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"camera\":\"Enum.CameraType.Custom\",\"health\":100,\"hud\":true,\"previewAfter\":false,\"previewBefore\":false,\"beforeModule\":false,\"layout\":false}"
+      }
+    ],
+    "isError": false
+  },
+  "limitations": [
+    "Home captures use the actual UI in an isolated390x440 Frame on one desktop Studio client; native TextBounds and separation tests cover12 viewport sizes. No physical phone tested.",
+    "One observed native mouse Activated event returned the early-tutorial avatar from hub to plot; the prior unobserved tool click did not establish successful input.",
+    "Booth comparison uses the previous committed constructor at9ee6fda as a disposable oracle; initial unencoded snapshots returned Complex Table, so their contents were not used as parity evidence.",
+    "426 parts across six integrated booths match prior construction to1e-5 transform/size tolerance, with identical names, hierarchy, colors, materials, interaction flags, native surfaces and imported asset IDs. No FPS or memory gain claimed."
+  ]
+}

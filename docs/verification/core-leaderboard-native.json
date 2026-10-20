@@ -1,0 +1,42 @@
+{
+  "recordedAt": "2026-10-20T11:52:00Z",
+  "baseline": "96332d2",
+  "scope": "Leaderboard callback array narrowing and CLI-only Core import typing",
+  "diagnostics": {
+    "redWarnings": 85,
+    "greenWarnings": 80,
+    "errors": 0,
+    "targetWarningsRemoved": 5,
+    "remainingWarningsNotResolved": 80
+  },
+  "native": {
+    "content": [
+      {
+        "type": "text",
+        "text": "PASS three two-sided native boards, matching rows/clear, six inert added Parts (765 -> 771); native async thumbnail coalescing, stale-row rejection, cache reuse and destroyed-row cleanup"
+      }
+    ],
+    "isError": false
+  },
+  "sourceParity": {
+    "count": 80,
+    "mismatches": 0
+  },
+  "local": {
+    "pureSuites": 44,
+    "productionCompilation": 80,
+    "peerReview": "no actionable defects",
+    "rojo": "PASS .tools/leaderboard-types-check.rbxlx",
+    "strict": "old and new solvers Core, PadTargeting, PadLabelLayout, ClientPreferences"
+  },
+  "limitations": [
+    "No new capacity, FPS or memory result",
+    "Native server OpenScriptDocumentAsync stalled; stopped Play and opened same scripts in Edit successfully",
+    "Saved XML initial reader used wrong XML property shape; rerun uses explicit XPath"
+  ],
+  "savedXml": {
+    "savedAt": "2026-10-20T11:51:39.1312080Z",
+    "compared": 80,
+    "mismatches": []
+  }
+}

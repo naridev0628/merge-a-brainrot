@@ -1,0 +1,40 @@
+{
+  "recordedAtUTC": "2026-10-20T08:59:42Z",
+  "baselineCommit": "2dc70b13a041b91703bff34da3a7ee031db3d02a",
+  "patch": "WorldBuilder initializes new Mini ConveyorEnd once before tag; existing/repacked Minis retain one update per render.",
+  "red": {
+    "content": [
+      {
+        "type": "text",
+        "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:113: AssistantCommand:107: New Minis need one endpoint setter/point conversion each, not two\nAssistantCommand:107\nAssistantCommand:37\n"
+      }
+    ],
+    "isError": true
+  },
+  "redConsoleMetrics": {
+    "create": 12,
+    "unchanged": 6,
+    "repack": 5,
+    "remove": 0,
+    "recreate": 12
+  },
+  "green": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":\"PASS endpoint call counts, before-tag/parent initialization, unchanged identity, Core repack, removal and recreation\",\"writes\":{\"remove\":0,\"repack\":5,\"unchanged\":6,\"create\":6,\"recreate\":6}}"
+      }
+    ],
+    "isError": false
+  },
+  "sourceParity": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"serverMain\":false,\"clientMain\":false,\"checked\":79,\"mismatches\":[]}"
+      }
+    ],
+    "isError": false
+  },
+  "scope": "Native actual World.render and Core in unparented disposable model/module. Counts measure setter and point-conversion calls; no replication/FPS/memory savings claim."
+}

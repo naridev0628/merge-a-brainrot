@@ -1,0 +1,1691 @@
+{
+  "baselineCommit": "699931c",
+  "scope": "Working tree wider tray and sloped dividers; one native Studio client, memory-only. Not performance or device acceptance.",
+  "trayRed": {
+    "content": [
+      {
+        "type": "text",
+        "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:15: The collection floor must widen: 16 expected 24"
+      }
+    ],
+    "isError": true
+  },
+  "trayGreen": {
+    "content": [
+      {
+        "type": "text",
+        "text": "PASS six 24x16 trays, 35 accents, 213-part facades, complete base/trim clearances, unchanged collision heights, mirrored pad targets and full center belt coverage"
+      }
+    ],
+    "isError": false
+  },
+  "shelfRed": {
+    "content": [
+      {
+        "type": "text",
+        "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:12: DisplayDivider size changed"
+      }
+    ],
+    "isError": true
+  },
+  "shelfGreen": {
+    "content": [
+      {
+        "type": "text",
+        "text": "PASS 1 live rows; five-row support plane, diagonal divider/cap clearance, slot lookup, native surfaces, physics and 221/224 parts per ground/upper row after scaling"
+      }
+    ],
+    "isError": false
+  },
+  "trajectory": {
+    "content": [
+      {
+        "type": "text",
+        "text": "nil"
+      }
+    ],
+    "isError": false
+  },
+  "walks": {
+    "mixed": {
+      "scenario": "mixed",
+      "result": "PASS real Humanoid tray route, 96 accounted mixed-species Minis, partial-pile repack and five waypoints",
+      "server": {
+        "partial": true,
+        "bag": 96,
+        "scenario": "mixed",
+        "walkedStuds": 43.42842631333042,
+        "recentSamples": [
+          {
+            "y": 0.23080679774284363,
+            "x": -15.000000953674316,
+            "z": 49,
+            "visited": 0,
+            "remaining": 96
+          },
+          {
+            "y": 0.23080679774284363,
+            "x": -15.000000953674316,
+            "z": 49,
+            "visited": 0,
+            "remaining": 82
+          },
+          {
+            "y": 0.23080679774284363,
+            "x": -15.000000953674316,
+            "z": 49,
+            "visited": 0,
+            "remaining": 70
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 49.00240707397461,
+            "visited": 0,
+            "remaining": 61
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 49.00240707397461,
+            "visited": 0,
+            "remaining": 54
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 49.00240707397461,
+            "visited": 0,
+            "remaining": 46
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 49.00240707397461,
+            "visited": 0,
+            "remaining": 40
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 49.00240707397461,
+            "visited": 0,
+            "remaining": 35
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.993249893188477,
+            "z": 49.39842224121094,
+            "visited": 0,
+            "remaining": 30
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.9823579788208,
+            "z": 50.037513732910156,
+            "visited": 0,
+            "remaining": 25
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.988201141357422,
+            "z": 52.60451126098633,
+            "visited": 0,
+            "remaining": 20
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.993707656860352,
+            "z": 54.059234619140625,
+            "visited": 0,
+            "remaining": 14
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.994268417358398,
+            "z": 54.91066360473633,
+            "visited": 0,
+            "remaining": 9
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.993990898132324,
+            "z": 55.168270111083984,
+            "visited": 0,
+            "remaining": 5
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.993990898132324,
+            "z": 55.168270111083984,
+            "visited": 1,
+            "remaining": 2
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.993216514587402,
+            "z": 55.1202278137207,
+            "visited": 1,
+            "remaining": 1
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.992939949035645,
+            "z": 55.124454498291016,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.001878004870377481,
+            "x": -14.993988990783691,
+            "z": 55.25538635253906,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.993990898132324,
+            "z": 57.632450103759766,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.999922752380371,
+            "z": 59.87248992919922,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.999993324279785,
+            "z": 61.82796859741211,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000239372253418,
+            "z": 64.01836395263672,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000007629394531,
+            "z": 65.82255554199219,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 65.9375,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 65.9375,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.28093433380127,
+            "z": 66.12191772460938,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.001878004870377481,
+            "x": -15.360616683959961,
+            "z": 66.17382049560547,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.838299751281738,
+            "z": 65.82969665527344,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": 0.055401142686605453,
+            "x": -13.238914489746094,
+            "z": 64.76611328125,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": 0.35907453298568726,
+            "x": -11.475255966186523,
+            "z": 63.60068893432617,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.13352614641189575,
+            "x": -9.739870071411133,
+            "z": 62.449466705322266,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -7.812747001647949,
+            "z": 61.17507553100586,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": 0.01220703125,
+            "x": -6.185300827026367,
+            "z": 60.0975341796875,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": 0.4351337254047394,
+            "x": -4.327984809875488,
+            "z": 58.867130279541016,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.21803636848926544,
+            "x": -2.400810956954956,
+            "z": 57.59064483642578,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.001878004870377481,
+            "x": -0.8976428508758545,
+            "z": 56.59196472167969,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -0.889423131942749,
+            "z": 56.58654022216797,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -0.889423131942749,
+            "z": 56.58654022216797,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -1.0334471464157104,
+            "z": 56.500240325927734,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.001878004870377481,
+            "x": -0.9348311424255371,
+            "z": 56.559356689453125,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -0.1371622234582901,
+            "z": 57.07564926147461,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0015024038730189204,
+            "x": 1.1777600049972534,
+            "z": 57.93746566772461,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": 0.48602765798568726,
+            "x": 3.0811452865600586,
+            "z": 59.185245513916016,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.05765474960207939,
+            "x": 4.671328067779541,
+            "z": 60.22693634033203,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0020658052526414394,
+            "x": 6.674673557281494,
+            "z": 61.54299545288086,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 8.238375663757324,
+            "z": 62.56346130371094,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 9.832658767700195,
+            "z": 63.6119384765625,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": 0.26742789149284363,
+            "x": 11.601758003234863,
+            "z": 64.77139282226562,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.001878004870377481,
+            "x": 13.728386878967285,
+            "z": 66.16536712646484,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0005634014378301799,
+            "x": 14.284855842590332,
+            "z": 66.53245544433594,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 14.284855842590332,
+            "z": 66.53245544433594,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 14.419268608093262,
+            "z": 66.52328491210938,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 14.224645614624023,
+            "z": 66.5172348022461,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": 0.036245495080947876,
+            "x": 12.597514152526855,
+            "z": 66.5739517211914,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": 0.3545673191547394,
+            "x": 10.746208190917969,
+            "z": 66.63831329345703,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.018028846010565758,
+            "x": 8.494338989257812,
+            "z": 66.71427154541016,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0013146033743396401,
+            "x": 6.334659576416016,
+            "z": 66.78497314453125,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 4.471762657165527,
+            "z": 66.84867858886719,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 2.2689309120178223,
+            "z": 66.92555236816406,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 1.0532104969024658,
+            "z": 66.96519470214844,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 1.051682710647583,
+            "z": 66.96514892578125,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 1.051682710647583,
+            "z": 66.96514892578125,
+            "visited": 5,
+            "remaining": 0
+          }
+        ],
+        "pass": true,
+        "collected": 96,
+        "events": [
+          {
+            "remaining": 82,
+            "x": -15.000000953674316,
+            "count": 14,
+            "z": 49
+          },
+          {
+            "remaining": 70,
+            "x": -15.000000953674316,
+            "count": 12,
+            "z": 49
+          },
+          {
+            "remaining": 61,
+            "x": -15.000000953674316,
+            "count": 9,
+            "z": 49
+          },
+          {
+            "remaining": 54,
+            "x": -15.000000953674316,
+            "count": 7,
+            "z": 49.00240707397461
+          },
+          {
+            "remaining": 46,
+            "x": -15.000000953674316,
+            "count": 8,
+            "z": 49.00240707397461
+          },
+          {
+            "remaining": 40,
+            "x": -15.000000953674316,
+            "count": 6,
+            "z": 49.00240707397461
+          },
+          {
+            "remaining": 35,
+            "x": -15.000000953674316,
+            "count": 5,
+            "z": 49.00240707397461
+          },
+          {
+            "remaining": 30,
+            "x": -15.000000953674316,
+            "count": 5,
+            "z": 49.00240707397461
+          },
+          {
+            "remaining": 25,
+            "x": -14.993249893188477,
+            "count": 5,
+            "z": 49.39842224121094
+          },
+          {
+            "remaining": 20,
+            "x": -14.9823579788208,
+            "count": 5,
+            "z": 50.037513732910156
+          },
+          {
+            "remaining": 14,
+            "x": -14.988201141357422,
+            "count": 6,
+            "z": 52.60451126098633
+          },
+          {
+            "remaining": 9,
+            "x": -14.993707656860352,
+            "count": 5,
+            "z": 54.059234619140625
+          },
+          {
+            "remaining": 5,
+            "x": -14.994268417358398,
+            "count": 4,
+            "z": 54.91066360473633
+          },
+          {
+            "remaining": 2,
+            "x": -14.993990898132324,
+            "count": 3,
+            "z": 55.168270111083984
+          },
+          {
+            "remaining": 1,
+            "x": -14.993990898132324,
+            "count": 1,
+            "z": 55.168270111083984
+          },
+          {
+            "remaining": 0,
+            "x": -14.993216514587402,
+            "count": 1,
+            "z": 55.1202278137207
+          }
+        ],
+        "repacked": true,
+        "initialMeshChecks": 96,
+        "remaining": 0,
+        "visited": 5,
+        "cloneMiniModels": 0,
+        "expectedSpecies": {
+          "tier_03": 16,
+          "tier_06": 15,
+          "tier_02": 17,
+          "tier_01": 17,
+          "tier_05": 15,
+          "tier_04": 16
+        },
+        "verifiedMeshIds": {
+          "tier_03": "rbxassetid://131281464105642",
+          "tier_06": "rbxassetid://132112159852307",
+          "tier_02": "rbxassetid://76267237896238",
+          "tier_01": "rbxassetid://84241195021837",
+          "tier_05": "rbxassetid://92444647753394",
+          "tier_04": "rbxassetid://109268338996225"
+        }
+      }
+    },
+    "crocodilo": {
+      "scenario": "tier_06",
+      "result": "PASS real Humanoid tray route, 96 accounted Bombardiro Crocodilo Minis, partial-pile repack and five waypoints",
+      "server": {
+        "partial": true,
+        "bag": 96,
+        "scenario": "tier_06",
+        "walkedStuds": 43.370834375265986,
+        "recentSamples": [
+          {
+            "y": 0.23080679774284363,
+            "x": -15.000000953674316,
+            "z": 49,
+            "visited": 0,
+            "remaining": 96
+          },
+          {
+            "y": 0.23080679774284363,
+            "x": -15.000000953674316,
+            "z": 49,
+            "visited": 0,
+            "remaining": 82
+          },
+          {
+            "y": 0.23080679774284363,
+            "x": -15.000000953674316,
+            "z": 49,
+            "visited": 0,
+            "remaining": 71
+          },
+          {
+            "y": -0.004131610505282879,
+            "x": -15.000000953674316,
+            "z": 49.00240707397461,
+            "visited": 0,
+            "remaining": 62
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 49.00240707397461,
+            "visited": 0,
+            "remaining": 53
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 49.00240707397461,
+            "visited": 0,
+            "remaining": 46
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 49.00240707397461,
+            "visited": 0,
+            "remaining": 40
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.999811172485352,
+            "z": 49.0126953125,
+            "visited": 0,
+            "remaining": 35
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.994067192077637,
+            "z": 49.32481384277344,
+            "visited": 0,
+            "remaining": 30
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.983078002929688,
+            "z": 49.92184066772461,
+            "visited": 0,
+            "remaining": 25
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.988394737243652,
+            "z": 51.53171920776367,
+            "visited": 0,
+            "remaining": 20
+          },
+          {
+            "y": -0.001878004870377481,
+            "x": -14.995524406433105,
+            "z": 54.56779098510742,
+            "visited": 0,
+            "remaining": 15
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.993935585021973,
+            "z": 55.179931640625,
+            "visited": 0,
+            "remaining": 9
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.993990898132324,
+            "z": 55.168270111083984,
+            "visited": 1,
+            "remaining": 5
+          },
+          {
+            "y": -0.0015024038730189204,
+            "x": -14.993990898132324,
+            "z": 54.842491149902344,
+            "visited": 1,
+            "remaining": 2
+          },
+          {
+            "y": -0.0015024038730189204,
+            "x": -14.993990898132324,
+            "z": 54.862796783447266,
+            "visited": 1,
+            "remaining": 1
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.993990898132324,
+            "z": 56.283775329589844,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.993990898132324,
+            "z": 57.8160285949707,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000094413757324,
+            "z": 60.082523345947266,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 61.83824157714844,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.999994277954102,
+            "z": 63.82389450073242,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000121116638184,
+            "z": 65.78668212890625,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 66.09381103515625,
+            "visited": 1,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.000000953674316,
+            "z": 66.09375,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -15.088889122009277,
+            "z": 66.1603012084961,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.001878004870377481,
+            "x": -15.1389741897583,
+            "z": 66.19827270507812,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -14.697104454040527,
+            "z": 65.88414001464844,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": 0.15869140625,
+            "x": -12.85220718383789,
+            "z": 64.64372253417969,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": 0.1675180345773697,
+            "x": -11.256768226623535,
+            "z": 63.57183837890625,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.003004807746037841,
+            "x": -8.641356468200684,
+            "z": 61.809635162353516,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -6.824468612670898,
+            "z": 60.58854675292969,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": 0.0537109412252903,
+            "x": -5.482847690582275,
+            "z": 59.687355041503906,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": 0.377854585647583,
+            "x": -3.6019089221954346,
+            "z": 58.421932220458984,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.03061147965490818,
+            "x": -1.8673220872879028,
+            "z": 57.25850296020508,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -0.7636324763298035,
+            "z": 56.514705657958984,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -0.7632212042808533,
+            "z": 56.51442337036133,
+            "visited": 2,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -0.7632212042808533,
+            "z": 56.51442337036133,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -0.7600931525230408,
+            "z": 56.516319274902344,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -0.6717880368232727,
+            "z": 56.56983947753906,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": -0.5692054033279419,
+            "z": 56.63201141357422,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 0.7249274253845215,
+            "z": 57.498470306396484,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": 0.1278921365737915,
+            "x": 2.369736433029175,
+            "z": 58.592403411865234,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": 0.37578877806663513,
+            "x": 4.25369930267334,
+            "z": 59.851036071777344,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.004319411236792803,
+            "x": 6.200847148895264,
+            "z": 61.143131256103516,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 8.110135078430176,
+            "z": 62.41552734375,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 10.019147872924805,
+            "z": 63.686466217041016,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": 0.17690806090831757,
+            "x": 11.653178215026855,
+            "z": 64.77410888671875,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": 0.1382211595773697,
+            "x": 13.720982551574707,
+            "z": 66.14703369140625,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 14.08052921295166,
+            "z": 66.38822174072266,
+            "visited": 3,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 14.08052921295166,
+            "z": 66.38822174072266,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0015024038730189204,
+            "x": 14.170987129211426,
+            "z": 66.38288116455078,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.001878004870377481,
+            "x": 14.312280654907227,
+            "z": 66.37067413330078,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.016526442021131516,
+            "x": 13.385417938232422,
+            "z": 66.405517578125,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": 0.3397310674190521,
+            "x": 11.12686538696289,
+            "z": 66.50965881347656,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.01164363045245409,
+            "x": 8.911149024963379,
+            "z": 66.60509490966797,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0013146033743396401,
+            "x": 6.985245704650879,
+            "z": 66.68840789794922,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 5.121216773986816,
+            "z": 66.77503204345703,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0015024038730189204,
+            "x": 2.0676002502441406,
+            "z": 66.90946197509766,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 0.9375000596046448,
+            "z": 66.9591293334961,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 0.9375000596046448,
+            "z": 66.95913696289062,
+            "visited": 4,
+            "remaining": 0
+          },
+          {
+            "y": -0.0016902043716982007,
+            "x": 0.9375000596046448,
+            "z": 66.95913696289062,
+            "visited": 5,
+            "remaining": 0
+          }
+        ],
+        "pass": true,
+        "collected": 96,
+        "events": [
+          {
+            "remaining": 82,
+            "x": -15.000000953674316,
+            "count": 14,
+            "z": 49
+          },
+          {
+            "remaining": 71,
+            "x": -15.000000953674316,
+            "count": 11,
+            "z": 49
+          },
+          {
+            "remaining": 62,
+            "x": -15.000000953674316,
+            "count": 9,
+            "z": 49
+          },
+          {
+            "remaining": 53,
+            "x": -15.000000953674316,
+            "count": 9,
+            "z": 49.00240707397461
+          },
+          {
+            "remaining": 46,
+            "x": -15.000000953674316,
+            "count": 7,
+            "z": 49.00240707397461
+          },
+          {
+            "remaining": 40,
+            "x": -15.000000953674316,
+            "count": 6,
+            "z": 49.00240707397461
+          },
+          {
+            "remaining": 35,
+            "x": -15.000000953674316,
+            "count": 5,
+            "z": 49.00240707397461
+          },
+          {
+            "remaining": 30,
+            "x": -14.999811172485352,
+            "count": 5,
+            "z": 49.0126953125
+          },
+          {
+            "remaining": 25,
+            "x": -14.994067192077637,
+            "count": 5,
+            "z": 49.32481384277344
+          },
+          {
+            "remaining": 20,
+            "x": -14.983078002929688,
+            "count": 5,
+            "z": 49.92184066772461
+          },
+          {
+            "remaining": 15,
+            "x": -14.988394737243652,
+            "count": 5,
+            "z": 51.53171920776367
+          },
+          {
+            "remaining": 9,
+            "x": -14.995524406433105,
+            "count": 6,
+            "z": 54.56779098510742
+          },
+          {
+            "remaining": 5,
+            "x": -14.993935585021973,
+            "count": 4,
+            "z": 55.179931640625
+          },
+          {
+            "remaining": 2,
+            "x": -14.993990898132324,
+            "count": 3,
+            "z": 55.168270111083984
+          },
+          {
+            "remaining": 1,
+            "x": -14.993990898132324,
+            "count": 1,
+            "z": 54.842491149902344
+          },
+          {
+            "remaining": 0,
+            "x": -14.993990898132324,
+            "count": 1,
+            "z": 54.862796783447266
+          }
+        ],
+        "repacked": true,
+        "initialMeshChecks": 96,
+        "remaining": 0,
+        "visited": 5,
+        "cloneMiniModels": 0,
+        "expectedSpecies": {
+          "tier_06": 96
+        },
+        "verifiedMeshIds": {
+          "tier_06": "rbxassetid://132112159852307"
+        }
+      }
+    }
+  },
+  "images": {
+    "counts": [
+      24,
+      50,
+      96
+    ],
+    "views": [
+      {
+        "name": "front",
+        "camera_position": [
+          0,
+          2013,
+          22
+        ],
+        "look_at_position": [
+          0,
+          2002.5,
+          43
+        ]
+      },
+      {
+        "name": "oblique",
+        "camera_position": [
+          32,
+          2017,
+          31
+        ],
+        "look_at_position": [
+          0,
+          2004,
+          49
+        ]
+      }
+    ],
+    "species": "tier_06",
+    "producers": 50,
+    "epoch": "reference-layout-v1",
+    "fixedGeometryAndIds": true,
+    "limitations": "Isolated clone PadLabels are not managed by the owned-plot client controller; these are geometry comparisons, not text-layout acceptance. Dense Crocodilo mesh overlap remains."
+  },
+  "recordedAt": "2026-10-20 10:20:48 UTC",
+  "sourceHashes": [
+    {
+      "path": "src/client/Controllers/AudioConfig.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioConfig",
+      "bytes": 1817,
+      "hash": 1355774271
+    },
+    {
+      "path": "src/client/Controllers/AudioLoadCache.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioLoadCache",
+      "bytes": 1499,
+      "hash": 4266290176
+    },
+    {
+      "path": "src/client/Controllers/AudioPreloader.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioPreloader",
+      "bytes": 911,
+      "hash": 2264041363
+    },
+    {
+      "path": "src/client/Controllers/BrickArt.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.BrickArt",
+      "bytes": 14952,
+      "hash": 3622115064
+    },
+    {
+      "path": "src/client/Controllers/CashEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.CashEffects",
+      "bytes": 8666,
+      "hash": 1993647839
+    },
+    {
+      "path": "src/client/Controllers/Conveyor.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Conveyor",
+      "bytes": 11683,
+      "hash": 260859283
+    },
+    {
+      "path": "src/client/Controllers/DepositEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.DepositEffects",
+      "bytes": 5347,
+      "hash": 4208418881
+    },
+    {
+      "path": "src/client/Controllers/DiscoveryEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.DiscoveryEffects",
+      "bytes": 5358,
+      "hash": 4260401030
+    },
+    {
+      "path": "src/client/Controllers/FarmUI.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.FarmUI",
+      "bytes": 50231,
+      "hash": 2114923471
+    },
+    {
+      "path": "src/client/Controllers/FeedbackAudio.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.FeedbackAudio",
+      "bytes": 2571,
+      "hash": 3594663762
+    },
+    {
+      "path": "src/client/Controllers/IndexPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.IndexPanel",
+      "bytes": 4287,
+      "hash": 2009869249
+    },
+    {
+      "path": "src/client/Controllers/LeaderboardFooter.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LeaderboardFooter",
+      "bytes": 4153,
+      "hash": 168197014
+    },
+    {
+      "path": "src/client/Controllers/Locale.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Locale",
+      "bytes": 13121,
+      "hash": 3109011756
+    },
+    {
+      "path": "src/client/Controllers/LuckyCarryPose.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LuckyCarryPose",
+      "bytes": 1266,
+      "hash": 1356096286
+    },
+    {
+      "path": "src/client/Controllers/LuckyEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LuckyEffects",
+      "bytes": 3159,
+      "hash": 1300373331
+    },
+    {
+      "path": "src/client/Controllers/LuckyPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LuckyPanel",
+      "bytes": 9257,
+      "hash": 3212206537
+    },
+    {
+      "path": "src/client/Controllers/MultiplierCue.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.MultiplierCue",
+      "bytes": 6386,
+      "hash": 3696008440
+    },
+    {
+      "path": "src/client/Controllers/MusicController.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.MusicController",
+      "bytes": 1549,
+      "hash": 3863349779
+    },
+    {
+      "path": "src/client/Controllers/ObbyHUD.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.ObbyHUD",
+      "bytes": 3166,
+      "hash": 3628778414
+    },
+    {
+      "path": "src/client/Controllers/PadLabels.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.PadLabels",
+      "bytes": 8101,
+      "hash": 1520614423
+    },
+    {
+      "path": "src/client/Controllers/PickupAudio.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.PickupAudio",
+      "bytes": 115,
+      "hash": 1276655569
+    },
+    {
+      "path": "src/client/Controllers/Preferences.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Preferences",
+      "bytes": 1415,
+      "hash": 169429656
+    },
+    {
+      "path": "src/client/Controllers/PurchaseEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.PurchaseEffects",
+      "bytes": 2659,
+      "hash": 1346644719
+    },
+    {
+      "path": "src/client/Controllers/RebirthPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.RebirthPanel",
+      "bytes": 5449,
+      "hash": 1828661788
+    },
+    {
+      "path": "src/client/Controllers/SettingsPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.SettingsPanel",
+      "bytes": 4923,
+      "hash": 1392403852
+    },
+    {
+      "path": "src/client/Controllers/Sprint.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Sprint",
+      "bytes": 2397,
+      "hash": 3237135792
+    },
+    {
+      "path": "src/client/Controllers/TierEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.TierEffects",
+      "bytes": 4265,
+      "hash": 182927692
+    },
+    {
+      "path": "src/client/Controllers/TutorialGuide.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.TutorialGuide",
+      "bytes": 2817,
+      "hash": 3971758770
+    },
+    {
+      "path": "src/client/Controllers/UpgradeEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.UpgradeEffects",
+      "bytes": 2604,
+      "hash": 3585285506
+    },
+    {
+      "path": "src/client/Controllers/VisualLifecycle.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.VisualLifecycle",
+      "bytes": 3146,
+      "hash": 3084145907
+    },
+    {
+      "path": "src/client/Controllers/VisualQueue.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.VisualQueue",
+      "bytes": 735,
+      "hash": 3293701413
+    },
+    {
+      "path": "src/client/Controllers/VisualRuntime.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.VisualRuntime",
+      "bytes": 2203,
+      "hash": 3262151429
+    },
+    {
+      "path": "src/client/Main.client.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Main",
+      "bytes": 16485,
+      "hash": 2833741939
+    },
+    {
+      "path": "src/server/Domain/FarmCore.luau",
+      "studioPath": "ServerScriptService.Domain.FarmCore",
+      "bytes": 26177,
+      "hash": 2577440722
+    },
+    {
+      "path": "src/server/Domain/ObbyRun.luau",
+      "studioPath": "ServerScriptService.Domain.ObbyRun",
+      "bytes": 9897,
+      "hash": 2708217954
+    },
+    {
+      "path": "src/server/Domain/RateLimiter.luau",
+      "studioPath": "ServerScriptService.Domain.RateLimiter",
+      "bytes": 407,
+      "hash": 1814919448
+    },
+    {
+      "path": "src/server/Domain/SnapshotPacket.luau",
+      "studioPath": "ServerScriptService.Domain.SnapshotPacket",
+      "bytes": 871,
+      "hash": 1180100454
+    },
+    {
+      "path": "src/server/Main.server.luau",
+      "studioPath": "ServerScriptService.Main",
+      "bytes": 10485,
+      "hash": 2668365389
+    },
+    {
+      "path": "src/server/Services/LeaderboardDisplay.luau",
+      "studioPath": "ServerScriptService.Services.LeaderboardDisplay",
+      "bytes": 12335,
+      "hash": 3168681226
+    },
+    {
+      "path": "src/server/Services/LuckyCarry.luau",
+      "studioPath": "ServerScriptService.Services.LuckyCarry",
+      "bytes": 1234,
+      "hash": 1619090280
+    },
+    {
+      "path": "src/server/Services/MultiplierDisplay.luau",
+      "studioPath": "ServerScriptService.Services.MultiplierDisplay",
+      "bytes": 3915,
+      "hash": 4271822002
+    },
+    {
+      "path": "src/server/Services/ObbyService.luau",
+      "studioPath": "ServerScriptService.Services.ObbyService",
+      "bytes": 2428,
+      "hash": 1582445173
+    },
+    {
+      "path": "src/server/Services/PassService.luau",
+      "studioPath": "ServerScriptService.Services.PassService",
+      "bytes": 1669,
+      "hash": 1521537439
+    },
+    {
+      "path": "src/server/Services/WorldBuilder.luau",
+      "studioPath": "ServerScriptService.Services.WorldBuilder",
+      "bytes": 36843,
+      "hash": 13418556
+    },
+    {
+      "path": "src/shared/AnimationVisibility.luau",
+      "studioPath": "ReplicatedStorage.Shared.AnimationVisibility",
+      "bytes": 2872,
+      "hash": 2356728715
+    },
+    {
+      "path": "src/shared/BrickStudOcclusion.luau",
+      "studioPath": "ReplicatedStorage.Shared.BrickStudOcclusion",
+      "bytes": 681,
+      "hash": 2419261846
+    },
+    {
+      "path": "src/shared/ClientPreferences.luau",
+      "studioPath": "ReplicatedStorage.Shared.ClientPreferences",
+      "bytes": 1723,
+      "hash": 2464216568
+    },
+    {
+      "path": "src/shared/Config.luau",
+      "studioPath": "ReplicatedStorage.Shared.Config",
+      "bytes": 1350,
+      "hash": 1156560900
+    },
+    {
+      "path": "src/shared/ConveyorFacade.luau",
+      "studioPath": "ReplicatedStorage.Shared.ConveyorFacade",
+      "bytes": 8176,
+      "hash": 1850027174
+    },
+    {
+      "path": "src/shared/CreatureCatalog.luau",
+      "studioPath": "ReplicatedStorage.Shared.CreatureCatalog",
+      "bytes": 758,
+      "hash": 408561483
+    },
+    {
+      "path": "src/shared/DisplayShelves.luau",
+      "studioPath": "ReplicatedStorage.Shared.DisplayShelves",
+      "bytes": 4915,
+      "hash": 1742323661
+    },
+    {
+      "path": "src/shared/Economy.luau",
+      "studioPath": "ReplicatedStorage.Shared.Economy",
+      "bytes": 1922,
+      "hash": 2034319916
+    },
+    {
+      "path": "src/shared/EnvironmentArt.luau",
+      "studioPath": "ReplicatedStorage.Shared.EnvironmentArt",
+      "bytes": 14699,
+      "hash": 2066822974
+    },
+    {
+      "path": "src/shared/FarmCapacity.luau",
+      "studioPath": "ReplicatedStorage.Shared.FarmCapacity",
+      "bytes": 1117,
+      "hash": 1869060455
+    },
+    {
+      "path": "src/shared/FarmLandmarks.luau",
+      "studioPath": "ReplicatedStorage.Shared.FarmLandmarks",
+      "bytes": 8320,
+      "hash": 3955826094
+    },
+    {
+      "path": "src/shared/HubScenery.luau",
+      "studioPath": "ReplicatedStorage.Shared.HubScenery",
+      "bytes": 3832,
+      "hash": 3813139439
+    },
+    {
+      "path": "src/shared/HubStudOcclusion.luau",
+      "studioPath": "ReplicatedStorage.Shared.HubStudOcclusion",
+      "bytes": 1362,
+      "hash": 4090918228
+    },
+    {
+      "path": "src/shared/LuckyAppearance.luau",
+      "studioPath": "ReplicatedStorage.Shared.LuckyAppearance",
+      "bytes": 947,
+      "hash": 77282798
+    },
+    {
+      "path": "src/shared/LuckyBlockVisuals.luau",
+      "studioPath": "ReplicatedStorage.Shared.LuckyBlockVisuals",
+      "bytes": 4512,
+      "hash": 2636422656
+    },
+    {
+      "path": "src/shared/MapSpec.luau",
+      "studioPath": "ReplicatedStorage.Shared.MapSpec",
+      "bytes": 1051,
+      "hash": 1432202208
+    },
+    {
+      "path": "src/shared/MiniEvent.luau",
+      "studioPath": "ReplicatedStorage.Shared.MiniEvent",
+      "bytes": 1119,
+      "hash": 3391137824
+    },
+    {
+      "path": "src/shared/MiniMotion.luau",
+      "studioPath": "ReplicatedStorage.Shared.MiniMotion",
+      "bytes": 1475,
+      "hash": 1517595939
+    },
+    {
+      "path": "src/shared/MiniNeighborIndex.luau",
+      "studioPath": "ReplicatedStorage.Shared.MiniNeighborIndex",
+      "bytes": 2081,
+      "hash": 2871076507
+    },
+    {
+      "path": "src/shared/ModelFactory.luau",
+      "studioPath": "ReplicatedStorage.Shared.ModelFactory",
+      "bytes": 12812,
+      "hash": 3661794603
+    },
+    {
+      "path": "src/shared/MultiplierCuePresentation.luau",
+      "studioPath": "ReplicatedStorage.Shared.MultiplierCuePresentation",
+      "bytes": 4249,
+      "hash": 129815
+    },
+    {
+      "path": "src/shared/ObbyConfig.luau",
+      "studioPath": "ReplicatedStorage.Shared.ObbyConfig",
+      "bytes": 1245,
+      "hash": 72124670
+    },
+    {
+      "path": "src/shared/ObbyCourse.luau",
+      "studioPath": "ReplicatedStorage.Shared.ObbyCourse",
+      "bytes": 6384,
+      "hash": 4151611946
+    },
+    {
+      "path": "src/shared/ObbyPresentation.luau",
+      "studioPath": "ReplicatedStorage.Shared.ObbyPresentation",
+      "bytes": 3941,
+      "hash": 139213136
+    },
+    {
+      "path": "src/shared/PadGeometry.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadGeometry",
+      "bytes": 1262,
+      "hash": 2415185484
+    },
+    {
+      "path": "src/shared/PadHold.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadHold",
+      "bytes": 1117,
+      "hash": 464669492
+    },
+    {
+      "path": "src/shared/PadLabelLayout.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadLabelLayout",
+      "bytes": 2152,
+      "hash": 3672379319
+    },
+    {
+      "path": "src/shared/PadTargeting.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadTargeting",
+      "bytes": 2739,
+      "hash": 1667320723
+    },
+    {
+      "path": "src/shared/PassConfig.luau",
+      "studioPath": "ReplicatedStorage.Shared.PassConfig",
+      "bytes": 595,
+      "hash": 3493598911
+    },
+    {
+      "path": "src/shared/PickupGeometry.luau",
+      "studioPath": "ReplicatedStorage.Shared.PickupGeometry",
+      "bytes": 406,
+      "hash": 3364822973
+    },
+    {
+      "path": "src/shared/ProductionInfo.luau",
+      "studioPath": "ReplicatedStorage.Shared.ProductionInfo",
+      "bytes": 449,
+      "hash": 4224798783
+    },
+    {
+      "path": "src/shared/StallDecor.luau",
+      "studioPath": "ReplicatedStorage.Shared.StallDecor",
+      "bytes": 29810,
+      "hash": 959061757
+    },
+    {
+      "path": "src/shared/StarterPad.luau",
+      "studioPath": "ReplicatedStorage.Shared.StarterPad",
+      "bytes": 322,
+      "hash": 2104672444
+    },
+    {
+      "path": "src/shared/TextStyle.luau",
+      "studioPath": "ReplicatedStorage.Shared.TextStyle",
+      "bytes": 927,
+      "hash": 1931289147
+    },
+    {
+      "path": "src/shared/Tutorial.luau",
+      "studioPath": "ReplicatedStorage.Shared.Tutorial",
+      "bytes": 1589,
+      "hash": 1178793125
+    },
+    {
+      "path": "src/shared/FarmerBooth.luau",
+      "studioPath": "ReplicatedStorage.Shared.FarmerBooth",
+      "bytes": 4494,
+      "hash": 3606643184
+    }
+  ]
+}

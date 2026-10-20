@@ -1,0 +1,29 @@
+{
+  "BrickTree": {
+    "triangles": 11308
+  },
+  "BrickBush": {
+    "triangles": 2420
+  },
+  "BrickLog": {
+    "triangles": 1364
+  },
+  "BrickFlower": {
+    "triangles": 528
+  },
+  "BrickGrass": {
+    "triangles": 176
+  },
+  "BrickBridge": {
+    "triangles": 11572
+  },
+  "Shopkeeper": {
+    "triangles": 11012
+  },
+  "BrickBarn": {
+    "triangles": 14652
+  },
+  "BrickLilyPad": {
+    "triangles": 1232
+  }
+}

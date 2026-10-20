@@ -1,0 +1,995 @@
+{
+  "recordedAt": "2026-10-20 10:32:53 UTC",
+  "baselineCommit": "699931c",
+  "sourceHashes": [
+    {
+      "path": "src/client/Controllers/AudioConfig.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioConfig",
+      "bytes": 1817,
+      "hash": 1355774271
+    },
+    {
+      "path": "src/client/Controllers/AudioLoadCache.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioLoadCache",
+      "bytes": 1499,
+      "hash": 4266290176
+    },
+    {
+      "path": "src/client/Controllers/AudioPreloader.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioPreloader",
+      "bytes": 911,
+      "hash": 2264041363
+    },
+    {
+      "path": "src/client/Controllers/BrickArt.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.BrickArt",
+      "bytes": 14952,
+      "hash": 3622115064
+    },
+    {
+      "path": "src/client/Controllers/CashEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.CashEffects",
+      "bytes": 8666,
+      "hash": 1993647839
+    },
+    {
+      "path": "src/client/Controllers/Conveyor.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Conveyor",
+      "bytes": 11683,
+      "hash": 260859283
+    },
+    {
+      "path": "src/client/Controllers/DepositEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.DepositEffects",
+      "bytes": 5347,
+      "hash": 4208418881
+    },
+    {
+      "path": "src/client/Controllers/DiscoveryEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.DiscoveryEffects",
+      "bytes": 5358,
+      "hash": 4260401030
+    },
+    {
+      "path": "src/client/Controllers/FarmUI.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.FarmUI",
+      "bytes": 50231,
+      "hash": 2114923471
+    },
+    {
+      "path": "src/client/Controllers/FeedbackAudio.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.FeedbackAudio",
+      "bytes": 2571,
+      "hash": 3594663762
+    },
+    {
+      "path": "src/client/Controllers/IndexPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.IndexPanel",
+      "bytes": 4287,
+      "hash": 2009869249
+    },
+    {
+      "path": "src/client/Controllers/LeaderboardFooter.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LeaderboardFooter",
+      "bytes": 4153,
+      "hash": 168197014
+    },
+    {
+      "path": "src/client/Controllers/Locale.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Locale",
+      "bytes": 13121,
+      "hash": 3109011756
+    },
+    {
+      "path": "src/client/Controllers/LuckyCarryPose.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LuckyCarryPose",
+      "bytes": 1266,
+      "hash": 1356096286
+    },
+    {
+      "path": "src/client/Controllers/LuckyEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LuckyEffects",
+      "bytes": 3159,
+      "hash": 1300373331
+    },
+    {
+      "path": "src/client/Controllers/LuckyPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LuckyPanel",
+      "bytes": 9257,
+      "hash": 3212206537
+    },
+    {
+      "path": "src/client/Controllers/MultiplierCue.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.MultiplierCue",
+      "bytes": 6386,
+      "hash": 3696008440
+    },
+    {
+      "path": "src/client/Controllers/MusicController.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.MusicController",
+      "bytes": 1549,
+      "hash": 3863349779
+    },
+    {
+      "path": "src/client/Controllers/ObbyHUD.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.ObbyHUD",
+      "bytes": 3166,
+      "hash": 3628778414
+    },
+    {
+      "path": "src/client/Controllers/PadLabels.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.PadLabels",
+      "bytes": 8101,
+      "hash": 1520614423
+    },
+    {
+      "path": "src/client/Controllers/PickupAudio.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.PickupAudio",
+      "bytes": 115,
+      "hash": 1276655569
+    },
+    {
+      "path": "src/client/Controllers/Preferences.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Preferences",
+      "bytes": 1415,
+      "hash": 169429656
+    },
+    {
+      "path": "src/client/Controllers/PurchaseEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.PurchaseEffects",
+      "bytes": 2659,
+      "hash": 1346644719
+    },
+    {
+      "path": "src/client/Controllers/RebirthPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.RebirthPanel",
+      "bytes": 5449,
+      "hash": 1828661788
+    },
+    {
+      "path": "src/client/Controllers/SettingsPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.SettingsPanel",
+      "bytes": 4923,
+      "hash": 1392403852
+    },
+    {
+      "path": "src/client/Controllers/Sprint.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Sprint",
+      "bytes": 2397,
+      "hash": 3237135792
+    },
+    {
+      "path": "src/client/Controllers/TierEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.TierEffects",
+      "bytes": 4265,
+      "hash": 182927692
+    },
+    {
+      "path": "src/client/Controllers/TutorialGuide.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.TutorialGuide",
+      "bytes": 2817,
+      "hash": 3971758770
+    },
+    {
+      "path": "src/client/Controllers/UpgradeEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.UpgradeEffects",
+      "bytes": 2604,
+      "hash": 3585285506
+    },
+    {
+      "path": "src/client/Controllers/VisualLifecycle.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.VisualLifecycle",
+      "bytes": 3146,
+      "hash": 3084145907
+    },
+    {
+      "path": "src/client/Controllers/VisualQueue.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.VisualQueue",
+      "bytes": 735,
+      "hash": 3293701413
+    },
+    {
+      "path": "src/client/Controllers/VisualRuntime.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.VisualRuntime",
+      "bytes": 2203,
+      "hash": 3262151429
+    },
+    {
+      "path": "src/client/Main.client.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Main",
+      "bytes": 16485,
+      "hash": 2833741939
+    },
+    {
+      "path": "src/server/Domain/FarmCore.luau",
+      "studioPath": "ServerScriptService.Domain.FarmCore",
+      "bytes": 26177,
+      "hash": 2577440722
+    },
+    {
+      "path": "src/server/Domain/ObbyRun.luau",
+      "studioPath": "ServerScriptService.Domain.ObbyRun",
+      "bytes": 9897,
+      "hash": 2708217954
+    },
+    {
+      "path": "src/server/Domain/RateLimiter.luau",
+      "studioPath": "ServerScriptService.Domain.RateLimiter",
+      "bytes": 407,
+      "hash": 1814919448
+    },
+    {
+      "path": "src/server/Domain/SnapshotPacket.luau",
+      "studioPath": "ServerScriptService.Domain.SnapshotPacket",
+      "bytes": 871,
+      "hash": 1180100454
+    },
+    {
+      "path": "src/server/Main.server.luau",
+      "studioPath": "ServerScriptService.Main",
+      "bytes": 10485,
+      "hash": 2668365389
+    },
+    {
+      "path": "src/server/Services/LeaderboardDisplay.luau",
+      "studioPath": "ServerScriptService.Services.LeaderboardDisplay",
+      "bytes": 12335,
+      "hash": 3168681226
+    },
+    {
+      "path": "src/server/Services/LuckyCarry.luau",
+      "studioPath": "ServerScriptService.Services.LuckyCarry",
+      "bytes": 1234,
+      "hash": 1619090280
+    },
+    {
+      "path": "src/server/Services/MultiplierDisplay.luau",
+      "studioPath": "ServerScriptService.Services.MultiplierDisplay",
+      "bytes": 3915,
+      "hash": 4271822002
+    },
+    {
+      "path": "src/server/Services/ObbyService.luau",
+      "studioPath": "ServerScriptService.Services.ObbyService",
+      "bytes": 2428,
+      "hash": 1582445173
+    },
+    {
+      "path": "src/server/Services/PassService.luau",
+      "studioPath": "ServerScriptService.Services.PassService",
+      "bytes": 1669,
+      "hash": 1521537439
+    },
+    {
+      "path": "src/server/Services/WorldBuilder.luau",
+      "studioPath": "ServerScriptService.Services.WorldBuilder",
+      "bytes": 36843,
+      "hash": 13418556
+    },
+    {
+      "path": "src/shared/AnimationVisibility.luau",
+      "studioPath": "ReplicatedStorage.Shared.AnimationVisibility",
+      "bytes": 2872,
+      "hash": 2356728715
+    },
+    {
+      "path": "src/shared/BrickStudOcclusion.luau",
+      "studioPath": "ReplicatedStorage.Shared.BrickStudOcclusion",
+      "bytes": 681,
+      "hash": 2419261846
+    },
+    {
+      "path": "src/shared/ClientPreferences.luau",
+      "studioPath": "ReplicatedStorage.Shared.ClientPreferences",
+      "bytes": 1723,
+      "hash": 2464216568
+    },
+    {
+      "path": "src/shared/Config.luau",
+      "studioPath": "ReplicatedStorage.Shared.Config",
+      "bytes": 1350,
+      "hash": 1156560900
+    },
+    {
+      "path": "src/shared/ConveyorFacade.luau",
+      "studioPath": "ReplicatedStorage.Shared.ConveyorFacade",
+      "bytes": 8176,
+      "hash": 1850027174
+    },
+    {
+      "path": "src/shared/CreatureCatalog.luau",
+      "studioPath": "ReplicatedStorage.Shared.CreatureCatalog",
+      "bytes": 758,
+      "hash": 408561483
+    },
+    {
+      "path": "src/shared/DisplayShelves.luau",
+      "studioPath": "ReplicatedStorage.Shared.DisplayShelves",
+      "bytes": 4915,
+      "hash": 1742323661
+    },
+    {
+      "path": "src/shared/Economy.luau",
+      "studioPath": "ReplicatedStorage.Shared.Economy",
+      "bytes": 1922,
+      "hash": 2034319916
+    },
+    {
+      "path": "src/shared/EnvironmentArt.luau",
+      "studioPath": "ReplicatedStorage.Shared.EnvironmentArt",
+      "bytes": 14699,
+      "hash": 2066822974
+    },
+    {
+      "path": "src/shared/FarmCapacity.luau",
+      "studioPath": "ReplicatedStorage.Shared.FarmCapacity",
+      "bytes": 1117,
+      "hash": 1869060455
+    },
+    {
+      "path": "src/shared/FarmLandmarks.luau",
+      "studioPath": "ReplicatedStorage.Shared.FarmLandmarks",
+      "bytes": 8320,
+      "hash": 3955826094
+    },
+    {
+      "path": "src/shared/HubScenery.luau",
+      "studioPath": "ReplicatedStorage.Shared.HubScenery",
+      "bytes": 3832,
+      "hash": 3813139439
+    },
+    {
+      "path": "src/shared/HubStudOcclusion.luau",
+      "studioPath": "ReplicatedStorage.Shared.HubStudOcclusion",
+      "bytes": 1362,
+      "hash": 4090918228
+    },
+    {
+      "path": "src/shared/LuckyAppearance.luau",
+      "studioPath": "ReplicatedStorage.Shared.LuckyAppearance",
+      "bytes": 947,
+      "hash": 77282798
+    },
+    {
+      "path": "src/shared/LuckyBlockVisuals.luau",
+      "studioPath": "ReplicatedStorage.Shared.LuckyBlockVisuals",
+      "bytes": 4512,
+      "hash": 2636422656
+    },
+    {
+      "path": "src/shared/MapSpec.luau",
+      "studioPath": "ReplicatedStorage.Shared.MapSpec",
+      "bytes": 1051,
+      "hash": 1432202208
+    },
+    {
+      "path": "src/shared/MiniEvent.luau",
+      "studioPath": "ReplicatedStorage.Shared.MiniEvent",
+      "bytes": 1119,
+      "hash": 3391137824
+    },
+    {
+      "path": "src/shared/MiniMotion.luau",
+      "studioPath": "ReplicatedStorage.Shared.MiniMotion",
+      "bytes": 1475,
+      "hash": 1517595939
+    },
+    {
+      "path": "src/shared/MiniNeighborIndex.luau",
+      "studioPath": "ReplicatedStorage.Shared.MiniNeighborIndex",
+      "bytes": 2081,
+      "hash": 2871076507
+    },
+    {
+      "path": "src/shared/ModelFactory.luau",
+      "studioPath": "ReplicatedStorage.Shared.ModelFactory",
+      "bytes": 12812,
+      "hash": 3661794603
+    },
+    {
+      "path": "src/shared/MultiplierCuePresentation.luau",
+      "studioPath": "ReplicatedStorage.Shared.MultiplierCuePresentation",
+      "bytes": 4249,
+      "hash": 129815
+    },
+    {
+      "path": "src/shared/ObbyConfig.luau",
+      "studioPath": "ReplicatedStorage.Shared.ObbyConfig",
+      "bytes": 1245,
+      "hash": 72124670
+    },
+    {
+      "path": "src/shared/ObbyCourse.luau",
+      "studioPath": "ReplicatedStorage.Shared.ObbyCourse",
+      "bytes": 6384,
+      "hash": 4151611946
+    },
+    {
+      "path": "src/shared/ObbyPresentation.luau",
+      "studioPath": "ReplicatedStorage.Shared.ObbyPresentation",
+      "bytes": 3941,
+      "hash": 139213136
+    },
+    {
+      "path": "src/shared/PadGeometry.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadGeometry",
+      "bytes": 1262,
+      "hash": 2415185484
+    },
+    {
+      "path": "src/shared/PadHold.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadHold",
+      "bytes": 1117,
+      "hash": 464669492
+    },
+    {
+      "path": "src/shared/PadLabelLayout.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadLabelLayout",
+      "bytes": 2152,
+      "hash": 3672379319
+    },
+    {
+      "path": "src/shared/PadTargeting.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadTargeting",
+      "bytes": 2739,
+      "hash": 1667320723
+    },
+    {
+      "path": "src/shared/PassConfig.luau",
+      "studioPath": "ReplicatedStorage.Shared.PassConfig",
+      "bytes": 595,
+      "hash": 3493598911
+    },
+    {
+      "path": "src/shared/PickupGeometry.luau",
+      "studioPath": "ReplicatedStorage.Shared.PickupGeometry",
+      "bytes": 406,
+      "hash": 3364822973
+    },
+    {
+      "path": "src/shared/ProductionInfo.luau",
+      "studioPath": "ReplicatedStorage.Shared.ProductionInfo",
+      "bytes": 449,
+      "hash": 4224798783
+    },
+    {
+      "path": "src/shared/StallDecor.luau",
+      "studioPath": "ReplicatedStorage.Shared.StallDecor",
+      "bytes": 29810,
+      "hash": 959061757
+    },
+    {
+      "path": "src/shared/StarterPad.luau",
+      "studioPath": "ReplicatedStorage.Shared.StarterPad",
+      "bytes": 322,
+      "hash": 2104672444
+    },
+    {
+      "path": "src/shared/TextStyle.luau",
+      "studioPath": "ReplicatedStorage.Shared.TextStyle",
+      "bytes": 927,
+      "hash": 1931289147
+    },
+    {
+      "path": "src/shared/Tutorial.luau",
+      "studioPath": "ReplicatedStorage.Shared.Tutorial",
+      "bytes": 1589,
+      "hash": 1178793125
+    },
+    {
+      "path": "src/shared/FarmerBooth.luau",
+      "studioPath": "ReplicatedStorage.Shared.FarmerBooth",
+      "bytes": 4494,
+      "hash": 3606643184
+    }
+  ],
+  "setup": "Fresh disposable Play with both Main scripts disabled; one runtime Script bootstrap enabled normal server Main and seeded 10000 coin units plus a tier2 Lucky through Core snapshot/commit. It restored its method before returning the session. Client driver enabled untouched Main once; gameplay commands came from shipped controls.",
+  "setupAttempt": "Direct ExecuteLuau bootstrap did not intercept runtime Main's module context. That Play was stopped and discarded. No gameplay result claimed for that attempt. Successful run used an actual temporary Script in ServerScriptService.",
+  "result": {
+    "cleanup": true,
+    "luckyOutside": 7.048497009277344,
+    "autoCollect": {
+      "button": "Coming soon",
+      "x": -0.05918391793966293,
+      "summary": "Auto Collect + Deposit",
+      "z": 51.07804870605469
+    },
+    "walkedWorldStuds": 92.77276472091216,
+    "luckyResponse": {
+      "at": 57947.877222999996,
+      "distance": 5.471437311172486,
+      "foot": {
+        "y": -3.6679782056125987e-7,
+        "x": -0.00429981853812933,
+        "z": 56.73586654663086
+      }
+    },
+    "pass": true,
+    "responses": [
+      {
+        "at": 57935.661244999996,
+        "action": "Buy",
+        "code": "TooFar",
+        "phase": "starter",
+        "replayed": false,
+        "requestId": "2a088648-82ed-4da5-aa4f-5ce955448c7d"
+      },
+      {
+        "at": 57936.2612131,
+        "action": "Buy",
+        "code": "OK",
+        "phase": "starter",
+        "replayed": false,
+        "count": 1,
+        "requestId": "42b1f64e-8dbd-4654-890d-9bce47157167"
+      },
+      {
+        "at": 57937.793822399995,
+        "action": "Buy",
+        "code": "TooFar",
+        "phase": "buy-5-hold",
+        "replayed": false,
+        "requestId": "1d7c8935-7579-4c91-b558-3bece9b28512"
+      },
+      {
+        "at": 57938.3609225,
+        "action": "Buy",
+        "code": "OK",
+        "phase": "buy-5-hold",
+        "replayed": false,
+        "count": 5,
+        "requestId": "3d2145f6-1e5b-4505-a988-b677821d6f20"
+      },
+      {
+        "at": 57939.8433555,
+        "action": "Buy",
+        "code": "OK",
+        "phase": "buy-5-hold",
+        "replayed": false,
+        "count": 5,
+        "requestId": "9f5f7565-48e2-44ae-a98c-aa36c8fb4c2e"
+      },
+      {
+        "at": 57940.3942943,
+        "action": "Buy",
+        "code": "OK",
+        "phase": "buy-5-hold",
+        "replayed": false,
+        "count": 5,
+        "requestId": "d161e55e-13ee-493e-8b04-6778730ff217"
+      },
+      {
+        "at": 57942.7769507,
+        "action": "Buy",
+        "code": "TooFar",
+        "phase": "buy-10-hold",
+        "replayed": false,
+        "requestId": "771bfc5d-fe60-4b61-8693-7a2efc37eb7a"
+      },
+      {
+        "at": 57943.3271721,
+        "action": "Buy",
+        "code": "OK",
+        "phase": "buy-10-hold",
+        "replayed": false,
+        "count": 10,
+        "requestId": "92f73e4f-da50-48bc-b655-939074e513ec"
+      },
+      {
+        "at": 57944.810130699996,
+        "action": "Buy",
+        "code": "OK",
+        "phase": "buy-10-hold",
+        "replayed": false,
+        "count": 10,
+        "requestId": "ad2fdfd5-1b70-4009-b635-45c23f85b7f0"
+      },
+      {
+        "at": 57945.3432272,
+        "action": "Buy",
+        "code": "OK",
+        "phase": "buy-10-hold",
+        "replayed": false,
+        "count": 10,
+        "requestId": "32497858-ad35-4160-b213-71996ff8d56b"
+      },
+      {
+        "at": 57947.227478,
+        "action": "PickupLucky",
+        "code": "TooFar",
+        "phase": "lucky-inside",
+        "replayed": false,
+        "requestId": "d72d8991-7feb-4f37-b77f-317ca25e8996"
+      },
+      {
+        "at": 57947.877222999996,
+        "action": "PickupLucky",
+        "code": "OK",
+        "phase": "lucky-inside",
+        "replayed": false,
+        "requestId": "eeafbcea-1615-4b5f-aa1c-7eeb6c2c3120"
+      }
+    ],
+    "scope": "Synthetic funds/Lucky; shipped Main purchases/pickup, one staging move then actual walking.",
+    "cycles": [
+      {
+        "successes": [
+          {
+            "at": 57938.3609225,
+            "action": "Buy",
+            "code": "OK",
+            "phase": "buy-5-hold",
+            "replayed": false,
+            "count": 5,
+            "requestId": "3d2145f6-1e5b-4505-a988-b677821d6f20"
+          },
+          {
+            "at": 57939.8433555,
+            "action": "Buy",
+            "code": "OK",
+            "phase": "buy-5-hold",
+            "replayed": false,
+            "count": 5,
+            "requestId": "9f5f7565-48e2-44ae-a98c-aa36c8fb4c2e"
+          },
+          {
+            "at": 57940.3942943,
+            "action": "Buy",
+            "code": "OK",
+            "phase": "buy-5-hold",
+            "replayed": false,
+            "count": 5,
+            "requestId": "d161e55e-13ee-493e-8b04-6778730ff217"
+          }
+        ],
+        "enteredAt": 57937.694441,
+        "quantity": "5",
+        "repeatInterval": 0.5509387999991304,
+        "entryLatency": 0.6664814999967348,
+        "firstRepeatAfterEntry": 2.1489145000014105,
+        "tooFar": 1
+      },
+      {
+        "successes": [
+          {
+            "at": 57943.3271721,
+            "action": "Buy",
+            "code": "OK",
+            "phase": "buy-10-hold",
+            "replayed": false,
+            "count": 10,
+            "requestId": "92f73e4f-da50-48bc-b655-939074e513ec"
+          },
+          {
+            "at": 57944.810130699996,
+            "action": "Buy",
+            "code": "OK",
+            "phase": "buy-10-hold",
+            "replayed": false,
+            "count": 10,
+            "requestId": "ad2fdfd5-1b70-4009-b635-45c23f85b7f0"
+          },
+          {
+            "at": 57945.3432272,
+            "action": "Buy",
+            "code": "OK",
+            "phase": "buy-10-hold",
+            "replayed": false,
+            "count": 10,
+            "requestId": "32497858-ad35-4160-b213-71996ff8d56b"
+          }
+        ],
+        "enteredAt": 57942.7105445,
+        "quantity": "10",
+        "repeatInterval": 0.5330965000030119,
+        "entryLatency": 0.6166276000003563,
+        "firstRepeatAfterEntry": 2.099586199998157,
+        "tooFar": 1
+      }
+    ],
+    "snapshotAge": 0.1498970999964513,
+    "startedClientMain": true,
+    "waypoints": [
+      {
+        "y": -7.335956411225197e-7,
+        "targetZ": 56,
+        "targetX": 44,
+        "z": 54.63578796386719,
+        "phase": "starter",
+        "at": 57935.6775602,
+        "x": 44.00514221191406
+      },
+      {
+        "y": -0.0000011003934332620702,
+        "targetZ": 48,
+        "targetX": 44,
+        "z": 48.84326934814453,
+        "phase": "starter",
+        "at": 57936.5781037,
+        "x": 44.005287170410156
+      },
+      {
+        "y": -7.335956411225197e-7,
+        "targetZ": 48,
+        "targetX": 22,
+        "z": 48.00271987915039,
+        "phase": "buy-5-approach",
+        "at": 57937.4773192,
+        "x": 22.930788040161133
+      },
+      {
+        "y": -7.335956411225197e-7,
+        "targetZ": 56,
+        "targetX": 22,
+        "z": 55.14226150512695,
+        "phase": "buy-5-hold",
+        "at": 57937.810612099995,
+        "x": 22.015871047973633
+      },
+      {
+        "y": -7.335956411225197e-7,
+        "targetZ": 48,
+        "targetX": 22,
+        "z": 49.11156463623047,
+        "phase": "buy-5-hold",
+        "at": 57940.6947048,
+        "x": 22.007156372070312
+      },
+      {
+        "y": -7.335956411225197e-7,
+        "targetZ": 48,
+        "targetX": 0,
+        "z": 48.01417541503906,
+        "phase": "buy-5-hold",
+        "at": 57941.5943223,
+        "x": 0.9278193116188049
+      },
+      {
+        "y": -7.335956411225197e-7,
+        "targetZ": 48,
+        "targetX": -22,
+        "z": 48.00044250488281,
+        "phase": "buy-10-approach",
+        "at": 57942.4944759,
+        "x": -21.12293815612793
+      },
+      {
+        "y": -7.335956411225197e-7,
+        "targetZ": 56,
+        "targetX": -22,
+        "z": 55.140289306640625,
+        "phase": "buy-10-hold",
+        "at": 57942.827524199995,
+        "x": -21.990087509155273
+      },
+      {
+        "y": -7.335956411225197e-7,
+        "targetZ": 48,
+        "targetX": -22,
+        "z": 49.34465026855469,
+        "phase": "buy-10-hold",
+        "at": 57945.6279221,
+        "x": -21.993974685668945
+      },
+      {
+        "y": -7.335956411225197e-7,
+        "targetZ": 48,
+        "targetX": 0,
+        "z": 48.0093879699707,
+        "phase": "buy-10-hold",
+        "at": 57946.527905999996,
+        "x": -1.0540235042572021
+      },
+      {
+        "y": -3.6679782056125987e-7,
+        "targetZ": 52,
+        "targetX": 0,
+        "z": 51.07804870605469,
+        "phase": "auto-collect-walkup",
+        "at": 57946.6936038,
+        "x": -0.05918391793966293
+      },
+      {
+        "y": 0,
+        "targetZ": 55,
+        "targetX": 0,
+        "z": 53.50978088378906,
+        "phase": "lucky-outside",
+        "at": 57946.7937184,
+        "x": -0.020837925374507904
+      },
+      {
+        "y": -3.6679782056125987e-7,
+        "targetZ": 57.5,
+        "targetX": 0,
+        "z": 56.309112548828125,
+        "phase": "lucky-inside",
+        "at": 57947.160719399995,
+        "x": -0.00481850141659379
+      },
+      {
+        "y": -0.0000011003934332620702,
+        "targetZ": 52,
+        "targetX": 0,
+        "z": 53.283390045166016,
+        "phase": "held-lucky-walk",
+        "at": 57948.0770257,
+        "x": -0.007658377755433321
+      }
+    ],
+    "coinUnits": 5120,
+    "luckyInside": 5.471437311172486,
+    "producers": 46,
+    "server": {
+      "luckyHeld": true,
+      "cleanup": "Fixture observers and bootstrap removed. End disposable Play to discard synthetic progress.",
+      "purchased": 46,
+      "scope": "Synthetic funds/Lucky only; normal Main commands and real Humanoid afterward.",
+      "pass": true,
+      "requests": [
+        {
+          "at": 57935.627544999996,
+          "quantity": "1",
+          "action": "Buy",
+          "id": "2a088648-82ed-4da5-aa4f-5ce955448c7d",
+          "foot": {
+            "y": -0.00015148750389926136,
+            "x": 44.001983642578125,
+            "z": 48.04673767089844
+          },
+          "luckyDistance": 30.668349075317384
+        },
+        {
+          "at": 57936.2271319,
+          "quantity": "1",
+          "action": "Buy",
+          "id": "42b1f64e-8dbd-4654-890d-9bce47157167",
+          "foot": {
+            "y": -0.00015185429947450757,
+            "x": 44.006160736083984,
+            "z": 55.400699615478516
+          },
+          "luckyDistance": 29.295100593566897
+        },
+        {
+          "at": 57937.7610175,
+          "quantity": "5",
+          "action": "Buy",
+          "id": "1d7c8935-7579-4c91-b558-3bece9b28512",
+          "foot": {
+            "y": -0.00015185429947450757,
+            "x": 22.1337890625,
+            "z": 48.78908920288086
+          },
+          "luckyDistance": 17.86328163146973
+        },
+        {
+          "at": 57938.3269791,
+          "quantity": "5",
+          "action": "Buy",
+          "id": "3d2145f6-1e5b-4505-a988-b677821d6f20",
+          "foot": {
+            "y": -0.00015185429947450757,
+            "x": 22.00946617126465,
+            "z": 55.568965911865234
+          },
+          "luckyDistance": 15.598937511444092
+        },
+        {
+          "at": 57939.8108372,
+          "quantity": "5",
+          "action": "Buy",
+          "id": "9f5f7565-48e2-44ae-a98c-aa36c8fb4c2e",
+          "foot": {
+            "y": -0.00015185429947450757,
+            "x": 22.00946617126465,
+            "z": 55.568965911865234
+          },
+          "luckyDistance": 15.598937511444092
+        },
+        {
+          "at": 57940.3603851,
+          "quantity": "5",
+          "action": "Buy",
+          "id": "d161e55e-13ee-493e-8b04-6778730ff217",
+          "foot": {
+            "y": -0.00015185429947450757,
+            "x": 22.00946617126465,
+            "z": 55.568965911865234
+          },
+          "luckyDistance": 15.598937511444092
+        },
+        {
+          "at": 57942.7436131,
+          "quantity": "10",
+          "action": "Buy",
+          "id": "771bfc5d-fe60-4b61-8693-7a2efc37eb7a",
+          "foot": {
+            "y": -0.00015185429947450757,
+            "x": -21.902637481689453,
+            "z": 49.06630325317383
+          },
+          "luckyDistance": 17.636078929901124
+        },
+        {
+          "at": 57943.294145,
+          "quantity": "10",
+          "action": "Buy",
+          "id": "92f73e4f-da50-48bc-b655-939074e513ec",
+          "foot": {
+            "y": -0.00015185429947450757,
+            "x": -21.993690490722656,
+            "z": 55.56746292114258
+          },
+          "luckyDistance": 15.58991689682007
+        },
+        {
+          "at": 57944.7771823,
+          "quantity": "10",
+          "action": "Buy",
+          "id": "ad2fdfd5-1b70-4009-b635-45c23f85b7f0",
+          "foot": {
+            "y": -0.00015185429947450757,
+            "x": -21.993690490722656,
+            "z": 55.56746292114258
+          },
+          "luckyDistance": 15.58991689682007
+        },
+        {
+          "at": 57945.3104418,
+          "quantity": "10",
+          "action": "Buy",
+          "id": "32497858-ad35-4160-b213-71996ff8d56b",
+          "foot": {
+            "y": -0.00015185429947450757,
+            "x": -21.993690490722656,
+            "z": 55.56746292114258
+          },
+          "luckyDistance": 15.58991689682007
+        },
+        {
+          "at": 57947.1936476,
+          "quantity": "moved-pad-9b4b0c06-0712-4472-8099-f0467f2dee9d",
+          "action": "PickupLucky",
+          "id": "d72d8991-7feb-4f37-b77f-317ca25e8996",
+          "foot": {
+            "y": -0.00015185429947450757,
+            "x": -0.013521634973585606,
+            "z": 54.2746696472168
+          },
+          "luckyDistance": 7.048631525039673
+        },
+        {
+          "at": 57947.8438656,
+          "quantity": "moved-pad-9b4b0c06-0712-4472-8099-f0467f2dee9d",
+          "action": "PickupLucky",
+          "id": "eeafbcea-1615-4b5f-aa1c-7eeb6c2c3120",
+          "foot": {
+            "y": -0.00015185429947450757,
+            "x": -0.0045072115026414394,
+            "z": 56.7355842590332
+          },
+          "luckyDistance": 5.4716362953186035
+        }
+      ],
+      "ownerId": 706106964,
+      "wrapperRestored": true,
+      "coinUnits": 5120,
+      "producers": 46
+    }
+  },
+  "cleanup": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"camera\":\"Custom\",\"syntheticFixture\":false,\"clientMainEnabled\":true,\"hud\":true,\"health\":100}"
+      }
+    ],
+    "isError": false
+  },
+  "limitations": [
+    "One Studio client and synthetic funds/Lucky; no natural economy/drop-rate or paid-pass validation.",
+    "Initial TooFar occurred once on each purchase pad and once approaching Lucky due to sampled server position outside the valid area. Existing bounded retries succeeded; measured times are not a latency guarantee.",
+    "The successful normal-controller route accepts moved geometry, standing repeats and nonmodal carry, not performance or physical-device behavior."
+  ]
+}

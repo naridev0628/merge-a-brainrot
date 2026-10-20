@@ -1,0 +1,24 @@
+{
+  "BrainrotNest": {
+    "triangles": 3876,
+    "vertices": 2192,
+    "dimensions_xyz": [
+      5.3714,
+      5.3714,
+      0.4772
+    ],
+    "bounds_min": [
+      -2.6857,
+      -2.6857,
+      0.0
+    ],
+    "bounds_max": [
+      2.6857,
+      2.6857,
+      0.4772
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "glb_bytes": 252388
+  }
+}

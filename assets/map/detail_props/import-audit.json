@@ -1,0 +1,9 @@
+{
+  "bundle": "MapDetailImport.glb",
+  "sha256": "c50b3eecf7a31566ae54731f2f4ce3db391d670689820e3bf89014c3e8dc6a39",
+  "meshCount": 4,
+  "totalTriangles": 20572,
+  "envelopesPreserved": true,
+  "bridgeWalkPlanePreserved": true,
+  "embeddedPalette": true
+}

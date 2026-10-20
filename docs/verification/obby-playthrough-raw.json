@@ -1,0 +1,13 @@
+{
+  "observedAtUTC": "2026-10-20T06:29:00Z",
+  "scope": "One normal Studio client; default Humanoid speed16 and JumpPower50. Single setup teleport, then real jumps; server checkpoint and finish packets. Earlier test driver needed ChangeState(Jumping); this successful diagnostic run used that fix.",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":\"PASS real Humanoid route through ten checkpoints and server-awarded finish\",\"packets\":{\"1\":{\"phase\":\"idle\",\"bonus\":0,\"checkpoint\":0},\"3\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":2},\"2\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":1},\"5\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":3},\"4\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":3},\"7\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":5},\"6\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":4},\"9\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":6},\"8\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":6},\"15\":{\"phase\":\"cooldown\",\"bonus\":25,\"checkpoint\":0},\"14\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":10},\"13\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":9},\"12\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":9},\"11\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":8},\"10\":{\"phase\":\"running\",\"bonus\":0,\"checkpoint\":7}}}"
+      }
+    ],
+    "isError": false
+  }
+}

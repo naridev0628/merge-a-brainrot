@@ -1,0 +1,140 @@
+[
+  {
+    "seconds": 20,
+    "title": "A clear first action",
+    "category": "ui",
+    "visibility": "partial",
+    "key": true,
+    "observation": "A blue tutorial heading and cream outlined instruction sit above an open lawn. A luminous ground path leads to the first purchase pad; the source has no Home button in this state.",
+    "application": "Keep the new always-available Home adaptation. Preserve goal/detail readability and ground guidance, with no extra controls added from the video."
+  },
+  {
+    "seconds": 40,
+    "title": "Pad size and price hierarchy",
+    "category": "map",
+    "visibility": "partial",
+    "key": false,
+    "observation": "The avatar stands within a broad red pad. White action text and green price are separated above it. Wheat and timber fencing sit beyond the main walking route.",
+    "application": "Existing full-pad interactions, affordability colors and local label spacing cover these cues. Use this as a scale check, not permission to copy prices or add cash buttons."
+  },
+  {
+    "seconds": 96,
+    "title": "Utility landmark and farmer",
+    "category": "map",
+    "visibility": "partial",
+    "key": true,
+    "observation": "A tall red silo with pale ribs anchors the utility area. The farmer’s blue torso and sleeves remain visible above the counter; the lawn in front is mostly open.",
+    "application": "The committed lowered counter already addresses this proportion. Preserve its fixed farmer scale and blue enclosure; do not add scenery across the deposit approach."
+  },
+  {
+    "seconds": 150,
+    "title": "Bridge and stall approach",
+    "category": "map",
+    "visibility": "partial",
+    "key": false,
+    "observation": "A plank bridge, two-rail fence and red/white awning frame the route between farm and hub. The avatar and creator overlay cover part of the foreground.",
+    "application": "Current bridge, fences and canopy already implement the broad silhouette. Keep player routes open and avoid treating an obscured foreground as missing geometry."
+  },
+  {
+    "seconds": 202,
+    "title": "Separate processor and deposit roles",
+    "category": "map",
+    "visibility": "partial",
+    "key": true,
+    "observation": "The brown board separates a small “Selling Eggs” heading, a large standalone 79 and the rate below. It remains distinct from the blue deposit stall, green claim pad and yellow deposit pad.",
+    "application": "Applied: “Processing Minis” supplies context above a larger numeric queue with comma separators, retaining the existing rate, font, board geometry and three text cells. Native checks cover count fit and clear/fresh-state resets. This is our hierarchy adaptation, not a copied economy; approach captures still contain unmanaged cloned pad-label overlap.",
+    "implementationStatus": "Applied · processor hierarchy",
+    "implementationAnchor": "comparison-processor"
+  },
+  {
+    "seconds": 288,
+    "title": "A broad shallow collection tray",
+    "category": "conveyor",
+    "visibility": "clear",
+    "key": true,
+    "observation": "The tray is a broad gold-bordered inset with a red floor. Mixed eggs spread across its footprint and the red belt feeds a narrower rear opening.",
+    "application": "Applied: a 24×16 logical tray with 32 positions per layer and three layers for 96 Minis, with connected rims, rails and facade resized together. Paired 24/50/96-Mini scenes document the change. Dense Crocodilo meshes still overlap; the source image establishes no token cap or collision rules.",
+    "implementationStatus": "Applied · native comparison",
+    "implementationAnchor": "comparison-layout"
+  },
+  {
+    "seconds": 394,
+    "title": "Bodies framed by diagonal bays",
+    "category": "display",
+    "visibility": "clear",
+    "key": true,
+    "observation": "Individual red nest bases sit inside tan bays with gold diagonal edges. Colored species names and white tier lines sit above the simplified block characters.",
+    "application": "Applied: low-front/high-rear wedges and sloped gold caps retain 221 Parts for the ground row and 224 for each upper row (1117 for all five). Producer positions and support planes remain unchanged. Nests are source detail and are excluded by the user’s direction.",
+    "implementationStatus": "Applied · same Part count",
+    "implementationAnchor": "comparison-layout"
+  },
+  {
+    "seconds": 480,
+    "title": "The island edge from the hub",
+    "category": "map",
+    "visibility": "clear",
+    "key": true,
+    "observation": "The farm has thick studded green side walls, a short timber bridge, two-rail fence and a stepped upright tree. The stall remains open at the rear.",
+    "application": "Applied: the redundant raised lawn overlay was removed while native studded slabs remain. This removes 844 Parts per plot (5064 across six); all 18 slab transforms/sizes match within 1e-5 and each plot retains 77 colliders. Foundation, bridge and fence work already exists.",
+    "implementationStatus": "Applied · native lawn",
+    "implementationAnchor": "comparison-lawn"
+  },
+  {
+    "seconds": 576,
+    "title": "Strong deck, nest and belt separation",
+    "category": "display",
+    "visibility": "partial",
+    "key": false,
+    "observation": "Red raised nest bowls contrast with the gold deck and tan rear wall. A saturated red belt and orange Lucky cube with pale glyphs/corner caps remain distinct.",
+    "application": "Keep the existing gold/blue Lucky identity and physical white-cap treatment. Preserve the current producer support and imported meshes; the user has excluded nests."
+  },
+  {
+    "seconds": 672,
+    "title": "The triangular divider silhouette",
+    "category": "display",
+    "visibility": "clear",
+    "key": true,
+    "observation": "An oblique view shows each divider rising from the low deck front to the tall rear wall, with a diagonal gold cap. Empty deck continues beyond the occupied bays.",
+    "application": "Applied: the same-count wedge/cap adaptation retains rear joins, support planes, Slot names, Mini paths and five-row clearance. Native before/after front and oblique views use the same fixed Mini IDs and actual Crocodilo meshes. Exact slope and dimensions are our adaptation.",
+    "implementationStatus": "Applied · native comparison",
+    "implementationAnchor": "comparison-layout"
+  },
+  {
+    "seconds": 768,
+    "title": "Close-up of the bay slope",
+    "category": "display",
+    "visibility": "clear",
+    "key": true,
+    "observation": "The low front, tall tan rear and gold diagonal trim are all visible. Large colored character names have rounded dark outlines, with a white tier line underneath.",
+    "application": "Applied: Tung’s name fill is now warm cream RGB(255,204,143), Crocodilo’s light green RGB(177,236,112). Six actual meshes were compared at matched front/oblique cameras. Other names, fonts, outlines, placement, cutoff, depth occlusion and mesh colors are unchanged; this is not a font replacement.",
+    "implementationStatus": "Applied · name colors only",
+    "implementationAnchor": "comparison-palette"
+  },
+  {
+    "seconds": 855,
+    "title": "Overhead nest and divider detail",
+    "category": "display",
+    "visibility": "clear",
+    "key": false,
+    "observation": "Raised round red nests with gold straw sit between thin diagonal walls. The name/tier pair remains large above each character.",
+    "application": "Record the source detail without implementing nests, which the user has excluded. Existing imported Brainrot meshes need their own footprint and readability checks."
+  },
+  {
+    "seconds": 860,
+    "title": "Lucky card behind a purchase dialog",
+    "category": "ui",
+    "visibility": "occluded",
+    "key": false,
+    "observation": "A tall rainbow card has outlined reward rows, a separate price stripe and stacked actions. A recorded Roblox purchase dialog dims and partly covers the game.",
+    "application": "Visual reference only: retain the current nonmodal card and user-requested gameplay. Do not infer odds, prices, purchases or feature requirements from this partially obscured state."
+  },
+  {
+    "seconds": 865,
+    "title": "Rainbow reveal color family",
+    "category": "ui",
+    "visibility": "partial",
+    "key": false,
+    "observation": "A large rainbow cube uses white glyphs and white corner caps during a reveal, with a bold outlined character label.",
+    "application": "Document another source palette without adding an unverified rarity tier. Current Basic/Blue mapping remains our adaptation, with its existing economy unchanged."
+  }
+]

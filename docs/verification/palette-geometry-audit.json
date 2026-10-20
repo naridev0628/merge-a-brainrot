@@ -1,0 +1,175 @@
+{
+  "note": "Only texture IDs changed in twelve runtime templates. Source exports retain accessor counts and bounds within 0.00001; exporter may reorder triangulation after normalization to Studio template dimensions.",
+  "runtimeTemplates": [
+    {
+      "name": "GroundGreenTile",
+      "oldTexture": "rbxassetid://134365510718406",
+      "newTexture": "rbxassetid://121164138646928",
+      "meshSizeCollisionAndAllOtherPropertiesUnchanged": true
+    },
+    {
+      "name": "GroundGreenTriangle",
+      "oldTexture": "rbxassetid://134365510718406",
+      "newTexture": "rbxassetid://121164138646928",
+      "meshSizeCollisionAndAllOtherPropertiesUnchanged": true
+    },
+    {
+      "name": "GroundGoldTile",
+      "oldTexture": "rbxassetid://134365510718406",
+      "newTexture": "rbxassetid://121164138646928",
+      "meshSizeCollisionAndAllOtherPropertiesUnchanged": true
+    },
+    {
+      "name": "GroundGoldTriangle",
+      "oldTexture": "rbxassetid://134365510718406",
+      "newTexture": "rbxassetid://121164138646928",
+      "meshSizeCollisionAndAllOtherPropertiesUnchanged": true
+    },
+    {
+      "name": "GroundBrownTile",
+      "oldTexture": "rbxassetid://134365510718406",
+      "newTexture": "rbxassetid://121164138646928",
+      "meshSizeCollisionAndAllOtherPropertiesUnchanged": true
+    },
+    {
+      "name": "GroundBrownTriangle",
+      "oldTexture": "rbxassetid://134365510718406",
+      "newTexture": "rbxassetid://121164138646928",
+      "meshSizeCollisionAndAllOtherPropertiesUnchanged": true
+    },
+    {
+      "name": "GroundGreenEdge",
+      "oldTexture": "rbxassetid://134365510718406",
+      "newTexture": "rbxassetid://121164138646928",
+      "meshSizeCollisionAndAllOtherPropertiesUnchanged": true
+    },
+    {
+      "name": "BrickTree",
+      "oldTexture": "rbxassetid://134365510718406",
+      "newTexture": "rbxassetid://121164138646928",
+      "meshSizeCollisionAndAllOtherPropertiesUnchanged": true
+    },
+    {
+      "name": "BrickBridge",
+      "oldTexture": "rbxassetid://109316861381300",
+      "newTexture": "rbxassetid://91075571522936",
+      "meshSizeCollisionAndAllOtherPropertiesUnchanged": true
+    },
+    {
+      "name": "BrickBush",
+      "oldTexture": "rbxassetid://109316861381300",
+      "newTexture": "rbxassetid://91075571522936",
+      "meshSizeCollisionAndAllOtherPropertiesUnchanged": true
+    },
+    {
+      "name": "BrickGrass",
+      "oldTexture": "rbxassetid://109316861381300",
+      "newTexture": "rbxassetid://91075571522936",
+      "meshSizeCollisionAndAllOtherPropertiesUnchanged": true
+    },
+    {
+      "name": "BrickLog",
+      "oldTexture": "rbxassetid://109316861381300",
+      "newTexture": "rbxassetid://91075571522936",
+      "meshSizeCollisionAndAllOtherPropertiesUnchanged": true
+    }
+  ],
+  "sourceExports": [
+    {
+      "file": "assets/map/ground_review/GroundBrownTile.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0,
+      "sha256": "6db7d76f7425a9c61da9c389644b98a38a00f7ba08fb6ad17c5f6dee191003c7"
+    },
+    {
+      "file": "assets/map/ground_review/GroundBrownTriangle.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0,
+      "sha256": "897d9475bbed5291c0f3cf58560391386befc9d840512887c39a2ef448c19240"
+    },
+    {
+      "file": "assets/map/ground_review/GroundDetailImport.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0,
+      "sha256": "2bcc6e9c64ff2ea55c7fec9d8caa43d2ff7acbf0e32d619897b87732a133e1af"
+    },
+    {
+      "file": "assets/map/ground_review/GroundGoldTile.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0,
+      "sha256": "fc2d982668c22cc10d8c595988abcf1765f6f2e8d875c8f509c5828d0693d834"
+    },
+    {
+      "file": "assets/map/ground_review/GroundGoldTriangle.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0,
+      "sha256": "e4e342ee064a3cd07f204953f9ac089ab6c172cb3ed419a383b63f5e65a816fc"
+    },
+    {
+      "file": "assets/map/ground_review/GroundGreenEdge.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0,
+      "sha256": "d805ad5237d0d4aa0b403bc388ff11198cb8b7b0442c85c7f2bec95e9faee2ba"
+    },
+    {
+      "file": "assets/map/ground_review/GroundGreenTile.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0,
+      "sha256": "b9e8733dfaec6439fec124314d494ffef670c63738d3e039d7e07327c6502a87"
+    },
+    {
+      "file": "assets/map/ground_review/GroundGreenTriangle.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0,
+      "sha256": "cc5c2f946102d8c682151e506dda13ad76e80373bfdabb86802bde3a60481b10"
+    },
+    {
+      "file": "assets/map/ground_review/GroundImport.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0,
+      "sha256": "69856422f466320ba1abf1cacea36301bbc1b585bde9f7a4d0f319b2e0e2e563"
+    },
+    {
+      "file": "assets/map/ground_review/ReviewBrickTree.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0,
+      "sha256": "a405f07d62530fd1c77f2faf5d64448bd0bb675bfdc0e69a73e0b9b108ea3674"
+    },
+    {
+      "file": "assets/map/ground_review/SkyGradientDome.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0,
+      "sha256": "a545a6b7e8f240a073bf7ba1767480607cb5e7c70f96e71a9d33707d764d2b17"
+    },
+    {
+      "file": "assets/map/detail_props/BrickBridge.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0.000003337860107421875,
+      "sha256": "2952081dbfc5ba732f1945764f798010d8e8443ce031206b19921b70a3cddccc"
+    },
+    {
+      "file": "assets/map/detail_props/BrickBush.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 7.152557373046875e-7,
+      "sha256": "74d232915ea2f4bcd109fbb11f4094d6ac72634f5d29f8a139e86c7751893317"
+    },
+    {
+      "file": "assets/map/detail_props/BrickGrass.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0.00000286102294921875,
+      "sha256": "0d41e5427d2b270a1e4589bb5dafafda88ffff732abc366ec8c951bed47f6b01"
+    },
+    {
+      "file": "assets/map/detail_props/BrickLog.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0.0000021457672119140625,
+      "sha256": "8e2af6b08bd3788cc4451401d668689b7dcbc46ec6ca12bdbae1f843e1b0f0b6"
+    },
+    {
+      "file": "assets/map/detail_props/MapDetailImport.glb",
+      "accessorCountsPreserved": true,
+      "maxBoundDelta": 0.000003337860107421875,
+      "sha256": "c50b3eecf7a31566ae54731f2f4ce3db391d670689820e3bf89014c3e8dc6a39"
+    }
+  ]
+}

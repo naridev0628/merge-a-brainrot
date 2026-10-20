@@ -1,0 +1,779 @@
+{
+  "sourceCommit": "cbbd765e194280b804762ee43b9e6e3905d261ff",
+  "protocol": "Same continuous six-farm96-mini/50-producer mixed-species churn epoch, one client; farm1 camera/FOV60. ON/OFF/ON 60-second samples each after >=10-second drain/warmup. Server deep Core.snapshot in historical harness; tests full send pipeline, excluding productionHUD/audio.",
+  "phases": [
+    {
+      "name": "on1",
+      "snapshotsEnabled": true,
+      "clientBefore": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"meshParts\":1147,\"miniParts\":576,\"accentParts\":32,\"plots\":{\"Plot6\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot3\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot1\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot2\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot5\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot4\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96}},\"producerModels\":300,\"accentFolders\":16,\"producerParts\":300,\"worldDescendants\":39741,\"miniModels\":576,\"parts\":35004},\"assets\":{\"worldAndTemplateUniqueMeshes\":47,\"worldUniqueMeshes\":33,\"worldUniqueTextures\":13,\"templateMeshParts\":47,\"worldAndTemplateUniqueTextures\":15},\"tags\":{\"ConveyorMini\":{\"total\":576,\"inGeneratedWorld\":576,\"outsideWorkspace\":0},\"BrainrotProducer\":{\"total\":300,\"inGeneratedWorld\":300,\"outsideWorkspace\":0}},\"elapsedMs\":15.84290000027977,\"memory\":{\"totalMb\":4592.43359375,\"trackingEnabled\":true,\"luaHeapKb\":11220,\"tagsMb\":{\"LuaHeap\":962.799072265625,\"GraphicsTextureCharacter\":7.959316253662109,\"GraphicsSpatialHash\":7.024566650390625,\"Internal\":1415.1610107421876,\"GraphicsParts\":29.434127807617189,\"Sounds\":6.139312744140625,\"StreamingSounds\":0,\"GraphicsSlimModels\":0,\"GraphicsTerrain\":49.207122802734378,\"GraphicsMeshParts\":20.172897338867189,\"GraphicsSolidModels\":0,\"Script\":272.69317626953127,\"Animation\":46.714271545410159,\"HttpCache\":0.399688720703125,\"GraphicsTexture\":39.42409133911133,\"GeometryCSG\":0,\"TerrainVoxels\":22.841751098632814,\"BaseParts\":2702.84326171875,\"Navigation\":0.00006103515625,\"GraphicsParticles\":11.904212951660157,\"PhysicsCollision\":0.04189300537109375,\"Signals\":142.16702270507813,\"Instances\":206.95701599121095,\"Gui\":52.57270812988281},\"instanceCount\":89129},\"harness\":{\"churn\":true,\"status\":\"Churning\",\"epoch\":1,\"snapshotsEnabled\":true,\"capacityPerFarm\":96},\"note\":\"No GC forced. Memory sampled before inventory. Tags/instances are snapshots, not retained Lua-reference inspection. Category values are not summed; they may overlap. Disabled tracking leaves category/total fields absent.\",\"sampledAt\":53053.3709197,\"errors\":[],\"context\":\"Client\",\"camera\":{\"position\":{\"1\":45.5,\"3\":176.5,\"2\":31.19999885559082},\"mode\":\"farm1\"}}"
+          }
+        ],
+        "isError": false
+      },
+      "serverBefore": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"shelfParts\":6702,\"meshes\":1147,\"instances\":39741,\"parts\":35004},\"ReadyAt\":1792487183.544318,\"Active\":true,\"MiniCount\":576,\"workMs\":{\"p50\":6.020200002240017,\"p95\":39.11499999958323,\"p99\":43.97910000261618,\"samples\":660,\"max\":46.031899997615258},\"Status\":\"Churning\",\"MeanWorkMs\":7.999518484818206,\"ServerNow\":1792487361.188104,\"SnapshotsEnabled\":true,\"ProducerCount\":300,\"ClockOffset\":0,\"ElapsedSeconds\":177.64383629999794,\"Churn\":true,\"SnapshotsSent\":431,\"Ticks\":660,\"RemovedMinis\":20460,\"PeakWorkMs\":46.031899997615258,\"SnapshotEntities\":58906,\"Epoch\":1,\"LastWorkMs\":0.04990000161342323,\"Renders\":2580,\"serverMemoryMb\":4594.046875,\"CreatedMinis\":20460,\"heartbeatMs\":{\"p50\":16.9555451720953,\"p95\":17.939718440175058,\"p99\":18.560757860541345,\"samples\":10512,\"max\":250.03793835639955},\"CapacityPerFarm\":96}"
+          }
+        ],
+        "isError": false
+      },
+      "startedAt": {
+        "current_time": "2026-10-20 09:09:21 UTC"
+      },
+      "start": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"status\":\"Sampling\",\"seconds\":60,\"camera\":\"farm1\"}"
+          }
+        ],
+        "isError": false
+      },
+      "clientAfter": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"shelfParts\":6702,\"meshes\":1147,\"miniParts\":576,\"parts\":35004,\"producerModels\":300,\"miniModels\":576,\"instances\":39741,\"producerParts\":300,\"accentParts\":32},\"lastSample\":{\"note\":\"Frame percentiles use fixed 0.25 ms bins; overflow above 128 ms uses observed max. Main HUD/audio, real player commands and UI snapshot work are excluded.\",\"p99FrameMs\":22.75,\"frames\":3550,\"before\":{\"shelfParts\":6702,\"meshes\":1147,\"miniParts\":576,\"parts\":35004,\"producerModels\":300,\"miniModels\":576,\"instances\":39741,\"producerParts\":300,\"accentParts\":32},\"p95FrameMs\":17.75,\"meanConveyorWorkMs\":1.8977052393729282,\"sampleSeconds\":60.0060364000019,\"maxFrameMs\":145.86779475212098,\"snapshotsEnabled\":true,\"after\":{\"shelfParts\":6702,\"meshes\":1147,\"miniParts\":576,\"parts\":35004,\"producerModels\":300,\"miniModels\":576,\"instances\":39741,\"producerParts\":300,\"accentParts\":32},\"churn\":true,\"capacity\":96,\"epoch\":1,\"snapshotsReceived\":168,\"camera\":\"farm1\",\"meanFrameMs\":16.902560533981928,\"p50FrameMs\":16.75,\"maxConveyorWorkMs\":9.183400004985743,\"memoryBeforeMb\":4596.62109375,\"memoryAfterMb\":4609.85546875,\"snapshotEntitiesReceived\":23184},\"status\":{\"p99FrameMs\":22.75,\"frames\":3550,\"Running\":true,\"p95FrameMs\":17.75,\"SampleStatus\":\"Complete\",\"sampleSeconds\":60.0060364000019,\"maxFrameMs\":145.86779475212098,\"snapshotsReceived\":168,\"maxConveyorWorkMs\":9.183400004985743,\"capacity\":96,\"epoch\":1,\"Camera\":\"farm1\",\"meanConveyorWorkMs\":1.8977052393729282,\"meanFrameMs\":16.902560533981928,\"memoryAfterMb\":4609.85546875,\"memoryBeforeMb\":4596.62109375,\"p50FrameMs\":16.75,\"snapshotEntitiesReceived\":23184},\"snapshotsReceived\":344,\"lastSnapshot\":{\"producers\":50,\"revision\":705,\"minis\":96,\"plotId\":1},\"snapshotEntitiesReceived\":47490}"
+          }
+        ],
+        "isError": false
+      },
+      "memoryAfter": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"meshParts\":1147,\"miniParts\":576,\"accentParts\":32,\"plots\":{\"Plot6\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot3\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot1\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot2\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot5\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot4\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96}},\"producerModels\":300,\"accentFolders\":16,\"producerParts\":300,\"worldDescendants\":39741,\"miniModels\":576,\"parts\":35004},\"assets\":{\"worldAndTemplateUniqueMeshes\":47,\"worldUniqueMeshes\":33,\"worldUniqueTextures\":13,\"templateMeshParts\":47,\"worldAndTemplateUniqueTextures\":15},\"tags\":{\"ConveyorMini\":{\"total\":576,\"inGeneratedWorld\":576,\"outsideWorkspace\":0},\"BrainrotProducer\":{\"total\":300,\"inGeneratedWorld\":300,\"outsideWorkspace\":0}},\"elapsedMs\":15.846100002818276,\"memory\":{\"totalMb\":4622.12109375,\"trackingEnabled\":true,\"luaHeapKb\":12459,\"tagsMb\":{\"LuaHeap\":966.751708984375,\"GraphicsTextureCharacter\":7.959316253662109,\"GraphicsSpatialHash\":7.028472900390625,\"Internal\":1416.859375,\"GraphicsParts\":29.421676635742189,\"Sounds\":6.139312744140625,\"StreamingSounds\":0,\"GraphicsSlimModels\":0,\"GraphicsTerrain\":49.207122802734378,\"GraphicsMeshParts\":20.1728515625,\"GraphicsSolidModels\":0,\"Script\":272.6771240234375,\"Animation\":46.714271545410159,\"HttpCache\":0.3860931396484375,\"GraphicsTexture\":39.42409133911133,\"GeometryCSG\":0,\"TerrainVoxels\":22.841751098632814,\"BaseParts\":2727.184814453125,\"Navigation\":0.00006103515625,\"GraphicsParticles\":11.904212951660157,\"PhysicsCollision\":0.04189300537109375,\"Signals\":143.12570190429688,\"Instances\":208.1108856201172,\"Gui\":52.56976318359375},\"instanceCount\":89129},\"harness\":{\"churn\":true,\"status\":\"Churning\",\"epoch\":1,\"snapshotsEnabled\":true,\"capacityPerFarm\":96},\"note\":\"No GC forced. Memory sampled before inventory. Tags/instances are snapshots, not retained Lua-reference inspection. Category values are not summed; they may overlap. Disabled tracking leaves category/total fields absent.\",\"sampledAt\":53150.534015799996,\"errors\":[],\"context\":\"Client\",\"camera\":{\"position\":{\"1\":45.5,\"3\":176.5,\"2\":31.19999885559082},\"mode\":\"farm1\"}}"
+          }
+        ],
+        "isError": false
+      },
+      "serverAfter": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"shelfParts\":6702,\"meshes\":1147,\"instances\":39741,\"parts\":35004},\"ReadyAt\":1792487183.544318,\"Active\":true,\"MiniCount\":576,\"workMs\":{\"p50\":6.086100001994055,\"p95\":39.1927000018768,\"p99\":43.97910000261618,\"samples\":1021,\"max\":52.338700006657749},\"Status\":\"Churning\",\"MeanWorkMs\":8.433797943328444,\"ServerNow\":1792487458.467676,\"SnapshotsEnabled\":true,\"ProducerCount\":300,\"ClockOffset\":0,\"ElapsedSeconds\":274.9234131999983,\"Churn\":true,\"SnapshotsSent\":701,\"Ticks\":1021,\"RemovedMinis\":33408,\"PeakWorkMs\":52.338700006657749,\"SnapshotEntities\":96168,\"Epoch\":1,\"LastWorkMs\":0.05499999679159373,\"Renders\":4200,\"serverMemoryMb\":4623.75,\"CreatedMinis\":33408,\"heartbeatMs\":{\"p50\":16.955425962805749,\"p95\":17.93629862368107,\"p99\":18.60938034951687,\"samples\":16267,\"max\":250.03793835639955},\"CapacityPerFarm\":96}"
+          }
+        ],
+        "isError": false
+      },
+      "completedAt": {
+        "current_time": "2026-10-20 09:10:58 UTC"
+      }
+    },
+    {
+      "name": "off",
+      "snapshotsEnabled": false,
+      "transitionAt": {
+        "current_time": "2026-10-20 09:10:58 UTC"
+      },
+      "clientBefore": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"meshParts\":1147,\"miniParts\":576,\"accentParts\":32,\"plots\":{\"Plot6\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot3\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot1\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot2\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot5\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot4\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96}},\"producerModels\":300,\"accentFolders\":16,\"producerParts\":300,\"worldDescendants\":39741,\"miniModels\":576,\"parts\":35004},\"assets\":{\"worldAndTemplateUniqueMeshes\":47,\"worldUniqueMeshes\":33,\"worldUniqueTextures\":13,\"templateMeshParts\":47,\"worldAndTemplateUniqueTextures\":15},\"tags\":{\"ConveyorMini\":{\"total\":576,\"inGeneratedWorld\":576,\"outsideWorkspace\":0},\"BrainrotProducer\":{\"total\":300,\"inGeneratedWorld\":300,\"outsideWorkspace\":0}},\"elapsedMs\":16.172900002857206,\"memory\":{\"totalMb\":4630.765625,\"trackingEnabled\":true,\"luaHeapKb\":13681,\"tagsMb\":{\"LuaHeap\":969.296142578125,\"GraphicsTextureCharacter\":7.959316253662109,\"GraphicsSpatialHash\":7.027984619140625,\"Internal\":1419.122314453125,\"GraphicsParts\":29.421676635742189,\"Sounds\":6.139312744140625,\"StreamingSounds\":0,\"GraphicsSlimModels\":0,\"GraphicsTerrain\":49.207122802734378,\"GraphicsMeshParts\":20.1728515625,\"GraphicsSolidModels\":0,\"Script\":272.6771240234375,\"Animation\":46.714271545410159,\"HttpCache\":0.3915252685546875,\"GraphicsTexture\":39.42409133911133,\"GeometryCSG\":0,\"TerrainVoxels\":22.841751098632814,\"BaseParts\":2735.83642578125,\"Navigation\":0.00006103515625,\"GraphicsParticles\":11.904212951660157,\"PhysicsCollision\":0.04189300537109375,\"Signals\":142.66131591796876,\"Instances\":208.56329345703126,\"Gui\":52.56976318359375},\"instanceCount\":89129},\"harness\":{\"churn\":true,\"status\":\"Churning\",\"epoch\":1,\"snapshotsEnabled\":false,\"capacityPerFarm\":96},\"note\":\"No GC forced. Memory sampled before inventory. Tags/instances are snapshots, not retained Lua-reference inspection. Category values are not summed; they may overlap. Disabled tracking leaves category/total fields absent.\",\"sampledAt\":53184.6156442,\"errors\":[],\"context\":\"Client\",\"camera\":{\"position\":{\"1\":45.5,\"3\":176.5,\"2\":31.19999885559082},\"mode\":\"farm1\"}}"
+          }
+        ],
+        "isError": false
+      },
+      "serverBefore": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"shelfParts\":6702,\"meshes\":1147,\"instances\":39741,\"parts\":35004},\"ReadyAt\":1792487183.544318,\"Active\":true,\"MiniCount\":576,\"workMs\":{\"p50\":6.047700000635814,\"p95\":39.10870000254363,\"p99\":43.94490000413498,\"samples\":1147,\"max\":52.338700006657749},\"Status\":\"Churning\",\"MeanWorkMs\":8.484855536319709,\"ServerNow\":1792487492.44905,\"SnapshotsEnabled\":false,\"ProducerCount\":300,\"ClockOffset\":0,\"ElapsedSeconds\":308.91057519999597,\"Churn\":true,\"SnapshotsSent\":701,\"Ticks\":1147,\"RemovedMinis\":38016,\"PeakWorkMs\":52.338700006657749,\"SnapshotEntities\":96168,\"Epoch\":1,\"LastWorkMs\":5.842200000188313,\"Renders\":4776,\"serverMemoryMb\":4632.39453125,\"CreatedMinis\":38016,\"heartbeatMs\":{\"p50\":16.955630853772165,\"p95\":17.933975905179979,\"p99\":18.64846795797348,\"samples\":18287,\"max\":250.03793835639955},\"CapacityPerFarm\":96}"
+          }
+        ],
+        "isError": false
+      },
+      "startedAt": {
+        "current_time": "2026-10-20 09:11:32 UTC"
+      },
+      "start": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"status\":\"Sampling\",\"seconds\":60,\"camera\":\"farm1\"}"
+          }
+        ],
+        "isError": false
+      },
+      "clientAfter": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"shelfParts\":6702,\"meshes\":1147,\"miniParts\":576,\"parts\":35004,\"producerModels\":300,\"miniModels\":576,\"instances\":39741,\"producerParts\":300,\"accentParts\":32},\"lastSample\":{\"note\":\"Frame percentiles use fixed 0.25 ms bins; overflow above 128 ms uses observed max. Main HUD/audio, real player commands and UI snapshot work are excluded.\",\"p99FrameMs\":22.5,\"frames\":3552,\"before\":{\"shelfParts\":6702,\"meshes\":1147,\"miniParts\":576,\"parts\":35004,\"producerModels\":300,\"miniModels\":576,\"instances\":39741,\"producerParts\":300,\"accentParts\":32},\"p95FrameMs\":17.75,\"meanConveyorWorkMs\":2.0177559403265636,\"sampleSeconds\":60.00674159999471,\"maxFrameMs\":209.9841982126236,\"snapshotsEnabled\":false,\"after\":{\"shelfParts\":6702,\"meshes\":1147,\"miniParts\":576,\"parts\":35004,\"producerModels\":300,\"miniModels\":576,\"instances\":39741,\"producerParts\":300,\"accentParts\":32},\"churn\":true,\"capacity\":96,\"epoch\":1,\"snapshotsReceived\":0,\"camera\":\"farm1\",\"meanFrameMs\":16.89329837566359,\"p50FrameMs\":16.75,\"maxConveyorWorkMs\":7.266799999342766,\"memoryBeforeMb\":4638.22265625,\"memoryAfterMb\":4651.171875,\"snapshotEntitiesReceived\":0},\"status\":{\"p99FrameMs\":22.5,\"frames\":3552,\"Running\":true,\"p95FrameMs\":17.75,\"SampleStatus\":\"Complete\",\"sampleSeconds\":60.00674159999471,\"maxFrameMs\":209.9841982126236,\"snapshotsReceived\":0,\"maxConveyorWorkMs\":7.266799999342766,\"capacity\":96,\"epoch\":1,\"Camera\":\"farm1\",\"meanConveyorWorkMs\":2.0177559403265636,\"meanFrameMs\":16.89329837566359,\"memoryAfterMb\":4651.171875,\"memoryBeforeMb\":4638.22265625,\"p50FrameMs\":16.75,\"snapshotEntitiesReceived\":0},\"snapshotsReceived\":344,\"lastSnapshot\":{\"producers\":50,\"revision\":705,\"minis\":96,\"plotId\":1},\"snapshotEntitiesReceived\":47490}"
+          }
+        ],
+        "isError": false
+      },
+      "memoryAfter": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"meshParts\":1147,\"miniParts\":576,\"accentParts\":32,\"plots\":{\"Plot6\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot3\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot1\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot2\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot5\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot4\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96}},\"producerModels\":300,\"accentFolders\":16,\"producerParts\":300,\"worldDescendants\":39741,\"miniModels\":576,\"parts\":35004},\"assets\":{\"worldAndTemplateUniqueMeshes\":47,\"worldUniqueMeshes\":33,\"worldUniqueTextures\":13,\"templateMeshParts\":47,\"worldAndTemplateUniqueTextures\":15},\"tags\":{\"ConveyorMini\":{\"total\":576,\"inGeneratedWorld\":576,\"outsideWorkspace\":0},\"BrainrotProducer\":{\"total\":300,\"inGeneratedWorld\":300,\"outsideWorkspace\":0}},\"elapsedMs\":15.76550000027055,\"memory\":{\"totalMb\":4655.43359375,\"trackingEnabled\":true,\"luaHeapKb\":14914,\"tagsMb\":{\"LuaHeap\":971.74560546875,\"GraphicsTextureCharacter\":7.959316253662109,\"GraphicsSpatialHash\":7.027984619140625,\"Internal\":1419.385986328125,\"GraphicsParts\":29.421676635742189,\"Sounds\":6.139312744140625,\"StreamingSounds\":0,\"GraphicsSlimModels\":0,\"GraphicsTerrain\":49.207122802734378,\"GraphicsMeshParts\":20.1728515625,\"GraphicsSolidModels\":0,\"Script\":272.67694091796877,\"Animation\":46.710243225097659,\"HttpCache\":0.402587890625,\"GraphicsTexture\":39.42409133911133,\"GeometryCSG\":0,\"TerrainVoxels\":22.841751098632814,\"BaseParts\":2754.339599609375,\"Navigation\":0.00006103515625,\"GraphicsParticles\":11.904212951660157,\"PhysicsCollision\":0.04189300537109375,\"Signals\":143.21078491210938,\"Instances\":209.44775390625,\"Gui\":52.569793701171878},\"instanceCount\":89129},\"harness\":{\"churn\":true,\"status\":\"Churning\",\"epoch\":1,\"snapshotsEnabled\":false,\"capacityPerFarm\":96},\"note\":\"No GC forced. Memory sampled before inventory. Tags/instances are snapshots, not retained Lua-reference inspection. Category values are not summed; they may overlap. Disabled tracking leaves category/total fields absent.\",\"sampledAt\":53258.012320999995,\"errors\":[],\"context\":\"Client\",\"camera\":{\"position\":{\"1\":45.5,\"3\":176.5,\"2\":31.19999885559082},\"mode\":\"farm1\"}}"
+          }
+        ],
+        "isError": false
+      },
+      "serverAfter": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"shelfParts\":6702,\"meshes\":1147,\"instances\":39741,\"parts\":35004},\"ReadyAt\":1792487183.544318,\"Active\":true,\"MiniCount\":576,\"workMs\":{\"p50\":6.031199998687953,\"p95\":39.003499994578309,\"p99\":43.04789999878267,\"samples\":1419,\"max\":52.338700006657749},\"Status\":\"Churning\",\"MeanWorkMs\":8.57346264990827,\"ServerNow\":1792487565.812785,\"SnapshotsEnabled\":false,\"ProducerCount\":300,\"ClockOffset\":0,\"ElapsedSeconds\":382.2741312999933,\"Churn\":true,\"SnapshotsSent\":701,\"Ticks\":1419,\"RemovedMinis\":47808,\"PeakWorkMs\":52.338700006657749,\"SnapshotEntities\":96168,\"Epoch\":1,\"LastWorkMs\":5.663600000843871,\"Renders\":6000,\"serverMemoryMb\":4653.99609375,\"CreatedMinis\":47808,\"heartbeatMs\":{\"p50\":16.956105828285219,\"p95\":17.943551763892175,\"p99\":18.66716332733631,\"samples\":22636,\"max\":250.03793835639955},\"CapacityPerFarm\":96}"
+          }
+        ],
+        "isError": false
+      },
+      "completedAt": {
+        "current_time": "2026-10-20 09:12:46 UTC"
+      }
+    },
+    {
+      "name": "on2",
+      "snapshotsEnabled": true,
+      "transitionAt": {
+        "current_time": "2026-10-20 09:12:46 UTC"
+      },
+      "clientBefore": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"meshParts\":1147,\"miniParts\":576,\"accentParts\":32,\"plots\":{\"Plot6\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot3\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot1\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot2\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot5\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot4\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96}},\"producerModels\":300,\"accentFolders\":16,\"producerParts\":300,\"worldDescendants\":39741,\"miniModels\":576,\"parts\":35004},\"assets\":{\"worldAndTemplateUniqueMeshes\":47,\"worldUniqueMeshes\":33,\"worldUniqueTextures\":13,\"templateMeshParts\":47,\"worldAndTemplateUniqueTextures\":15},\"tags\":{\"ConveyorMini\":{\"total\":576,\"inGeneratedWorld\":576,\"outsideWorkspace\":0},\"BrainrotProducer\":{\"total\":300,\"inGeneratedWorld\":300,\"outsideWorkspace\":0}},\"elapsedMs\":15.890299997408875,\"memory\":{\"totalMb\":4666.46875,\"trackingEnabled\":true,\"luaHeapKb\":16136,\"tagsMb\":{\"LuaHeap\":972.410400390625,\"GraphicsTextureCharacter\":7.959316253662109,\"GraphicsSpatialHash\":7.022979736328125,\"Internal\":1420.17578125,\"GraphicsParts\":29.428054809570314,\"Sounds\":6.139312744140625,\"StreamingSounds\":0,\"GraphicsSlimModels\":0,\"GraphicsTerrain\":49.207122802734378,\"GraphicsMeshParts\":20.1728515625,\"GraphicsSolidModels\":0,\"Script\":272.67694091796877,\"Animation\":46.71019744873047,\"HttpCache\":0.3987579345703125,\"GraphicsTexture\":39.42409133911133,\"GeometryCSG\":0,\"TerrainVoxels\":22.841751098632814,\"BaseParts\":2765.929443359375,\"Navigation\":0.00006103515625,\"GraphicsParticles\":11.904212951660157,\"PhysicsCollision\":0.04189300537109375,\"Signals\":144.18511962890626,\"Instances\":210.0647735595703,\"Gui\":52.56982421875},\"instanceCount\":89129},\"harness\":{\"churn\":true,\"status\":\"Churning\",\"epoch\":1,\"snapshotsEnabled\":true,\"capacityPerFarm\":96},\"note\":\"No GC forced. Memory sampled before inventory. Tags/instances are snapshots, not retained Lua-reference inspection. Category values are not summed; they may overlap. Disabled tracking leaves category/total fields absent.\",\"sampledAt\":53299.5783324,\"errors\":[],\"context\":\"Client\",\"camera\":{\"position\":{\"1\":45.5,\"3\":176.5,\"2\":31.19999885559082},\"mode\":\"farm1\"}}"
+          }
+        ],
+        "isError": false
+      },
+      "serverBefore": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"shelfParts\":6702,\"meshes\":1147,\"instances\":39741,\"parts\":35004},\"ReadyAt\":1792487183.544318,\"Active\":true,\"MiniCount\":576,\"workMs\":{\"p50\":6.069700000807643,\"p95\":39.03360000549583,\"p99\":43.06729999370873,\"samples\":1573,\"max\":52.338700006657749},\"Status\":\"Churning\",\"MeanWorkMs\":8.658296885072675,\"ServerNow\":1792487607.328476,\"SnapshotsEnabled\":true,\"ProducerCount\":300,\"ClockOffset\":0,\"ElapsedSeconds\":423.784247399999,\"Churn\":true,\"SnapshotsSent\":815,\"Ticks\":1573,\"RemovedMinis\":53292,\"PeakWorkMs\":52.338700006657749,\"SnapshotEntities\":111898,\"Epoch\":1,\"LastWorkMs\":0.0883999964571558,\"Renders\":6684,\"serverMemoryMb\":4668.1015625,\"CreatedMinis\":53292,\"heartbeatMs\":{\"p50\":16.956258565187455,\"p95\":17.946576699614526,\"p99\":18.67934688925743,\"samples\":25086,\"max\":250.03793835639955},\"CapacityPerFarm\":96}"
+          }
+        ],
+        "isError": false
+      },
+      "startedAt": {
+        "current_time": "2026-10-20 09:13:27 UTC"
+      },
+      "start": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"status\":\"Sampling\",\"seconds\":60,\"camera\":\"farm1\"}"
+          }
+        ],
+        "isError": false
+      },
+      "clientAfter": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"shelfParts\":6702,\"meshes\":1147,\"miniParts\":576,\"parts\":35004,\"producerModels\":300,\"miniModels\":576,\"instances\":39741,\"producerParts\":300,\"accentParts\":32},\"lastSample\":{\"note\":\"Frame percentiles use fixed 0.25 ms bins; overflow above 128 ms uses observed max. Main HUD/audio, real player commands and UI snapshot work are excluded.\",\"p99FrameMs\":19.75,\"frames\":3566,\"before\":{\"shelfParts\":6702,\"meshes\":871,\"miniParts\":300,\"parts\":34728,\"producerModels\":300,\"miniModels\":300,\"instances\":39189,\"producerParts\":300,\"accentParts\":32},\"p95FrameMs\":17.75,\"meanConveyorWorkMs\":1.8917202749086189,\"sampleSeconds\":60.00932990000001,\"maxFrameMs\":52.06729844212532,\"snapshotsEnabled\":true,\"after\":{\"shelfParts\":6702,\"meshes\":1147,\"miniParts\":576,\"parts\":35004,\"producerModels\":300,\"miniModels\":576,\"instances\":39741,\"producerParts\":300,\"accentParts\":32},\"churn\":true,\"capacity\":96,\"epoch\":1,\"snapshotsReceived\":167,\"camera\":\"farm1\",\"meanFrameMs\":16.82775887173344,\"p50FrameMs\":16.75,\"maxConveyorWorkMs\":5.347799997252878,\"memoryBeforeMb\":4670.0390625,\"memoryAfterMb\":4660.046875,\"snapshotEntitiesReceived\":23084},\"status\":{\"p99FrameMs\":19.75,\"frames\":3566,\"Running\":true,\"p95FrameMs\":17.75,\"SampleStatus\":\"Complete\",\"sampleSeconds\":60.00932990000001,\"maxFrameMs\":52.06729844212532,\"snapshotsReceived\":167,\"maxConveyorWorkMs\":5.347799997252878,\"capacity\":96,\"epoch\":1,\"Camera\":\"farm1\",\"meanConveyorWorkMs\":1.8917202749086189,\"meanFrameMs\":16.82775887173344,\"memoryAfterMb\":4660.046875,\"memoryBeforeMb\":4670.0390625,\"p50FrameMs\":16.75,\"snapshotEntitiesReceived\":23084},\"snapshotsReceived\":760,\"lastSnapshot\":{\"producers\":50,\"revision\":1421,\"minis\":96,\"plotId\":1},\"snapshotEntitiesReceived\":104866}"
+          }
+        ],
+        "isError": false
+      },
+      "memoryAfter": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"meshParts\":1147,\"miniParts\":576,\"accentParts\":32,\"plots\":{\"Plot6\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot3\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot1\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot2\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot5\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96},\"Plot4\":{\"producerParts\":50,\"minis\":96,\"producers\":50,\"miniParts\":96}},\"producerModels\":300,\"accentFolders\":16,\"producerParts\":300,\"worldDescendants\":39741,\"miniModels\":576,\"parts\":35004},\"assets\":{\"worldAndTemplateUniqueMeshes\":47,\"worldUniqueMeshes\":33,\"worldUniqueTextures\":13,\"templateMeshParts\":47,\"worldAndTemplateUniqueTextures\":15},\"tags\":{\"ConveyorMini\":{\"total\":576,\"inGeneratedWorld\":576,\"outsideWorkspace\":0},\"BrainrotProducer\":{\"total\":300,\"inGeneratedWorld\":300,\"outsideWorkspace\":0}},\"elapsedMs\":23.414200004481246,\"memory\":{\"totalMb\":4667.80859375,\"trackingEnabled\":true,\"luaHeapKb\":6761,\"tagsMb\":{\"LuaHeap\":941.25244140625,\"GraphicsTextureCharacter\":7.959316253662109,\"GraphicsSpatialHash\":7.028472900390625,\"Internal\":1418.558837890625,\"GraphicsParts\":29.432205200195314,\"Sounds\":6.139312744140625,\"StreamingSounds\":0,\"GraphicsSlimModels\":0,\"GraphicsTerrain\":49.207122802734378,\"GraphicsMeshParts\":20.1728515625,\"GraphicsSolidModels\":0,\"Script\":272.67694091796877,\"Animation\":46.63207244873047,\"HttpCache\":0.37823486328125,\"GraphicsTexture\":39.42409133911133,\"GeometryCSG\":0,\"TerrainVoxels\":22.841751098632814,\"BaseParts\":2787.94482421875,\"Navigation\":0.00006103515625,\"GraphicsParticles\":11.904212951660157,\"PhysicsCollision\":0.04189300537109375,\"Signals\":144.89385986328126,\"Instances\":210.43873596191407,\"Gui\":52.563720703125},\"instanceCount\":89129},\"harness\":{\"churn\":true,\"status\":\"Churning\",\"epoch\":1,\"snapshotsEnabled\":true,\"capacityPerFarm\":96},\"note\":\"No GC forced. Memory sampled before inventory. Tags/instances are snapshots, not retained Lua-reference inspection. Category values are not summed; they may overlap. Disabled tracking leaves category/total fields absent.\",\"sampledAt\":53408.0647023,\"errors\":[],\"context\":\"Client\",\"camera\":{\"position\":{\"1\":45.5,\"3\":176.5,\"2\":31.19999885559082},\"mode\":\"farm1\"}}"
+          }
+        ],
+        "isError": false
+      },
+      "serverAfter": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"inventory\":{\"shelfParts\":6702,\"meshes\":1147,\"instances\":39741,\"parts\":35004},\"ReadyAt\":1792487183.544318,\"Active\":true,\"MiniCount\":576,\"workMs\":{\"p50\":6.1308000003919009,\"p95\":39.10870000254363,\"p99\":42.535600005066957,\"samples\":1976,\"max\":52.338700006657749},\"Status\":\"Churning\",\"MeanWorkMs\":8.787754352318157,\"ServerNow\":1792487715.907784,\"SnapshotsEnabled\":true,\"ProducerCount\":300,\"ClockOffset\":0,\"ElapsedSeconds\":532.3698259999947,\"Churn\":true,\"SnapshotsSent\":1118,\"Ticks\":1976,\"RemovedMinis\":67968,\"PeakWorkMs\":52.338700006657749,\"SnapshotEntities\":153690,\"Epoch\":1,\"LastWorkMs\":6.359700004395563,\"Renders\":8502,\"serverMemoryMb\":4668.44140625,\"CreatedMinis\":67968,\"heartbeatMs\":{\"p50\":16.956446692347528,\"p95\":17.943551763892175,\"p99\":18.66716332733631,\"samples\":31509,\"max\":250.03793835639955},\"CapacityPerFarm\":96}"
+          }
+        ],
+        "isError": false
+      },
+      "completedAt": {
+        "current_time": "2026-10-20 09:15:16 UTC"
+      }
+    }
+  ],
+  "setupNote": "First setup had no world/floor and avatar respawn cleared test PlayerGui; no samples collected. Restarted fresh Play with temporary SpawnLocation, started client control, anchored avatar before server build. Temporary spawn removed before measurement. Production sources unchanged.",
+  "environment": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"settings\":{\"GraphicsQualityLevel\":\"unavailable\",\"FramerateCap\":\"unavailable\",\"SavedQualityLevel\":\"Enum.SavedQualitySetting.Automatic\"},\"fov\":60,\"viewport\":{\"1\":1759,\"2\":567},\"controller\":{\"inventory\":{\"shelfParts\":6702,\"meshes\":1081,\"miniParts\":510,\"parts\":34938,\"producerModels\":300,\"miniModels\":510,\"instances\":39609,\"producerParts\":300,\"accentParts\":32},\"status\":{\"Camera\":\"farm1\",\"Running\":true},\"snapshotsReceived\":24,\"lastSnapshot\":{\"producers\":50,\"revision\":27,\"minis\":96,\"plotId\":1},\"snapshotEntitiesReceived\":3504},\"clients\":1,\"cameraType\":\"Enum.CameraType.Custom\"}"
+      }
+    ],
+    "isError": false
+  },
+  "environmentNote": "Initial spawn camera script had restored Custom after harness start; explicitly set Scriptable/FOV60 after population and before warm-up/sample. SavedQualityLevel remains user Automatic; actual dynamic GPU quality is not exposed, a comparison limitation. No user rendering preference changed.",
+  "harnessChange": "Before measurements, test-only updateCamera now reasserts CameraType.Scriptable every frame because Studio executor calls restored Custom at return. PreviousController.destroy called; new controller started in same server epoch. No measured samples before repair.",
+  "completedAtUTC": "2026-10-20 09:16:36 UTC",
+  "productionSources": [
+    {
+      "path": "src/client/Controllers/AudioConfig.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioConfig",
+      "bytes": 1817,
+      "hash": 1355774271
+    },
+    {
+      "path": "src/client/Controllers/AudioLoadCache.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioLoadCache",
+      "bytes": 1499,
+      "hash": 4266290176
+    },
+    {
+      "path": "src/client/Controllers/AudioPreloader.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.AudioPreloader",
+      "bytes": 911,
+      "hash": 2264041363
+    },
+    {
+      "path": "src/client/Controllers/BrickArt.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.BrickArt",
+      "bytes": 14952,
+      "hash": 3622115064
+    },
+    {
+      "path": "src/client/Controllers/CashEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.CashEffects",
+      "bytes": 8666,
+      "hash": 1993647839
+    },
+    {
+      "path": "src/client/Controllers/Conveyor.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Conveyor",
+      "bytes": 11683,
+      "hash": 260859283
+    },
+    {
+      "path": "src/client/Controllers/DepositEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.DepositEffects",
+      "bytes": 4966,
+      "hash": 3895592991
+    },
+    {
+      "path": "src/client/Controllers/DiscoveryEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.DiscoveryEffects",
+      "bytes": 5358,
+      "hash": 4260401030
+    },
+    {
+      "path": "src/client/Controllers/FarmUI.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.FarmUI",
+      "bytes": 47407,
+      "hash": 3796338480
+    },
+    {
+      "path": "src/client/Controllers/FeedbackAudio.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.FeedbackAudio",
+      "bytes": 2571,
+      "hash": 3594663762
+    },
+    {
+      "path": "src/client/Controllers/IndexPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.IndexPanel",
+      "bytes": 4287,
+      "hash": 2009869249
+    },
+    {
+      "path": "src/client/Controllers/LeaderboardFooter.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LeaderboardFooter",
+      "bytes": 4153,
+      "hash": 168197014
+    },
+    {
+      "path": "src/client/Controllers/Locale.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Locale",
+      "bytes": 13121,
+      "hash": 3109011756
+    },
+    {
+      "path": "src/client/Controllers/LuckyCarryPose.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LuckyCarryPose",
+      "bytes": 1266,
+      "hash": 1356096286
+    },
+    {
+      "path": "src/client/Controllers/LuckyEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LuckyEffects",
+      "bytes": 3159,
+      "hash": 1300373331
+    },
+    {
+      "path": "src/client/Controllers/LuckyPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.LuckyPanel",
+      "bytes": 9257,
+      "hash": 3212206537
+    },
+    {
+      "path": "src/client/Controllers/MultiplierCue.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.MultiplierCue",
+      "bytes": 6386,
+      "hash": 3696008440
+    },
+    {
+      "path": "src/client/Controllers/MusicController.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.MusicController",
+      "bytes": 1549,
+      "hash": 3863349779
+    },
+    {
+      "path": "src/client/Controllers/ObbyHUD.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.ObbyHUD",
+      "bytes": 3166,
+      "hash": 3628778414
+    },
+    {
+      "path": "src/client/Controllers/PadLabels.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.PadLabels",
+      "bytes": 8101,
+      "hash": 1520614423
+    },
+    {
+      "path": "src/client/Controllers/PickupAudio.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.PickupAudio",
+      "bytes": 115,
+      "hash": 1276655569
+    },
+    {
+      "path": "src/client/Controllers/Preferences.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Preferences",
+      "bytes": 1415,
+      "hash": 169429656
+    },
+    {
+      "path": "src/client/Controllers/PurchaseEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.PurchaseEffects",
+      "bytes": 2659,
+      "hash": 1346644719
+    },
+    {
+      "path": "src/client/Controllers/RebirthPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.RebirthPanel",
+      "bytes": 5449,
+      "hash": 1828661788
+    },
+    {
+      "path": "src/client/Controllers/SettingsPanel.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.SettingsPanel",
+      "bytes": 4923,
+      "hash": 1392403852
+    },
+    {
+      "path": "src/client/Controllers/Sprint.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.Sprint",
+      "bytes": 2397,
+      "hash": 3237135792
+    },
+    {
+      "path": "src/client/Controllers/TierEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.TierEffects",
+      "bytes": 4265,
+      "hash": 182927692
+    },
+    {
+      "path": "src/client/Controllers/TutorialGuide.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.TutorialGuide",
+      "bytes": 2817,
+      "hash": 3971758770
+    },
+    {
+      "path": "src/client/Controllers/UpgradeEffects.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.UpgradeEffects",
+      "bytes": 2604,
+      "hash": 3585285506
+    },
+    {
+      "path": "src/client/Controllers/VisualLifecycle.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.VisualLifecycle",
+      "bytes": 3146,
+      "hash": 3084145907
+    },
+    {
+      "path": "src/client/Controllers/VisualQueue.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.VisualQueue",
+      "bytes": 735,
+      "hash": 3293701413
+    },
+    {
+      "path": "src/client/Controllers/VisualRuntime.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Controllers.VisualRuntime",
+      "bytes": 2175,
+      "hash": 1619177960
+    },
+    {
+      "path": "src/client/Main.client.luau",
+      "studioPath": "StarterPlayer.StarterPlayerScripts.Main",
+      "bytes": 16485,
+      "hash": 2833741939
+    },
+    {
+      "path": "src/server/Domain/FarmCore.luau",
+      "studioPath": "ServerScriptService.Domain.FarmCore",
+      "bytes": 25989,
+      "hash": 2525806392
+    },
+    {
+      "path": "src/server/Domain/ObbyRun.luau",
+      "studioPath": "ServerScriptService.Domain.ObbyRun",
+      "bytes": 9897,
+      "hash": 2708217954
+    },
+    {
+      "path": "src/server/Domain/RateLimiter.luau",
+      "studioPath": "ServerScriptService.Domain.RateLimiter",
+      "bytes": 407,
+      "hash": 1814919448
+    },
+    {
+      "path": "src/server/Domain/SnapshotPacket.luau",
+      "studioPath": "ServerScriptService.Domain.SnapshotPacket",
+      "bytes": 871,
+      "hash": 1180100454
+    },
+    {
+      "path": "src/server/Main.server.luau",
+      "studioPath": "ServerScriptService.Main",
+      "bytes": 10485,
+      "hash": 2668365389
+    },
+    {
+      "path": "src/server/Services/LeaderboardDisplay.luau",
+      "studioPath": "ServerScriptService.Services.LeaderboardDisplay",
+      "bytes": 12335,
+      "hash": 3168681226
+    },
+    {
+      "path": "src/server/Services/LuckyCarry.luau",
+      "studioPath": "ServerScriptService.Services.LuckyCarry",
+      "bytes": 1234,
+      "hash": 1619090280
+    },
+    {
+      "path": "src/server/Services/MultiplierDisplay.luau",
+      "studioPath": "ServerScriptService.Services.MultiplierDisplay",
+      "bytes": 3915,
+      "hash": 4271822002
+    },
+    {
+      "path": "src/server/Services/ObbyService.luau",
+      "studioPath": "ServerScriptService.Services.ObbyService",
+      "bytes": 2428,
+      "hash": 1582445173
+    },
+    {
+      "path": "src/server/Services/PassService.luau",
+      "studioPath": "ServerScriptService.Services.PassService",
+      "bytes": 1669,
+      "hash": 1521537439
+    },
+    {
+      "path": "src/server/Services/WorldBuilder.luau",
+      "studioPath": "ServerScriptService.Services.WorldBuilder",
+      "bytes": 39224,
+      "hash": 999590120
+    },
+    {
+      "path": "src/shared/AnimationVisibility.luau",
+      "studioPath": "ReplicatedStorage.Shared.AnimationVisibility",
+      "bytes": 2872,
+      "hash": 2356728715
+    },
+    {
+      "path": "src/shared/BrickStudOcclusion.luau",
+      "studioPath": "ReplicatedStorage.Shared.BrickStudOcclusion",
+      "bytes": 681,
+      "hash": 2419261846
+    },
+    {
+      "path": "src/shared/ClientPreferences.luau",
+      "studioPath": "ReplicatedStorage.Shared.ClientPreferences",
+      "bytes": 1723,
+      "hash": 2464216568
+    },
+    {
+      "path": "src/shared/Config.luau",
+      "studioPath": "ReplicatedStorage.Shared.Config",
+      "bytes": 1212,
+      "hash": 2937979990
+    },
+    {
+      "path": "src/shared/ConveyorFacade.luau",
+      "studioPath": "ReplicatedStorage.Shared.ConveyorFacade",
+      "bytes": 7487,
+      "hash": 1177948626
+    },
+    {
+      "path": "src/shared/CreatureCatalog.luau",
+      "studioPath": "ReplicatedStorage.Shared.CreatureCatalog",
+      "bytes": 758,
+      "hash": 408561483
+    },
+    {
+      "path": "src/shared/DisplayShelves.luau",
+      "studioPath": "ReplicatedStorage.Shared.DisplayShelves",
+      "bytes": 4109,
+      "hash": 4292630380
+    },
+    {
+      "path": "src/shared/Economy.luau",
+      "studioPath": "ReplicatedStorage.Shared.Economy",
+      "bytes": 1922,
+      "hash": 2034319916
+    },
+    {
+      "path": "src/shared/EnvironmentArt.luau",
+      "studioPath": "ReplicatedStorage.Shared.EnvironmentArt",
+      "bytes": 14699,
+      "hash": 2066822974
+    },
+    {
+      "path": "src/shared/FarmCapacity.luau",
+      "studioPath": "ReplicatedStorage.Shared.FarmCapacity",
+      "bytes": 1117,
+      "hash": 1869060455
+    },
+    {
+      "path": "src/shared/FarmLandmarks.luau",
+      "studioPath": "ReplicatedStorage.Shared.FarmLandmarks",
+      "bytes": 8320,
+      "hash": 3955826094
+    },
+    {
+      "path": "src/shared/HubScenery.luau",
+      "studioPath": "ReplicatedStorage.Shared.HubScenery",
+      "bytes": 3832,
+      "hash": 3813139439
+    },
+    {
+      "path": "src/shared/HubStudOcclusion.luau",
+      "studioPath": "ReplicatedStorage.Shared.HubStudOcclusion",
+      "bytes": 1362,
+      "hash": 4090918228
+    },
+    {
+      "path": "src/shared/LuckyAppearance.luau",
+      "studioPath": "ReplicatedStorage.Shared.LuckyAppearance",
+      "bytes": 947,
+      "hash": 77282798
+    },
+    {
+      "path": "src/shared/LuckyBlockVisuals.luau",
+      "studioPath": "ReplicatedStorage.Shared.LuckyBlockVisuals",
+      "bytes": 4512,
+      "hash": 2636422656
+    },
+    {
+      "path": "src/shared/MapSpec.luau",
+      "studioPath": "ReplicatedStorage.Shared.MapSpec",
+      "bytes": 1043,
+      "hash": 934954449
+    },
+    {
+      "path": "src/shared/MiniEvent.luau",
+      "studioPath": "ReplicatedStorage.Shared.MiniEvent",
+      "bytes": 1119,
+      "hash": 3391137824
+    },
+    {
+      "path": "src/shared/MiniMotion.luau",
+      "studioPath": "ReplicatedStorage.Shared.MiniMotion",
+      "bytes": 1475,
+      "hash": 1517595939
+    },
+    {
+      "path": "src/shared/MiniNeighborIndex.luau",
+      "studioPath": "ReplicatedStorage.Shared.MiniNeighborIndex",
+      "bytes": 2081,
+      "hash": 2871076507
+    },
+    {
+      "path": "src/shared/ModelFactory.luau",
+      "studioPath": "ReplicatedStorage.Shared.ModelFactory",
+      "bytes": 12570,
+      "hash": 624270356
+    },
+    {
+      "path": "src/shared/MultiplierCuePresentation.luau",
+      "studioPath": "ReplicatedStorage.Shared.MultiplierCuePresentation",
+      "bytes": 4249,
+      "hash": 129815
+    },
+    {
+      "path": "src/shared/ObbyConfig.luau",
+      "studioPath": "ReplicatedStorage.Shared.ObbyConfig",
+      "bytes": 1245,
+      "hash": 72124670
+    },
+    {
+      "path": "src/shared/ObbyCourse.luau",
+      "studioPath": "ReplicatedStorage.Shared.ObbyCourse",
+      "bytes": 6384,
+      "hash": 4151611946
+    },
+    {
+      "path": "src/shared/ObbyPresentation.luau",
+      "studioPath": "ReplicatedStorage.Shared.ObbyPresentation",
+      "bytes": 3941,
+      "hash": 139213136
+    },
+    {
+      "path": "src/shared/PadGeometry.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadGeometry",
+      "bytes": 1262,
+      "hash": 2415185484
+    },
+    {
+      "path": "src/shared/PadHold.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadHold",
+      "bytes": 1117,
+      "hash": 464669492
+    },
+    {
+      "path": "src/shared/PadLabelLayout.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadLabelLayout",
+      "bytes": 2152,
+      "hash": 3672379319
+    },
+    {
+      "path": "src/shared/PadTargeting.luau",
+      "studioPath": "ReplicatedStorage.Shared.PadTargeting",
+      "bytes": 2739,
+      "hash": 1667320723
+    },
+    {
+      "path": "src/shared/PassConfig.luau",
+      "studioPath": "ReplicatedStorage.Shared.PassConfig",
+      "bytes": 595,
+      "hash": 3493598911
+    },
+    {
+      "path": "src/shared/PickupGeometry.luau",
+      "studioPath": "ReplicatedStorage.Shared.PickupGeometry",
+      "bytes": 406,
+      "hash": 3364822973
+    },
+    {
+      "path": "src/shared/ProductionInfo.luau",
+      "studioPath": "ReplicatedStorage.Shared.ProductionInfo",
+      "bytes": 449,
+      "hash": 4224798783
+    },
+    {
+      "path": "src/shared/StallDecor.luau",
+      "studioPath": "ReplicatedStorage.Shared.StallDecor",
+      "bytes": 29810,
+      "hash": 959061757
+    },
+    {
+      "path": "src/shared/StarterPad.luau",
+      "studioPath": "ReplicatedStorage.Shared.StarterPad",
+      "bytes": 322,
+      "hash": 2104672444
+    },
+    {
+      "path": "src/shared/TextStyle.luau",
+      "studioPath": "ReplicatedStorage.Shared.TextStyle",
+      "bytes": 927,
+      "hash": 1931289147
+    },
+    {
+      "path": "src/shared/Tutorial.luau",
+      "studioPath": "ReplicatedStorage.Shared.Tutorial",
+      "bytes": 1589,
+      "hash": 1178793125
+    }
+  ],
+  "summary": [
+    {
+      "name": "on1",
+      "sampleSeconds": 60.0060364000019,
+      "meanFrameMs": 16.902560533981926,
+      "p95FrameMs": 17.75,
+      "p99FrameMs": 22.75,
+      "maxFrameMs": 145.86779475212097,
+      "meanConveyorWorkMs": 1.8977052393729281,
+      "received": 168,
+      "memoryBeforeMb": 4596.62109375,
+      "memoryAfterMb": 4609.85546875,
+      "memoryDeltaMb": 13.234375,
+      "minisBefore": 576,
+      "minisAfter": 576,
+      "serverBracket": {
+        "seconds": 97.2795769000004,
+        "ticks": 361,
+        "created": 12948,
+        "removed": 12948,
+        "sent": 270,
+        "meanWorkMs": 9.227771468582619,
+        "createdPerSecond": 133.10090784327772
+      }
+    },
+    {
+      "name": "off",
+      "sampleSeconds": 60.00674159999471,
+      "meanFrameMs": 16.89329837566359,
+      "p95FrameMs": 17.75,
+      "p99FrameMs": 22.5,
+      "maxFrameMs": 209.9841982126236,
+      "meanConveyorWorkMs": 2.0177559403265635,
+      "received": 0,
+      "memoryBeforeMb": 4638.22265625,
+      "memoryAfterMb": 4651.171875,
+      "memoryDeltaMb": 12.94921875,
+      "minisBefore": 576,
+      "minisAfter": 576,
+      "serverBracket": {
+        "seconds": 73.36355609999737,
+        "ticks": 272,
+        "created": 9792,
+        "removed": 9792,
+        "sent": 0,
+        "meanWorkMs": 8.94711102963651,
+        "createdPerSecond": 133.47226498471701
+      }
+    },
+    {
+      "name": "on2",
+      "sampleSeconds": 60.00932990000001,
+      "meanFrameMs": 16.82775887173344,
+      "p95FrameMs": 17.75,
+      "p99FrameMs": 19.75,
+      "maxFrameMs": 52.06729844212532,
+      "meanConveyorWorkMs": 1.8917202749086188,
+      "received": 167,
+      "memoryBeforeMb": 4670.0390625,
+      "memoryAfterMb": 4660.046875,
+      "memoryDeltaMb": -9.9921875,
+      "minisBefore": 300,
+      "minisAfter": 576,
+      "serverBracket": {
+        "seconds": 108.58557859999564,
+        "ticks": 403,
+        "created": 14676,
+        "removed": 14676,
+        "sent": 303,
+        "meanWorkMs": 9.293056079308588,
+        "createdPerSecond": 135.15606942670553
+      }
+    }
+  ],
+  "conclusion": "ON1/OFF had matching576-Mini endpoints and similar memory growth13.234375/12.94921875MB despite zeroOFFpackets. Turning off the full snapshot pipeline did not eliminate short-window growth. ON2fell9.9921875MB but started300/ended576Minis. Short noisy sequence does not isolate a leak or prove memory recovery; no furthercapacityraise.",
+  "limitations": [
+    "One Studio client; productionHUD/audio/playercommands excluded; fullsixfarm mixedspecieschurn kepton.",
+    "Harness uses deepCore.snapshot; OFFskips copy+FireClient together. This is the whole historical send pipeline, not currentSnapshotPacket timing or isolated decoding.",
+    "Client frame-window memory is exact60s; separate memory-tags and server-counter brackets include collection/poll delay and are explicitly longer. Do not treat server distributions as matched60s.",
+    "ON2endpoint inventory differs by276Minis/552Instances; no three-window matchedmemoryaverage. Assets/shelf/producers remainfixed.",
+    "UserSavedQualityLevelAutomatic; actualdynamicqualitynotexposed. Fixedfarm1/FOV60/1759x567; no preferenceschanged.",
+    "NativeStudioexecutor restoredCustom aftercalls; test-onlyharness nowreassertsScriptable eachframe. Initialspawnfloor/controlsetuprestartedbeforeanymeasurements.",
+    "NoGCforced; categorytagsmayoverlap, gcinfo/StatsLuaHeapdifferent scopes; noFPS/memoryresolutionclaim.",
+    "Agents performed lighttextediting/review; one0.54s targetedcompile duringON1, fulltests/build heldoutsidewindows.",
+    "Frozenproductioncbbd765; laterdiskDepositEffects/counterpatches were not synced duringmeasurements."
+  ]
+}

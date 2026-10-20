@@ -1,0 +1,11 @@
+local Info=require('../src/shared/ProductionInfo')
+local config={Interval=1}
+assert(Info.rate(config,{miniMultiplier=1,eventHundredths=127})==1,'World event applies at deposit, not displayed production')
+assert(Info.rate(config,{miniMultiplier=2,eventHundredths=50})==2,'Mini pass doubles raw production even during a low deposit event')
+assert(Info.rate(config,{miniMultiplier=2,eventHundredths=125,obbyBonusHundredths=25})==2,'Obby bonus and world event apply at deposit only')
+assert(Info.rate({Interval=2},{miniMultiplier=1,eventHundredths=100})==.5,'Cadence remains configurable')
+assert(Info.rate(config,{})==1,'Preview states default to base production')
+assert(Info.saleUnits(10,{rebirths=4,cashMultiplier=2})==160,'Cash value includes rebirth and cash pass only')
+assert(Info.saleUnits(10,{rebirths=4,cashMultiplier=2,eventHundredths=150,obbyBonusHundredths=25})==160,'Production boosts never inflate each Mini cash value')
+assert(Info.saleUnits(10,{})==40)
+print('PASS production rate, Mini pass and separate deposit boosts, configurable cadence and separate sale value')

@@ -2,9 +2,35 @@
   "name": "MergeABrainrot",
   "tree": {
     "$className": "DataModel",
-    "ReplicatedStorage": {"Shared": {"$path": "src/shared"}},
-    "ServerScriptService": {"$path": "src/server"},
-    "StarterPlayer": {"StarterPlayerScripts": {"$path": "src/client"}},
-    "StarterGui": {"$properties": {"ScreenOrientation": "Sensor"}}
+    "ReplicatedStorage": {
+      "Shared": {
+        "$path": "src/shared"
+      },
+      "CharacterModels": {
+        "$path": "assets/characters/roblox"
+      },
+      "ExpansionModels": {
+        "$path": "assets/characters/expansion_roblox"
+      },
+      "MapModels": {
+        "$path": "assets/map/roblox"
+      },
+      "UIModels": {
+        "$path": "assets/ui/roblox"
+      }
+    },
+    "ServerScriptService": {
+      "$path": "src/server"
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "$path": "src/client"
+      }
+    },
+    "StarterGui": {
+      "$properties": {
+        "ScreenOrientation": "Sensor"
+      }
+    }
   }
 }

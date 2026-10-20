@@ -1,0 +1,708 @@
+{
+  "className": "Model",
+  "children": [
+    {
+      "className": "Part",
+      "name": "Dark red lower cover",
+      "properties": {
+        "Size": [
+          2.55,
+          3.1,
+          0.18
+        ],
+        "CFrame": [
+          0,
+          0,
+          0.2,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.43,
+          0.012,
+          0.035
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Cream page block",
+      "properties": {
+        "Size": [
+          2.3,
+          2.88,
+          0.32
+        ],
+        "CFrame": [
+          0.08,
+          0,
+          0,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.9,
+          0.62
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Page edge",
+      "properties": {
+        "Size": [
+          2.26,
+          0.018,
+          0.024
+        ],
+        "CFrame": [
+          0.1,
+          -1.25,
+          -0.17,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Page edge",
+      "properties": {
+        "Size": [
+          2.26,
+          0.018,
+          0.024
+        ],
+        "CFrame": [
+          0.1,
+          -0.95,
+          -0.17,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Page edge",
+      "properties": {
+        "Size": [
+          2.26,
+          0.018,
+          0.024
+        ],
+        "CFrame": [
+          0.1,
+          -0.65,
+          -0.17,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Page edge",
+      "properties": {
+        "Size": [
+          2.26,
+          0.018,
+          0.024
+        ],
+        "CFrame": [
+          0.1,
+          -0.35,
+          -0.17,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Page edge",
+      "properties": {
+        "Size": [
+          2.26,
+          0.018,
+          0.024
+        ],
+        "CFrame": [
+          0.1,
+          0.0,
+          -0.17,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Page edge",
+      "properties": {
+        "Size": [
+          2.26,
+          0.018,
+          0.024
+        ],
+        "CFrame": [
+          0.1,
+          0.35,
+          -0.17,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Page edge",
+      "properties": {
+        "Size": [
+          2.26,
+          0.018,
+          0.024
+        ],
+        "CFrame": [
+          0.1,
+          0.65,
+          -0.17,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Page edge",
+      "properties": {
+        "Size": [
+          2.26,
+          0.018,
+          0.024
+        ],
+        "CFrame": [
+          0.1,
+          0.95,
+          -0.17,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Page edge",
+      "properties": {
+        "Size": [
+          2.26,
+          0.018,
+          0.024
+        ],
+        "CFrame": [
+          0.1,
+          1.25,
+          -0.17,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Red upper cover",
+      "properties": {
+        "Size": [
+          2.55,
+          3.1,
+          0.18
+        ],
+        "CFrame": [
+          0,
+          0,
+          -0.25,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.82,
+          0.035,
+          0.075
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Gold spine",
+      "properties": {
+        "Size": [
+          0.25,
+          3.12,
+          0.25
+        ],
+        "CFrame": [
+          -1.11,
+          0,
+          -0.27,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Gold cover border",
+      "properties": {
+        "Size": [
+          2.03,
+          0.09,
+          0.09
+        ],
+        "CFrame": [
+          0.12,
+          -1.33,
+          -0.37,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Gold cover border",
+      "properties": {
+        "Size": [
+          2.03,
+          0.09,
+          0.09
+        ],
+        "CFrame": [
+          0.12,
+          1.33,
+          -0.37,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Gold cover fore-edge",
+      "properties": {
+        "Size": [
+          0.09,
+          2.72,
+          0.09
+        ],
+        "CFrame": [
+          1.1,
+          0,
+          -0.37,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Raised book crest",
+      "properties": {
+        "Size": [
+          0.85,
+          0.85,
+          0.15
+        ],
+        "CFrame": [
+          0.12,
+          0.14,
+          -0.41,
+          0.7071067094802856,
+          -0.7071068286895752,
+          0.0,
+          0.7071068286895752,
+          0.7071067094802856,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          1,
+          0.64,
+          0.065
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Crest ruby",
+      "properties": {
+        "Size": [
+          0.42,
+          0.42,
+          0.07
+        ],
+        "CFrame": [
+          0.12,
+          0.14,
+          -0.51,
+          0.7071067094802856,
+          -0.7071068286895752,
+          0.0,
+          0.7071068286895752,
+          0.7071067094802856,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.82,
+          0.035,
+          0.075
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    },
+    {
+      "className": "Part",
+      "name": "Ribbon",
+      "properties": {
+        "Size": [
+          0.29,
+          0.62,
+          0.1
+        ],
+        "CFrame": [
+          0.63,
+          -1.47,
+          -0.39,
+          1.0,
+          -0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Color": [
+          0.43,
+          0.012,
+          0.035
+        ],
+        "Anchored": true,
+        "CanCollide": false,
+        "CanTouch": false,
+        "CanQuery": false,
+        "Material": "SmoothPlastic",
+        "TopSurface": "Smooth",
+        "BottomSurface": "Smooth"
+      }
+    }
+  ]
+}

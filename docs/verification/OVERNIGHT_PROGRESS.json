@@ -1,0 +1,750 @@
+{
+  "updatedAtUTC": "2026-10-20T13:31:02.447Z",
+  "minimumContinueUntilUTC": "2026-10-20T13:30:00Z",
+  "heartbeat": "overnight-chicken-farm-polish",
+  "worktree": "C:/Users/nehaa/.codex/worktrees/brainrot-first-playable/merge a brainrot",
+  "branch": "codex/stacked-brainrot-farm",
+  "studioId": "bef730c2-c3be-48da-a77b-b19cd8746e97",
+  "handoff": "docs/verification/OVERNIGHT_HANDOFF.md",
+  "currentStudioState": {
+    "mode": "Fresh normal desktop Play restored after soak",
+    "mainScripts": "Both enabled in Edit and runtime",
+    "productionSync": "80/80 final native sources match; morningRojo artifact and StackedFarm alias match all80sources and47bundledmeshes",
+    "currentTrial": "None; harness controls/scripts/scenario absent; HUDenabled,Customcamera,health100,zero starter producers/Minis"
+  },
+  "candidateConfig": {
+    "producerSlots": 50,
+    "groundCap": 96,
+    "status": "GroundCap=96 may remain in the Studio preview after six-farm trials plus native mixed-species and all-Crocodilo physical collection. Slots=50 remains. This is not release, multiplayer, physical-device, all-Crocodilo performance, or long-term memory certification."
+  },
+  "completed": [
+    "100 annotated reference frames and map geometry pass committed 821200a.",
+    "Settings/audio and Conveyor lifecycle verified in Studio, committed c0471f1.",
+    "Shelf refactor: 221 parts per row, 6630 across six full 50-producer farms; visually and structurally verified, committed 70786a3.",
+    "After the first harness, normal Studio Play was restored with both Main scripts enabled and 26 production modules synced.",
+    "All nine map fixtures passed: hub-stud-occlusion, conveyor-wheat, conveyor-facade, environment, hub-routes, farm-landmarks, mirrored-plot, bridge-grounding, and obby-course.",
+    "Normal-play UI/layout, capacity hints, settings, obby HUD, reveal lifecycle, Conveyor idle/lifecycle, and Mini-neighbor fixtures passed.",
+    "Real Humanoid traversal completed all ten obby checkpoints and received the server award. The test driver required ChangeState(Jumping); Home preserved the awarded bonus.",
+    "Native studio-conveyor-visibility fixture passed for the new animation scheduling.",
+    "Prior fixed-source 70786a3 50/50 and 50/96 trials each completed 60-second settled and 600-second churn samples; raw files saved.",
+    "Optimized 96-Mini settled and 600-second churn samples plus serverWholeTrial counters saved to capacity-96-optimized-raw.json.",
+    "Independent whole-batch source review found no actionable defects in Obby authority/session/clock, capacity/rate UI, 96-cap integration, or visual completion callbacks; eight targeted pure suites passed.",
+    "Capacity harness fully removed; both Main scripts enabled and normal Studio Play restored after optimized measurements.",
+    "RecoveryStart/recoveryEnd snapshots and a 60-second settledReturn sample saved. Instances remained unchanged; total memory stayed elevated and full recovery is not established.",
+    "Actual Humanoid tray walk PASS: 96 collected and bagged, six species, partial repack, five waypoints over 52.09361205622554 world studs, zero remaining models; raw tray-walk-96-raw.json saved.",
+    "Updated obby driver rerun passed ten actual checkpoints and finish award in fresh normal Play. Home separately preserved the award. These latest checks are root-reported; existing obby raw file records the earlier 06:29 UTC run.",
+    "World multiplier-change cue integrated in Main; native replay/expiry, phone/short layout, pickup/Lucky/Settings coexistence, and teardown checks passed.",
+    "Read-only WorldBuilder/Conveyor/TierEffects lifecycle audit found no actionable retained removed-model/connection defect; no new immutable-attribute caching or pooling optimization made.",
+    "Lighthouse native PASS: 744 to 379 Parts, 365 hidden studs removed, 328 retained studs, 51 body Parts and 22 colliders unchanged; fractional tree palette preserved.",
+    "Native pad-affordability fixture passed all assertions.",
+    "Actual Main first-purchase smoke PASS at 0.26541079999879 seconds after local foot entry; three TooFar responses during staging replication preceded OK. No direct Buy command; raw pad-entry-smoke-raw.json saved. Play was restarted after that historical smoke.",
+    "PadLabels native PASS: all 15 local labels, near/distance/quote/hierarchy/geometry/teardown. Correcting the managed-source test setup exposed a real TextWrapped restoration omission, now fixed by capture/restore.",
+    "PadLabels before/after capture shows separated Buy costs; Auto Collect is hidden while Merge occludes it and appears on approach.",
+    "All 76 source files compile, all 40 standalone Luau test files pass, Rojo build passes. After the scoped PadLabels cleanup fix, targeted compilation/native validation and rebuild passed.",
+    "Studio source verification: 76 of 76 project scripts match Adler32 and normalized byte length. Six extra engine chat/player scripts excluded and untouched. Eleven preliminary trailing-blank-line differences were normalized; no gameplay source was stale.",
+    "Four additional PRO GAME ZONE 0 video states visually inspected at 00:13, 00:40, 01:20, 02:00; additional research document updated. No new exact economy claims.",
+    "Verified batch committed as 58c7875 and pushed to origin/codex/stacked-brainrot-farm; PR 2 updated and remains open/draft/unmerged. Benchmark source scope remains earlier fixed pre-lighthouse source, not the complete commit.",
+    "Normal Studio gameplay route on 58c7875 PASS: 100 deposited, 92 client-observed all-flight collections with Lucky held, 88 standing Claim OK responses, two Upgrade OK responses, card visible/nonmodal. Started with starter after earlier four-second Buy timeout with 14 TooFar replies and a later purchase; not a fresh-entry result.",
+    "PadHold TooFar retry bounded to 0.5 seconds instead of prior repeated 20Hz reset. Immediate entry and two-second initial hold / half-second repeat preserved; pure limiter tests and peer review pass.",
+    "Fresh normal Buy retry smoke PASS in 0.6340521999954944 seconds: one TooFar then OK. Server Z=46.655181884765625 outside on first request, 55.3488655090332 inside on success. One sample, not a latency guarantee.",
+    "Core.step conservative preflight: 20,160 old/new deterministic steps retained identical state/RNG; 984,048 table copies avoided in the 600-second scenario, reported by root. No new native FPS/memory result.",
+    "Lucky gold Basic for baseTier <=2 and blue for valid baseTier >=3 is consistent across ground/held/card. Updated server/client native fixtures pass; blue has 28 white glyph runs and eight white corner caps, 36 decorative Parts. Economy and nonmodal behavior unchanged; tier mapping is our adaptation.",
+    "Shelf rear joins native PASS: one live row and five isolated scaled rows, actual-generator CLI and peer review. Ground row 221 Parts, upper rows 224; +12 per full plot. One/two/five-row screenshots saved. The synthetic-camera label probe was inconclusive and ModelFactory remained unchanged at that checkpoint; the later depth-offset improvement is recorded in boardMenuLabelEvidence.",
+    "Historical 0059fb2 gates PASS: 78 source files compile, 42 standalone Luau files, display-shelves CLI, Rojo build, diff check. At 07:39:58 UTC 78 local/Studio project sources matched with zero mismatches. That batch was subsequently committed and pushed.",
+    "Root inspected/saved final blue/white-cap capture and restarted Play. Server confirms zero BrainrotProducer/ConveyorMini tags; both Main scripts enabled, no temporary world containers, client HUD enabled/CameraType.Custom/no OvernightNormalFarmFlow test script. No source changes after 78/42 gates.",
+    "0059fb2 committed/pushed. At 07:56 UTC root removed OvernightLabelPreview, returned the actual avatar, and verified both Main scripts enabled, HUD enabled, Custom camera, zero producer/Mini tags, and no temporary test containers/scripts. Physical Escape stopped UI input for that earlier turn; later authorized checks are recorded separately.",
+    "Current canopy native mirrored fixture PASS across all six plots, 68 Parts per stall unchanged, farmer face visible from front/elevated views; before/after/elevated captures saved.",
+    "Current hub native environment and six-route/8664-clearance checks PASS: 21 bushes, 51 flowers, six logs, decorative flags false, 12 extra Parts; before/after/ground captures saved.",
+    "SnapshotPacket implemented and reviewed: deep Core.snapshot preserved, 151 nested copies avoided per full-farm send, 11 Core transitions and no-yield/parity/isolation pure checks PASS. Native full50/96/CFrame/client-isolation/later-commit/metadata probe PASS.",
+    "Historical 4d4fd29 checkpoint committed/pushed: 79 sources compile, 43 standalone Luau files, Rojo and diff PASS. All 79 local/79 Studio sources matched at 08:15:56 UTC. Normal Main State/HUD PASS at coinUnits=20 and zero producers/Minis; temporary packet folder removed, server Main/HUD enabled, Custom camera.",
+    "Two-sided boards: native server/client and actual-module CLI PASS. Same current-server rows and guarded personal footers on both faces; exactly six inert planes, 765 to 771 Parts. Actual front/rear views inspected with player in hub.",
+    "Hidden-panel native RED/GREEN: 249 to zero hidden cards/portraits; 6993 to 3756 added descendants, with deferred startup stud work still counted. Fresh reopening, live visible panels and nonmodal Lucky/Settings PASS; fixture cleanup executed.",
+    "Producer label native scaling PASS on six real meshes: logical forward offset 4 becomes 2.6 world, logical cutoff 65 becomes 42.25 world at ScaleTo(.65). Lower rows improve; top cropping and oblique overlap remain.",
+    "Final board/menu/label gates PASS: 79 compiled, 43 pure tests, leaderboard CLI, Rojo; 79/79 running-Server source match at 08:32:21 UTC; five JPGs valid headers/lengths and 1759x567 decode. Normal HUD/Custom camera restored, ProducerLabelProbe absent, actual character back at plot and unanchored.",
+    "88818e4 committed and pushed: two-sided leaderboards, hidden-menu deferral, and producer-label depth offset. Native regressions and capture checks passed.",
+    "db4ec65 committed and pushed: scoped Main.server type fixes and refreshed reference-board evidence. All five original warnings reproduced in an isolated old-solver probe using actual Core types; the corrected probe passes both solvers. Full Studio Script Analysis was not re-read.",
+    "Strict-refactor normal gameplay PASS: 159 Minis deposited, three client-observed all-flight collection events while Lucky was held, 141 standing claims, and two upgrades. Same-ID Buy replay preserved action/requestId/revision and one producer; death/respawn preserved the same Lucky ID unheld at 100 health. Raw evidence: main-strict-gameplay.json.",
+    "db4ec65 gates PASS: 79 source files compile, 43 standalone Luau test files pass, leaderboard CLI and Rojo build pass, and 79/79 running-Server source parity passes at 08:45:07 UTC. Root removed temporary gameplay drivers and observers and restored fresh normal Play.",
+    "Shop-only redraw signature is synced, verified, and committed/pushed in 2dc70b1. Native RED rebuilt 36 offers and added 1,296 descendants across six irrelevant updates; GREEN creates zero offers, adds zero descendants, retains all six identities, and keeps the list at 997 descendants. Relevant ownership, metadata, pending-state, mode, and upgrade-key refresh checks pass.",
+    "Shop final gates PASS: native Shop and hidden-panel fixtures, 43 standalone tests, build, and 79/79 source parity at 08:49:25 UTC. Raw evidence saved to shop-redraw-native.json; this is construction/identity evidence, not a new FPS or memory benchmark.",
+    "WorldBuilder endpoint patch native GREEN: create 6, recreate 6, unchanged 6, repack 5, remove 0. RED creation/recreation counts were 12 each. Actual World.render/Core checks pass initialization before parent/tag, unchanged identity, repack, removal and recreation. Committed and pushed in cbbd765; setter/point-conversion counts only.",
+    "Endpoint batch gates PASS: 43 standalone tests, compilation, Rojo build, and 79/79 running-Server hashes. Root reports no project errors and restored fresh normal Play with both Main scripts/HUD enabled, Custom camera, and no temporary fixture.",
+    "Endpoint batch committed and pushed as cbbd765e194280b804762ee43b9e6e3905d261ff. The raw endpoint timestamp is corrected to 08:59:42 UTC.",
+    "Snapshot-toggle probe completed at 09:16:36 UTC on frozen cbbd765: ON1/OFF/ON2 each measured about 60 seconds. ON1/OFF memory grew 13.234375/12.94921875 MB with 168/0 received packets and matching 576-Mini endpoints. ON2 memory fell 9.9921875 MB but started with 300 Minis and ended with 576. This does not isolate a memory root cause or establish recovery.",
+    "After the snapshot-toggle probe, root removed the harness in Edit, enabled both Main scripts, and restarted normal Play on cbbd765. The later counter and DepositEffects changes had not been synced at that cleanup point; their subsequent native acceptance is recorded separately.",
+    "Counter/deposit final acceptance at 09:30:30 UTC: final RGB(55, 66, 165) counter panels synced on all six plots; mirrored fixture passes 18 inert panels and route/fence/face clearance. Eight deposit native cases and existing effects regression pass; 43 pure suites, Deposit CLI, changed source/fixture compilation, peer review, Rojo and diff checks pass. All 79 running-Server source hashes match, normal Main/HUD/Custom camera restored, and temporary objects removed. Three 1759x567 counter captures are validated and root-inspected. The batch was subsequently committed and pushed as 4ae9a52.",
+    "Counter proportions finalized at 09:30:30 UTC after a dedicated native height RED/GREEN: center Y 3.2 logical studs, top 2.275 world studs, panel height 2.455 logical studs, farmer height unchanged at 5.5 world studs. Final front/elevated captures reveal shirt, sleeves and pocket; all images decoded, Rojo rebuilt, and 79/79 source hashes match. This supersedes the earlier 09:22:38 counter geometry acceptance, without changing the snapshot-toggle source or measurements.",
+    "Counter/deposit and profiling-evidence batch committed and pushed as 4ae9a5282da8b8135284d1add925b2d461d32a6e. Snapshot-toggle source remains frozen at earlier cbbd765; historical capacity benchmarks remain unchanged.",
+    "All-Crocodilo actual-Humanoid route PASS at 09:39:10 UTC on 4ae9a52: 96 collected/bagged, zero remaining tokens or cloned Mini models, five waypoints over 51.45506834213393 world studs, partial repacking, and all 96 initial imported mesh identities checked. One isolated cloned farm/Core session and one Studio client; cleanup restored the character, HUD and Custom camera. No all-Crocodilo FPS, device, multiplayer or memory-recovery claim.",
+    "Home/booth batch: Home visible from accepted Ready state during onboarding; compact guidance/Shop preserved. Native12-viewport text/separation and Lucky/Settings regressions pass after two boundary overlaps reproduced and fixed. Observed actual Home click returns early-tutorial avatar to plot. Paired390x440 captures saved. Exact previous booth constructor compares426 parts across6 plots with unchanged geometry/material/flags/assets. Sources80/80; no performance claim. Raw home-booth-native.json.",
+    "699931c committed/pushed: Home available during onboarding,12 viewport native/CLI layout checks and426-part FarmerBooth extraction parity.",
+    "Foltyn study:14 timestamped selected frames,8key views,nine annotated native pairs; old100-frame board preserved.",
+    "Working-tree map batch:24x16tray,96 Minis in3layers, six-plot geometry/trajectory checks, mixed/allCroc96 actual-Humanoid pickups, same-count sloped dividers,−5064 lawn Parts, unchanged77colliders/plot and18slabs, brighter name-only tier1/6 palette.",
+    "ea5de16 committed and pushed: wider tray, same-count sloped bays, native lawn, brighter tier1/6 name palette,14 new annotated Foltyn references, normal moved-pad and Lucky smoke.",
+    "Rear owner title native RED/GREEN passed:1/2/5rows,shrink/empty/clear,actualspeciesidentities,long20Wfit,four paired views.",
+    "Native async leaderboard coalescing/stale/cache/destroyed-row fixture PASS; same Edit context85->80 warnings and0errors. All44pure/80compile/bothsolvers/peer/Rojo gates pass,80native+80savedXMLsources exact at11:51:39UTC. Pending commit of narrow Core/leaderboard types.",
+    "eb7bc2b committed/pushed: processor-board count/reset, LuckyCarry guard and PassService scoped types.",
+    "Touch follow-up verified: actual native controls preserved at five settled sizes; event-driven Jump-size observer reduces ~1.8s tablet update lag to one transient frame; actual-helper lifecycle and cue cleanup pass.",
+    "Seeded actual-Humanoid normal flow passed Buy5/Buy10 immediate entry and standing repeats, then free Lucky pickup; same held ID survives Settings music35→45→35 and close. Short card wheel reaches Discard; no physicaltouch claim.",
+    "Final44pure/80compile, three layout/cue/lifecycle CLI suites plus40 actcontexts, native80source parity and morningRojoXML80source parity pass. Fresh normal desktop Play restored.",
+    "6756b31 committed/pushed: native-control-safe touch HUD, Sprint/cue observer lifecycle and reference-board evidence.",
+    "Hub native grid accepted:1480 decorativeParts removed, same9slabs,864foundation probes,6routes/8664clearancechecks,6bridgelandings/environment pass;44pure/80compile plusactual-generator CLI/peer/build/parity pass.",
+    "8909891 committed/pushed: native hub grid,1480 fewer decorativeParts,9foundation slabs preserved and native route/probe acceptance.",
+    "Final frozen8909891 soak: two600-second windows with stable33209worldInstance endpoints;mean17.027/16.980ms,sharedStudio memory+161.5625/+165.734375MB.60ssettledreturn did not establishrecovery.",
+    "Harness destroyed,Playstopped,bothEditMains re-enabled,freshnormalPlay restored;80-source native parity rechecked; Morning andStackedFarm artifactSHA256 identical.",
+    "Minimum13:30UTC overnight window reached; heartbeat pause confirmed from saved automation state."
+  ],
+  "benchmarkEvidence": {
+    "baselineFiles": [
+      "docs/verification/capacity-50-raw.json",
+      "docs/verification/capacity-96-raw.json"
+    ],
+    "visualEvidence": "docs/verification/capacity-96-pile.png",
+    "obbyEvidence": "docs/verification/obby-playthrough-raw.json",
+    "optimized96Settled": {
+      "source": "Uncommitted reviewed batch: cheap-idle Conveyor, AnimationVisibility 15Hz offscreen/far groups; ObbyCourse, hub557 stud cull, facade wheat. Fixed Studio source during sample; lighthouse cull not installed.",
+      "sampleSeconds": 60.00377709999884,
+      "meanFrameMs": 16.686156425247997,
+      "p95FrameMs": 17.75,
+      "p99FrameMs": 19.25,
+      "maxFrameMs": 51.385000348091125,
+      "meanConveyorWorkMs": 0.37791635155054537,
+      "prior96MeanConveyorWorkMs": 1.8104423173228987,
+      "parts": 35279,
+      "instances": 39749,
+      "memoryBeforeMb": 3536.6484375,
+      "memoryAfterMb": 3540.6796875
+    },
+    "limitations": [
+      "One Studio client; production HUD/audio, real player command traffic, six real clients, and low-end devices are excluded from benchmark samples.",
+      "Baseline files describe source 70786a3; optimized raw evidence identifies the later fixed working-tree source. Lighthouse and multiplier cue were not installed in that measurement.",
+      "Lower settled/churn Conveyor work is a scoped subsystem improvement, not an overall FPS gain. Mean and maximum churn frame time increased.",
+      "Recovery snapshots stayed elevated versus pre-churn memory: stable global and world instance counts and recovered frame/work timing do not establish full memory recovery or absence of a leak.",
+      "The native tray walk supplies one-client mixed-species physical pickup evidence; all-Crocodilo, multiplayer, device, and longer memory conditions remain unvalidated.",
+      "Server counters cover whole trials and bounded timing windows; differing elapsed durations and machine/session memory histories prevent treating all totals as a matched comparison.",
+      "Recovery snapshots share the same population and route mode but different camera positions. Memory categories have different scopes and must not be summed."
+    ],
+    "optimizedFile": "docs/verification/capacity-96-optimized-raw.json",
+    "optimized96Churn": {
+      "sampleSeconds": 600.0109350999992,
+      "meanFrameMs": 17.045235712774797,
+      "p95FrameMs": 18,
+      "p99FrameMs": 25.5,
+      "maxFrameMs": 185.38540601730347,
+      "meanConveyorWorkMs": 2.122733433695962,
+      "prior96MeanConveyorWorkMs": 4.327729853125515,
+      "conveyorWorkReductionPercent": 50.95041729180693,
+      "prior96MeanFrameMs": 16.98168547540619,
+      "prior96P95FrameMs": 18.25,
+      "prior96P99FrameMs": 27.75,
+      "prior96MaxFrameMs": 166.53479635715485,
+      "partsBefore": 35279,
+      "partsAfter": 35279,
+      "instancesBefore": 39749,
+      "instancesAfter": 39749,
+      "minisBefore": 576,
+      "minisAfter": 576,
+      "memoryBeforeMb": 3549.3671875,
+      "memoryAfterMb": 3708.96875,
+      "memoryGrowthMb": 159.6015625,
+      "interpretation": "Conveyor work improved by about 51 percent, but overall mean and maximum frame times increased; this is not an overall FPS gain. Stable generated-world Instances do not resolve memory growth."
+    },
+    "optimized96ServerWholeTrial": {
+      "elapsedSeconds": 841.3696893000015,
+      "createdMinis": 88428,
+      "removedMinis": 88428,
+      "parts": 35279,
+      "instances": 39749,
+      "scope": "Whole trial; work timing ring holds last 2400 samples and heartbeat ring last 36000. This is not exactly the client 600-second churn window."
+    },
+    "memoryRecovery": {
+      "sampleSeconds": 186.7438134999975,
+      "totalBeforeMb": 3725.58203125,
+      "totalAfterMb": 3728.33984375,
+      "totalDeltaMb": 2.7578125,
+      "globalInstancesBefore": 89116,
+      "globalInstancesAfter": 89116,
+      "worldDescendantsBefore": 39749,
+      "worldDescendantsAfter": 39749,
+      "miniModelsBefore": 576,
+      "miniModelsAfter": 576,
+      "gcinfoBeforeKb": 10328,
+      "gcinfoAfterKb": 11292,
+      "statsLuaHeapBeforeMb": 917.77099609375,
+      "statsLuaHeapAfterMb": 923.729248046875,
+      "interpretation": "Same full population, route continued, no forced GC. Instance and asset-ID counts unchanged; total memory stayed elevated. No full memory recovery or leak-resolution claim."
+    },
+    "optimized96SettledReturn": {
+      "sampleSeconds": 60.00134980000439,
+      "meanFrameMs": 16.66226623433993,
+      "p95FrameMs": 17.75,
+      "p99FrameMs": 18.25,
+      "maxFrameMs": 30.247699469327927,
+      "meanConveyorWorkMs": 0.38317770061507095,
+      "memoryBeforeMb": 3730.09765625,
+      "memoryAfterMb": 3728.87890625,
+      "interpretation": "Frame and Conveyor work returned to settled behavior for this sample; total memory remained elevated."
+    },
+    "trayWalk96": {
+      "file": "docs/verification/tray-walk-96-raw.json",
+      "recordedAtUTC": "2026-10-20T06:54:52Z",
+      "pass": true,
+      "collected": 96,
+      "bag": 96,
+      "remaining": 0,
+      "cloneMiniModels": 0,
+      "visited": 5,
+      "walkedWorldStuds": 52.09361205622554,
+      "partial": true,
+      "repacked": true,
+      "species": {
+        "tier_01": 17,
+        "tier_06": 15,
+        "tier_02": 17,
+        "tier_03": 16,
+        "tier_05": 15,
+        "tier_04": 16
+      },
+      "scope": "Isolated cloned farm and independent frozen-production Core session, actual Humanoid and server HRP-derived pickup contexts, single staging move then five walking waypoints; restored/removed afterward."
+    },
+    "productionPadEntry": {
+      "file": "docs/verification/pad-entry-smoke-raw.json",
+      "recordedAtUTC": "2026-10-20T07:07:40.86Z",
+      "latencySeconds": 0.26541079999879,
+      "producersAfter": 1,
+      "tooFarResponses": 3,
+      "result": "PASS immediate first purchase from outer pad area via production controller",
+      "scope": "Normal Studio Play, actual Main controller/remote/server; fresh starting balance, staging teleport outside Buy1, real Humanoid walk into pad, no direct Buy command. Three TooFar responses during staging replication preceded successful purchase.",
+      "interpretation": "One observed normal Studio first-buy smoke, not a latency guarantee. Earlier movement target stopped outside a corner; corrected driver target, no production change."
+    }
+  },
+  "active": [],
+  "next": [
+    "Investigate BaseParts-category memory growth in a fresh controlled client; evaluate bounded Mini recycling before any further capacity expansion",
+    "Resolve denseCrocodilo overlap and lower stacked-name occlusion with verified native rendering",
+    "Complete persistence/configured monetization/global rankings/group/friend integrations and real-device/multiplayer QA before release"
+  ],
+  "constraints": [
+    "User permits expanding former 50 limits if performance supports it; producer count remains 50.",
+    "No incremental cash purchase buttons and no Received reward prefix.",
+    "Preserve immediate pad entry, standing repeat, aura/airborne pickup, and nonmodal Lucky UI.",
+    "Use authorized assets and original code; no video-music extraction.",
+    "Do not merge the draft PR or publish the game.",
+    "Do not report the overnight window or final 96-Mini validation complete."
+  ],
+  "heartbeatIntervalMinutes": 15,
+  "heartbeatStatus": "PAUSED",
+  "verification": {
+    "pureSuites": 44,
+    "compiledSources": 80,
+    "nativeSourceMatches": 80,
+    "builtXMLSourceMatches": 80,
+    "touchSettledSizes": 5,
+    "layoutCLI": "2163 desktop layouts +72 touch combinations",
+    "native": "touch HUD/control separation; full-count text fit; scroll action reachability; cue lifecycle; actual held-block Settings mouse and short-card wheel input",
+    "artifact": "build/MergeABrainrot-Morning-2026-10-20.rbxlx",
+    "artifactProof": "docs/verification/morning-build-verification.json",
+    "nativeSave": "Existing FirstPlayable native document last verified at11:51UTC; latest source is live inStudio and in separate Rojo morning artifact. Native Ctrl+S not reverified.",
+    "cleanup": "PASS; normalPlay,HUD,Customcamera,health100,bothMains enabled,noharness remnants"
+  },
+  "latestVerifiedCommit": "8909891",
+  "newBatchEvidence": {
+    "status": "Gameplay/allocation/Lucky/shelf batch committed/pushed as 0059fb2. Subsequent canopy/hub/packet batch committed/pushed as 4d4fd29, synced and natively verified.",
+    "normalFarmFlow": {
+      "file": "docs/verification/normal-farm-flow-raw.json",
+      "capture": "docs/verification/normal-flow-lucky-held.jpg",
+      "sourceCommit": "58c7875",
+      "recordedAtUTC": "2026-10-20T07:30:29Z",
+      "deposited": 100,
+      "heldAirborneCollectionObservations": 92,
+      "claimOK": 88,
+      "upgradeOK": 2,
+      "startedWithStarter": true,
+      "initialBuyTimedOutSeconds": 4,
+      "initialBuyTooFarReplies": 14,
+      "scope": "Normal Main/controller/server; card visible/nonmodal. All-flight event counts are client observations. Predates retry, preflight, and appearance changes."
+    },
+    "padRetry": {
+      "file": "docs/verification/pad-retry-smoke-raw.json",
+      "recordedAtUTC": "2026-10-20T07:32:32Z",
+      "latencySeconds": 0.6340521999954944,
+      "tooFarResponses": 1,
+      "serverFirstZ": 46.655181884765625,
+      "serverSuccessZ": 55.3488655090332,
+      "retrySeconds": 0.5,
+      "scope": "Fresh normal Buy1 center entry with new retry/Core preflight; Lucky changes not yet synced. One sample, not a latency guarantee."
+    },
+    "stepPreflight": {
+      "comparedSteps": 20160,
+      "stateAndRngIdentical": true,
+      "avoidedTableCopies": 984048,
+      "scenarioSeconds": 600,
+      "scope": "Root-reported deterministic comparison, not native FPS/memory measurement."
+    },
+    "luckyAppearance": {
+      "nativeServer": "PASS",
+      "nativeClient": "PASS",
+      "blueDecorationParts": 36,
+      "whiteGlyphParts": 28,
+      "whiteCornerCaps": 8,
+      "capture": "docs/verification/blue-lucky-preview.jpg",
+      "captureStatus": "Final 36-Part blue/white-cap appearance inspected by root and saved; fresh Play restored afterward."
+    },
+    "shelfJoins": {
+      "native": "PASS one live row and five isolated scaled rows",
+      "cli": "PASS",
+      "peerReview": "No actionable findings",
+      "groundRowParts": 221,
+      "upperRowParts": 224,
+      "addedPartsPerFullPlot": 12,
+      "fullSixFarmShelfParts": 6702,
+      "captures": [
+        "docs/verification/shelf-supports-1-rows.jpg",
+        "docs/verification/shelf-supports-2-rows.jpg",
+        "docs/verification/shelf-supports-5-rows.jpg"
+      ],
+      "remaining": "Historical shelf checkpoint: the synthetic-camera AlwaysOnTop probe was inconclusive and ModelFactory was unchanged. The later depth-offset improvement is recorded in boardMenuLabelEvidence; tight top cropping and oblique overlap remain."
+    }
+  },
+  "allocationCandidates": [
+    {
+      "target": "src/server/Services/WorldBuilder.luau World.render",
+      "proposal": "New Minis receive ConveyorEnd twice. Restrict outer update to existing-Mini branch to remove one redundant write per creation.",
+      "scope": "Source-proven duplicate, not a measured native CPU gain; review creation/repack/removal and preserve attribute-before-tag ordering.",
+      "status": "Synced and verified with native RED/GREEN; committed and pushed in cbbd765.",
+      "nativeEvidence": "docs/verification/conveyor-end-writes-native.json",
+      "nativeRedPhaseCounters": {
+        "create": 12,
+        "recreate": 12,
+        "unchanged": 6,
+        "repack": 5,
+        "remove": 0
+      },
+      "nativeGreenPhaseCounters": {
+        "create": 6,
+        "recreate": 6,
+        "unchanged": 6,
+        "repack": 5,
+        "remove": 0
+      },
+      "coverage": "Actual World.render/Core; initialization before parent/tag, unchanged identity, repack, removal and recreation pass.",
+      "interpretation": "One redundant endpoint setter and point conversion removed per newly created Mini. No replication, FPS, or memory savings claim.",
+      "commit": "cbbd765e194280b804762ee43b9e6e3905d261ff"
+    }
+  ],
+  "canopyEvidence": {
+    "files": [
+      "src/server/Services/WorldBuilder.luau",
+      "tests/studio-mirrored-plot.server.luau"
+    ],
+    "status": "Committed/pushed in 4d4fd29, synced; native mirrored-plot PASS, 68 Parts on all six plots; front/elevated face visibility inspected.",
+    "agentChecks": "Compilation, diff, 68-Part count, farmer head clearance 0.688462 logical studs, sign/fringe clearance 0.1 logical studs PASS.",
+    "beforeCapture": "docs/verification/farmer-canopy-before.jpg",
+    "labelStatus": "Historical AlwaysOnTop capture remained inconclusive. Current separate label batch adds a four-logical-stud forward offset with normal depth occlusion; see boardMenuLabelEvidence.",
+    "captures": [
+      "docs/verification/farmer-canopy-before.jpg",
+      "docs/verification/farmer-canopy-after.jpg",
+      "docs/verification/farmer-canopy-elevated.jpg"
+    ]
+  },
+  "historicalPacketProbe": {
+    "target": "src/server/Main.server.luau send()",
+    "proposal": "Shallow outbound packet-root clone only; retain deep Core.snapshot for transactions.",
+    "fullStateTables": 152,
+    "fullStateEntries": 1669,
+    "rootFields": 19,
+    "avoidedNestedTablesPerSend": 151,
+    "probeEnvelopes": 12000,
+    "deepMs": 2171.844,
+    "shallowMs": 13.329,
+    "avoidedNestedTables": 1812000,
+    "checks": "Packet parity, root metadata isolation, 40 due ticks, event change, pickup/repack prior-state stability PASS.",
+    "scope": "Read-only CLI probe, no files changed; excludes RemoteEvent/Studio/GPU/native memory. Review server serialization and state lifecycle before implementation."
+  },
+  "packetEvidence": {
+    "status": "Committed/pushed in 4d4fd29, synced, independently reviewed, native probe PASS.",
+    "helper": "src/server/Domain/SnapshotPacket.luau",
+    "pureTest": "tests/snapshot-packet.luau",
+    "nativeTests": [
+      "tests/studio-snapshot-packet.server.luau",
+      "tests/studio-snapshot-packet.client.luau"
+    ],
+    "fullStateTables": 152,
+    "fullStateEntries": 1669,
+    "rootFields": 19,
+    "avoidedNestedTablesPerSend": 151,
+    "probeEnvelopesPerTrial": 12000,
+    "actualDeepMs": [
+      2786.891,
+      2063.966,
+      2053.348
+    ],
+    "actualPacketMs": [
+      8.308,
+      7.541,
+      8.333
+    ],
+    "avoidedNestedTablesPerTrial": 1812000,
+    "native": "50 producers/96 Minis, real CFrame, client isolation, later Core commit and metadata PASS.",
+    "normalMainSmoke": {
+      "coinUnits": 20,
+      "producers": 0,
+      "minis": 0,
+      "HUD": "PASS"
+    },
+    "scope": "CLI assembly timing only: alternating order, no forced GC, excludes RemoteEvent serialization/Studio/GPU/native memory. Native probe establishes correctness, not FPS/memory gain. Core.snapshot remains deep for transactions.",
+    "nativeEvidence": "docs/verification/snapshot-packet-native.json"
+  },
+  "imagePersistenceRepair": {
+    "repairedJpgs": 11,
+    "decodedVerificationJpgs": 13,
+    "width": 1759,
+    "height": 567,
+    "status": "Root restored truncated saved JPGs from the original retained captures using smaller checked transfer chunks; System.Drawing decoded all verification JPGs and view_image displayed the repaired canopy.",
+    "provenance": "Includes the recovered original normal-flow capture. No new gameplay run, capture-date change, benchmark-metric change, or source-provenance change."
+  },
+  "hubCompositionEvidence": {
+    "status": "Committed/pushed in 4d4fd29, synced, native environment/routes PASS.",
+    "routes": 6,
+    "clearanceChecks": 8664,
+    "bushes": 21,
+    "flowers": 51,
+    "logs": 6,
+    "addedParts": 12,
+    "decorativeFlags": "CanCollide/CanQuery/CanTouch false",
+    "captures": [
+      "docs/verification/hub-composition-before.jpg",
+      "docs/verification/hub-composition-after.jpg",
+      "docs/verification/hub-composition-ground.jpg"
+    ]
+  },
+  "boardMenuLabelEvidence": {
+    "status": "Committed and pushed in 88818e4; native checks and captures passed.",
+    "leaderboards": {
+      "native": "Server/client fixtures PASS",
+      "cli": "PASS",
+      "addedPlanes": 6,
+      "partsBefore": 765,
+      "partsAfter": 771,
+      "flags": "Added planes CanCollide/CanQuery/CanTouch false",
+      "scope": "Same current-server rows and guarded personal footers on both faces; reference-informed usability adaptation",
+      "captures": [
+        "docs/verification/leaderboard-front.jpg",
+        "docs/verification/leaderboard-rear.jpg"
+      ],
+      "captureStatus": "Saved; all five board/label JPGs passed direct JPEG header, expected-length and System.Drawing decode checks at 1759x567."
+    },
+    "hiddenPanel": {
+      "fixture": "tests/studio-hidden-panel.client.luau",
+      "native": "RED observed, GREEN all assertions PASS",
+      "before": {
+        "cards": 249,
+        "portraits": 249,
+        "descendants": 6993
+      },
+      "after": {
+        "cards": 0,
+        "portraits": 0,
+        "descendants": 3756
+      },
+      "visible": {
+        "cards": 150,
+        "portraits": 158,
+        "descendants": 2152
+      },
+      "remaining": "Counter starts immediately after UI.new; 3756 is consistent with 626 deferred startup/layout studs times six Instances. Difference 3237 equals 249 card subtrees times 13 Instances. Not zero total allocation, FPS or memory-recovery evidence.",
+      "coverage": "Hidden state/pending/shop changes, latest reopen, visible Merge/Shop/Rebirth/Index and nonmodal Lucky/Settings; temporary HUD cleanup"
+    },
+    "producerLabels": {
+      "native": "Six actual meshes scaling PASS",
+      "forwardLogicalStuds": 4,
+      "forwardWorldStuds": 2.6,
+      "plotScale": 0.65,
+      "cutoffLogicalStuds": 65,
+      "cutoffWorldStuds": 42.25,
+      "depthOcclusion": true,
+      "result": "Lower-row readability improved; top-row cropping and oblique label overlap remain",
+      "captures": [
+        "docs/verification/producer-labels-before.jpg",
+        "docs/verification/producer-labels-after.jpg",
+        "docs/verification/producer-labels-angle.jpg"
+      ]
+    },
+    "nativeEvidence": "docs/verification/leaderboard-panel-native.json"
+  },
+  "strictServerEvidence": {
+    "status": "Committed and pushed in db4ec65; isolated type probes and native gameplay checks pass.",
+    "baseline": "88818e4",
+    "diagnostics": "docs/verification/main-strict-diagnostics.json",
+    "gameplay": "docs/verification/main-strict-gameplay.json",
+    "warningProbe": "Five original warnings reproduced under the old solver. The corrected isolated probes import the actual Core types and pass both old and new solvers. The full Studio Script Analysis panel was not re-read.",
+    "native": {
+      "deposited": 159,
+      "heldAirborneCollectionEvents": 3,
+      "standingClaims": 141,
+      "upgrades": 2,
+      "processorLevel": 2,
+      "purchaseReplay": "PASS: same-ID Buy replay preserves action, requestId, and revision while retaining one producer.",
+      "deathRespawn": "PASS: the same Lucky ID remains unheld after live respawn at 100 health."
+    },
+    "gates": "79 source files compile, 43 standalone Luau test files pass, Rojo build passes, and 79 local/79 running-Server project sources match at 08:45:07 UTC.",
+    "scope": "One Studio client with memory-only progression; not a capacity, frame-time, or memory benchmark. The raw run uses baseline 88818e4 plus the Main.server changes subsequently committed in db4ec65."
+  },
+  "shopRedrawEvidence": {
+    "owner": "map_structure_audit",
+    "target": "src/client/Controllers/FarmUI.luau",
+    "fixture": "tests/studio-shop-redraw.client.luau",
+    "status": "Synced and verified with native RED/GREEN and final gates; committed and pushed in 2dc70b1.",
+    "commit": "2dc70b13a041b91703bff34da3a7ee031db3d02a",
+    "baseline": "db4ec65",
+    "nativeEvidence": "docs/verification/shop-redraw-native.json",
+    "recordedAtUTC": "2026-10-20T08:49:25Z",
+    "unrelatedSnapshots": 6,
+    "before": {
+      "offersRebuilt": 36,
+      "addedDescendants": 1296,
+      "identitiesRetained": 0
+    },
+    "after": {
+      "offerCreations": 0,
+      "addedDescendants": 0,
+      "identitiesRetained": 6,
+      "startingDescendants": 997,
+      "endingDescendants": 997
+    },
+    "refreshCoverage": "Ownership, metadata, pending-state, mode, and upgrade-key changes all pass.",
+    "gates": "Native Shop and hidden-panel fixtures pass; root reports final build, 43 standalone tests, and 79/79 source parity pass.",
+    "scope": "Isolated actual FarmUI, with observation after three heartbeats to exclude deferred startup. Normal gameplay state and preferences are unchanged. Construction/identity evidence only, not FPS or memory-recovery evidence."
+  },
+  "snapshotToggleEvidence": {
+    "file": "docs/verification/capacity-96-snapshot-toggle-2026-10-20.json",
+    "completedAtUTC": "2026-10-20T09:16:36Z",
+    "sourceCommit": "cbbd765e194280b804762ee43b9e6e3905d261ff",
+    "productionSourceCount": 79,
+    "status": "Saved and independently reviewed; raw data unchanged. Normal Play restored afterward by root.",
+    "protocol": "One continuous six-farm mixed-species churn epoch, 50 producers and up to 96 Minis per farm, one Studio client, fixed farm1 camera at FOV 60 and viewport 1759x567. ON/OFF/ON frame samples each last about 60 seconds after at least 10 seconds of drain or warmup.",
+    "phases": [
+      {
+        "name": "on1",
+        "sampleSeconds": 60.0060364000019,
+        "meanFrameMs": 16.902560533981926,
+        "p95FrameMs": 17.75,
+        "p99FrameMs": 22.75,
+        "maxFrameMs": 145.86779475212097,
+        "meanConveyorWorkMs": 1.8977052393729281,
+        "received": 168,
+        "memoryBeforeMb": 4596.62109375,
+        "memoryAfterMb": 4609.85546875,
+        "memoryDeltaMb": 13.234375,
+        "minisBefore": 576,
+        "minisAfter": 576,
+        "serverBracket": {
+          "seconds": 97.2795769000004,
+          "ticks": 361,
+          "created": 12948,
+          "removed": 12948,
+          "sent": 270,
+          "meanWorkMs": 9.227771468582619,
+          "createdPerSecond": 133.10090784327772
+        },
+        "frameWindowSnapshotEntitiesReceived": 23184,
+        "memoryTagBracket": {
+          "seconds": 97.16309609999735,
+          "totalBeforeMb": 4592.43359375,
+          "totalAfterMb": 4622.12109375,
+          "totalDeltaMb": 29.6875,
+          "globalInstancesBefore": 89129,
+          "globalInstancesAfter": 89129,
+          "scope": "Separate diagnostic bracket, not the approximately 60-second frame sample. Category values may overlap and are not summed."
+        }
+      },
+      {
+        "name": "off",
+        "sampleSeconds": 60.00674159999471,
+        "meanFrameMs": 16.89329837566359,
+        "p95FrameMs": 17.75,
+        "p99FrameMs": 22.5,
+        "maxFrameMs": 209.9841982126236,
+        "meanConveyorWorkMs": 2.0177559403265635,
+        "received": 0,
+        "memoryBeforeMb": 4638.22265625,
+        "memoryAfterMb": 4651.171875,
+        "memoryDeltaMb": 12.94921875,
+        "minisBefore": 576,
+        "minisAfter": 576,
+        "serverBracket": {
+          "seconds": 73.36355609999737,
+          "ticks": 272,
+          "created": 9792,
+          "removed": 9792,
+          "sent": 0,
+          "meanWorkMs": 8.94711102963651,
+          "createdPerSecond": 133.47226498471701
+        },
+        "frameWindowSnapshotEntitiesReceived": 0,
+        "memoryTagBracket": {
+          "seconds": 73.39667679999548,
+          "totalBeforeMb": 4630.765625,
+          "totalAfterMb": 4655.43359375,
+          "totalDeltaMb": 24.66796875,
+          "globalInstancesBefore": 89129,
+          "globalInstancesAfter": 89129,
+          "scope": "Separate diagnostic bracket, not the approximately 60-second frame sample. Category values may overlap and are not summed."
+        }
+      },
+      {
+        "name": "on2",
+        "sampleSeconds": 60.00932990000001,
+        "meanFrameMs": 16.82775887173344,
+        "p95FrameMs": 17.75,
+        "p99FrameMs": 19.75,
+        "maxFrameMs": 52.06729844212532,
+        "meanConveyorWorkMs": 1.8917202749086188,
+        "received": 167,
+        "memoryBeforeMb": 4670.0390625,
+        "memoryAfterMb": 4660.046875,
+        "memoryDeltaMb": -9.9921875,
+        "minisBefore": 300,
+        "minisAfter": 576,
+        "serverBracket": {
+          "seconds": 108.58557859999564,
+          "ticks": 403,
+          "created": 14676,
+          "removed": 14676,
+          "sent": 303,
+          "meanWorkMs": 9.293056079308588,
+          "createdPerSecond": 135.15606942670553
+        },
+        "frameWindowSnapshotEntitiesReceived": 23084,
+        "memoryTagBracket": {
+          "seconds": 108.48636989999795,
+          "totalBeforeMb": 4666.46875,
+          "totalAfterMb": 4667.80859375,
+          "totalDeltaMb": 1.33984375,
+          "globalInstancesBefore": 89129,
+          "globalInstancesAfter": 89129,
+          "scope": "Separate diagnostic bracket, not the approximately 60-second frame sample. Category values may overlap and are not summed."
+        }
+      }
+    ],
+    "interpretation": "ON1 and OFF have matching 576-Mini endpoints and similar short-window memory growth despite zero OFF packets. Disabling the full historical snapshot send pipeline did not eliminate that growth. ON2 decreases memory but starts with fewer Minis. This sequence does not isolate a root cause, prove no snapshot cost, establish a leak or its absence, prove engine caching, or demonstrate full memory recovery or an overall FPS gain.",
+    "limitations": [
+      "The harness uses deep Core.snapshot; OFF skips snapshot copying and FireClient together. This does not benchmark current production SnapshotPacket or isolate deserialization.",
+      "Frame-window memory is measured over roughly 60 seconds. Separate tag brackets span 97.1631, 73.3967 and 108.4864 seconds; server-counter brackets span 97.2796, 73.3636 and 108.5856 seconds. Their deltas and distributions are not matched 60-second values.",
+      "ON2 starts with 300 Minis and ends with 576, adding 276 Minis and 552 Instances within the frame sample. Do not pool all three as a matched-population average.",
+      "One Studio client; production HUD, audio and ordinary player commands are excluded. Six-farm model churn continues throughout, but six real clients and physical devices are untested.",
+      "Saved graphics quality is Automatic; actual dynamic quality and frame cap are unavailable. Fixed camera setup was repaired before measured windows, and no user preference was changed.",
+      "No forced GC, repeated trials or counterbalanced order. Carryover allocations from ON1 may persist into OFF, and category tags have overlapping scopes. The small ON1/OFF difference does not quantify a packet contribution.",
+      "Light agent text work continued; one 0.54-second targeted compile occurred during ON1. Full builds and suites were held outside the windows.",
+      "Production cbbd765 was frozen during measurement. Later disk counter and DepositEffects changes were not synced and are outside this evidence."
+    ]
+  },
+  "counterDepositEvidence": {
+    "baseline": "cbbd765",
+    "status": "Verified at 09:30:30 UTC; committed and pushed as 4ae9a52.",
+    "counter": {
+      "native": "Initial panel-count RED and later proportion RED observed; final mirrored fixture GREEN verifies the lowered counter with torso allowance, 18 inert panels, unchanged XZ footprint, farmer/sign/awning visibility, clear deposit approach, routes and fences.",
+      "panelsPerPlot": 3,
+      "addedPartsAllPlots": 18,
+      "addedColliders": 0,
+      "panelRGB": [
+        55,
+        66,
+        165
+      ],
+      "colorStatus": "Final panel-only color synced across all plots; root inspected paired front and elevated views under the warm pad light.",
+      "captures": [
+        "docs/verification/farmer-counter-before.jpg",
+        "docs/verification/farmer-counter-after.jpg",
+        "docs/verification/farmer-counter-elevated.jpg"
+      ],
+      "captureStatus": "Final front/after and elevated JPEGs replaced and all three validated at 1759x567. Root inspected shirt, both sleeves and pocket visibility; farmer size, sign, canopy and XZ footprint are unchanged.",
+      "counterCenterLogicalY": 3.2,
+      "counterTopWorldY": 2.275,
+      "panelHeightLogical": 2.455,
+      "farmerHeightWorld": 5.5
+    },
+    "deposit": {
+      "nativeCasesPassed": 8,
+      "existingEffectsRegression": "PASS, reported by root",
+      "sourceStatus": "Frozen; 43 standalone Luau tests, actual-module CLI, compilation and peer review pass, reported by root.",
+      "portraitTimeoutSeconds": 0.35,
+      "pulseAtSeconds": 0.5,
+      "lifetimeSeconds": 1.9,
+      "otherRuntimeLoadTimeoutSeconds": 3,
+      "nativeScope": "Disposable native clones inject load outcomes while using real UI, models, tweens and tasks; stalled/failed loads, warm desktop/phone/short layouts, replacement, GUI destruction and worker cleanup pass."
+    },
+    "pending": [],
+    "scope": "Behavior, bounded lifecycle and geometry acceptance; no additional frame-time, capacity or memory-recovery claim. These patches were not synced during the frozen snapshot-toggle probe.",
+    "recordedAtUTC": "2026-10-20T09:30:30Z",
+    "nativeEvidence": "docs/verification/counter-deposit-native.json",
+    "sourceParityEvidence": "docs/verification/studio-source-verification.json",
+    "gates": "43 pure suites, actual-module Deposit CLI, changed source/fixture compilation, native regressions, peer review, Rojo build, diff check and 79/79 running-Server source parity pass.",
+    "cleanup": "Both Main scripts enabled, HUD enabled, CameraType.Custom, and zero harness, temporary spawn, QA or fixture remnants.",
+    "commit": "4ae9a5282da8b8135284d1add925b2d461d32a6e"
+  },
+  "crocodiloTrayEvidence": {
+    "recordedAtUTC": "2026-10-20T09:39:10Z",
+    "sourceCommit": "4ae9a5282da8b8135284d1add925b2d461d32a6e",
+    "scenario": "tier_06",
+    "result": "PASS",
+    "nativeEvidence": "docs/verification/crocodilo-tray-native.json",
+    "capture": "docs/verification/crocodilo-tray-96.jpg",
+    "walkedWorldStuds": 51.45506834213393,
+    "visitedWaypoints": 5,
+    "collected": 96,
+    "bag": 96,
+    "remaining": 0,
+    "cloneMiniModels": 0,
+    "initialMeshChecks": 96,
+    "verifiedMeshIds": {
+      "tier_06": "rbxassetid://132112159852307"
+    },
+    "partial": true,
+    "repacked": true,
+    "method": "Isolated cloned Plot1 and Core session, one Studio client, one staging teleport followed by real Humanoid walking; server pickup contexts came from the actual HRP. Production was frozen only in the test session. Initial and surviving imported mesh identities were checked.",
+    "captureScope": "First route also passed, but its capture faced the shelf rear. Saved result and front-view image use the second successful route. HUD was hidden only for capture.",
+    "cleanup": {
+      "plot": false,
+      "camera": "Enum.CameraType.Custom",
+      "health": 100,
+      "fixture": false,
+      "hud": true
+    },
+    "limitations": [
+      "Isolated cloned Plot1 and Core session; one Studio client; one staging teleport followed by five real Humanoid walking waypoints.",
+      "Not a native all-Crocodilo performance benchmark or multiplayer/device acceptance.",
+      "First route also passed, but capture faced shelf rear. Evidence route repeated once with front camera; saved full result is second route."
+    ]
+  },
+  "foltynMapEvidence": {
+    "baseline": "699931c",
+    "status": "Committed/pushed as ea5de16",
+    "native": "docs/verification/wide-tray-native.json",
+    "lawnPalette": "docs/verification/lawn-palette-native.json",
+    "board": "docs/reference/chicken-farm-foltyn-study/index.html",
+    "sourceParity": "docs/verification/studio-source-verification.json",
+    "gates": "44 standalone suites;80 source compilation and parity; strictCore; native six-plot geometry/trajectories, five-row shelf geometry, both96-Mini actualHumanoid pickup routes, environment/mirror/bridge/affordability;19 JPEG decode checks;peer;Rojo;diff",
+    "limitations": "Dense Crocodilo overlap persists. Clone PadLabels are not owned-plot controller acceptance. No new FPS/memory/device/multiplayer claim; capacity remains50 producers/96preview Minis.",
+    "movedPad": "docs/verification/moved-pad-native.json",
+    "capture": "docs/verification/moved-pad-normal-owned-plot.jpg",
+    "cleanup": "Fresh normal Play, both Main scripts enabled, HUD/Custom camera restored, synthetic session and runtime bootstrap removed."
+  },
+  "ownerTitleEvidence": "docs/verification/owner-title-native.json",
+  "settingsPadEvidence": {
+    "native": "docs/verification/settings-access-native.json",
+    "padIndex": "docs/verification/pad-piece-index-native.json",
+    "savedStudio": "build/MergeABrainrot-FirstPlayable.rbxlx",
+    "savedAtUTC": "2026-10-20T11:17:25.0166435Z",
+    "savedSourceMatches": 80,
+    "gates": "44 suites,80 compile/parity,2163 layouts,native regressions,peer,Rojo,diff",
+    "limitations": "Synthetic UI input and virtual viewport checks; broader697 Studio warnings; no new FPS/memory/capacity acceptance"
+  },
+  "farmUIStrictEvidence": "docs/verification/farm-ui-strict-native.json",
+  "sharedRowEvidence": "docs/verification/shared-row-types-native.json",
+  "coreLeaderboardEvidence": "core-leaderboard-native.json",
+  "touchHudEvidence": "docs/verification/touch-hud-native.json",
+  "morningBuildEvidence": "docs/verification/morning-build-verification.json",
+  "hubNativeStudsEvidence": "docs/verification/hub-native-studs.json",
+  "morningCapacitySoak": "docs/verification/morning-capacity-soak.json"
+}

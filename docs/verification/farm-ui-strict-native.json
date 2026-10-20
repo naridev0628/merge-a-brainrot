@@ -1,0 +1,65 @@
+{
+  "baseline": "dea3690",
+  "recordedAtUTC": "2026-10-20T11:25:30Z",
+  "diagnostics": {
+    "scope": "Same opened Players.NEH4A.PlayerScripts.Controllers.FarmUI in fresh native Play, after settling",
+    "before": 6,
+    "after": 0,
+    "baselineText": "farm-ui-warning-red.txt",
+    "afterText": "farm-ui-warning-green.txt",
+    "broaderEditWarnings": 691,
+    "globalClean": false
+  },
+  "nativeSettings": {
+    "content": [
+      {
+        "type": "text",
+        "text": "nil"
+      }
+    ],
+    "isError": false
+  },
+  "nativeShop": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":\"PASS Shop identity/zero construction for irrelevant snapshots; ownership, metadata, pending, mode and upgrade-key refresh\",\"counts\":{\"addedDescendants\":0,\"irrelevantUpdates\":6,\"endingDescendants\":529,\"offerCreations\":0,\"startingDescendants\":529,\"identitiesRetained\":6}}"
+      }
+    ],
+    "isError": false
+  },
+  "nativeCaptions": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"cleanup\":true,\"rest\":1,\"shopCaptions\":[\"cash2\",\"cash4\",\"cash8\",\"autoCollect\",\"autoSell\",\"mini2\"]}"
+      }
+    ],
+    "isError": false
+  },
+  "input": {
+    "mode": "disposable actual FarmUI with dummy onHome",
+    "hover": 1.0499999523162842,
+    "pressed": 0.9700000286102295,
+    "released": 1.0499999523162842,
+    "rest": 1
+  },
+  "dispatch": {
+    "cases": 40,
+    "result": "PASS",
+    "test": "tests/farm-ui-act-cli.ps1"
+  },
+  "gates": [
+    "44 standalone suites",
+    "2163 actual FarmUI/Cue viewport combinations",
+    "changed source compilation",
+    "peer review",
+    "Rojo build",
+    "80 source hashes"
+  ],
+  "limitations": [
+    "Native input used disposable GUI, no gameplay commands.",
+    "Initial leave target used nonexistent Bag instead of MiniBag; corrected observed path, rest passed.",
+    "Existing broader Studio warnings remain."
+  ]
+}

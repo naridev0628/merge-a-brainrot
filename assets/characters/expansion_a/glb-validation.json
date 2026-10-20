@@ -1,0 +1,128 @@
+{
+  "Fluriflura": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 5.0,
+    "bottom_y": 0,
+    "triangles": 5104
+  },
+  "Fluriflura_Mini": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 2,
+    "bottom_y": 0,
+    "triangles": 1848
+  },
+  "LiriliLarila": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 5,
+    "bottom_y": 0,
+    "triangles": 8292
+  },
+  "LiriliLarila_Mini": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 2,
+    "bottom_y": 0,
+    "triangles": 1456
+  },
+  "NoobiniPizzanini": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 5.0,
+    "bottom_y": 0,
+    "triangles": 3808
+  },
+  "NoobiniPizzanini_Mini": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 2,
+    "bottom_y": 0,
+    "triangles": 748
+  },
+  "PipiPotato": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 5.0,
+    "bottom_y": 0,
+    "triangles": 3488
+  },
+  "PipiPotato_Mini": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 2.0,
+    "bottom_y": 0,
+    "triangles": 1036
+  },
+  "RaccooniJandelini": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 5.0,
+    "bottom_y": 0,
+    "triangles": 3956
+  },
+  "RaccooniJandelini_Mini": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 2,
+    "bottom_y": 0,
+    "triangles": 1536
+  },
+  "TalpaDiFero": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 5.0,
+    "bottom_y": 0,
+    "triangles": 5224
+  },
+  "TalpaDiFero_Mini": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 2,
+    "bottom_y": 0,
+    "triangles": 2088
+  },
+  "TimCheese": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 5.0,
+    "bottom_y": 0,
+    "triangles": 2932
+  },
+  "TimCheese_Mini": {
+    "mesh_count": 1,
+    "primitive_count": 1,
+    "uv0_only": true,
+    "embedded_palette": true,
+    "height": 2,
+    "bottom_y": 0,
+    "triangles": 1364
+  }
+}

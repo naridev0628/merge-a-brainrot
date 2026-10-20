@@ -1,0 +1,122 @@
+{
+  "GroundGreenTile": {
+    "triangles": 1664,
+    "vertices": 3328,
+    "robloxSize": [
+      16.0,
+      0.1600000075995922,
+      16.0
+    ],
+    "robloxCenter": [
+      0.0,
+      0.10000000335276127,
+      0.0
+    ],
+    "normalAuditMinDot": 0.37190327048301697
+  },
+  "GroundGreenTriangle": {
+    "triangles": 832,
+    "vertices": 1672,
+    "robloxSize": [
+      16.0,
+      0.1600000075995922,
+      16.0
+    ],
+    "robloxCenter": [
+      0.0,
+      0.10000000335276127,
+      0.0
+    ],
+    "normalAuditMinDot": 0.37190327048301697
+  },
+  "GroundGoldTile": {
+    "triangles": 1664,
+    "vertices": 3328,
+    "robloxSize": [
+      16.0,
+      0.1600000075995922,
+      16.0
+    ],
+    "robloxCenter": [
+      0.0,
+      0.10000000335276127,
+      0.0
+    ],
+    "normalAuditMinDot": 0.37190327048301697
+  },
+  "GroundGoldTriangle": {
+    "triangles": 832,
+    "vertices": 1672,
+    "robloxSize": [
+      16.0,
+      0.1600000075995922,
+      16.0
+    ],
+    "robloxCenter": [
+      0.0,
+      0.10000000335276127,
+      0.0
+    ],
+    "normalAuditMinDot": 0.37190327048301697
+  },
+  "GroundBrownTile": {
+    "triangles": 1664,
+    "vertices": 3328,
+    "robloxSize": [
+      16.0,
+      0.1600000075995922,
+      16.0
+    ],
+    "robloxCenter": [
+      0.0,
+      0.10000000335276127,
+      0.0
+    ],
+    "normalAuditMinDot": 0.37190327048301697
+  },
+  "GroundBrownTriangle": {
+    "triangles": 832,
+    "vertices": 1672,
+    "robloxSize": [
+      16.0,
+      0.1600000075995922,
+      16.0
+    ],
+    "robloxCenter": [
+      0.0,
+      0.10000000335276127,
+      0.0
+    ],
+    "normalAuditMinDot": 0.37190327048301697
+  },
+  "GroundGreenEdge": {
+    "triangles": 832,
+    "vertices": 1664,
+    "robloxSize": [
+      16.0,
+      0.1600000075995922,
+      8.0
+    ],
+    "robloxCenter": [
+      0.0,
+      0.10000000335276127,
+      0.0
+    ],
+    "normalAuditMinDot": 0.37190327048301697
+  },
+  "ReviewBrickTree": {
+    "triangles": 6552,
+    "vertices": 13104,
+    "robloxSize": [
+      6.453500747680664,
+      12.053500175476074,
+      5.3535003662109375
+    ],
+    "robloxCenter": [
+      0.0,
+      6.026750087738037,
+      0.0
+    ],
+    "normalAuditMinDot": 0.41160067915916443
+  }
+}

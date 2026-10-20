@@ -1,0 +1,44 @@
+{
+  "KeyCrate": {
+    "triangles": 1648,
+    "dimensions_xyz": [
+      3.180000066757202,
+      2.190000057220459,
+      1.6500000953674316
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "native_primitives": 52
+  },
+  "ShippingCrate": {
+    "triangles": 1988,
+    "dimensions_xyz": [
+      2.4000000953674316,
+      2.4650001525878906,
+      1.8350000381469727
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "native_primitives": 51
+  },
+  "CashStash": {
+    "triangles": 3976,
+    "dimensions_xyz": [
+      5.251972198486328,
+      2.218040943145752,
+      1.4925000667572021
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "native_primitives": 98
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "BrickBridge": {
+    "triangles": 16324,
+    "vertices": 9016,
+    "robloxSize": [
+      14.400012969970703,
+      3.4534997940063477,
+      64.0
+    ],
+    "expectedRobloxSize": [
+      14.400012969970703,
+      3.4534997940063477,
+      64
+    ],
+    "sourceParts": {
+      "Beveled deck plank": 21,
+      "Plank seam shadow": 21,
+      "Deck square stud": 147,
+      "Recessed square washer": 42,
+      "Square deck peg": 42,
+      "Longitudinal support": 3,
+      "Cross support": 7,
+      "Joined handrail": 32,
+      "Rail end grain": 8,
+      "Studded bridge post": 14,
+      "Post crown inset": 14,
+      "Post square stud": 14,
+      "Mortise collar": 28,
+      "Outer joinery bolt": 28,
+      "Rail diagonal brace": 6
+    },
+    "pivot": "ground-center",
+    "deckTopFromBottom": 0.49999996548160175,
+    "deckWidth": 13.600011709000864,
+    "deckEndpoints": [
+      -31.45,
+      31.45
+    ]
+  },
+  "BrickBush": {
+    "triangles": 2244,
+    "vertices": 1224,
+    "robloxSize": [
+      3.7535018920898438,
+      2.253499984741211,
+      2.7535006999969482
+    ],
+    "expectedRobloxSize": [
+      3.7535018920898438,
+      2.253499984741211,
+      2.7535006999969482
+    ],
+    "sourceParts": {
+      "Rounded foliage brick": 2,
+      "Bush crown stud": 21,
+      "Bush shaded face stud": 16,
+      "Bush side stud": 11,
+      "Foliage course shadow": 1
+    },
+    "pivot": "ground-center"
+  },
+  "BrickLog": {
+    "triangles": 1300,
+    "vertices": 712,
+    "robloxSize": [
+      3.86102294921875,
+      1.3035000562667847,
+      1.8286926746368408
+    ],
+    "expectedRobloxSize": [
+      3.86102294921875,
+      1.3035000562667847,
+      1.8286926746368408
+    ],
+    "sourceParts": {
+      "Moulded fallen log": 1,
+      "Square cut growth ring": 10,
+      "Log crown stud": 12,
+      "Log side stud": 6,
+      "Long moulded bark seam": 2
+    },
+    "pivot": "ground-center"
+  },
+  "BrickGrass": {
+    "triangles": 704,
+    "vertices": 384,
+    "robloxSize": [
+      1.0523529052734375,
+      1.107236385345459,
+      0.75
+    ],
+    "expectedRobloxSize": [
+      1.0523529052734375,
+      1.107236385345459,
+      0.75
+    ],
+    "sourceParts": {
+      "Grass brick blade": 4,
+      "Grass face ridge": 4,
+      "Grass dark root": 4,
+      "Grass tip cap": 4
+    },
+    "pivot": "ground-center"
+  }
+}

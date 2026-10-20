@@ -1,0 +1,332 @@
+[
+  {
+    "key": "Fluriflura",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      2.5036301612854004,
+      4.999999523162842,
+      2.484344720840454
+    ],
+    "mesh": "rbxassetid://105265057129604",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "Fluriflura_Mini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      1.0014522075653076,
+      2,
+      0.9937379360198975
+    ],
+    "mesh": "rbxassetid://75698019635802",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "GorilloSubwoofero",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      4.462810516357422,
+      5,
+      1.6456708908081055
+    ],
+    "mesh": "rbxassetid://94483442139739",
+    "texture": "rbxassetid://123022680391727"
+  },
+  {
+    "key": "GorilloSubwoofero_Mini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      1.796048641204834,
+      2,
+      0.6589441299438477
+    ],
+    "mesh": "rbxassetid://71812405103512",
+    "texture": "rbxassetid://123022680391727"
+  },
+  {
+    "key": "LiriliLarila",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      3.282197952270508,
+      5,
+      4.135997295379639
+    ],
+    "mesh": "rbxassetid://83483507240304",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "LiriliLarila_Mini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      1.33012056350708,
+      2,
+      1.6761252880096436
+    ],
+    "mesh": "rbxassetid://103908366023016",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "NoobiniPizzanini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      3.251110076904297,
+      4.999999523162842,
+      1.4294562339782715
+    ],
+    "mesh": "rbxassetid://135424659987436",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "NoobiniPizzanini_Mini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      1.3152399063110352,
+      2,
+      0.5782880783081055
+    ],
+    "mesh": "rbxassetid://72228885483408",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "OdinDinDinDun",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      4.894468307495117,
+      5,
+      1.536783218383789
+    ],
+    "mesh": "rbxassetid://80253898639117",
+    "texture": "rbxassetid://123022680391727"
+  },
+  {
+    "key": "OdinDinDinDun_Mini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      1.9639616012573242,
+      1.9999998807907104,
+      0.6141977310180664
+    ],
+    "mesh": "rbxassetid://74862102027007",
+    "texture": "rbxassetid://123022680391727"
+  },
+  {
+    "key": "PipiPotato",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      3.087970733642578,
+      4.999999523162842,
+      2.0653319358825684
+    ],
+    "mesh": "rbxassetid://103921596458510",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "PipiPotato_Mini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      1.2351875305175781,
+      1.9999998807907104,
+      0.8261327743530273
+    ],
+    "mesh": "rbxassetid://118134957807820",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "RaccooniJandelini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      3.143587112426758,
+      4.999999523162842,
+      2.29823637008667
+    ],
+    "mesh": "rbxassetid://114694354014187",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "RaccooniJandelini_Mini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      1.2708988189697266,
+      2,
+      0.9291379451751709
+    ],
+    "mesh": "rbxassetid://97492098890768",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "TalpaDiFero",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      2.80694580078125,
+      5.000000476837158,
+      1.4604463577270508
+    ],
+    "mesh": "rbxassetid://129170299072998",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "TalpaDiFero_Mini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      1.1227798461914062,
+      2,
+      0.5841784477233887
+    ],
+    "mesh": "rbxassetid://133274889507320",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "TimCheese",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      2.5125017166137695,
+      5.000000476837158,
+      1.4246940612792969
+    ],
+    "mesh": "rbxassetid://77582428457968",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "TimCheese_Mini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      0.9709945917129517,
+      2,
+      0.4471549987792969
+    ],
+    "mesh": "rbxassetid://103970842364760",
+    "texture": "rbxassetid://126041920116744"
+  },
+  {
+    "key": "ToilettoFocaccino",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      4.287422180175781,
+      5,
+      2.0638952255249023
+    ],
+    "mesh": "rbxassetid://91652941054718",
+    "texture": "rbxassetid://123022680391727"
+  },
+  {
+    "key": "ToilettoFocaccino_Mini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      1.7149696350097656,
+      2,
+      0.8255577087402344
+    ],
+    "mesh": "rbxassetid://115512419905449",
+    "texture": "rbxassetid://123022680391727"
+  },
+  {
+    "key": "TukannoBananno",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      2.2111053466796875,
+      5.000000476837158,
+      4.599366664886475
+    ],
+    "mesh": "rbxassetid://75753348249010",
+    "texture": "rbxassetid://123022680391727"
+  },
+  {
+    "key": "TukannoBananno_Mini",
+    "orientation": [
+      0,
+      0,
+      0
+    ],
+    "size": [
+      0.8666648864746094,
+      2,
+      1.8533096313476562
+    ],
+    "mesh": "rbxassetid://140439301809783",
+    "texture": "rbxassetid://123022680391727"
+  }
+]

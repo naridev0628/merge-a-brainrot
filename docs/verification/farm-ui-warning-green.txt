@@ -1,0 +1,3 @@
+										22931 tab item (settable, string) FarmUI
+									112 check box (settable, string) 0 of 0 Errors ID: RBXMainWindow.RootWidget.Layout0.Layout3.FixedSplitLayoutSouth0.Layout27.scriptAnalysisPanel.ScriptingAnalysisWidget.ErrorsToolButton
+									114 check box (settable, string) 0 of 0 Warnings ID: RBXMainWindow.RootWidget.Layout0.Layout3.FixedSplitLayoutSouth0.Layout27.scriptAnalysisPanel.ScriptingAnalysisWidget.WarningsToolButton

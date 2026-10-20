@@ -1,0 +1,123 @@
+{
+  "recordedAt": "2026-10-20T12:03:54.149Z",
+  "red": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"scope\":\"Actual renderer and clear lifecycle; native client font bounds and matched screenshots remain separate\",\"failures\":[\"Numeric queue text mismatch at 0: No Minis queued\",\"Numeric queue text mismatch at 1: 1 Minis queued\",\"Numeric queue text mismatch at 96: 96 Minis queued\",\"Numeric queue text mismatch at 1000: 1000 Minis queued\",\"Numeric queue text mismatch at 2147483647: 2147483647 Minis queued\",\"Clear retained a departed queue: 1234 Minis queued\",\"Clear retained a departed rate: 10 per second\",\"Clear retained a departed upgrade quote\",\"Clear must reset upgrade affordability and claim value\",\"Clear from max level failed\",\"Max-level clear failed to restore the base quote\",\"Reused plot did not show fresh state\",\"Board needs the short mixed-case heading\",\"Count must retain scaling with a larger font cap\",\"Count needs the larger existing cell\"],\"passed\":false,\"samples\":[{\"rate\":\"2 per second\",\"affordable\":false,\"count\":0,\"upgrade\":\"+3 per second\",\"price\":\"$10\",\"level\":0,\"queued\":\"No Minis queued\",\"cash\":\"$0\"},{\"rate\":\"2 per second\",\"affordable\":false,\"count\":1,\"upgrade\":\"+3 per second\",\"price\":\"$10\",\"level\":0,\"queued\":\"1 Minis queued\",\"cash\":\"$0\"},{\"rate\":\"2 per second\",\"affordable\":false,\"count\":96,\"upgrade\":\"+3 per second\",\"price\":\"$10\",\"level\":0,\"queued\":\"96 Minis queued\",\"cash\":\"$0\"},{\"rate\":\"2 per second\",\"affordable\":false,\"count\":1000,\"upgrade\":\"+3 per second\",\"price\":\"$10\",\"level\":0,\"queued\":\"1000 Minis queued\",\"cash\":\"$0\"},{\"rate\":\"2 per second\",\"affordable\":false,\"count\":2147483647,\"upgrade\":\"+3 per second\",\"price\":\"$10\",\"level\":0,\"queued\":\"2147483647 Minis queued\",\"cash\":\"$0\"},{\"rate\":\"10 per second\",\"affordable\":true,\"count\":1234,\"upgrade\":\"+8 per second\",\"price\":\"$90\",\"level\":2,\"queued\":\"1234 Minis queued\",\"cash\":\"$100\"},{\"rate\":\"10 per second\",\"affordable\":true,\"upgrade\":\"+8 per second\",\"phase\":\"clear\",\"price\":\"$90\",\"queued\":\"1234 Minis queued\",\"cash\":\"$0\"},{\"rate\":\"52 per second\",\"affordable\":false,\"count\":96,\"upgrade\":\"PROCESSOR MAXED\",\"price\":\"\",\"level\":5,\"queued\":\"96 Minis queued\",\"cash\":\"$0\"},{\"rate\":\"2 per second\",\"affordable\":false,\"count\":1,\"upgrade\":\"+3 per second\",\"price\":\"$10\",\"level\":0,\"queued\":\"1 Minis queued\",\"cash\":\"$0\"}]}"
+      }
+    ],
+    "isError": false
+  },
+  "note": "First baseline attempt had invalid starterClaimed/zero-producer fixture state; corrected frozen starter producer validated. Subsequent RED returned 15 expected presentation/lifecycle failures.",
+  "green": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"scope\":\"Actual renderer and clear lifecycle; native client font bounds and matched screenshots remain separate\",\"failures\":[],\"passed\":true,\"samples\":[{\"rate\":\"2 per second\",\"affordable\":false,\"count\":0,\"upgrade\":\"+3 per second\",\"price\":\"$10\",\"level\":0,\"queued\":\"0\",\"cash\":\"$0\"},{\"rate\":\"2 per second\",\"affordable\":false,\"count\":1,\"upgrade\":\"+3 per second\",\"price\":\"$10\",\"level\":0,\"queued\":\"1\",\"cash\":\"$0\"},{\"rate\":\"2 per second\",\"affordable\":false,\"count\":96,\"upgrade\":\"+3 per second\",\"price\":\"$10\",\"level\":0,\"queued\":\"96\",\"cash\":\"$0\"},{\"rate\":\"2 per second\",\"affordable\":false,\"count\":1000,\"upgrade\":\"+3 per second\",\"price\":\"$10\",\"level\":0,\"queued\":\"1,000\",\"cash\":\"$0\"},{\"rate\":\"2 per second\",\"affordable\":false,\"count\":2147483647,\"upgrade\":\"+3 per second\",\"price\":\"$10\",\"level\":0,\"queued\":\"2,147,483,647\",\"cash\":\"$0\"},{\"rate\":\"10 per second\",\"affordable\":true,\"count\":1234,\"upgrade\":\"+8 per second\",\"price\":\"$90\",\"level\":2,\"queued\":\"1,234\",\"cash\":\"$100\"},{\"rate\":\"2 per second\",\"affordable\":false,\"upgrade\":\"+3 per second\",\"phase\":\"clear\",\"price\":\"$10\",\"queued\":\"0\",\"cash\":\"$0\"},{\"rate\":\"52 per second\",\"affordable\":false,\"count\":96,\"upgrade\":\"PROCESSOR MAXED\",\"price\":\"\",\"level\":5,\"queued\":\"96\",\"cash\":\"$0\"},{\"rate\":\"2 per second\",\"affordable\":false,\"count\":1,\"upgrade\":\"+3 per second\",\"price\":\"$10\",\"level\":0,\"queued\":\"1\",\"cash\":\"$0\"}]}"
+      }
+    ],
+    "isError": false
+  },
+  "textBounds": [
+    {
+      "count": 0,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"lines\":{\"Rate\":{\"textWrapped\":false,\"text\":\"2 per second\",\"bounds\":[248,48],\"fits\":true,\"textSize\":48,\"cell\":[660,58],\"textScaled\":false,\"font\":\"FredokaOne\"},\"Queued\":{\"minimum\":28,\"textWrapped\":true,\"maximum\":92,\"text\":\"0\",\"bounds\":[47,92],\"fits\":true,\"textSize\":92,\"cell\":[660,110],\"textScaled\":true,\"font\":\"FredokaOne\"},\"Title\":{\"textWrapped\":false,\"text\":\"Processing Minis\",\"bounds\":[269,40],\"fits\":true,\"textSize\":40,\"cell\":[660,48],\"textScaled\":false,\"font\":\"FredokaOne\"}},\"scope\":\"Actual native cell/font measurements; matched close/approach screenshots establish visual hierarchy\",\"distance\":20.056175231933595,\"frontFacing\":true,\"maxDistance\":100,\"count\":0,\"level\":0,\"camera\":{\"look\":\"-0.997199296951294, -0.07478993386030197, 0\",\"position\":\"-10.095008850097656, 2007.3499755859375, 6.5\"},\"revision\":1}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "count": 1,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"lines\":{\"Rate\":{\"textWrapped\":false,\"text\":\"2 per second\",\"bounds\":[248,48],\"fits\":true,\"textSize\":48,\"cell\":[660,58],\"textScaled\":false,\"font\":\"FredokaOne\"},\"Queued\":{\"minimum\":28,\"textWrapped\":true,\"maximum\":92,\"text\":\"1\",\"bounds\":[31,92],\"fits\":true,\"textSize\":92,\"cell\":[660,110],\"textScaled\":true,\"font\":\"FredokaOne\"},\"Title\":{\"textWrapped\":false,\"text\":\"Processing Minis\",\"bounds\":[269,40],\"fits\":true,\"textSize\":40,\"cell\":[660,48],\"textScaled\":false,\"font\":\"FredokaOne\"}},\"scope\":\"Actual native cell/font measurements; matched close/approach screenshots establish visual hierarchy\",\"distance\":20.056175231933595,\"frontFacing\":true,\"maxDistance\":100,\"count\":1,\"level\":0,\"camera\":{\"look\":\"-0.997199296951294, -0.07478993386030197, 0\",\"position\":\"-10.095008850097656, 2007.3499755859375, 6.5\"},\"revision\":2}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "count": 96,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"lines\":{\"Rate\":{\"textWrapped\":false,\"text\":\"2 per second\",\"bounds\":[248,48],\"fits\":true,\"textSize\":48,\"cell\":[660,58],\"textScaled\":false,\"font\":\"FredokaOne\"},\"Queued\":{\"minimum\":28,\"textWrapped\":true,\"maximum\":92,\"text\":\"96\",\"bounds\":[86,92],\"fits\":true,\"textSize\":92,\"cell\":[660,110],\"textScaled\":true,\"font\":\"FredokaOne\"},\"Title\":{\"textWrapped\":false,\"text\":\"Processing Minis\",\"bounds\":[269,40],\"fits\":true,\"textSize\":40,\"cell\":[660,48],\"textScaled\":false,\"font\":\"FredokaOne\"}},\"scope\":\"Actual native cell/font measurements; matched close/approach screenshots establish visual hierarchy\",\"distance\":20.056175231933595,\"frontFacing\":true,\"maxDistance\":100,\"count\":96,\"level\":0,\"camera\":{\"look\":\"-0.997199296951294, -0.07478993386030197, 0\",\"position\":\"-10.095008850097656, 2007.3499755859375, 6.5\"},\"revision\":3}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "count": 2147483647,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"lines\":{\"Rate\":{\"textWrapped\":false,\"text\":\"2 per second\",\"bounds\":[248,48],\"fits\":true,\"textSize\":48,\"cell\":[660,58],\"textScaled\":false,\"font\":\"FredokaOne\"},\"Queued\":{\"minimum\":28,\"textWrapped\":true,\"maximum\":92,\"text\":\"2,147,483,647\",\"bounds\":[491,92],\"fits\":true,\"textSize\":92,\"cell\":[660,110],\"textScaled\":true,\"font\":\"FredokaOne\"},\"Title\":{\"textWrapped\":false,\"text\":\"Processing Minis\",\"bounds\":[269,40],\"fits\":true,\"textSize\":40,\"cell\":[660,48],\"textScaled\":false,\"font\":\"FredokaOne\"}},\"scope\":\"Actual native cell/font measurements; matched close/approach screenshots establish visual hierarchy\",\"distance\":20.056175231933595,\"frontFacing\":true,\"maxDistance\":100,\"count\":2147483647,\"level\":0,\"camera\":{\"look\":\"-0.997199296951294, -0.07478993386030197, 0\",\"position\":\"-10.095008850097656, 2007.3499755859375, 6.5\"},\"revision\":4}"
+          }
+        ],
+        "isError": false
+      }
+    }
+  ],
+  "regressions": [
+    {
+      "path": "tests/studio-pad-piece-index.server.luau",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"result\":\"PASS actual render thresholds, idle scans, renamed/replaced details and pads, clear/new state, colors and isolation\",\"metrics\":{\"replacedPad\":{\"visits\":1431,\"maxScans\":1,\"scans\":1,\"changedPads\":2,\"changedRenders\":1,\"expectedVisits\":1431,\"renders\":1},\"unchanged\":{\"visits\":0,\"maxScans\":0,\"scans\":0,\"changedPads\":0,\"changedRenders\":0,\"expectedVisits\":0,\"renders\":100},\"rich\":{\"visits\":1429,\"maxScans\":1,\"scans\":1,\"changedPads\":5,\"changedRenders\":1,\"expectedVisits\":1429,\"renders\":1},\"renamed\":{\"visits\":1431,\"maxScans\":1,\"scans\":1,\"changedPads\":1,\"changedRenders\":1,\"expectedVisits\":1431,\"renders\":1},\"clearedNewState\":{\"visits\":1432,\"maxScans\":1,\"scans\":1,\"changedPads\":1,\"changedRenders\":1,\"expectedVisits\":1432,\"renders\":1},\"replacedDetails\":{\"visits\":1431,\"maxScans\":1,\"scans\":1,\"changedPads\":4,\"changedRenders\":1,\"expectedVisits\":1431,\"renders\":1},\"thresholds\":{\"visits\":25722,\"maxScans\":1,\"scans\":18,\"changedPads\":46,\"changedRenders\":18,\"expectedVisits\":25722,\"renders\":26}}}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "path": "tests/studio-pad-affordability.server.luau",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "nil"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "path": "tests/studio-owner-title.server.luau",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "PASS owner header: actual render 1/2/5 rows, shrink/empty/clear, long-name preservation, producer-label and wall clearance, unchanged sign/portrait and occlusion"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "path": "tests/studio-mirrored-plot.server.luau",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "PASS mirrored utilities, lowered counter with torso allowance, 18 inert panels within existing footprints and clear of farmer meshes, farmer/sign/awning visibility, clear deposit approach, full red conveyor and fenced plot fronts"
+          }
+        ],
+        "isError": false
+      }
+    }
+  ],
+  "cleanup": "Disposable preview removed, HUD and Custom camera restored before Stop"
+}

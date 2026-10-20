@@ -1,0 +1,54 @@
+{
+  "baseline": "a8e07c0",
+  "recordedAtUTC": "2026-10-20T11:37:05Z",
+  "nativeDiagnostics": {
+    "openedModules": [
+      "PadTargeting",
+      "StallDecor"
+    ],
+    "beforeWarnings": 606,
+    "afterWarnings": 0,
+    "beforeFile": "shared-row-warning-red.txt",
+    "afterFile": "shared-row-warning-green.txt",
+    "editAggregateBefore": 691,
+    "editAggregateAfter": 85,
+    "errors": 0,
+    "globalClean": false
+  },
+  "geometry": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"scales\":[1,0.65,1.4],\"baseline\":\"a8e07c0\",\"remainingOracle\":false,\"partsCompared\":603,\"result\":\"PASS exact native geometry/flags parity\",\"counts\":{\"CashStash\":98,\"ShippingCrate\":51,\"KeyCrate\":52}}"
+      }
+    ],
+    "isError": false
+  },
+  "targeting": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":\"PASS actual Vector3 map targeting\",\"actions\":[\"Deposit\",\"Claim\",\"Upgrade\",\"Buy1\",\"Buy50\",\"Buy5\",\"Buy10\"]}"
+      }
+    ],
+    "isError": false
+  },
+  "generator": {
+    "rowsUnchanged": 201,
+    "result": "Full module reproduced; root and peer structural checks reported unchanged rows"
+  },
+  "gates": [
+    "44 standalone suites",
+    "both PadTargeting CLI solvers",
+    "source and affected fixture compilation",
+    "independent peer review",
+    "Rojo build",
+    "80 native source hashes",
+    "80 saved XML source hashes"
+  ],
+  "savedStudioAtUTC": "2026-10-20T11:37:05.5529466Z",
+  "limitations": [
+    "Annotation/record representation refinement only; no new FPS/memory result.",
+    "Existing85 Edit warnings remain; no game publication."
+  ]
+}

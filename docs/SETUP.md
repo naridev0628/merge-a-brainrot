@@ -1,10 +1,10 @@
 # Setup
 
-## Current first playable
+## Current stacked farm preview
 
-Use `default.project.json` for gameplay. Create `build/`, then run `rojo build default.project.json -o build/MergeABrainrot-FirstPlayable.rbxlx`. Open that file in Studio and press Play. For continuous editing, run `rojo serve default.project.json` and connect the Rojo plugin to that server. The world appears at runtime.
+Use `default.project.json` for gameplay. Create `build/`, then run `rojo build default.project.json -o build/MergeABrainrot-StackedFarm.rbxlx`. Open that file in Studio and press Play. For continuous editing, run `rojo serve default.project.json` and connect the Rojo plugin to that server. The world appears at runtime.
 
-Use Luau 0.743 to run `luau tests/run.luau`. The optional Studio-only layout regression is `tests/studio-layout.client.luau`; run its contents in the Client command bar during Play. The game is memory-only and refuses progression outside Studio.
+Use Luau 0.743 to run all non-Studio `tests/*.luau` scripts. Run `tools/simulate_progression.luau` for the economy benchmark. The optional Studio-only layout regression is `tests/studio-layout.client.luau`; run its contents in the Client command bar during Play. The game is memory-only and refuses progression outside Studio.
 
 The setup-place commands below document Checkpoint 0. They are retained for history; use the default project for the first playable.
 

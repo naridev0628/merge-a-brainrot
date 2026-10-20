@@ -1,0 +1,52 @@
+{
+  "sourceURL": "https://www.youtube.com/watch?v=jdZNH1-EMJo",
+  "creator": "Foltyn",
+  "title": "ROBLOX CHICKEN FARM..",
+  "displayedDurationSeconds": 961,
+  "method": "Manually selected paused YouTube states in the existing Chrome window through native Computer Use. JPEG screenshots were saved from the returned browser-window capture; no remote video/audio download or extraction.",
+  "timestampPrecision": "YouTube displayed whole seconds, approximately ±1 second; these are sampled stills, not frame-accurate timecodes.",
+  "captureDimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "captureCount": 14,
+  "firstSavedAtUTC": "2026-10-20T09:49:57.841Z",
+  "lastSavedAtUTC": "2026-10-20T09:57:50.035Z",
+  "sampledButNotSaved": [
+    {
+      "seconds": 0,
+      "reason": "Creator close-up"
+    },
+    {
+      "seconds": 10,
+      "reason": "Creator close-up"
+    },
+    {
+      "seconds": 30,
+      "reason": "Edited non-game interlude"
+    },
+    {
+      "seconds": 192,
+      "reason": "Creator close-up"
+    },
+    {
+      "seconds": 384,
+      "reason": "Creator close-up"
+    }
+  ],
+  "limitations": [
+    "Sampled viewing only; no continuous playback or audio audit.",
+    "Creator overlays and editorial zooms remain in the screenshots; annotations identify obstructed subjects.",
+    "1920×1080 is screenshot size, not a verified native video encode resolution or a device-performance result.",
+    "Video presentation may alter saturation and exposure; no exact RGB, font-family, dimensions, collision or economy inference.",
+    "The original HJcoc02bumg 100-frame study keeps its captures, observations and frame anchors. Its generator adds only a navigation link to this study. The earlier 12-frame study is untouched."
+  ],
+  "comparisonSources": [
+    "docs/verification/hub-composition-ground.jpg",
+    "src/shared/DisplayShelves.luau",
+    "src/shared/TextStyle.luau",
+    "src/shared/FarmLandmarks.luau",
+    "src/client/Controllers/TutorialGuide.luau"
+  ],
+  "productionChangesByThisStudy": false
+}

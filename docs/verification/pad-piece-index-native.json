@@ -1,0 +1,122 @@
+{
+  "recordedAtUTC": "2026-10-20T11:01:00Z",
+  "baselineCommit": "c0204a1",
+  "scope": "WorldBuilder pad affordability enumeration only. Existing button colors, quotes, and changed-affordability early return remain.",
+  "red": {
+    "content": [
+      {
+        "type": "text",
+        "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:172: AssistantCommand:164: replacedPad needs at most one lazy root scan per changed render: {\"replacedPad\":{\"expectedVisits\":1431,\"maxScans\":2,\"changedPads\":2,\"visits\":2862,\"changedRenders\":1,\"scans\":2,\"renders\":1},\"unchanged\":{\"expectedVisits\":0,\"maxScans\":0,\"changedPads\":0,\"visits\":0,\"changedRenders\":0,\"scans\":0,\"renders\":100},\"rich\":{\"expectedVisits\":1429,\"maxScans\":5,\"changedPads\":5,\"visits\":7145,\"changedRenders\":1,\"scans\":5,\"renders\":1},\"renamed\":{\"expectedVisits\":1431,\"maxScans\":1,\"changedPads\":1,\"visits\""
+      }
+    ],
+    "isError": true
+  },
+  "redMetrics": {
+    "replacedPad": {
+      "expectedVisits": 1431,
+      "maxScans": 2,
+      "changedPads": 2,
+      "visits": 2862,
+      "changedRenders": 1,
+      "scans": 2,
+      "renders": 1
+    },
+    "unchanged": {
+      "expectedVisits": 0,
+      "maxScans": 0,
+      "changedPads": 0,
+      "visits": 0,
+      "changedRenders": 0,
+      "scans": 0,
+      "renders": 100
+    },
+    "rich": {
+      "expectedVisits": 1429,
+      "maxScans": 5,
+      "changedPads": 5,
+      "visits": 7145,
+      "changedRenders": 1,
+      "scans": 5,
+      "renders": 1
+    },
+    "renamed": {
+      "expectedVisits": 1431,
+      "maxScans": 1,
+      "changedPads": 1,
+      "visits": 1431,
+      "changedRenders": 1,
+      "scans": 1,
+      "renders": 1
+    },
+    "clearedNewState": {
+      "expectedVisits": 1432,
+      "maxScans": 2,
+      "changedPads": 2,
+      "visits": 2864,
+      "changedRenders": 1,
+      "scans": 2,
+      "renders": 1
+    },
+    "replacedDetails": {
+      "expectedVisits": 1431,
+      "maxScans": 4,
+      "changedPads": 4,
+      "visits": 5724,
+      "changedRenders": 1,
+      "scans": 4,
+      "renders": 1
+    },
+    "thresholds": {
+      "expectedVisits": 25722,
+      "maxScans": 5,
+      "changedPads": 46,
+      "visits": 65734,
+      "changedRenders": 18,
+      "scans": 46,
+      "renders": 26
+    }
+  },
+  "green": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":\"PASS actual render thresholds, idle scans, renamed/replaced details and pads, clear/new state, colors and isolation\",\"metrics\":{\"replacedPad\":{\"visits\":1431,\"maxScans\":1,\"scans\":1,\"changedPads\":2,\"changedRenders\":1,\"expectedVisits\":1431,\"renders\":1},\"unchanged\":{\"visits\":0,\"maxScans\":0,\"scans\":0,\"changedPads\":0,\"changedRenders\":0,\"expectedVisits\":0,\"renders\":100},\"rich\":{\"visits\":1429,\"maxScans\":1,\"scans\":1,\"changedPads\":5,\"changedRenders\":1,\"expectedVisits\":1429,\"renders\":1},\"renamed\":{\"visits\":1431,\"maxScans\":1,\"scans\":1,\"changedPads\":1,\"changedRenders\":1,\"expectedVisits\":1431,\"renders\":1},\"clearedNewState\":{\"visits\":1432,\"maxScans\":1,\"scans\":1,\"changedPads\":2,\"changedRenders\":1,\"expectedVisits\":1432,\"renders\":1},\"replacedDetails\":{\"visits\":1431,\"maxScans\":1,\"scans\":1,\"changedPads\":4,\"changedRenders\":1,\"expectedVisits\":1431,\"renders\":1},\"thresholds\":{\"visits\":25722,\"maxScans\":1,\"scans\":18,\"changedPads\":46,\"changedRenders\":18,\"expectedVisits\":25722,\"renders\":26}}}"
+      }
+    ],
+    "isError": false
+  },
+  "regressions": {
+    "affordability": {
+      "content": [
+        {
+          "type": "text",
+          "text": "nil"
+        }
+      ],
+      "isError": false
+    },
+    "endWrites": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"result\":\"PASS endpoint call counts, before-tag/parent initialization, unchanged identity, Core repack, removal and recreation\",\"writes\":{\"remove\":0,\"repack\":5,\"unchanged\":6,\"create\":6,\"recreate\":6}}"
+        }
+      ],
+      "isError": false
+    },
+    "ownerTitle": {
+      "content": [
+        {
+          "type": "text",
+          "text": "PASS owner header: actual render 1/2/5 rows, shrink/empty/clear, long-name preservation, producer-label and wall clearance, unchanged sign/portrait and occlusion"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "interpretation": "The 26-render sequence still changes 46 pads across 18 renders. Root enumeration falls from 46 scans / 65734 child visits to 18 / 25722 (40012 fewer visits). One hundred unchanged renders perform zero scans. Replacement/renaming/clear cases pass. The cache exists only inside one World.render call.",
+  "limitations": [
+    "Instrumented clone of actual WorldBuilder in one Studio Server, off-world fixture; no production monkey patch.",
+    "Enumeration and correctness measurements only, not FPS, timing, device or memory measurements."
+  ]
+}

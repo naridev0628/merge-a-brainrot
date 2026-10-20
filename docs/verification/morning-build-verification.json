@@ -1,0 +1,29 @@
+{
+  "recordedAt": "2026-10-20T13:01:31.0507321Z",
+  "sourceMatches": 80,
+  "sha256": "5F1DF69FF360DD545D91447AEED1A041BFE8DCB970080AFA19E1DE221579B3B5",
+  "sourceTotal": 80,
+  "scope": "Rojo-built local artifact source parity and bundled asset inventory; not a native Ctrl+S save of the existing FirstPlayable document",
+  "assetFolders": [
+    {
+      "children": 12,
+      "descendants": 12,
+      "meshParts": 12,
+      "folder": "CharacterModels"
+    },
+    {
+      "children": 22,
+      "descendants": 22,
+      "meshParts": 22,
+      "folder": "ExpansionModels"
+    },
+    {
+      "children": 13,
+      "descendants": 13,
+      "meshParts": 13,
+      "folder": "MapModels"
+    }
+  ],
+  "artifact": "build/MergeABrainrot-Morning-2026-10-20.rbxlx",
+  "identicalAlias": "build/MergeABrainrot-StackedFarm.rbxlx"
+}

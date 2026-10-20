@@ -1,0 +1,137 @@
+{
+  "recordedAtUTC": "2026-10-20 09:30:30 UTC",
+  "baselineCommit": "cbbd765e194280b804762ee43b9e6e3905d261ff",
+  "counter": {
+    "red": {
+      "content": [
+        {
+          "type": "text",
+          "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:42: Each farmer counter needs exactly three broad panels"
+        }
+      ],
+      "isError": true
+    },
+    "green": {
+      "content": [
+        {
+          "type": "text",
+          "text": "PASS mirrored utilities, lowered counter with torso allowance, 18 inert panels within existing footprints and clear of farmer meshes, farmer/sign/awning visibility, clear deposit approach, full red conveyor and fenced plot fronts"
+        }
+      ],
+      "isError": false
+    },
+    "panelsPerPlot": 3,
+    "addedPartsAllPlots": 18,
+    "addedColliders": 0,
+    "panelRGB": [
+      55,
+      66,
+      165
+    ],
+    "floorRGB": [
+      106,
+      119,
+      176
+    ],
+    "visualReview": "Final paired front/elevated views expose shirt, both sleeves and pocket face. Farmer size/sign/canopy/XZ footprint unchanged. Three validated1759x567JPEGs.",
+    "captures": [
+      "farmer-counter-before.jpg",
+      "farmer-counter-after.jpg",
+      "farmer-counter-elevated.jpg"
+    ],
+    "frontCamera": {
+      "position": [
+        -17.55,
+        7,
+        146
+      ],
+      "lookAt": [
+        -17.55,
+        5,
+        128.8
+      ]
+    },
+    "elevatedCamera": {
+      "position": [
+        -24.5,
+        11,
+        144.5
+      ],
+      "lookAt": [
+        -17.55,
+        4.7,
+        128.8
+      ]
+    },
+    "referenceFrames": [
+      "docs/reference/chicken-farm-map-study/015-03-00.jpg",
+      "docs/reference/chicken-farm-map-study/079-16-20.jpg"
+    ],
+    "proportionRed": {
+      "content": [
+        {
+          "type": "text",
+          "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:27: The counter top must be 2.275 world studs above the plot"
+        }
+      ],
+      "isError": true
+    },
+    "counterCenterLogicalY": 3.2,
+    "counterTopWorldY": 2.275,
+    "panelHeightLogical": 2.455,
+    "farmerHeightWorld": 5.5
+  },
+  "deposit": {
+    "red": {
+      "content": [
+        {
+          "type": "text",
+          "text": "sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Tools.ExecuteLuauTool:116: sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Util.CommandExecution:54: AssistantCommand:144: AssistantCommand:18: Stalled loading suppressed the deposit pulse\nAssistantCommand:18 function waitUntil\nAssistantCommand:81\nAssistantCommand:30\n"
+        }
+      ],
+      "isError": true
+    },
+    "green": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"result\":\"PASS deposit pulse under stalled/failed loading, warm desktop/phone/short layouts, replacement, GUI destruction and worker cleanup\",\"cases\":8}"
+        }
+      ],
+      "isError": false
+    },
+    "existingEffectsRegression": {
+      "content": [
+        {
+          "type": "text",
+          "text": "PASS cash/deposit repeat budgets, tier budget and culling, feet grounding, and cleanup"
+        }
+      ],
+      "isError": false
+    },
+    "portraitTimeoutSeconds": 0.35,
+    "pulseAtSeconds": 0.5,
+    "lifetimeSeconds": 1.9,
+    "otherRuntimeLoadTimeoutSeconds": 3,
+    "scope": "Native disposable clones inject load outcomes but use actual UI/models/tweens/tasks. Visibility flags and cleanup tested; no native memory/FPS claim."
+  },
+  "sourceParity": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"serverMain\":false,\"clientMain\":false,\"checked\":79,\"mismatches\":[]}"
+      }
+    ],
+    "isError": false
+  },
+  "cleanup": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"camera\":\"Enum.CameraType.Custom\",\"harness\":false,\"hudEnabled\":true}"
+      }
+    ],
+    "isError": false
+  },
+  "gates": "43 standalone Luau suites, actual-module Deposit CLI, changed source/fixture compilation, native regressions, Rojo build, diff check, peer review."
+}

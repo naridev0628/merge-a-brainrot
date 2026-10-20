@@ -1,0 +1,222 @@
+{
+  "NoobiniSantanini": {
+    "triangles": 1940,
+    "vertices": 1064,
+    "height": 5,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 148992
+  },
+  "NoobiniSantanini_Mini": {
+    "triangles": 348,
+    "vertices": 232,
+    "height": 2,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 26540
+  },
+  "SvininaBombardino": {
+    "triangles": 2052,
+    "vertices": 1128,
+    "height": 5,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 157344
+  },
+  "SvininaBombardino_Mini": {
+    "triangles": 396,
+    "vertices": 264,
+    "height": 2,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 29900
+  },
+  "PipiKiwi": {
+    "triangles": 1396,
+    "vertices": 788,
+    "height": 5,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 103096
+  },
+  "PipiKiwi_Mini": {
+    "triangles": 644,
+    "vertices": 404,
+    "height": 2,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 44848
+  },
+  "Tartaragno": {
+    "triangles": 1796,
+    "vertices": 984,
+    "height": 5,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 136604
+  },
+  "Tartaragno_Mini": {
+    "triangles": 484,
+    "vertices": 312,
+    "height": 2,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 35032
+  },
+  "PipiCorni": {
+    "triangles": 2292,
+    "vertices": 1256,
+    "height": 5,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 174136
+  },
+  "PipiCorni_Mini": {
+    "triangles": 676,
+    "vertices": 440,
+    "height": 2,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 48476
+  },
+  "TrippiTroppi": {
+    "triangles": 1500,
+    "vertices": 824,
+    "height": 5,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 115628
+  },
+  "TrippiTroppi_Mini": {
+    "triangles": 444,
+    "vertices": 296,
+    "height": 2,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 33260
+  },
+  "GangsterFootera": {
+    "triangles": 1944,
+    "vertices": 1072,
+    "height": 5,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 149016
+  },
+  "GangsterFootera_Mini": {
+    "triangles": 396,
+    "vertices": 264,
+    "height": 2,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 29912
+  },
+  "BanditoBobritto": {
+    "triangles": 1636,
+    "vertices": 920,
+    "height": 5,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 124140
+  },
+  "BanditoBobritto_Mini": {
+    "triangles": 464,
+    "vertices": 304,
+    "height": 2,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 34164
+  },
+  "RaccooniJandelini": {
+    "triangles": 2680,
+    "vertices": 1478,
+    "height": 5,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 203180
+  },
+  "RaccooniJandelini_Mini": {
+    "triangles": 576,
+    "vertices": 374,
+    "height": 2,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 41548
+  },
+  "LiriliLarila": {
+    "triangles": 4376,
+    "vertices": 2416,
+    "height": 5,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 332568
+  },
+  "LiriliLarila_Mini": {
+    "triangles": 624,
+    "vertices": 416,
+    "height": 2,
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 45860
+  }
+}
