@@ -39,10 +39,12 @@ assert(core:dispatch(pile,'Buy',{'starter'},buyContext).code=='OK')
 buyContext.position.x=Config.BuyPads['50']
 assert(core:dispatch(pile,'Buy',{'full','50'},buyContext).code=='OK')
 for index,producer in pile.state.producers do producer.speciesId=string.format('tier_%02d',(index-1)%6+1) end
-core:step(pile,Config.Interval)
-assert(#pile.state.tokens==50)
-local seen={}; local heights={}; local speciesSpread={}; local topId=pile.state.tokens[50].id
-local topY=pile.state.tokens[50].y
+local fillCycles=math.ceil(Config.GroundCap/#pile.state.producers)
+for cycle=1,fillCycles do core:step(pile,cycle*Config.Interval) end
+assert(#pile.state.tokens==Config.GroundCap,'Full-pile coverage must use the entire configured physical capacity')
+local settledAt=fillCycles*Config.Interval+Config.TransitSeconds
+local seen={}; local heights={}; local speciesSpread={}; local topId=pile.state.tokens[Config.GroundCap].id
+local topY=pile.state.tokens[Config.GroundCap].y
 for _,mini in pile.state.tokens do
     local key=string.format('%.3f:%.3f:%.3f',mini.x,mini.y,mini.z)
     assert(not seen[key],'Minis must occupy distinct resting places at full capacity')
@@ -58,20 +60,21 @@ for _,mini in pile.state.tokens do
 end
 local heightCount=0
 for _ in heights do heightCount+=1 end
-assert(heightCount>=3,'Full tray must stack minis above neighboring minis')
+assert(heightCount==math.ceil(Config.GroundCap/24),'Full tray must fill every required 24-position layer')
 assert(pile.state.tokens[25].y-pile.state.tokens[1].y>=1.9,'Stacked mini bodies need vertical clearance')
 for _,spread in speciesSpread do assert(spread.high-spread.low>3,'Repeated species must not form identical columns across each layer') end
 for _,mini in pile.state.tokens do
     local snapshot=core:newSession(pile.owner,0,'pickup-check')
     snapshot.state=core:snapshot(pile)
-    assert(core:dispatch(snapshot,'Collect',{mini.id},{now=10,alive=true,position={x=mini.x,y=0,z=mini.z}}).code=='OK','Ground-level pickup must reach every height in the full pile')
+    assert(core:dispatch(snapshot,'Collect',{mini.id},{now=settledAt,alive=true,position={x=mini.x,y=0,z=mini.z}}).code=='OK','Ground-level pickup must reach every height in the full pile')
 end
 for _=1,24 do
     local mini=pile.state.tokens[1]
-    assert(core:dispatch(pile,'Collect',{mini.id},{now=10,alive=true,position={x=mini.x,y=mini.y,z=mini.z}}).code=='OK')
+    assert(core:dispatch(pile,'Collect',{mini.id},{now=settledAt,alive=true,position={x=mini.x,y=mini.y,z=mini.z}}).code=='OK')
 end
-assert(#pile.state.tokens==26)
-assert(pile.state.tokens[26].id==topId and pile.state.tokens[26].y<topY,'Surviving top minis must settle after lower minis are collected')
-local survivor=pile.state.tokens[26]
-assert(core:dispatch(pile,'Collect',{survivor.id},{now=10,alive=true,position={x=survivor.x,y=survivor.y,z=survivor.z}}).code=='OK','Pickup must use the new authoritative pile position')
-print('PASS 50 unique pile positions, tray bounds, stacked heights and authoritative settling after pickup')
+local remaining=Config.GroundCap-24
+assert(#pile.state.tokens==remaining)
+assert(pile.state.tokens[remaining].id==topId and pile.state.tokens[remaining].y<topY,'Surviving top minis must settle after lower minis are collected')
+local survivor=pile.state.tokens[remaining]
+assert(core:dispatch(pile,'Collect',{survivor.id},{now=settledAt,alive=true,position={x=survivor.x,y=survivor.y,z=survivor.z}}).code=='OK','Pickup must use the new authoritative pile position')
+print('PASS '..Config.GroundCap..' unique full-cap pile positions, tray bounds, stacked heights and authoritative settling after pickup')

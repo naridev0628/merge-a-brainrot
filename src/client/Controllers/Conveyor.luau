@@ -2,25 +2,92 @@
 local Collection=game:GetService('CollectionService')
 local MiniMotion=require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('MiniMotion'))
 local MiniNeighborIndex=require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('MiniNeighborIndex'))
+local Shared=game:GetService('ReplicatedStorage'):WaitForChild('Shared')
+local Visibility=require(Shared:WaitForChild('AnimationVisibility'))
+local bounds=Visibility.bounds(require(Shared:WaitForChild('Config')))
 local TierEffects=require(script.Parent:WaitForChild('TierEffects'))
 local Conveyor={}; Conveyor.__index=Conveyor
 local function smooth(t: number): number
     return t*t*(3-2*t)
 end
-function Conveyor.new()
-    local self: any=setmetatable({models={},producers={},connections={},tierEffects=TierEffects.new(),destroyed=false},Conveyor)
+local function releaseGroup(self: any,record: any)
+    local group=record and record.group
+    if not group then return end
+    group.count-=1
+    if group.count<=0 then self.groups[group.plot]=nil end
+end
+local function groupFor(self: any,instance: Instance): any
+    local folder=instance.Parent
+    if not folder or (folder.Name~='Minis' and folder.Name~='Producers') then return nil end
+    local plot=folder.Parent
+    local id=plot and tonumber(plot.Name:match('^Plot(%d+)$'))
+    if not plot or not plot:IsA('Model') or not id then return nil end
+    local group=self.groups[plot]
+    if not group then
+        -- Farm transforms are fixed; cache a padded sphere once instead of
+        -- projecting hundreds of moving model bounds on every render frame.
+        group={plot=plot,count=0,update=true,schedule=Visibility.new(id),
+            center=plot:GetPivot():PointToWorldSpace(Vector3.new(bounds.x,bounds.y,bounds.z)),
+            view={radius=bounds.radius}}
+        self.groups[plot]=group
+    end
+    group.count+=1
+    return group
+end
+local function updateGroups(self: any,now: number)
+    if not self.groups then return end -- Hand-built/no-camera fixtures keep the original path.
+    local camera=self.cameraProvider and self.cameraProvider()
+    local viewport=camera and camera.ViewportSize
+    local usable=camera and viewport.X>0 and viewport.Y>0
+    local tangent=if usable then math.tan(math.rad(math.min(85,camera.FieldOfView/2+Visibility.AngularPadding))) else 0
+    local aspect=if usable then viewport.X/viewport.Y else 1
+    for plot,group in self.groups do
+        if not plot:IsDescendantOf(workspace) then
+            -- Also handle a detached generated world whose tags still exist.
+            for model,record in self.models do if record.group==group then self.models[model]=nil end end
+            for model,record in self.producers do if record.group==group then
+                self.producers[model]=nil
+                if self.tierEffects then self.tierEffects:remove(model) end
+            end end
+            self.groups[plot]=nil
+            continue
+        end
+        local fullRate=true
+        if usable then
+            local offset=camera.CFrame:PointToObjectSpace(group.center)
+            local view=group.view
+            view.x=offset.X;view.y=offset.Y;view.depth=-offset.Z
+            view.tangent=tangent;view.aspect=aspect
+            fullRate=Visibility.fullRate(view)
+        end
+        group.update=Visibility.shouldUpdate(group.schedule,now,fullRate)
+    end
+end
+function Conveyor.new(cameraProvider: (() -> Camera?)?)
+    local self: any=setmetatable({models={},producers={},groups={},connections={},tierEffects=TierEffects.new(),destroyed=false,
+        cameraProvider=cameraProvider or function() return workspace.CurrentCamera end},Conveyor)
     local function add(instance: Instance)
-        if instance:IsA('Model') then self.models[instance]={rotation=instance:GetPivot().Rotation,settled=false,landed=false} end
+        if instance:IsA('Model') then
+            releaseGroup(self,self.models[instance])
+            self.models[instance]={rotation=instance:GetPivot().Rotation,settled=false,landed=false,group=groupFor(self,instance)}
+        end
     end
     for _,m in Collection:GetTagged('ConveyorMini') do add(m) end
     table.insert(self.connections,Collection:GetInstanceAddedSignal('ConveyorMini'):Connect(add))
-    table.insert(self.connections,Collection:GetInstanceRemovedSignal('ConveyorMini'):Connect(function(m) self.models[m]=nil end))
+    table.insert(self.connections,Collection:GetInstanceRemovedSignal('ConveyorMini'):Connect(function(m)
+        releaseGroup(self,self.models[m]);self.models[m]=nil
+    end))
     local function addProducer(instance: Instance)
-        if instance:IsA('Model') then self.producers[instance]={active=false} end
+        if instance:IsA('Model') then
+            releaseGroup(self,self.producers[instance])
+            self.producers[instance]={active=false,group=groupFor(self,instance)}
+        end
     end
     for _,m in Collection:GetTagged('BrainrotProducer') do addProducer(m) end
     table.insert(self.connections,Collection:GetInstanceAddedSignal('BrainrotProducer'):Connect(addProducer))
-    table.insert(self.connections,Collection:GetInstanceRemovedSignal('BrainrotProducer'):Connect(function(m) self.producers[m]=nil;self.tierEffects:remove(m) end))
+    table.insert(self.connections,Collection:GetInstanceRemovedSignal('BrainrotProducer'):Connect(function(m)
+        releaseGroup(self,self.producers[m]);self.producers[m]=nil;self.tierEffects:remove(m)
+    end))
     return self
 end
 function Conveyor.destroy(self: any)
@@ -35,14 +102,19 @@ function Conveyor.destroy(self: any)
     end
     table.clear(self.models)
     table.clear(self.producers)
+    table.clear(self.groups)
+    self.cameraProvider=nil
 end
 function Conveyor.update(self: any,now: number)
     if self.destroyed then return end
+    updateGroups(self,now)
     if self.tierEffects then self.tierEffects:update(self.producers,now) end
     -- Nearby settled minis give slightly when an arriving mini joins the pile.
     -- This is a brief visual contact response; final pickup centers stay fixed.
     local neighbors: any=nil
     for model,record in self.models do
+        if record.group and not record.group.update then continue end
+        if record.landed then continue end
         local ready=model:GetAttribute('ReadyAt')
         local target=model:GetAttribute('ConveyorEnd')
         if not record.landed and ready and target and now>=ready then
@@ -55,6 +127,7 @@ function Conveyor.update(self: any,now: number)
                     -- Other farms are spatially distant and never need pair checks.
                     neighbors=MiniNeighborIndex.new(2)
                     for neighbor,other in self.models do
+                        if other.group and not other.group.update then continue end
                         local otherTarget=neighbor:GetAttribute('ConveyorEnd')
                         if other.landed and otherTarget then
                             neighbors:insert(other,otherTarget.X,otherTarget.Y,otherTarget.Z)
@@ -69,9 +142,14 @@ function Conveyor.update(self: any,now: number)
         end
     end
     for model,record in self.models do
+        if record.group and not record.group.update then continue end
         if not model.Parent then continue end
+        local target=model:GetAttribute('ConveyorEnd')
+        -- Settled geometry only wakes for a destination change or contact
+        -- animation. Fixed spawn/rotation attributes need no per-frame reads.
+        if record.settled and not record.repackAt and not record.jostledAt and record.target==target then continue end
         local start=model:GetAttribute('ConveyorStart'); local drop=model:GetAttribute('ConveyorDrop')
-        local center=model:GetAttribute('ConveyorCenter'); local target=model:GetAttribute('ConveyorEnd')
+        local center=model:GetAttribute('ConveyorCenter')
         local spawned=model:GetAttribute('SpawnedAt'); local ready=model:GetAttribute('ReadyAt')
         if not start or not drop or not center or not target or not spawned or not ready then continue end
         local scale=model:GetAttribute('PlotScale') or .5
@@ -124,6 +202,7 @@ function Conveyor.update(self: any,now: number)
         model:PivotTo(CFrame.new(point+floorOffset)*rotation)
     end
     for model,record in self.producers do
+        if record.group and not record.group.update then continue end
         if not model.Parent then continue end
         local rest=model:GetAttribute('RestingPivot'); local produced=model:GetAttribute('ProducedAt')
         if not rest or not produced then continue end

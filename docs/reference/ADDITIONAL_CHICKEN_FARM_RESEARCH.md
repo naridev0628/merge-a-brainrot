@@ -2,7 +2,7 @@
 
 Research date: 20 October 2026. Scope: additional gameplay sources beyond `csKguFJi77Q` and `HJcoc02bumg`, with useful gaps for Merge a Brainrot.
 
-The strongest new lead is an optional obby with an availability state and a temporary production reward. Production-cap feedback is a smaller, immediately useful improvement. Gems and gold variants are longer-term progression candidates. No new video frames were visually inspected in this pass: the evidence below comes from creator metadata, accessible video transcripts, the official experience description, and a read-only inspection of this repository.
+The initial research found an optional obby with an availability state and a temporary production reward, plus production-cap feedback. Gems and gold variants remain longer-term progression candidates. The initial pass below used creator metadata, accessible transcripts, the official experience description, and a read-only repository inspection. A later browser inspection of four gameplay frames is recorded at the end of this document.
 
 ## Source identity and evidence limits
 
@@ -77,3 +77,16 @@ The highest-value capture is the obby sequence in `xbb1bmq` around 01:45–03:45
 For each observation, record the displayed timestamp and one image of the actual state. Do not promote the ambiguous transcript's five-minute egg reward to “2× production for five minutes” until the UI is legible. A settings screenshot is still an open research need.
 
 Validation: all local source paths above existed when checked; the two old video IDs are excluded from the new shortlist; five new YouTube IDs and two transcript URLs are explicitly separated by evidence quality. No gameplay, map board, or test files were changed in this research pass.
+
+## Browser follow-up — 20 October 2026
+
+The additional [PRO GAME ZONE 0 playthrough](https://www.youtube.com/watch?v=wy_TBMJA7nw) loaded in the in-app browser. After its pre-roll, the player reported a 2:37 duration. Four paused gameplay states were visually inspected through browser screenshots; this was sampled viewing, not a continuous or audio review. The source video is soft at this viewport, so small numbers are not used as exact balance requirements.
+
+| Player time | Visible evidence | Application to the current game |
+| --- | --- | --- |
+| [00:13](https://www.youtube.com/watch?v=wy_TBMJA7nw&t=13s) | The avatar carries a cyan/blue question-mark block. A narrow blue Lucky Block card remains on the right, with three reward rows and 75/20/5 percentages; the farm remains bright. A compact multiplier-change line sits above the basket. | Preserve held-block/nonmodal behavior. The new bounded multiplier cue follows this placement. Blue block/card presentation is a future visual progression candidate; exact unlock and price rules are not established. |
+| [00:40](https://www.youtube.com/watch?v=wy_TBMJA7nw&t=40s) | A wide pale-yellow Deposit Eggs pad, ground direction arrows, an empty basket, and a small deposit-count message are visible together. | Keep the entire pad active and keep deposit feedback compact. Our Brainrot basket and visible glow are deliberate substitutions. |
+| [01:20](https://www.youtube.com/watch?v=wy_TBMJA7nw&t=80s) | The same playthrough now shows a gold Basic block/card while several collection amounts rise near the basket. The tray and conveyor are red with gold trim. | Confirm that open Lucky UI must coexist with pickup feedback. Keep the existing bounded pickup lanes and continuous red conveyor. The different block presentations do not by themselves establish their drop algorithm. |
+| [02:00](https://www.youtube.com/watch?v=wy_TBMJA7nw&t=120s) | A low camera shows several occupied shelf rows. Buy 1 text is larger nearby, while Buy 5 and Auto Collect appear smaller farther away. | This supports the distance-sensitive pad-label pass prompted by our own spawn-camera overlap. Preserve readable costs and current action geometry. |
+
+These observations supplement the existing 100-frame annotated map study. They do not add four saved images to that study or claim that settings, obby rules, sound choices, or new economy formulas were verified in this video. The current implementation has since added an obby, capacity hints, and production/value explanations; the earlier repository-gap table is historical.

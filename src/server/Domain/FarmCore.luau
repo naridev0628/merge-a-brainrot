@@ -6,6 +6,7 @@ export type Good = {speciesId: string, baseCoinValue: number, count: number?}
 export type Token = {id: string, owner: number, origin: string, speciesId: string, baseCoinValue: number, x: number, y: number, z: number, startX: number, startY: number, startZ: number, spawnedAt: number, readyAt: number}
 export type State = {
     coinUnits: number, rebirths: number, revision: number, tutorialStep: number, purchased: number, eventHundredths: number,
+    obbyBonusHundredths: number?,
     producers: {Producer}, bag: {Good}, tokens: {Token}, discoveries: {[string]: boolean},
     starterClaimed: boolean, saleQueue: {{units: number,due: number,count: number?,interval: number?}}, soldUnits: number,
     cashMultiplier: number, autoCollect: boolean, autoSell: boolean, miniMultiplier: number, processorLevel: number,
@@ -62,7 +63,7 @@ end
 function Core.newSession(self: any, owner: number, now: number, key: string): Session
     local s: Session = {
         owner=owner,key=key,phase="Ready",sequence=0,cache={},cacheCount=0,productionCursor=1,pickupCache={},pickupOrder={},
-        state={coinUnits=self.config.StartingUnits,purchased=0,eventHundredths=100,rebirths=0,revision=0,tutorialStep=1,producers={},bag={},tokens={},discoveries={},
+        state={coinUnits=self.config.StartingUnits,purchased=0,eventHundredths=100,obbyBonusHundredths=0,rebirths=0,revision=0,tutorialStep=1,producers={},bag={},tokens={},discoveries={},
             starterClaimed=false,saleQueue={},soldUnits=0,cashMultiplier=1,autoCollect=false,autoSell=false,miniMultiplier=1,processorLevel=0},
     }
     return s
@@ -70,6 +71,7 @@ end
 function Core.validate(self: any, st: State, owner: number): boolean
     local c=self.config
     if not integer(st.coinUnits,0,c.CoinCap) or not integer(st.rebirths,0,20) or not integer(st.eventHundredths,50,150)
+        or (st.obbyBonusHundredths~=nil and not integer(st.obbyBonusHundredths,0,100))
         or not integer(st.revision,0,2^52) or #st.producers>c.Slots
         or not integer(st.purchased,0,2^31-1) or Economy.count(st.bag)>c.BagCap or #st.tokens>c.GroundCap or Economy.count(st.saleQueue)>c.SaleCapacity
         or not integer(st.soldUnits,0,c.CoinCap) then return false end
@@ -113,6 +115,13 @@ end
 function Core.setEvent(self: any,s: Session,hundredths: number)
     if hundredths==s.state.eventHundredths then return end
     local st=copy(s.state);st.eventHundredths=hundredths;self:commit(s,st)
+end
+-- Server-owned reward/expiry input. The run service owns the deadline; rebirth
+-- preserves this rate along with passes. Return true only when state changes.
+function Core.setObbyBonus(self: any,s: Session,hundredths: number): boolean
+    if s.phase~="Ready" or not integer(hundredths,0,100) or hundredths==(s.state.obbyBonusHundredths or 0) then return false end
+    local st=copy(s.state);st.obbyBonusHundredths=hundredths
+    return self:commit(s,st)
 end
 function Core.commit(self: any, s: Session, candidate: State): boolean
     candidate.revision=s.state.revision+1
@@ -193,7 +202,7 @@ function Core.step(self: any, s: Session, now: number): boolean
         if p.due>now then continue end
         changed=true
         local cycles=math.min(c.CatchupCap,math.floor((now-p.due)/c.Interval)+1)
-        local credit=(p.productionCredit or 0)+cycles*st.miniMultiplier*st.eventHundredths
+        local credit=(p.productionCredit or 0)+cycles*(st.eventHundredths+(st.obbyBonusHundredths or 0))*st.miniMultiplier
         local drops=math.floor(credit/100);p.productionCredit=credit%100
         for _=1,drops do
             -- Lucky rolls belong to production ticks, even when the physical tray is full.

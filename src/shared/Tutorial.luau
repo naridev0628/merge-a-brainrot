@@ -16,6 +16,6 @@ function Tutorial.goal(s: any)
     if s.soldUnits>0 then return {kind='Claim',title='Collect your cash!',detail='Your Minis sold. Pick up the coins at the green pad.'} end
     if #s.saleQueue>0 then return {kind='Wait',title='Your Minis are selling!',detail='Watch the processor. Collect cash when sales finish.'} end
     if Economy.count(s.bag)>=3 then return {kind='Deposit',title='Deposit your Minis!',detail='Take them to the deposit pad to start selling.'} end
-    return {kind='Collect',title='Collect 3 mini Tung Tungs!',detail=tostring(Economy.count(s.bag))..'/3 Minis - walk over their tiny copies.'}
+    return {kind='Collect',title='Collect 3 mini Tung Tungs!',detail=tostring(Economy.count(s.bag))..'/3 Minis - walk nearby to collect them, even as they fall.'}
 end
 return Tutorial

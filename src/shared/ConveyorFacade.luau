@@ -23,6 +23,28 @@ local function beam(parent: Instance,name: string,a: Vector3,b: Vector3,width: n
     return part(parent,name,Vector3.new(width,height,(b-a).Magnitude),CFrame.lookAt((a+b)/2,b),color)
 end
 
+local function wheat(parent: Instance,side: number,endX: number)
+    -- Saved reference frames 020 and 040 show small upright gold crop clusters
+    -- at the lane ends. Keep the accent out of the open lawn and purchase row.
+    local cluster=Instance.new('Model')
+    cluster.Name=if side==-1 then 'ConveyorWheatLeft' else 'ConveyorWheatRight'
+    cluster.WorldPivot=CFrame.identity;cluster.Parent=parent
+    local origin=CFrame.new(endX,0,Config.BeltZ-7.4)
+    for _,spec in {{-1.1,-.2,3.4},{-.55,.35,4.1},{0,-.25,4.6},{.6,.3,3.9},{1.15,-.1,3.1}} do
+        local x,z,height=spec[1],spec[2],spec[3]
+        local stem=origin*CFrame.new(x,0,z)
+        part(cluster,'WheatStem',Vector3.new(.18,height,.18),stem*CFrame.new(0,height/2,0),goldShade)
+        local grain=part(cluster,'WheatGrainLower',Vector3.new(.56,.65,.5),stem*CFrame.new(0,height-.15,0),gold)
+        grain.TopSurface=Enum.SurfaceType.Studs
+        local crown=part(cluster,'WheatGrainCrown',Vector3.new(.45,.55,.45),stem*CFrame.new(0,height+.42,0),goldLight)
+        crown.TopSurface=Enum.SurfaceType.Studs
+        local lean=if x>0 then -1 else 1
+        part(cluster,'WheatLeaf',Vector3.new(.18,.9,.36),
+            stem*CFrame.new(lean*.23,height*.46,0)*CFrame.Angles(0,0,-lean*.4),gold)
+    end
+    part(cluster,'WheatBinding',Vector3.new(2.9,.18,.5),origin*CFrame.new(0,1.45,0),goldShade)
+end
+
 function Facade.build(parent: Instance): Model
     local root=Instance.new('Model')
     root.Name='ConveyorFacade'
@@ -99,6 +121,7 @@ function Facade.build(parent: Instance): Model
             part(root,'EndFrameStud',Vector3.new(.13,.5,.5),
                 CFrame.new(endX+side*.62,y,rear.Z),goldLight)
         end
+        wheat(root,side,endX)
     end
 
     -- A shallow cream plinth and separate gold edge finish the existing red

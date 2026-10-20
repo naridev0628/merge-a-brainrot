@@ -1,6 +1,7 @@
 local Core=require('../src/server/Domain/FarmCore')
 local Config=require('../src/shared/Config')
 local Catalog=require('../src/shared/CreatureCatalog')
+local Motion=require('../src/shared/MiniMotion')
 local core=Core.new(Config,Catalog,function()return 1 end)
 local s=core:newSession(1,0,'cap')
 local function command(action,args,now)
@@ -21,37 +22,73 @@ assert(#s.state.producers==49)
 assert(command('OpenLucky',{'room-lucky','held','2120'}).code=='OK')
 assert(#s.state.producers==50 and not s.state.lucky and s.state.coinUnits==before-2120)
 assert(command('Buy',{'still-full','5'}).code=='PlotFull')
-core:step(s,1)
-assert(#s.state.tokens==50,'Airborne Minis must share the fifty-item cap')
-for _,token in s.state.tokens do assert(token.readyAt>1) end
-core:step(s,2);assert(#s.state.tokens==50,'Further drops cannot exceed cap while in transit')
--- Remove one airborne Mini and let its replacement coexist with 49 landed Minis.
-local removed=s.state.tokens[1]
-assert(core:dispatch(s,'Collect',{removed.id},{now=1,alive=true,position={x=removed.startX,y=removed.startY,z=removed.startZ}}).code=='OK')
-core:step(s,5)
-local airborne,grounded=0,0
-for _,token in s.state.tokens do if token.readyAt>5 then airborne+=1 else grounded+=1 end end
-assert(airborne==1 and grounded==49,'Transit and ground tokens must count against one common limit')
-core:step(s,10000);assert(#s.state.tokens==50)
-for _,producer in s.state.producers do assert(producer.due==10001,'Blocked production must discard backlog') end
--- Clear via actual pickups, then use seven producers so a backlog burst would stay below the global cap.
-while #s.state.tokens>0 do
-    local token=s.state.tokens[1]
-    assert(core:dispatch(s,'Collect',{token.id},{now=10000,alive=true,position={x=token.x,y=token.y,z=token.z}}).code=='OK')
-end
-local fresh=core:newSession(2,0,'discard')
-fresh.state.starterClaimed=true
-for slot=1,7 do table.insert(fresh.state.producers,{id='p'..slot,speciesId='tier_01',slot=slot,due=1}) end
-for second=1,20 do core:step(fresh,second) end
-assert(#fresh.state.tokens==50)
-core:step(fresh,10000)
-while #fresh.state.tokens>0 do
-    local token=fresh.state.tokens[1]
-    assert(core:dispatch(fresh,'Collect',{token.id},{now=10000,alive=true,position={x=token.x,y=token.y,z=token.z}}).code=='OK')
-end
-core:step(fresh,10000.5);assert(#fresh.state.tokens==0,'Clearing capacity must not release blocked work immediately')
-core:step(fresh,10001);assert(#fresh.state.tokens==7,'Only one fresh drop per producer may follow a capped stall')
 local invalid=core:snapshot(s)
 table.insert(invalid.producers,{id='overflow',speciesId='tier_01',slot=51,due=1})
 assert(not core:validate(invalid,s.owner),'Validation must reject an over-cap snapshot')
-print('PASS fifty placed Brainrots, full Lucky rejection, merge frees space, shared transit/ground cap and no burst backlog')
+
+-- Producer capacity stays fifty. Test physical Mini capacity independently,
+-- retaining the original fifty-Mini boundary alongside the configured limit.
+assert(Config.Slots==50 and Config.GroundPerProducer==8)
+local capacities={50}
+if Config.GroundCap~=50 then table.insert(capacities,Config.GroundCap) end
+for _,cap in capacities do
+    local config=table.clone(Config);config.GroundCap=cap
+    local engine=Core.new(config,Catalog,function() return 1 end)
+    local full=engine:newSession(10,0,'physical-'..cap)
+    full.state=core:snapshot(s)
+    engine:step(full,1)
+    assert(#full.state.tokens==math.min(50,cap),'First production tick must respect physical capacity')
+    engine:step(full,2)
+    assert(#full.state.tokens==cap,'Two ticks must fill the proposed physical capacity')
+    for _,token in full.state.tokens do assert(token.readyAt>2,'A full tray must count in-flight reservations') end
+    engine:step(full,3);assert(#full.state.tokens==cap,'Further drops cannot exceed cap during transit')
+    local overflow=engine:snapshot(full)
+    local extra=table.clone(overflow.tokens[1]);extra.id='over-cap';extra.owner=full.owner
+    table.insert(overflow.tokens,extra)
+    assert(not engine:validate(overflow,full.owner),'Validation must reject cap+1 physical Minis')
+    -- Remove one moving Mini using its current position. Its replacement must
+    -- coexist with every survivor after both original production batches land.
+    local removed=full.state.tokens[1]
+    assert(engine:dispatch(full,'Collect',{removed.id},
+        {now=3,alive=true,position=Motion.position(config,removed,3)}).code=='OK')
+    engine:step(full,6)
+    local airborne,grounded=0,0
+    for _,token in full.state.tokens do if token.readyAt>6 then airborne+=1 else grounded+=1 end end
+    assert(airborne==1 and grounded==cap-1,'Moving and resting Minis must share one common capacity')
+    engine:step(full,10000);assert(#full.state.tokens==cap)
+    for _,producer in full.state.producers do assert(producer.due==10001,'Blocked production must discard backlog') end
+
+    -- Eleven producers can store only 88 Minis; twelve can fill a 96-Mini tray.
+    -- This verifies the per-producer limit still applies below the global cap.
+    for _,count in {11,12} do
+        local limited=engine:newSession(20+count,0,'producer-limit-'..cap..'-'..count)
+        limited.state.starterClaimed=true
+        for slot=1,count do limited.state.producers[slot]={id='p'..slot,speciesId='tier_01',slot=slot,due=1} end
+        for second=1,20 do engine:step(limited,second) end
+        assert(#limited.state.tokens==math.min(cap,count*8),'Each producer must stop after its eighth physical Mini')
+        assert(engine:validate(limited.state,limited.owner))
+        if cap>count*8 then
+            local overProducer=engine:snapshot(limited)
+            local ninth=table.clone(overProducer.tokens[1]);ninth.id='ninth'
+            table.insert(overProducer.tokens,ninth)
+            assert(not engine:validate(overProducer,limited.owner),'A ninth Mini from one producer must be rejected below global cap')
+        end
+    end
+
+    -- Use the minimum producer count that fills this cap so a catch-up burst
+    -- would remain below the global limit and cannot hide behind clipping.
+    local producerCount=math.ceil(cap/config.GroundPerProducer)
+    local fresh=engine:newSession(2,0,'discard-'..cap)
+    fresh.state.starterClaimed=true
+    for slot=1,producerCount do fresh.state.producers[slot]={id='p'..slot,speciesId='tier_01',slot=slot,due=1} end
+    for second=1,20 do engine:step(fresh,second) end
+    assert(#fresh.state.tokens==cap)
+    engine:step(fresh,10000)
+    local clear=engine:dispatch(fresh,'CollectNearby',{'clear'},
+        {now=10000,alive=true,position={x=0,y=0,z=config.TrayZ}})
+    assert(clear.code=='OK' and clear.count==cap and #fresh.state.tokens==0,'Clear the full tray through real collection')
+    engine:step(fresh,10000.5);assert(#fresh.state.tokens==0,'Clearing capacity must not release blocked work immediately')
+    engine:step(fresh,10001);assert(#fresh.state.tokens==producerCount,'Only one fresh drop per producer may follow a capped stall')
+    assert(engine:validate(fresh.state,fresh.owner))
+end
+print('PASS fifty producers, Lucky/merge boundaries, legacy/configured Mini caps, eleven/twelve-producer limits, shared transit capacity and no backlog')

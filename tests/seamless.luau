@@ -35,13 +35,14 @@ local count=#s.state.tokens
 assert(call('CollectNearby','aura',6,Config.TrayZ,nil,31).code=='OK')
 assert(Economy.count(s.state.bag)==count and #s.state.tokens==0)
 assert(call('CollectNearby','aura',6,Config.TrayZ,nil,31).replayed and Economy.count(s.state.bag)==count)
--- All 50 settled minis are collected in one request from the tray center.
+-- The complete configured tray is collected in one request from its center.
 s.state.bag={}; s.state.tokens={}; s.state.producers={}
-for i=1,12 do table.insert(s.state.producers,{id='p'..i,speciesId='tier_01',slot=i,due=0}) end
+for i=1,math.ceil(Config.GroundCap/Config.GroundPerProducer) do table.insert(s.state.producers,{id='p'..i,speciesId='tier_01',slot=i,due=0}) end
 for i=1,8 do c:step(s,40+i*6) end
-assert(#s.state.tokens==50)
-assert(call('CollectNearby','full-pile',0,Config.TrayZ,nil,100).code=='OK')
-assert(Economy.count(s.state.bag)==50 and #s.state.tokens==0)
+assert(#s.state.tokens==Config.GroundCap)
+local collected=call('CollectNearby','full-pile',0,Config.TrayZ,nil,100)
+assert(collected.code=='OK' and collected.count==Config.GroundCap)
+assert(Economy.count(s.state.bag)==Config.GroundCap and #s.state.tokens==0)
 c:step(s,106)
 s.state.bag={{speciesId='tier_01',baseCoinValue=2,count=Config.BagCap}}
 assert(call('CollectNearby','full-bag',0,Config.TrayZ,nil,111).code=='BagFull')

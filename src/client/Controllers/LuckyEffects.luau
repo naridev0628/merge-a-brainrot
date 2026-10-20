@@ -1,36 +1,46 @@
 --!strict
-local TweenService=game:GetService('TweenService')
-local ContentProvider=game:GetService('ContentProvider')
 local Art=require(script.Parent:WaitForChild('BrickArt'))
+local Runtime=require(script.Parent:WaitForChild('VisualRuntime'))
+local Style=require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('TextStyle'))
 local Lucky={}
 function Lucky.play(gui: ScreenGui,onReveal: ()->())
-    task.spawn(function()
-        local box: Frame?=nil
-        -- A single completion path releases the caller's animation lock even if
-        -- the UI disappears or a visual asset cannot be rendered.
-        local ok,err=xpcall(function()
-            if not gui.Parent then return end
-            local holder=Instance.new('Frame'); box=holder
-            holder.Name='LuckyOpening'; holder.AnchorPoint=Vector2.new(.5,.5); holder.Size=UDim2.fromOffset(240,240); holder.Position=UDim2.fromScale(.5,-.3); holder.BackgroundTransparency=1; holder.ZIndex=40; holder.Visible=false; holder.Parent=gui
-            local viewport=Art.luckyPortrait(holder,UDim2.fromScale(0,0),UDim2.fromScale(1,1)); viewport.ZIndex=41
-            pcall(function() ContentProvider:PreloadAsync(viewport:GetDescendants()) end)
-            if not holder.Parent or not gui.Parent then return end
-            viewport.Visible=true; holder.Visible=true
-            TweenService:Create(holder,TweenInfo.new(.35,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{Position=UDim2.fromScale(.5,.5)}):Play()
-            task.wait(.35)
-            for index=1,12 do
-                if not holder.Parent then return end
-                local angle=(if index%2==0 then 1 else -1)*(6+index*.7)
-                TweenService:Create(holder,TweenInfo.new(.12,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut),{Rotation=angle}):Play()
-                task.wait(.12)
+    -- Completion owns the caller's animation lock, including cancellation and
+    -- visual errors. No yielding asset request sits on this completion path.
+    local sequence=Runtime.new(gui,function() onReveal() end)
+    sequence:run(function()
+        local holder=Instance.new('Frame')
+        holder.Name='LuckyOpening';holder.AnchorPoint=Vector2.new(.5,.5);holder.Size=UDim2.fromOffset(240,240)
+        holder.Position=UDim2.fromScale(.5,-.3);holder.BackgroundTransparency=1;holder.ZIndex=40;holder.Visible=false;holder.Parent=gui
+        sequence:own(function() holder:Destroy() end)
+        Runtime.watch(sequence,holder)
+        local viewport=Art.luckyPortrait(holder,UDim2.fromScale(0,0),UDim2.fromScale(1,1),true)
+        viewport.ZIndex=41
+        Runtime.load(sequence,viewport:GetDescendants(),function(loaded)
+            if not holder.Parent or not gui.Parent then sequence:finish('cancelled');return end
+            viewport.Visible=loaded
+            if not loaded then
+                local fallback=Instance.new('TextLabel');fallback.Name='LuckyFallback'
+                fallback.AnchorPoint=Vector2.new(.5,.5);fallback.Position=UDim2.fromScale(.5,.5);fallback.Size=UDim2.fromScale(.62,.62)
+                fallback.BackgroundColor3=Style.Gold;fallback.BorderSizePixel=0;fallback.Text='?';fallback.TextScaled=true;fallback.ZIndex=41
+                Style.apply(fallback,112,Style.Cream,3);fallback.Parent=holder
+                local outline=Instance.new('UIStroke');outline.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
+                outline.Thickness=3;outline.Color=Style.Ink;outline.Parent=fallback
             end
-            if not holder.Parent then return end
-            TweenService:Create(holder,TweenInfo.new(.2,Enum.EasingStyle.Back,Enum.EasingDirection.In),{Size=UDim2.fromOffset(0,0),Rotation=0}):Play()
-            task.wait(.2)
-        end,debug.traceback)
-        if box then box:Destroy() end
-        if not ok then warn('Lucky opening visual: '..tostring(err)) end
-        onReveal()
+            holder.Visible=true
+            Runtime.tween(sequence,holder,TweenInfo.new(.35,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{Position=UDim2.fromScale(.5,.5)})
+            local shake: (number)->()
+            shake=function(index)
+                if index>12 then
+                    Runtime.tween(sequence,holder,TweenInfo.new(.2,Enum.EasingStyle.Back,Enum.EasingDirection.In),{Size=UDim2.fromOffset(0,0),Rotation=0})
+                    sequence:after(.2,function() sequence:finish('complete') end)
+                    return
+                end
+                local angle=(if index%2==0 then 1 else -1)*(6+index*.7)
+                Runtime.tween(sequence,holder,TweenInfo.new(.12,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut),{Rotation=angle})
+                sequence:after(.12,function() shake(index+1) end)
+            end
+            sequence:after(.35,function() shake(1) end)
+        end)
     end)
 end
 return Lucky

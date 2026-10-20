@@ -4,6 +4,7 @@ local UI=require(player.PlayerScripts.Controllers.FarmUI)
 local ui=UI.new(player.PlayerGui)
 ui.gui.Name='LayoutRegression'
 local state={coinUnits=0,rebirths=0,purchased=0,bag={{speciesId='tier_01',baseCoinValue=2,count=1000000}},saleQueue={},soldUnits=0,processorLevel=0,starterClaimed=true,cashMultiplier=1,miniMultiplier=1,autoCollect=false,autoSell=false,discoveries={tier_01=true},serverNow=0,tutorialStep=4,producers={{id='a',speciesId='tier_01',slot=1},{id='b',speciesId='tier_01',slot=2}}}
+state.tokens={}
 local function inside(object,root)
     local p,s=object.AbsolutePosition,object.AbsoluteSize
     local rp,rs=root.AbsolutePosition,root.AbsoluteSize

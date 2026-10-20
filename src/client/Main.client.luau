@@ -14,7 +14,6 @@ local PadHold=require(Shared:WaitForChild('PadHold'))
 local Economy=require(Shared:WaitForChild('Economy'))
 local Map=require(Shared:WaitForChild('MapSpec'))
 local Tutorial=require(Shared:WaitForChild('Tutorial'))
-local StarterPad=require(Shared:WaitForChild('StarterPad'))
 local PassConfig=require(Shared:WaitForChild('PassConfig'))
 local Controllers=script.Parent:WaitForChild('Controllers')
 local PurchaseEffects=require(Controllers:WaitForChild('PurchaseEffects'))
@@ -31,11 +30,18 @@ local Conveyor=require(Controllers:WaitForChild('Conveyor'))
 local PickupAudio=require(Controllers:WaitForChild('PickupAudio'))
 local FeedbackAudio=require(Controllers:WaitForChild('FeedbackAudio'))
 local MusicController=require(Controllers:WaitForChild('MusicController'))
+local ObbyHUD=require(Controllers:WaitForChild('ObbyHUD'))
+local MultiplierCue=require(Controllers:WaitForChild('MultiplierCue'))
+local PadLabels=require(Controllers:WaitForChild('PadLabels'))
 local Locale=require(Controllers:WaitForChild('Locale'))
 Locale.bind(workspace)
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
 local player=Players.LocalPlayer
 local view=UI.new(player:WaitForChild('PlayerGui'))
+local multiplierCue=MultiplierCue.new(view)
+local padLabels=PadLabels.new()
+local obbyHUD=ObbyHUD.new()
+view.gui.Destroying:Connect(function() obbyHUD:destroy(); padLabels:destroy() end)
 MusicController.start()
 local guide=Guide.new()
 local conveyor=Conveyor.new()
@@ -55,14 +61,10 @@ local pending: any=nil
 local revision=-1
 local sessionKey=nil
 local receivedAt=0
-local collectRetry: {[string]: number}={}
 local shopInfo: {[string]: any}={}
 local prompting=false
-local luckyAnimating=false
 local pickupCounts: {[string]: number}={}
 local pickupScheduled=false
-local lastClaimAt=-10
-local lastClaimRevision=-1
 local heldPad=PadHold.new()
 local lastAuraAt=-10
 
@@ -76,7 +78,6 @@ local function send(action: string,values: {string}?)
     if values then for _,v in values do table.insert(args,v) end end
     local miniSpecies={}; if action=='Deposit' then for _,mini in state.bag do for _=1,math.min(3,mini.count or 1) do table.insert(miniSpecies,mini.speciesId) end end end
     pending={action=action,args=args,sent=os.clock(),count=Economy.count(state.bag),miniSpecies=miniSpecies,discoveries=table.clone(state.discoveries)}
-    if action=='Claim' then lastClaimAt=os.clock() end
     view:setPending(true); command:FireServer(action,args)
 end
 view.onBuy=function(quantity) send('Buy',{quantity}) end
@@ -122,20 +123,24 @@ task.spawn(function()
     end
 end)
 snapshot.OnClientEvent:Connect(function(incoming)
-    if incoming.status~='Ready' then state=nil; pending=nil; view:setPending(false); view:unavailable(incoming.reason or 'Waiting for a plot.'); return end
-    if incoming.sessionKey~=sessionKey then sessionKey=incoming.sessionKey; revision=-1; pending=nil; collectRetry={}; heldPad=PadHold.new(); lastClaimAt=-10; lastClaimRevision=-1; view:setPending(false) end
+    if incoming.status~='Ready' then state=nil; pending=nil; obbyHUD:clear(); multiplierCue:clear(); padLabels:clear(); view:setPending(false); view:unavailable(incoming.reason or 'Waiting for a plot.'); return end
+    if incoming.sessionKey~=sessionKey then sessionKey=incoming.sessionKey; revision=-1; pending=nil; heldPad=PadHold.new(); view:setPending(false) end
     if incoming.revision<revision then return end
     local oldMultiplier=state and state.cashMultiplier
     local oldHeldId=state and state.lucky and state.lucky.held and state.lucky.id
     if state and not (pending and pending.action=='OpenLucky') then for id in incoming.discoveries do if not state.discoveries[id] and id~=revealingLuckySpecies then showDiscovery(id) end end end
     revision=incoming.revision; state=incoming; receivedAt=os.clock()
-    local active={}; for _,token in state.tokens do active[token.id]=true end
-    for id in collectRetry do if not active[id] then collectRetry[id]=nil end end
     view:update(state)
+    multiplierCue:receive(state,receivedAt)
+    padLabels:setPlot(state.plotId)
     if state.lucky and state.lucky.held and state.lucky.id~=oldHeldId then view:open('Lucky')
     elseif view:isLuckyOpen() and (not state.lucky or not state.lucky.held) then view:close() end
     LeaderboardFooter.update(state)
     if oldMultiplier and state.cashMultiplier>oldMultiplier then view:offerUpgrade(state.cashMultiplier) end
+    if obbyHUD:receive(state,receivedAt) then
+        FeedbackAudio.play('Upgrade')
+        view:notice('Obby complete! +0.25x Minis for 5 minutes.')
+    end
 end)
 result.OnClientEvent:Connect(function(response)
     if response.action=='Collect' or response.action=='CollectNearby' then
@@ -166,7 +171,6 @@ result.OnClientEvent:Connect(function(response)
     end
     FeedbackAudio.play(response.action)
     if response.action=='Claim' then
-        lastClaimRevision=revision
         CashEffects.play(view.gui,player.Character,UI.coins(response.creditUnits or 0))
     elseif response.action=='Deposit' then
         Effects.play(view.gui,player.Character,completed.miniSpecies)
@@ -177,9 +181,9 @@ result.OnClientEvent:Connect(function(response)
         view:open('Lucky')
     elseif response.action=='DropLucky' or response.action=='DiscardLucky' then view:close()
     elseif response.action=='OpenLucky' then
-        view:close(); luckyAnimating=true;revealingLuckySpecies=response.speciesId
+        view:close(); revealingLuckySpecies=response.speciesId
         LuckyEffects.play(view.gui,function()
-            luckyAnimating=false;revealingLuckySpecies=nil
+            revealingLuckySpecies=nil
             showDiscovery(response.speciesId,not completed.discoveries[response.speciesId])
         end)
     elseif response.action=='Rebirth' then view:close(); view:clearSelection(); view:notice('Rebirth complete! Your earnings and bulk-buy unlocks increased.')
@@ -215,6 +219,9 @@ end)
 task.spawn(function()
     while true do
         task.wait(.05)
+        obbyHUD:update(os.clock())
+        multiplierCue:update(os.clock())
+        padLabels:update(os.clock())
         if not state then command:FireServer('State',{}); task.wait(1); continue end
         LeaderboardFooter.update(state)
         if pending and os.clock()-pending.sent>=3 then pending.sent=os.clock(); command:FireServer(pending.action,pending.args) end

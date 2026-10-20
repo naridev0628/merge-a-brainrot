@@ -2,6 +2,7 @@
 local Shared=game:GetService('ReplicatedStorage'):WaitForChild('Shared')
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
 local Config=require(Shared:WaitForChild('Config'))
+local ProductionInfo=require(Shared:WaitForChild('ProductionInfo'))
 local Style=require(Shared:WaitForChild('TextStyle'))
 local Panel={}
 function Panel.new(view: any,text: any,frame: any,Art: any,C: any)
@@ -38,12 +39,12 @@ function Panel.new(view: any,text: any,frame: any,Art: any,C: any)
             layout.FillDirectionMaxCells=columns
         end,
         render=function(state: any)
-            note.Text=(if state.miniMultiplier==2 then '2 Minis' else '1 Mini')..' every '..Config.Interval..'s per Brainrot · $ value per Mini'
+            note.Text=string.format('Up to %g Minis/s each · Sale values include cash boosts',ProductionInfo.rate(Config,state))
             for tier,entry in entries do
                 local species=Catalog[entry.id]; local found=state.discoveries[entry.id]==true
                 entry.name.Text=if found then species.name else '???'
                 entry.name.TextColor3=if found then Color3.fromRGB(table.unpack(species.color)) else Style.Cream
-                entry.value.Text=if found then '$'..view.coins(species.value*(4+state.rebirths)*state.cashMultiplier) else '???'
+                entry.value.Text=if found then '$'..view.coins(ProductionInfo.saleUnits(species.value,state)) else '???'
                 if entry.found~=found then
                     if entry.portrait then entry.portrait:Destroy() end
                     entry.portrait=Art.portrait(entry.card,entry.id,UDim2.fromScale(.08,.12),UDim2.fromScale(.84,.67),false,not found)

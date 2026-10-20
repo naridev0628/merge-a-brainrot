@@ -1,0 +1,512 @@
+{
+  "sourceCommitBase": "70786a3",
+  "sourceScope": "Uncommitted reviewed batch: cheap-idle Conveyor, AnimationVisibility 15Hz offscreen/far groups; ObbyCourse, hub557 stud cull, facade wheat. Fixed Studio source during sample; lighthouse cull not installed.",
+  "scope": "Six farms with50 mixed producers each and96 Minis;one Studio client,production HUD/audio excluded. Same60-second camera route as baseline;elapsed samples comparable,wholetrial duration/machinememory history differ.",
+  "settled": {
+    "lastSample": {
+      "note": "Frame percentiles use fixed 0.25 ms bins; overflow above 128 ms uses observed max. Main HUD/audio, real player commands and UI snapshot work are excluded.",
+      "p99FrameMs": 19.25,
+      "frames": 3596,
+      "before": {
+        "shelfParts": 6630,
+        "meshes": 1135,
+        "miniParts": 576,
+        "parts": 35279,
+        "producerModels": 300,
+        "miniModels": 576,
+        "instances": 39749,
+        "producerParts": 300,
+        "accentParts": 32
+      },
+      "p95FrameMs": 17.75,
+      "meanConveyorWorkMs": 0.37791635155054537,
+      "sampleSeconds": 60.00377709999884,
+      "maxFrameMs": 51.385000348091125,
+      "snapshotsEnabled": true,
+      "after": {
+        "shelfParts": 6630,
+        "meshes": 1135,
+        "miniParts": 576,
+        "parts": 35279,
+        "producerModels": 300,
+        "miniModels": 576,
+        "instances": 39749,
+        "producerParts": 300,
+        "accentParts": 32
+      },
+      "churn": false,
+      "capacity": 96,
+      "epoch": 1,
+      "snapshotsReceived": 56,
+      "camera": "route",
+      "meanFrameMs": 16.686156425247997,
+      "p50FrameMs": 16.75,
+      "maxConveyorWorkMs": 2.9958999948576093,
+      "memoryBeforeMb": 3536.6484375,
+      "memoryAfterMb": 3540.6796875,
+      "snapshotEntitiesReceived": 8176
+    },
+    "status": {
+      "p99FrameMs": 19.25,
+      "frames": 3596,
+      "Running": true,
+      "p95FrameMs": 17.75,
+      "SampleStatus": "Complete",
+      "sampleSeconds": 60.00377709999884,
+      "maxFrameMs": 51.385000348091125,
+      "snapshotsReceived": 56,
+      "maxConveyorWorkMs": 2.9958999948576093,
+      "capacity": 96,
+      "epoch": 1,
+      "Camera": "route",
+      "meanConveyorWorkMs": 0.37791635155054537,
+      "meanFrameMs": 16.686156425247997,
+      "memoryAfterMb": 3540.6796875,
+      "memoryBeforeMb": 3536.6484375,
+      "p50FrameMs": 16.75,
+      "snapshotEntitiesReceived": 8176
+    },
+    "snapshotsReceived": 153,
+    "lastSnapshot": {
+      "producers": 50,
+      "revision": 156,
+      "minis": 96,
+      "plotId": 1
+    },
+    "snapshotEntitiesReceived": 22338
+  },
+  "churn": {
+    "lastSample": {
+      "note": "Frame percentiles use fixed 0.25 ms bins; overflow above 128 ms uses observed max. Main HUD/audio, real player commands and UI snapshot work are excluded.",
+      "p99FrameMs": 25.5,
+      "frames": 35201,
+      "before": {
+        "shelfParts": 6630,
+        "meshes": 1135,
+        "miniParts": 576,
+        "parts": 35279,
+        "producerModels": 300,
+        "miniModels": 576,
+        "instances": 39749,
+        "producerParts": 300,
+        "accentParts": 12
+      },
+      "p95FrameMs": 18,
+      "meanConveyorWorkMs": 2.122733433695962,
+      "sampleSeconds": 600.0109350999992,
+      "maxFrameMs": 185.38540601730347,
+      "snapshotsEnabled": true,
+      "after": {
+        "shelfParts": 6630,
+        "meshes": 1135,
+        "miniParts": 576,
+        "parts": 35279,
+        "producerModels": 300,
+        "miniModels": 576,
+        "instances": 39749,
+        "producerParts": 300,
+        "accentParts": 32
+      },
+      "churn": true,
+      "capacity": 96,
+      "epoch": 1,
+      "snapshotsReceived": 1511,
+      "camera": "route",
+      "meanFrameMs": 17.045235712774797,
+      "p50FrameMs": 16.75,
+      "maxConveyorWorkMs": 17.278600003919564,
+      "memoryBeforeMb": 3549.3671875,
+      "memoryAfterMb": 3708.96875,
+      "snapshotEntitiesReceived": 207408
+    },
+    "status": {
+      "p99FrameMs": 25.5,
+      "frames": 35201,
+      "Running": true,
+      "p95FrameMs": 18,
+      "SampleStatus": "Complete",
+      "sampleSeconds": 600.0109350999992,
+      "maxFrameMs": 185.38540601730347,
+      "snapshotsReceived": 1511,
+      "maxConveyorWorkMs": 17.278600003919564,
+      "capacity": 96,
+      "epoch": 1,
+      "Camera": "route",
+      "meanConveyorWorkMs": 2.122733433695962,
+      "meanFrameMs": 17.045235712774797,
+      "memoryAfterMb": 3708.96875,
+      "memoryBeforeMb": 3549.3671875,
+      "p50FrameMs": 16.75,
+      "snapshotEntitiesReceived": 207408
+    },
+    "snapshotsReceived": 1812,
+    "lastSnapshot": {
+      "producers": 50,
+      "revision": 1816,
+      "minis": 96,
+      "plotId": 1
+    },
+    "snapshotEntitiesReceived": 249630
+  },
+  "serverWholeTrial": {
+    "inventory": {
+      "shelfParts": 6630,
+      "meshes": 1135,
+      "instances": 39749,
+      "parts": 35279
+    },
+    "ReadyAt": 1792477805.83586,
+    "Active": true,
+    "MiniCount": 576,
+    "workMs": {
+      "p50": 6.483100005425513,
+      "p95": 56.890799998654984,
+      "p99": 69.15550000121584,
+      "samples": 2400,
+      "max": 167.31029999937164
+    },
+    "Status": "Churning",
+    "MeanWorkMs": 10.221693893369508,
+    "ServerNow": 1792478647.148543,
+    "SnapshotsEnabled": true,
+    "ProducerCount": 300,
+    "ClockOffset": 0,
+    "ElapsedSeconds": 841.3696893000015,
+    "Churn": true,
+    "SnapshotsSent": 1845,
+    "Ticks": 3095,
+    "RemovedMinis": 88428,
+    "PeakWorkMs": 167.31029999937164,
+    "SnapshotEntities": 254160,
+    "Epoch": 1,
+    "LastWorkMs": 57.00480000086827,
+    "Renders": 11064,
+    "serverMemoryMb": 3724.6328125,
+    "CreatedMinis": 88428,
+    "heartbeatMs": {
+      "p50": 16.978206112980843,
+      "p95": 18.002592027187347,
+      "p99": 23.01354706287384,
+      "samples": 36000,
+      "max": 187.16807663440704
+    },
+    "CapacityPerFarm": 96
+  },
+  "recoveryStart": {
+    "inventory": {
+      "meshParts": 1135,
+      "miniParts": 576,
+      "accentParts": 32,
+      "plots": {
+        "Plot6": {
+          "producerParts": 50,
+          "minis": 96,
+          "producers": 50,
+          "miniParts": 96
+        },
+        "Plot3": {
+          "producerParts": 50,
+          "minis": 96,
+          "producers": 50,
+          "miniParts": 96
+        },
+        "Plot1": {
+          "producerParts": 50,
+          "minis": 96,
+          "producers": 50,
+          "miniParts": 96
+        },
+        "Plot2": {
+          "producerParts": 50,
+          "minis": 96,
+          "producers": 50,
+          "miniParts": 96
+        },
+        "Plot5": {
+          "producerParts": 50,
+          "minis": 96,
+          "producers": 50,
+          "miniParts": 96
+        },
+        "Plot4": {
+          "producerParts": 50,
+          "minis": 96,
+          "producers": 50,
+          "miniParts": 96
+        }
+      },
+      "producerModels": 300,
+      "accentFolders": 16,
+      "producerParts": 300,
+      "worldDescendants": 39749,
+      "miniModels": 576,
+      "parts": 35279
+    },
+    "assets": {
+      "worldAndTemplateUniqueMeshes": 47,
+      "worldUniqueMeshes": 33,
+      "worldUniqueTextures": 13,
+      "templateMeshParts": 47,
+      "worldAndTemplateUniqueTextures": 15
+    },
+    "tags": {
+      "ConveyorMini": {
+        "total": 576,
+        "inGeneratedWorld": 576,
+        "outsideWorkspace": 0
+      },
+      "BrainrotProducer": {
+        "total": 300,
+        "inGeneratedWorld": 300,
+        "outsideWorkspace": 0
+      }
+    },
+    "elapsedMs": 31.785200000740588,
+    "memory": {
+      "totalMb": 3725.58203125,
+      "trackingEnabled": true,
+      "luaHeapKb": 10328,
+      "tagsMb": {
+        "LuaHeap": 917.77099609375,
+        "GraphicsTextureCharacter": 5.974330902099609,
+        "GraphicsSpatialHash": 6.8614501953125,
+        "Internal": 1445.926025390625,
+        "GraphicsParts": 29.752159118652344,
+        "Sounds": 6.066558837890625,
+        "StreamingSounds": 0,
+        "GraphicsSlimModels": 0,
+        "GraphicsTerrain": 49.609954833984375,
+        "GraphicsMeshParts": 19.538238525390625,
+        "GraphicsSolidModels": 0,
+        "Script": 272.36590576171875,
+        "Animation": 32.88844299316406,
+        "HttpCache": 0.242279052734375,
+        "GraphicsTexture": 39.41836929321289,
+        "GeometryCSG": 0,
+        "TerrainVoxels": 8.632057189941406,
+        "BaseParts": 1995.82763671875,
+        "Navigation": 0.00006103515625,
+        "GraphicsParticles": 11.904304504394531,
+        "PhysicsCollision": 0.0152435302734375,
+        "Signals": 107.6568832397461,
+        "Instances": 228.23643493652344,
+        "Gui": 47.629493713378906
+      },
+      "instanceCount": 89116
+    },
+    "harness": {
+      "churn": false,
+      "status": "Ready",
+      "epoch": 1,
+      "snapshotsEnabled": true,
+      "capacityPerFarm": 96
+    },
+    "note": "No GC forced. Memory sampled before inventory. Tags/instances are snapshots, not retained Lua-reference inspection. Category values are not summed; they may overlap. Disabled tracking leaves category/total fields absent.",
+    "sampledAt": 44352.7782627,
+    "errors": [],
+    "context": "Client",
+    "camera": {
+      "position": {
+        "1": 45.407196044921875,
+        "2": 31.19999885559082,
+        "3": 176.47418212890625
+      },
+      "mode": "route"
+    }
+  },
+  "settledReturn": {
+    "lastSample": {
+      "note": "Frame percentiles use fixed 0.25 ms bins; overflow above 128 ms uses observed max. Main HUD/audio, real player commands and UI snapshot work are excluded.",
+      "p99FrameMs": 18.25,
+      "frames": 3601,
+      "before": {
+        "shelfParts": 6630,
+        "meshes": 1135,
+        "miniParts": 576,
+        "parts": 35279,
+        "producerModels": 300,
+        "miniModels": 576,
+        "instances": 39749,
+        "producerParts": 300,
+        "accentParts": 32
+      },
+      "p95FrameMs": 17.75,
+      "meanConveyorWorkMs": 0.38317770061507095,
+      "sampleSeconds": 60.00134980000439,
+      "maxFrameMs": 30.247699469327927,
+      "snapshotsEnabled": true,
+      "after": {
+        "shelfParts": 6630,
+        "meshes": 1135,
+        "miniParts": 576,
+        "parts": 35279,
+        "producerModels": 300,
+        "miniModels": 576,
+        "instances": 39749,
+        "producerParts": 300,
+        "accentParts": 32
+      },
+      "churn": false,
+      "capacity": 96,
+      "epoch": 1,
+      "snapshotsReceived": 57,
+      "camera": "route",
+      "meanFrameMs": 16.66226623433993,
+      "p50FrameMs": 16.75,
+      "maxConveyorWorkMs": 1.764499997079838,
+      "memoryBeforeMb": 3730.09765625,
+      "memoryAfterMb": 3728.87890625,
+      "snapshotEntitiesReceived": 8322
+    },
+    "status": {
+      "p99FrameMs": 18.25,
+      "frames": 3601,
+      "Running": true,
+      "p95FrameMs": 17.75,
+      "SampleStatus": "Complete",
+      "sampleSeconds": 60.00134980000439,
+      "maxFrameMs": 30.247699469327927,
+      "snapshotsReceived": 57,
+      "maxConveyorWorkMs": 1.764499997079838,
+      "capacity": 96,
+      "epoch": 1,
+      "Camera": "route",
+      "meanConveyorWorkMs": 0.38317770061507095,
+      "meanFrameMs": 16.66226623433993,
+      "memoryAfterMb": 3728.87890625,
+      "memoryBeforeMb": 3730.09765625,
+      "p50FrameMs": 16.75,
+      "snapshotEntitiesReceived": 8322
+    },
+    "snapshotsReceived": 2035,
+    "lastSnapshot": {
+      "producers": 50,
+      "revision": 2040,
+      "minis": 96,
+      "plotId": 1
+    },
+    "snapshotEntitiesReceived": 281900
+  },
+  "recoveryEnd": {
+    "inventory": {
+      "meshParts": 1135,
+      "miniParts": 576,
+      "accentParts": 32,
+      "plots": {
+        "Plot6": {
+          "producerParts": 50,
+          "minis": 96,
+          "producers": 50,
+          "miniParts": 96
+        },
+        "Plot3": {
+          "producerParts": 50,
+          "minis": 96,
+          "producers": 50,
+          "miniParts": 96
+        },
+        "Plot1": {
+          "producerParts": 50,
+          "minis": 96,
+          "producers": 50,
+          "miniParts": 96
+        },
+        "Plot2": {
+          "producerParts": 50,
+          "minis": 96,
+          "producers": 50,
+          "miniParts": 96
+        },
+        "Plot5": {
+          "producerParts": 50,
+          "minis": 96,
+          "producers": 50,
+          "miniParts": 96
+        },
+        "Plot4": {
+          "producerParts": 50,
+          "minis": 96,
+          "producers": 50,
+          "miniParts": 96
+        }
+      },
+      "producerModels": 300,
+      "accentFolders": 16,
+      "producerParts": 300,
+      "worldDescendants": 39749,
+      "miniModels": 576,
+      "parts": 35279
+    },
+    "assets": {
+      "worldAndTemplateUniqueMeshes": 47,
+      "worldUniqueMeshes": 33,
+      "worldUniqueTextures": 13,
+      "templateMeshParts": 47,
+      "worldAndTemplateUniqueTextures": 15
+    },
+    "tags": {
+      "ConveyorMini": {
+        "total": 576,
+        "inGeneratedWorld": 576,
+        "outsideWorkspace": 0
+      },
+      "BrainrotProducer": {
+        "total": 300,
+        "inGeneratedWorld": 300,
+        "outsideWorkspace": 0
+      }
+    },
+    "elapsedMs": 15.44139999896288,
+    "memory": {
+      "totalMb": 3728.33984375,
+      "trackingEnabled": true,
+      "luaHeapKb": 11292,
+      "tagsMb": {
+        "LuaHeap": 923.729248046875,
+        "GraphicsTextureCharacter": 5.974330902099609,
+        "GraphicsSpatialHash": 6.8731689453125,
+        "Internal": 1445.39599609375,
+        "GraphicsParts": 29.752159118652344,
+        "Sounds": 6.066558837890625,
+        "StreamingSounds": 0,
+        "GraphicsSlimModels": 0,
+        "GraphicsTerrain": 49.426666259765625,
+        "GraphicsMeshParts": 19.538238525390625,
+        "GraphicsSolidModels": 0,
+        "Script": 272.36602783203125,
+        "Animation": 32.88902282714844,
+        "HttpCache": 0.2328643798828125,
+        "GraphicsTexture": 39.41836929321289,
+        "GeometryCSG": 0,
+        "TerrainVoxels": 8.632057189941406,
+        "BaseParts": 1997.1588134765625,
+        "Navigation": 0.00006103515625,
+        "GraphicsParticles": 11.904304504394531,
+        "PhysicsCollision": 0.0152435302734375,
+        "Signals": 107.48844146728516,
+        "Instances": 228.53671264648438,
+        "Gui": 47.631004333496094
+      },
+      "instanceCount": 89116
+    },
+    "harness": {
+      "churn": false,
+      "status": "Ready",
+      "epoch": 1,
+      "snapshotsEnabled": true,
+      "capacityPerFarm": 96
+    },
+    "note": "No GC forced. Memory sampled before inventory. Tags/instances are snapshots, not retained Lua-reference inspection. Category values are not summed; they may overlap. Disabled tracking leaves category/total fields absent.",
+    "sampledAt": 44539.522076199995,
+    "errors": [],
+    "context": "Client",
+    "camera": {
+      "position": {
+        "1": -160.2799835205078,
+        "2": 31.19999885559082,
+        "3": -63.87799072265625
+      },
+      "mode": "route"
+    }
+  }
+}

@@ -10,6 +10,9 @@ local Map=require(Shared.MapSpec)
 local MiniEvent=require(Shared.MiniEvent)
 local MultiplierDisplay=require(script.Parent.Services.MultiplierDisplay)
 local Core=require(script.Parent.Domain.FarmCore)
+local ObbyRun=require(script.Parent.Domain.ObbyRun)
+local ObbyService=require(script.Parent.Services.ObbyService)
+local ObbyConfig=require(Shared.ObbyConfig)
 local Limiter=require(script.Parent.Domain.RateLimiter)
 local World=require(script.Parent.Services.WorldBuilder)
 local LuckyCarry=require(script.Parent.Services.LuckyCarry)
@@ -24,6 +27,7 @@ if not RunService:IsStudio() then
     warn('[MergeABrainrot] Studio-only memory mode; live progression disabled.'); return
 end
 local core=Core.new(Config,Catalog)
+local obby=ObbyService.new(core,ObbyRun,ObbyConfig)
 local hub=World.build()
 local eventDisplay=MultiplierDisplay.new(hub.root)
 local eventValue=MiniEvent.Initial
@@ -40,6 +44,7 @@ local function send(player: Player)
     local state: any=core:snapshot(session); state.status=session.phase; state.memoryOnly=true; state.serverNow=os.clock()
     state.plotId=worlds[player].id; state.plotCFrame=worlds[player].frame; state.sessionKey=session.key
     state.timePlayed=math.floor(os.clock()-(session.joinedAt or os.clock()))
+    state.obby=obby:snapshot(player)
     snapshot:FireClient(player,state)
 end
 local function render(player: Player)
@@ -60,11 +65,16 @@ local function context(player: Player)
     local pos=if foot and world then world.frame:PointToObjectSpace(foot)/Map.PlotScale else nil
     local pickupPos=if root and world then world.frame:PointToObjectSpace(root.Position)/Map.PlotScale else nil
     return {now=os.clock(),alive=humanoid~=nil and humanoid.Health>0 and root~=nil,position=pos and {x=pos.X,y=pos.Y,z=pos.Z},
-        pickupPosition=pickupPos and {x=pickupPos.X,y=pickupPos.Y,z=pickupPos.Z}}
+        pickupPosition=pickupPos and {x=pickupPos.X,y=pickupPos.Y,z=pickupPos.Z},
+        worldPosition=foot and {x=foot.X,y=foot.Y,z=foot.Z}}
 end
 local function moveHome(player: Player,character: Model)
     local root=character:WaitForChild('HumanoidRootPart',10)
-    if root and player.Parent==Players and sessions[player] and player.Character==character then character:PivotTo(worlds[player].frame*CFrame.new(Map.Spawn.Position*Map.PlotScale+Vector3.new(0,2,0))*Map.Spawn.Rotation) end
+    if root and player.Parent==Players and sessions[player] and player.Character==character then
+        local changed=obby:reset(player,'Home',os.clock())
+        character:PivotTo(worlds[player].frame*CFrame.new(Map.Spawn.Position*Map.PlotScale+Vector3.new(0,2,0))*Map.Spawn.Rotation)
+        if changed then send(player) end
+    end
 end
 local function attach(player: Player)
     if sessions[player] then return end
@@ -74,10 +84,13 @@ local function attach(player: Player)
     owners[chosen.id]=player; worlds[player]=chosen
     player.RespawnLocation=chosen.spawn
     sessions[player]=core:newSession(player.UserId,os.clock(),HttpService:GenerateGUID(false))
+    obby:attach(player,sessions[player])
     core:setEvent(sessions[player],eventValue)
     sessions[player].joinedAt=os.clock()
     World.setOwner(chosen,player); refreshPasses(player)
     connections[player]=player.CharacterAdded:Connect(function(c)
+        local changed=obby:reset(player,'Respawn',os.clock())
+        if changed then send(player) end
         local session=sessions[player]
         if session and session.state.lucky and session.state.lucky.held then
             local state=core:snapshot(session);state.lucky.held=false;core:commit(session,state);render(player);send(player)
@@ -116,6 +129,7 @@ end)
 Players.PlayerAdded:Connect(attach)
 Players.PlayerRemoving:Connect(function(player)
     local session=sessions[player]; if session then session.phase='Closing'; sessions[player]=nil end
+    obby:detach(player)
     buckets[player]=nil
     if connections[player] then connections[player]:Disconnect(); connections[player]=nil end
     local world=worlds[player]
@@ -123,6 +137,19 @@ Players.PlayerRemoving:Connect(function(player)
     for _,waiting in Players:GetPlayers() do if waiting~=player and not sessions[waiting] then attach(waiting) end end
 end)
 for _,player in Players:GetPlayers() do attach(player) end
+task.spawn(function()
+    while true do
+        task.wait(.1)
+        for player in sessions do
+            local sample=context(player)
+            local changed,bonusChanged=obby:update(player,{now=sample.now,alive=sample.alive,position=sample.worldPosition})
+            if changed then
+                if bonusChanged then render(player) end
+                send(player)
+            end
+        end
+    end
+end)
 task.spawn(function()
     local nextBoards=0
     while true do
@@ -137,7 +164,10 @@ task.spawn(function()
             if session.state.lucky and session.state.lucky.held and not context(player).alive then
                 local dropped=core:snapshot(session);dropped.lucky.held=false;core:commit(session,dropped);render(player);send(player)
             end
-            if core:step(session,os.clock()) then render(player); send(player) end
+            local sample=context(player)
+            local changed,farmChanged=obby:step(player,{now=sample.now,alive=sample.alive,position=sample.worldPosition})
+            if farmChanged then render(player) end
+            if changed then send(player) end
         end
         if os.clock()>=nextBoards then
             nextBoards=os.clock()+3; local entries={}

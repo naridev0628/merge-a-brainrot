@@ -68,14 +68,16 @@ function Art.brick(parent: GuiObject,color: Color3)
     end
     return art
 end
-local function preparePortrait(v: ViewportFrame,model: Model)
+local function preparePortrait(v: ViewportFrame,model: Model,delegatedPreload: boolean?)
     -- Mesh content is not guaranteed to have loaded when a template is cloned.
     -- Keep the WorldModel and reveal only after the preload attempt completes.
     v.Visible=false
-    task.spawn(function()
-        pcall(function() ContentProvider:PreloadAsync(model:GetDescendants()) end)
-        if v.Parent then v.Visible=true end
-    end)
+    if not delegatedPreload then
+        task.spawn(function()
+            pcall(function() ContentProvider:PreloadAsync(model:GetDescendants()) end)
+            if v.Parent then v.Visible=true end
+        end)
+    end
     local cf,extent=model:GetBoundingBox(); local camera=Instance.new('Camera'); camera.FieldOfView=35
     camera.CFrame=CFrame.lookAt(cf.Position+Vector3.new(extent.X*.22,extent.Y*.09,-math.max(extent.Y,extent.X,extent.Z)*1.85),cf.Position)
     camera.Parent=v; v.CurrentCamera=camera
@@ -88,7 +90,7 @@ function Art.portrait(parent: Instance,speciesId: string,pos: UDim2,size: UDim2,
     if silhouette then v.ImageColor3=Color3.new(0,0,0) end
     preparePortrait(v,model); return v
 end
-function Art.luckyPortrait(parent: Instance,pos: UDim2,size: UDim2)
+function Art.luckyPortrait(parent: Instance,pos: UDim2,size: UDim2,delegatedPreload: boolean?)
     local v=Instance.new('ViewportFrame'); v.Name='LuckyBlockPortrait'; v.Position=pos; v.Size=size; v.BackgroundTransparency=1; v.Ambient=Color3.fromRGB(235,235,235); v.LightColor=Color3.new(1,1,1); v.LightDirection=Vector3.new(-1,-1,-2); v.Parent=parent
     local world=Instance.new('WorldModel'); world.Parent=v
     local model=Instance.new('Model'); model.Name='LuckyBlock'; model.Parent=world
@@ -100,7 +102,7 @@ function Art.luckyPortrait(parent: Instance,pos: UDim2,size: UDim2)
             glyph(surface,'?',UDim2.fromScale(.1,.05),UDim2.fromScale(.8,.9),Color3.new(1,1,1))
         end
     end
-    preparePortrait(v,model)
+    preparePortrait(v,model,delegatedPreload)
     local cf,extent=model:GetBoundingBox(); local distance=math.max(extent.X,extent.Y,extent.Z)*2.45
     local camera=v.CurrentCamera
     if camera then camera.CFrame=CFrame.lookAt(cf.Position+Vector3.new(1,.72,-1).Unit*distance,cf.Position) end

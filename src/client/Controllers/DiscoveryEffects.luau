@@ -3,22 +3,30 @@ local Shared=game:GetService('ReplicatedStorage'):WaitForChild('Shared')
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
 local Factory=require(Shared:WaitForChild('ModelFactory'))
 local Style=require(Shared:WaitForChild('TextStyle'))
-local TweenService=game:GetService('TweenService')
 local RunService=game:GetService('RunService')
-local ContentProvider=game:GetService('ContentProvider')
+local Runtime=require(script.Parent:WaitForChild('VisualRuntime'))
+local Queue=require(script.Parent:WaitForChild('VisualQueue'))
 local Discovery={}
 function Discovery.new(gui: ScreenGui)
-    local queue={}; local running=false
-    return function(speciesId: string,_isNew: boolean?)
-        if not Catalog[speciesId] then return end
-        table.insert(queue,{id=speciesId})
-        if running then return end
-        running=true
-        task.spawn(function()
-            while #queue>0 do
-                local item=table.remove(queue,1); local species=Catalog[item.id]
-                if not gui.Parent then table.clear(queue); break end
+    local queue=Queue.new(6)
+    local current: any=nil
+    local lifetime=Runtime.new(gui,function() queue:clear() end)
+    lifetime:own(function() if current then current:finish('cancelled') end end)
+    local pump: ()->()
+    pump=function()
+        if current or not lifetime:alive() then return end
+        local id=queue:take()
+        if not id then return end
+        local species=Catalog[id]
+        local sequence=Runtime.new(gui,function()
+            current=nil;queue:complete(id)
+            if lifetime:alive() then lifetime:after(0,pump) end
+        end)
+        current=sequence
+        sequence:run(function()
                 local card=Instance.new('Frame'); card.Name='NewDiscovery'; card.Size=UDim2.new(.8,0,0,218); card.AnchorPoint=Vector2.new(.5,.5); card.Position=UDim2.fromScale(.5,.48); card.BackgroundTransparency=1; card.ZIndex=35; card.Visible=false; card.Parent=gui
+                sequence:own(function() card:Destroy() end)
+                Runtime.watch(sequence,card)
                 local cardSize=Instance.new('UISizeConstraint');cardSize.MaxSize=Vector2.new(300,218);cardSize.Parent=card
                 local scale=Instance.new('UIScale'); scale.Scale=.6; scale.Parent=card
                 local burst=Instance.new('Frame'); burst.Name='SpiralShadows'; burst.AnchorPoint=Vector2.new(.5,.5); burst.Position=UDim2.new(.5,0,0,78); burst.Size=UDim2.fromOffset(260,260); burst.BackgroundTransparency=1; burst.ZIndex=34; burst.Parent=card
@@ -41,16 +49,23 @@ function Discovery.new(gui: ScreenGui)
                 name.Font=Enum.Font.FredokaOne; name.TextSize=34; name.TextScaled=true; name.TextWrapped=true; name.Position=UDim2.fromOffset(0,166); name.Size=UDim2.new(1,0,0,52); name.ZIndex=36; name.Parent=card
                 local nameSize=Instance.new('UITextSizeConstraint'); nameSize.MinTextSize=22; nameSize.MaxTextSize=34; nameSize.Parent=name
                 Style.apply(name,32,Color3.fromRGB(table.unpack(species.color)),3)
-                pcall(function() ContentProvider:PreloadAsync(model:GetDescendants()) end)
-                if not card.Parent or not gui.Parent then card:Destroy(); table.clear(queue); break end
-                card.Visible=true
-                local rotation=RunService.RenderStepped:Connect(function(dt) if burst.Parent then burst.Rotation+=dt*18 end end)
-                TweenService:Create(scale,TweenInfo.new(.25,Enum.EasingStyle.Back),{Scale=1}):Play()
-                task.wait(2.75)
-                TweenService:Create(scale,TweenInfo.new(.25),{Scale=0}):Play(); task.wait(.25); rotation:Disconnect(); card:Destroy()
-            end
-            running=false
+                Runtime.load(sequence,model:GetDescendants(),function(loaded)
+                    if not card.Parent or not gui.Parent then sequence:finish('cancelled');return end
+                    -- Keep the name/burst readable even when the mesh is unavailable.
+                    viewport.Visible=loaded;card.Visible=true
+                    local rotation=RunService.RenderStepped:Connect(function(dt) if burst.Parent then burst.Rotation+=dt*18 end end)
+                    sequence:own(function() rotation:Disconnect() end)
+                    Runtime.tween(sequence,scale,TweenInfo.new(.25,Enum.EasingStyle.Back),{Scale=1})
+                    sequence:after(2.75,function()
+                        Runtime.tween(sequence,scale,TweenInfo.new(.25),{Scale=0})
+                        sequence:after(.25,function() sequence:finish('complete') end)
+                    end)
+                end)
         end)
+    end
+    return function(speciesId: string,_isNew: boolean?)
+        if not lifetime:alive() or not Catalog[speciesId] or not queue:push(speciesId) then return end
+        pump()
     end
 end
 return Discovery

@@ -3,8 +3,9 @@ local Preferences=require(script.Parent:WaitForChild('Preferences'))
 local Panel={Height=270}
 
 function Panel.new(view: any,button: any,text: any,frame: any,Art: any,C: any)
-    local header=Instance.new('Frame');header.Name='SettingsHeader';header.BackgroundTransparency=1;header.Size=UDim2.fromOffset(40,40);header.Position=UDim2.fromOffset(10,5);header.Parent=view.panel
-    Art.icon(header,'gear',UDim2.fromScale(0,0),UDim2.fromScale(1,1))
+    local header=frame(view.panel,'SettingsHeader',C.blue);header.Size=UDim2.new(1,0,0,52);header.ZIndex=0
+    Art.brick(header,C.blue)
+    Art.icon(header,'gear',UDim2.fromOffset(10,5),UDim2.fromOffset(40,40))
     local viewport=Instance.new('ScrollingFrame');viewport.Name='SettingsViewport';viewport.BackgroundTransparency=1;viewport.BorderSizePixel=0;viewport.ScrollBarThickness=4;viewport.ScrollingDirection=Enum.ScrollingDirection.Y;viewport.CanvasSize=UDim2.fromOffset(0,208);viewport.Parent=view.panel
     local content=Instance.new('Frame');content.Name='SettingsContent';content.Size=UDim2.new(1,-6,0,208);content.BackgroundTransparency=1;content.Parent=viewport
     local disconnects={}
@@ -15,6 +16,7 @@ function Panel.new(view: any,button: any,text: any,frame: any,Art: any,C: any)
         local amount=text(row,'Amount',19,C.cream);amount.Position=UDim2.new(1,-84,0,0);amount.Size=UDim2.fromOffset(44,52)
         local decrease=button(row,'Decrease','−',C.blue);decrease.Position=UDim2.new(1,-126,0,4);decrease.Size=UDim2.fromOffset(40,44);decrease.TextSize=25
         local increase=button(row,'Increase','+',C.blue);increase.Position=UDim2.new(1,-40,0,4);increase.Size=UDim2.fromOffset(36,44);increase.TextSize=25
+        Art.brick(decrease,C.blue);Art.brick(increase,C.blue)
         table.insert(rows,{root=row,label=label,amount=amount,decrease=decrease,increase=increase})
         local function adjust(direction: number)
             local value=assert(Preferences.get(spec.key))
@@ -29,6 +31,7 @@ function Panel.new(view: any,button: any,text: any,frame: any,Art: any,C: any)
         end))
     end
     local reset=button(content,'ResetDefaults','Reset audio',C.amber);reset.Position=UDim2.fromOffset(4,118);reset.Size=UDim2.new(1,-8,0,40);reset.TextSize=19
+    Art.brick(reset,C.amber)
     reset.Activated:Connect(function() Preferences.reset() end)
     local status=text(content,'SessionNotice',14,C.cream);status.Text='Session only. Resets on rejoin.';status.Position=UDim2.fromOffset(6,164);status.Size=UDim2.new(1,-12,0,40)
     view.gui.Destroying:Connect(function() for _,disconnect in disconnects do disconnect() end end)

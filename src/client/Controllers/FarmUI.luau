@@ -3,6 +3,7 @@ local Shared=game:GetService('ReplicatedStorage'):WaitForChild('Shared')
 local Catalog=require(Shared:WaitForChild('CreatureCatalog'))
 local Config=require(Shared:WaitForChild('Config'))
 local Economy=require(Shared:WaitForChild('Economy'))
+local FarmCapacity=require(Shared:WaitForChild('FarmCapacity'))
 local Tutorial=require(Shared:WaitForChild('Tutorial'))
 local PassConfig=require(Shared:WaitForChild('PassConfig'))
 local Style=require(Shared:WaitForChild('TextStyle'))
@@ -387,7 +388,7 @@ function UI.setContext(self: any,kind: string?,quantity: string?)
     else
         local unlock=Config.BuyUnlocks[self.quantity]
         local quote=Economy.purchaseQuote(Config,s,self.quantity)
-        self.contextText.Text=if quote.code=='Locked' then 'Unlocks at rebirth '..unlock else tostring(math.max(0,Config.Slots-#s.producers))..' spaces left'
+        self.contextText.Text=if quote.code=='Locked' then 'Unlocks at rebirth '..unlock else FarmCapacity.hint(Config,s)
         self.contextButton.Text=if quote.code=='Locked' then 'LOCKED - Rebirth '..unlock
             elseif quote.code=='ClaimStarter' then 'Buy your first Brainrot on the $5 pad'
             elseif quote.code=='PlotFull' then 'Not enough space - merge!'
@@ -433,7 +434,7 @@ function UI.drawMerge(self: any)
     local s=self.state
     if not s then return end
     local signature=self.mode..tostring(self.pending)..table.concat(self.selected,',')
-    if s then signature..=tostring(s.coinUnits)..':'..s.rebirths..':'..s.cashMultiplier..':'..tostring(s.lucky and s.lucky.id)..':'..tostring(s.lucky and s.lucky.held)..':'..tostring(s.autoCollect)..':'..tostring(s.autoSell)..':'..s.miniMultiplier; for _,p in s.producers do signature..=p.id..p.speciesId end end
+    if s then signature..=tostring(s.coinUnits)..':'..s.rebirths..':'..s.cashMultiplier..':'..tostring(s.lucky and s.lucky.id)..':'..tostring(s.lucky and s.lucky.held)..':'..tostring(s.autoCollect)..':'..tostring(s.autoSell)..':'..s.miniMultiplier..':'..tostring(s.eventHundredths)..':'..tostring(s.obbyBonusHundredths or 0); for _,p in s.producers do signature..=p.id..p.speciesId end end
     if self.signature==signature then return end; self.signature=signature
     local scroll=self.list.CanvasPosition
     for _,child in self.list:GetChildren() do if child:IsA('GuiObject') then child:Destroy() end end

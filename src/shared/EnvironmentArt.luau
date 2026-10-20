@@ -2,6 +2,7 @@
 -- Original, asset-free brick scenery. Tree/lighthouse pivots sit on the ground;
 -- the octagon pivot is the center of its walkable top face.
 local Environment = {}
+local BrickStudOcclusion = require(script.Parent.BrickStudOcclusion)
 
 local wood = Color3.fromRGB(105, 64, 32)
 local bark = Color3.fromRGB(128, 80, 39)
@@ -42,13 +43,34 @@ local function stud(parent: Instance, cf: CFrame, color: Color3, budget: StudBud
     block(parent, 'SquareStud', Vector3.new(width, .14, width), cf, color:Lerp(white, .075), false)
 end
 
-local function studdedBrick(parent: Instance, name: string, size: Vector3, cf: CFrame, color: Color3, solid: boolean, budget: StudBudget, sides: boolean?): Part
-    local body = block(parent, name, size, cf, color, solid)
+local function coveredTopStud(cf: CFrame, cover: Part): boolean
+    if cover.Transparency~=0 or cover.Shape~=Enum.PartType.Block then return false end
+    local relative=cover.CFrame:ToObjectSpace(cf)
+    local right,up,back=relative.RightVector,relative.UpVector,relative.LookVector
+    local hx=math.abs(right.X)*.24+math.abs(up.X)*.07+math.abs(back.X)*.24
+    local hy=math.abs(right.Y)*.24+math.abs(up.Y)*.07+math.abs(back.Y)*.24
+    local hz=math.abs(right.Z)*.24+math.abs(up.Z)*.07+math.abs(back.Z)*.24
+    local p,size=relative.Position,cover.Size
+    return BrickStudOcclusion.isFullyInside(p.X,p.Y,p.Z,hx,hy,hz,size.X,size.Y,size.Z)
+end
+
+local function brickStuds(body: Part, budget: StudBudget, sides: boolean?, topCover: Part?, originalColor: Color3?)
+    local parent=body.Parent :: Instance
+    -- Tree palettes contain fractional channels; preserve them until the stud
+    -- blend rather than blending a second time from BasePart's 8-bit readback.
+    local size,cf,color=body.Size,body.CFrame,originalColor or body.Color
     local columns = math.max(1, math.floor(size.X / 1.55))
     local rows = math.max(1, math.floor(size.Z / 1.55))
     for x = 1, columns do
         for z = 1, rows do
-            stud(parent, cf * CFrame.new((x - (columns + 1) / 2) * 1.55, size.Y / 2 + .07, (z - (rows + 1) / 2) * 1.55), color, budget)
+            local studCF=cf * CFrame.new((x - (columns + 1) / 2) * 1.55, size.Y / 2 + .07, (z - (rows + 1) / 2) * 1.55)
+            if topCover and coveredTopStud(studCF,topCover) then
+                -- Preserve the old allocation, including any later side/roof
+                -- cutoff. Hidden ornaments must not spend their budget elsewhere.
+                budget.remaining=math.max(0,budget.remaining-1)
+            else
+                stud(parent, studCF, color, budget)
+            end
         end
     end
     if sides then
@@ -65,6 +87,11 @@ local function studdedBrick(parent: Instance, name: string, size: Vector3, cf: C
             end
         end
     end
+end
+
+local function studdedBrick(parent: Instance, name: string, size: Vector3, cf: CFrame, color: Color3, solid: boolean, budget: StudBudget, sides: boolean?): Part
+    local body = block(parent, name, size, cf, color, solid)
+    brickStuds(body,budget,sides,nil,color)
     return body
 end
 
@@ -149,11 +176,15 @@ function Environment.lighthouse(parent: Instance, cf: CFrame, scale: number): Mo
     model.Name = 'RedWhiteLighthouse'
     model:SetAttribute('NativeBrickArt', true)
     local budget: StudBudget = {remaining = 660}
-    studdedBrick(model, 'CreamFoundation', Vector3.new(10.6, 1, 10.6), CFrame.new(0, .5, 0), cream, true, budget)
+    local tower: {Part}={}
+    local function towerBrick(name: string,size: Vector3,cf: CFrame,color: Color3)
+        table.insert(tower,block(model,name,size,cf,color,true))
+    end
+    towerBrick('CreamFoundation', Vector3.new(10.6, 1, 10.6), CFrame.new(0, .5, 0), cream)
     for index = 0, 5 do
         local y = 1 + index * 4
-        studdedBrick(model, 'RedTowerBand', Vector3.new(8.2, 3, 8.2), CFrame.new(0, y + 1.5, 0), red, true, budget, true)
-        studdedBrick(model, 'WhiteTowerBand', Vector3.new(8.7, 1, 8.7), CFrame.new(0, y + 3.5, 0), white, true, budget, true)
+        towerBrick('RedTowerBand', Vector3.new(8.2, 3, 8.2), CFrame.new(0, y + 1.5, 0), red)
+        towerBrick('WhiteTowerBand', Vector3.new(8.7, 1, 8.7), CFrame.new(0, y + 3.5, 0), white)
     end
     -- A front door and small deep blue windows on all four faces.
     local dark = Color3.fromRGB(37, 51, 58)
@@ -167,7 +198,12 @@ function Environment.lighthouse(parent: Instance, cf: CFrame, scale: number): Mo
             block(model, 'BlueWindow', Vector3.new(1.1, 1.5, .3), turn * CFrame.new(0, y, -4.4), Color3.fromRGB(65, 125, 152), false)
         end
     end
-    studdedBrick(model, 'LanternBalcony', Vector3.new(10, .8, 10), CFrame.new(0, 25.4, 0), cream, true, budget)
+    towerBrick('LanternBalcony', Vector3.new(10, .8, 10), CFrame.new(0, 25.4, 0), cream)
+    -- Actual opaque Parts provide the covers. Delay ornament creation until the
+    -- next brick exists, while the unfinished model is still outside Workspace.
+    for index,body in tower do
+        brickStuds(body,budget,index>1 and index<#tower,tower[index+1])
+    end
     for _, x in {-3.65, 3.65} do
         for _, z in {-3.65, 3.65} do
             block(model, 'LanternPillar', Vector3.new(.65, 4.3, .65), CFrame.new(x, 27.9, z), white, true)
@@ -190,14 +226,19 @@ function Environment.lighthouse(parent: Instance, cf: CFrame, scale: number): Mo
     light.Parent = beacon
     -- Replenish a small roof allocation so its uppermost plates always get studs.
     budget.remaining = 110
+    local roof: {Part}={}
     for index, width in {10.3, 8.5, 6.5, 4.3} do
-        studdedBrick(model, 'SteppedCreamRoof', Vector3.new(width, .7, width), CFrame.new(0, 30.25 + (index - 1) * .7, 0), cream, true, budget)
+        table.insert(roof,block(model, 'SteppedCreamRoof', Vector3.new(width, .7, width), CFrame.new(0, 30.25 + (index - 1) * .7, 0), cream, true))
+    end
+    for index,body in roof do
+        brickStuds(body,budget,false,roof[index+1])
     end
     block(model, 'RoofFinial', Vector3.new(.75, 1.3, .75), CFrame.new(0, 33.35, 0), red, false)
     return finish(model, parent, cf, scale)
 end
 
-function Environment.octagon(parent: Instance, center: CFrame, radius: number, thickness: number, color: Color3): Model
+function Environment.octagon(parent: Instance, center: CFrame, radius: number, thickness: number, color: Color3,
+    skipStud: ((number,number,number,number,number) -> boolean)?): Model
     assert(radius > 0 and thickness > 0, 'Octagon radius and thickness must be positive')
     local model = Instance.new('Model')
     model.Name = 'StuddedOctagonalPlatform'
@@ -232,7 +273,10 @@ function Environment.octagon(parent: Instance, center: CFrame, radius: number, t
         for z = -limit, limit do
             local px, pz = x * pitch, z * pitch
             if math.abs(px) + math.abs(pz) + width <= radius + a then
-                stud(model, CFrame.new(px, .07, pz), color, budget, width)
+                -- Callback uses the octagon's local coordinates and full height.
+                if not skipStud or not skipStud(px,pz,width,0,.14) then
+                    stud(model, CFrame.new(px, .07, pz), color, budget, width)
+                end
             end
         end
     end
