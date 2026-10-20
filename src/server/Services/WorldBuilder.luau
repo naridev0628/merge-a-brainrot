@@ -424,36 +424,7 @@ function World.render(world: any,state: any)
     world.badgePart.CFrame=world.frame*CFrame.new(Vector3.new(0,44+(rowCount-1)*Config.RowHeight,Config.DisplayZ)*Map.PlotScale)
     for row=1,rowCount do
         if not world.rows:FindFirstChild(tostring(row)) then
-            local shelf=Instance.new('Model'); shelf.Name=tostring(row); shelf.WorldPivot=CFrame.identity
-            local rowY=(row-1)*Config.RowHeight
-            local platformHeight=Config.DisplayPlatformHeight
-            local lift=platformHeight-.5
-            local bayWidth=Config.ColumnSpacing-.1
-            local studSpread=Config.ColumnSpacing*.37
-            local base=Factory.part(shelf,'ShelfBase',Vector3.new(Config.Columns*Config.ColumnSpacing+1,.45,7),CFrame.new(0,.225+rowY,Config.DisplayZ),orange)
-            base.TopSurface=Enum.SurfaceType.Studs
-            for column=1,Config.Columns do
-                local slot=(row-1)*Config.Columns+column; local pos=layout:slotPosition(slot)
-                local plinth=Factory.part(shelf,'DisplayPlatform',Vector3.new(Config.ColumnSpacing*.88,platformHeight,5.7),CFrame.new(pos.x,platformHeight/2+rowY,Config.DisplayZ),Color3.fromRGB(255,223,122)); plinth.TopSurface=Enum.SurfaceType.Studs
-                for dx=-studSpread,studSpread,studSpread/2 do for _,dz in {-1.8,0,1.8} do
-                    Factory.part(shelf,'DisplayBrickStud',Vector3.new(.7,.16,.7),CFrame.new(pos.x+dx,platformHeight+.08+rowY,Config.DisplayZ+dz),Color3.fromRGB(255,237,167))
-                end end
-                Factory.part(shelf,'DisplayBack',Vector3.new(bayWidth,5.8,.25),CFrame.new(pos.x,3.1+lift+rowY,Config.DisplayZ+3.45),Color3.fromRGB(178,128,52))
-                Factory.part(shelf,'DisplayDivider',Vector3.new(.22,4.5,6.8),CFrame.new(pos.x-bayWidth/2,2.45+lift+rowY,Config.DisplayZ),Color3.fromRGB(217,164,66))
-                local glow=Factory.part(shelf,'Slot'..slot,Vector3.new(Config.ColumnSpacing*.9,.12,5.9),CFrame.new(pos.x,platformHeight-.12+rowY,Config.DisplayZ),orange); glow.Material=Enum.Material.Neon
-                local h=rowY+lift
-                for x=-studSpread,studSpread,studSpread/2 do
-                    for y=1,5.2,1.05 do Factory.part(shelf,'BackStud',Vector3.new(.42,.42,.15),CFrame.new(pos.x+x,h+y,Config.DisplayZ+3.25),Color3.fromRGB(212,164,87)) end
-                    for _,z in {-2.7,2.7} do Factory.part(shelf,'PlatformStud',Vector3.new(.42,.12,.42),CFrame.new(pos.x+x,h+.52,Config.DisplayZ+z),Color3.fromRGB(255,234,150)) end
-                end
-                for _,side in {-1,1} do for z=-2.5,2.5,1.25 do for y=1,4.2,1.05 do
-                    Factory.part(shelf,'DividerStud',Vector3.new(.15,.42,.42),CFrame.new(pos.x-bayWidth/2+side*.18,h+y,Config.DisplayZ+z),Color3.fromRGB(242,199,112))
-                end end end
-                Factory.part(shelf,'DividerTopTrim',Vector3.new(.38,.22,7),CFrame.new(pos.x-bayWidth/2,h+4.8,Config.DisplayZ),Color3.fromRGB(255,215,103))
-                Factory.part(shelf,'BayTopTrim',Vector3.new(bayWidth,.25,.42),CFrame.new(pos.x,h+6,Config.DisplayZ+3.45),Color3.fromRGB(255,215,103))
-                Factory.part(shelf,'PlatformFrontTrim',Vector3.new(bayWidth,platformHeight,.4),CFrame.new(pos.x,rowY+platformHeight/2,Config.DisplayZ-3.4),Color3.fromRGB(255,195,42))
-                for x=-studSpread,studSpread,studSpread/2 do Factory.part(shelf,'PlatformFrontStud',Vector3.new(.55,.55,.18),CFrame.new(pos.x+x,rowY+platformHeight/2,Config.DisplayZ-3.66),Color3.fromRGB(255,217,105)) end
-            end
+            local shelf=require(Shared.DisplayShelves).buildRow(row,layout)
             placeScaled(shelf,world.frame); shelf.Parent=world.rows; task.wait()
             if generation~=world.renderGeneration then return end
         end
