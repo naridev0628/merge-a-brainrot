@@ -2,6 +2,10 @@
 local root=assert(workspace:FindFirstChild('MergeABrainrotGenerated'))
 local Config=require(game.ReplicatedStorage.Shared.Config)
 local Map=require(game.ReplicatedStorage.Shared.MapSpec)
+local function matchesColor(a: Color3,b: Color3): boolean
+    -- BasePart colors are stored in 8-bit channels.
+    return math.abs(a.R-b.R)<=1/255 and math.abs(a.G-b.G)<=1/255 and math.abs(a.B-b.B)<=1/255
+end
 local function footprint(part: BasePart,frame: CFrame)
     local lo,hi=Vector3.new(math.huge,math.huge,math.huge),Vector3.new(-math.huge,-math.huge,-math.huge)
     for _,x in {-1,1} do for _,y in {-1,1} do for _,z in {-1,1} do
@@ -17,13 +21,54 @@ for id=1,Config.PlotCount do
     local frame=plot:GetPivot()
     local protected={}
     for _,p in plot:GetChildren() do
-        if p:IsA('BasePart') and (p.Name:match('^Buy%d+$') or p.Name:match('^Pass_') or p.Name=='DepositPad' or p.Name=='CoinPad' or p.Name=='UpgradePad' or p.Name=='FinishNowPad' or p.Name=='MergePad' or p.Name=='GroupRewardPad') then
+        local passKey=p.Name:match('^Pass_(.+)$')
+        local isPassPad=passKey~=nil and Map.PassPads[passKey]~=nil
+        if p:IsA('BasePart') and (p.Name:match('^Buy%d+$') or isPassPad or p.Name=='DepositPad' or p.Name=='CoinPad' or p.Name=='UpgradePad' or p.Name=='FinishNowPad' or p.Name=='MergePad' or p.Name=='GroupRewardPad') then
             local lo,hi=footprint(p,frame);table.insert(protected,{lo=lo,hi=hi,name=p.Name})
         end
     end
     local s=Map.PlotScale
-    table.insert(protected,{lo=Vector3.new(-34,0,62)*s,hi=Vector3.new(34,0,70)*s,name='Producer rows'})
-    table.insert(protected,{lo=Vector3.new(-52,0,50)*s,hi=Vector3.new(52,0,60)*s,name='Conveyor lanes'})
+    table.insert(protected,{lo=Vector3.new(-34,0,Config.DisplayZ-4)*s,hi=Vector3.new(34,0,Config.DisplayZ+4)*s,name='Producer rows'})
+    table.insert(protected,{lo=Vector3.new(-52,0,Config.BeltZ-5)*s,hi=Vector3.new(52,0,Config.BeltZ+5)*s,name='Conveyor lanes'})
+    for i,a in protected do for j=i+1,#protected do
+        local b=protected[j]
+        assert(a.hi.X<=b.lo.X-.15 or a.lo.X>=b.hi.X+.15 or a.hi.Z<=b.lo.Z-.15 or a.lo.Z>=b.hi.Z+.15,a.name..' overlaps '..b.name)
+    end end
+    local trayLo,trayHi=footprint(plot.CollectionTray,frame)
+    for _,zone in protected do
+        if zone.name=='Conveyor lanes' then continue end
+        assert(trayHi.X<=zone.lo.X-.15 or trayLo.X>=zone.hi.X+.15 or trayHi.Z<=zone.lo.Z-.15 or trayLo.Z>=zone.hi.Z+.15,'Collection tray overlaps '..zone.name)
+    end
+    local frontLo,frontHi=footprint(plot.StuddedLawn,frame)
+    local rearLo,rearHi=footprint(plot.WideFarmRear,frame)
+    assert(math.abs(frontHi.Z-rearLo.Z)<.01,'Lawn must connect to rear bank without a gap')
+    assert(math.abs(rearHi.Z-Config.PlotBackZ*s)<.01 and math.abs(frontLo.Z+38*s)<.01,'Expanded plot must retain its front edge and reach the back wall')
+    assert(Config.BuyZ-Map.Spawn.Position.Z>=35,'Purchase row must leave an open forecourt')
+    local chuteLo,chuteHi=footprint(plot.ConveyorCenter,frame)
+    local beltLo=footprint(plot.ConveyorBelt,frame)
+    assert(chuteLo.Z<=trayHi.Z+.01 and chuteHi.Z>=beltLo.Z-.01,'Tray and conveyor must have a continuous center chute')
+    for _,quantity in {'1','5','10','100'} do
+        local title=plot['Buy'..quantity].Label.Text
+        assert(title.Font==Enum.Font.FredokaOne and title.TextSize>=30 and title:FindFirstChildOfClass('UIStroke'),'Purchase title needs a bold rounded outline')
+        assert(title.Parent.Price.Position.Y.Offset>=title.Size.Y.Offset-2,'Purchase price must remain below its title')
+    end
+    for _,name in {'Buy1','Buy5','Buy10','Buy100','UpgradePad'} do
+        local pad=plot[name]
+        local affordable=pad:GetAttribute('Affordable')
+        if affordable~=nil then
+            local color=if affordable then Color3.fromRGB(96,238,43) else Color3.fromRGB(244,90,94)
+            assert(pad.Color==color,name..' must show its current affordability')
+            for _,detail in plot:GetChildren() do
+                if detail.Name==name..'Stud' then assert(matchesColor(detail.Color,color:Lerp(Color3.new(1,1,1),.12)),'Stud affordability color is stale')
+                elseif detail.Name==name..'Edge' then assert(matchesColor(detail.Color,color:Lerp(Color3.new(1,1,1),.3)),'Trim affordability color is stale') end
+            end
+        end
+    end
+    local farmer=assert(plot.DepositBooth:FindFirstChild('Shopkeeper'))
+    assert(math.abs(farmer.Size.Y-5.5)<.01,'Farmer must be avatar height in world studs')
+    for _,row in plot.StackRows:GetChildren() do for _,part in row:GetChildren() do
+        if part.Name=='DisplayPlatform' then assert(math.abs(part.Size.Y-Config.DisplayPlatformHeight*s)<.01,'Producer stands must retain their raised thickness') end
+    end end
     local signatures={}
     for _,p in decor:GetDescendants() do if p:IsA('BasePart') then
         local lo,hi=footprint(p,frame)

@@ -3,13 +3,13 @@
     "Anchored": true,
     "CanQuery": false,
     "CanCollide": false,
-    "TextureID": "rbxassetid://122055703541613",
-    "MeshId": "rbxassetid://118562479134657",
+    "TextureID": "rbxassetid://106744919046324",
+    "MeshId": "rbxassetid://109325364572574",
     "CanTouch": false,
     "Size": [
-      4.190000534057617,
-      4.014499664306641,
-      4.190000534057617
+      4.010000705718994,
+      4.084499359130859,
+      4.010000228881836
     ]
   },
   "className": "MeshPart"

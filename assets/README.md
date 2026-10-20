@@ -73,7 +73,7 @@ Map GLBs map to identically named files in `map/roblox`, for example `BrickTree.
 | BrickLilyPad | 120321747160351 | 70625725014519 |
 | Shopkeeper | 98971650045663 | 70625725014519 |
 | BrickRockIsland | 132359487497933 | 92286468279093 |
-| LuckyBlock | 118562479134657 | 122055703541613 |
+| LuckyBlock | 109325364572574 | 106744919046324 |
 | CoolTralalero | 97742083681887 | 106777814112940 |
 | BrainrotNest | 89792719614296 | 83615912467282 |
 
@@ -94,7 +94,9 @@ Counts below come from the checked-in generator stats files, not estimated rende
 | Skibidi | 7,196 | 2,488 |
 | Crocodilo | 10,002 | 2,838 |
 
-Map meshes range from BrickGrass at 176 triangles to BrickBarn at 14,652. BrickRockIsland has 10,064, LuckyBlock 5,028, CoolTralalero 7,900, and BrainrotNest 3,876. All current individual GLB exports are below 15,000 triangles; the nest is below its 4,000-triangle target. Totals depend on how many instances the map displays.
+Map meshes range from BrickGrass at 176 triangles to BrickBarn at 14,652. BrickRockIsland has 10,064, the refined LuckyBlock has 11,860, CoolTralalero 7,900, and BrainrotNest 3,876. All current individual GLB exports are below 15,000 triangles; the nest is below its 4,000-triangle target. Totals depend on how many instances the map displays.
+
+`map/blender/LuckyBlock.blend` is the editable refined Lucky Block source. Its GLB/FBX and single UV0 palette include raised square top studs, integrated beveled question marks, white corner caps and a yellow-to-orange body. `LuckyBlock.stats.json` records 11,860 triangles and 6,504 vertices. Both the held world mesh and card preview were visually verified in Studio Play after import.
 
 Detailed counts are in `characters/blender/mesh-stats.json`, `skibidi-stats.json`, `Crocodilo-stats.json`, and `map/blender/mesh-stats.json`, `bonus-stats.json`, `BrainrotNest-stats.json`.
 

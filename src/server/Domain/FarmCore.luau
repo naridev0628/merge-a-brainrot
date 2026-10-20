@@ -9,7 +9,7 @@ export type State = {
     producers: {Producer}, bag: {Good}, tokens: {Token}, discoveries: {[string]: boolean},
     starterClaimed: boolean, saleQueue: {{units: number,due: number,count: number?,interval: number?}}, soldUnits: number,
     cashMultiplier: number, autoCollect: boolean, autoSell: boolean, miniMultiplier: number, processorLevel: number,
-    lucky: {id: string,baseTier: number}?,
+    lucky: {id: string,baseTier: number,held: boolean?}?,
 }
 export type Result = {code: string, revision: number?, creditUnits: number?, replayed: boolean?, speciesId: string?, count: number?, counts: {[string]: number}?}
 export type Context = {now: number, alive: boolean, position: Position?, pickupPosition: Position?}
@@ -19,6 +19,8 @@ local Economy: any
 if env.script then Economy=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.Economy) else Economy=require('../../shared/Economy') end
 local PickupGeometry: any
 if env.script then PickupGeometry=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.PickupGeometry) else PickupGeometry=require('../../shared/PickupGeometry') end
+local MiniMotion: any
+if env.script then MiniMotion=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.MiniMotion) else MiniMotion=require('../../shared/MiniMotion') end
 local PadGeometry: any
 if env.script then PadGeometry=(require :: any)(env.game:GetService('ReplicatedStorage').Shared.PadGeometry) else PadGeometry=require('../../shared/PadGeometry') end
 local Core = {}
@@ -55,7 +57,7 @@ end
 function Core.slotPosition(self: any, slot: number): Position
     local c=self.config
     return {x=c.OriginX+((c.Columns-1)/2-(slot-1)%c.Columns)*c.ColumnSpacing,
-        y=0.5+math.floor((slot-1)/c.Columns)*c.RowHeight,z=c.DisplayZ}
+        y=(c.DisplayPlatformHeight or .5)+math.floor((slot-1)/c.Columns)*c.RowHeight,z=c.DisplayZ}
 end
 function Core.newSession(self: any, owner: number, now: number, key: string): Session
     local s: Session = {
@@ -74,7 +76,8 @@ function Core.validate(self: any, st: State, owner: number): boolean
     if (st.starterClaimed and #st.producers==0) or (not st.starterClaimed and #st.producers>0) then return false end
     if st.cashMultiplier~=1 and st.cashMultiplier~=2 and st.cashMultiplier~=4 and st.cashMultiplier~=8 then return false end
     if not integer(st.processorLevel,0,#c.ProcessorCosts) or not integer(st.miniMultiplier,1,2) then return false end
-    if st.lucky and (not validString(st.lucky.id) or not integer(st.lucky.baseTier,2,6)) then return false end
+    if st.lucky and (not validString(st.lucky.id) or not integer(st.lucky.baseTier,2,6)
+        or (st.lucky.held~=nil and type(st.lucky.held)~='boolean')) then return false end
     local reserved=st.coinUnits+st.soldUnits
     local lastDue=-math.huge
     for _,sale in st.saleQueue do
@@ -231,7 +234,7 @@ end
 function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, ctx: Context): Result
     local function reject(code: string): Result return {code=code,revision=s.state.revision} end
     if s.phase~="Ready" then return reject("Unavailable") end
-    local sizes: {[string]: number}={Collect=1,CollectNearby=1,AutoMerge=1,Deposit=1,Claim=1,Buy=2,Merge=3,Rebirth=1,Upgrade=1,OpenLucky=3}
+    local sizes: {[string]: number}={Collect=1,CollectNearby=1,AutoMerge=1,Deposit=1,Claim=1,Buy=2,Merge=3,Rebirth=1,Upgrade=1,OpenLucky=3,PickupLucky=2,DropLucky=2,DiscardLucky=2}
     if type(requestedAction)~='string' then return reject('BadRequest') end
     local action: string=tostring(requestedAction)
     local size=sizes[action]
@@ -268,7 +271,8 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
         local center=ctx.pickupPosition or {x=(ctx.position :: Position).x,y=(ctx.position :: Position).y+3,z=(ctx.position :: Position).z}
         for index=#st.tokens,1,-1 do
             local t=st.tokens[index]
-            if picked<room and t.owner==s.owner and ctx.now>=t.readyAt and PickupGeometry.contains(center,t,c.PickupRadius) then
+            local current=MiniMotion.position(c,t,ctx.now)
+            if picked<room and t.owner==s.owner and current and PickupGeometry.contains(center,current,c.PickupRadius) then
                 table.remove(st.tokens,index); Economy.add(st.bag,t.speciesId,t.baseCoinValue)
                 counts[t.speciesId]=(counts[t.speciesId] or 0)+1; picked+=1
             end
@@ -301,8 +305,9 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
         for i,t in st.tokens do if t.id==requestId and t.owner==s.owner then index=i; break end end
         if not index then return reject("MissingToken") end
         local t=st.tokens[index]
-        if ctx.now<t.readyAt then return reject('InTransit') end
-        if distance(ctx.position :: Position,t)>c.CollectDistance then return reject("TooFar") end
+        local current=MiniMotion.position(c,t,ctx.now)
+        if not current then return reject('InTransit') end
+        if distance(ctx.position :: Position,current)>c.CollectDistance then return reject("TooFar") end
         if Economy.count(st.bag)>=c.BagCap then return reject("BagFull") end
         table.remove(st.tokens,index)
         Economy.add(st.bag,t.speciesId,t.baseCoinValue)
@@ -338,10 +343,20 @@ function Core.dispatch(self: any, s: Session, requestedAction: any, args: any, c
             end
             st.tutorialStep=if #st.producers>=2 then math.max(st.tutorialStep,6) else st.tutorialStep
         end
+    elseif action=='PickupLucky' or action=='DropLucky' or action=='DiscardLucky' then
+        local lucky=st.lucky
+        if not lucky or lucky.id~=args[2] then return reject('MissingLucky') end
+        if action=='PickupLucky' then
+            if not lucky.held and distance(ctx.position :: Position,{x=c.LuckyX,y=1.6,z=c.LuckyZ})>c.LuckyPickupRadius then return reject('TooFar') end
+            lucky.held=true
+        else
+            if not lucky.held then return reject('NotHoldingLucky') end
+            if action=='DropLucky' then lucky.held=false else st.lucky=nil end
+        end
     elseif action=='OpenLucky' then
         local lucky=st.lucky
         if not lucky or lucky.id~=args[2] then return reject('MissingLucky') end
-        if distance(ctx.position :: Position,{x=0,y=1.6,z=24})>c.CollectDistance then return reject('TooFar') end
+        if not lucky.held then return reject('NotHoldingLucky') end
         local cost=c.LuckyBaseUnits+#st.producers*c.LuckyPerProducerUnits
         if args[3]~=tostring(cost) then return reject('PriceChanged') end
         if #st.producers>=c.Slots then return reject('PlotFull') end

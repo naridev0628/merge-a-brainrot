@@ -13,6 +13,11 @@ local Core=require(script.Parent.Parent.Domain.FarmCore)
 local layout=Core.new(Config,Catalog)
 local World={}
 local orange=Color3.fromRGB(255,174,22)
+local function cashText(units: number): string
+    local digits=string.format('%.0f',units/4)
+    local grouped=string.reverse(digits):gsub('(%d%d%d)','%1,')
+    return '$'..string.reverse(grouped):gsub('^,','')
+end
 local function placeScaled(model: Model,transform: CFrame)
     local pivot=model:GetPivot()
     model:ScaleTo(model:GetScale()*Map.PlotScale)
@@ -32,6 +37,18 @@ local function pad(parent: Instance,name: string,size: Vector3,cf: CFrame,color:
         Factory.part(parent,name..'Stud',Vector3.new(.7,.18,.7),cf*CFrame.new(x,size.Y/2+.09,z),color:Lerp(Color3.new(1,1,1),.12))
     end end
     return p
+end
+local function padAvailability(part: BasePart,affordable: boolean)
+    if part:GetAttribute('Affordable')==affordable then return end
+    part:SetAttribute('Affordable',affordable)
+    local color=if affordable then Color3.fromRGB(96,238,43) else Color3.fromRGB(244,90,94)
+    part.Color=color
+    for _,detail in part.Parent:GetChildren() do
+        if detail:IsA('BasePart') then
+            if detail.Name==part.Name..'Stud' then detail.Color=color:Lerp(Color3.new(1,1,1),.12)
+            elseif detail.Name==part.Name..'Edge' then detail.Color=color:Lerp(Color3.new(1,1,1),.3) end
+        end
+    end
 end
 local function fence(parent: Instance,cf: CFrame,length: number)
     local wood=Color3.fromRGB(171,111,65)
@@ -55,57 +72,75 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local root=Instance.new('Model'); root.Name='Plot'..id; root.WorldPivot=CFrame.identity
     local lawn=Factory.part(root,'StuddedLawn',Vector3.new(96,1,82),CFrame.new(0,-.5,3),Color3.fromRGB(114,210,37),nil,true)
     lawn.TopSurface=Enum.SurfaceType.Studs
-    local rear=Factory.part(root,'WideFarmRear',Vector3.new(112,1,30),CFrame.new(0,-.5,59),lawn.Color,nil,true);rear.TopSurface=Enum.SurfaceType.Studs
+    local rearDepth=Config.PlotBackZ-Config.PlotRearStartZ
+    local rearCenter=(Config.PlotBackZ+Config.PlotRearStartZ)/2
+    local rear=Factory.part(root,'WideFarmRear',Vector3.new(112,1,rearDepth),CFrame.new(0,-.5,rearCenter),lawn.Color,nil,true);rear.TopSurface=Enum.SurfaceType.Studs
     local stallFloor=Factory.part(root,'FarmerAlcove',Vector3.new(20,1,12),CFrame.new(27,-.5,-44),lawn.Color,nil,true);stallFloor.TopSurface=Enum.SurfaceType.Studs
-    for x=-54,54,4 do for z=-36,72,4 do if z>=44 or math.abs(x)<=46 then Factory.part(root,'LawnStud',Vector3.new(1,.12,1),CFrame.new(x,.06,z),Color3.fromRGB(124,217,37)) end end end
+    for x=-54,54,4 do for z=-36,Config.PlotBackZ-2,4 do if z>=Config.PlotRearStartZ or math.abs(x)<=46 then Factory.part(root,'LawnStud',Vector3.new(1,.12,1),CFrame.new(x,.06,z),Color3.fromRGB(124,217,37)) end end end
     for _,side in {-1,1} do
         fence(root,CFrame.new(side*48,0,3)*CFrame.Angles(0,math.pi/2,0),82)
-        fence(root,CFrame.new(side*52,0,44),8)
-        fence(root,CFrame.new(side*56,0,59)*CFrame.Angles(0,math.pi/2,0),30)
+        fence(root,CFrame.new(side*52,0,Config.PlotRearStartZ),8)
+        fence(root,CFrame.new(side*56,0,rearCenter)*CFrame.Angles(0,math.pi/2,0),rearDepth)
     end
     fence(root,CFrame.new(-32.5,0,-38),31)
     fence(root,CFrame.new(42.5,0,-38),11)
     fence(root,CFrame.new(27,0,-50),20)
     for _,x in {17,37} do fence(root,CFrame.new(x,0,-44)*CFrame.Angles(0,math.pi/2,0),12) end
-    local back=Factory.part(root,'BackWall',Vector3.new(112,5,1.5),CFrame.new(0,2.5,74),orange,nil,true); back.TopSurface=Enum.SurfaceType.Studs
+    local back=Factory.part(root,'BackWall',Vector3.new(112,5,1.5),CFrame.new(0,2.5,Config.PlotBackZ),orange,nil,true); back.TopSurface=Enum.SurfaceType.Studs
     local pads={}
     for _,quantity in {'1','5','10','100'} do
         local purchase=pad(root,'Buy'..quantity,Vector3.new(10,.4,7),CFrame.new(Config.BuyPads[quantity],.2,Config.BuyZ),if quantity=='1' then Color3.fromRGB(96,238,43) else Color3.fromRGB(244,90,94))
-        pads[quantity]=Factory.label(purchase,'BUY '..quantity,130,64); pads[quantity].TextSize=17
+        local title=Factory.label(purchase,'Buy '..quantity,170,102)
+        title.Size=UDim2.new(1,0,0,38);title.TextSize=32;title.TextWrapped=false;title.TextColor3=Color3.fromRGB(255,241,209)
+        title.Parent.StudsOffset=Vector3.new(0,4.1,0);title.Parent.MaxDistance=32
+        local outline=Instance.new('UIStroke');outline.Color=Color3.new(0,0,0);outline.Thickness=2.2;outline.Parent=title
+        local price=title:Clone();price.Name='Price';price.Position=UDim2.fromOffset(0,36);price.Size=UDim2.new(1,0,0,40);price.TextSize=36;price.Text=if quantity=='1' then '$5' else cashText(Economy.buyCost(0,tonumber(quantity),1));price.TextColor3=Color3.fromRGB(132,255,0);price.Parent=title.Parent
+        price.TextScaled=true
+        local priceSize=Instance.new('UITextSizeConstraint');priceSize.MinTextSize=18;priceSize.MaxTextSize=36;priceSize.Parent=price
+        local detail=title:Clone();detail.Name='Detail';detail.Position=UDim2.fromOffset(0,78);detail.Size=UDim2.new(1,0,0,24);detail.TextSize=13;detail.Text='';detail.Parent=title.Parent
+        detail.TextScaled=true
+        local detailSize=Instance.new('UITextSizeConstraint');detailSize.MinTextSize=9;detailSize.MaxTextSize=13;detailSize.Parent=detail
+        pads[quantity]=title
     end
     local deposit=pad(root,'DepositPad',Vector3.new(Map.DepositHalfSize.X*2,.4,Map.DepositHalfSize.Y*2),CFrame.new(Map.Sell),Color3.fromRGB(255,229,95))
     local depositLabel=Factory.label(deposit,'Deposit Minis',220,42);depositLabel.TextSize=26;depositLabel.TextColor3=Color3.fromRGB(255,235,166);depositLabel.Parent.StudsOffset=Vector3.new(0,3.3,0)
     local depositOutline=Instance.new('UIStroke');depositOutline.Thickness=2;depositOutline.Color=Color3.fromRGB(45,28,12);depositOutline.Parent=depositLabel
     for _,side in {-1,1} do
-        local a=Factory.part(root,'DepositGlow',Vector3.new(18.4,.16,.3),CFrame.new(Map.Sell+Vector3.new(0,.28,side*5)),Color3.fromRGB(255,255,100));a.Material=Enum.Material.Neon
-        local b=Factory.part(root,'DepositGlow',Vector3.new(.3,.16,10),CFrame.new(Map.Sell+Vector3.new(side*9,.28,0)),Color3.fromRGB(255,255,100));b.Material=Enum.Material.Neon
+        local a=Factory.part(root,'DepositGlow',Vector3.new(18.6,.2,.5),CFrame.new(Map.Sell+Vector3.new(0,.28,side*5)),Color3.fromRGB(255,255,65));a.Material=Enum.Material.Neon
+        local b=Factory.part(root,'DepositGlow',Vector3.new(.5,.2,10),CFrame.new(Map.Sell+Vector3.new(side*9,.28,0)),Color3.fromRGB(255,255,65));b.Material=Enum.Material.Neon
+        local haloA=Factory.part(root,'DepositGlowHalo',Vector3.new(19.1,.08,1.05),CFrame.new(Map.Sell+Vector3.new(0,.22,side*5)),Color3.fromRGB(255,240,24));haloA.Material=Enum.Material.Neon;haloA.Transparency=.55
+        local haloB=Factory.part(root,'DepositGlowHalo',Vector3.new(1.05,.08,10),CFrame.new(Map.Sell+Vector3.new(side*9,.22,0)),Color3.fromRGB(255,240,24));haloB.Material=Enum.Material.Neon;haloB.Transparency=.55
     end
-    local glow=Instance.new('PointLight');glow.Color=Color3.fromRGB(255,230,65);glow.Brightness=1.2;glow.Range=8;glow.Parent=deposit
+    local glow=Instance.new('PointLight');glow.Color=Color3.fromRGB(255,230,65);glow.Brightness=2.8;glow.Range=12;glow.Parent=deposit
     local booth=Instance.new('Model'); booth.Name='DepositBooth'; booth.Parent=root
     local boothFloor=Factory.part(booth,'BoothFoundation',Vector3.new(15,.45,8),CFrame.new(-30,.22,-3),Color3.fromRGB(106,119,176));boothFloor.TopSurface=Enum.SurfaceType.Studs
     for _,dx in {-6,6} do
-        Factory.part(booth,'BoothPost',Vector3.new(1,10,1),CFrame.new(-30+dx,5,-4),Color3.fromRGB(115,73,39))
-        for y=1,9,1.6 do Factory.part(booth,'PostStud',Vector3.new(.45,.45,.15),CFrame.new(-30+dx,y,-4.56),Color3.fromRGB(150,96,53)) end
+        Factory.part(booth,'BoothPost',Vector3.new(1,17,1),CFrame.new(-30+dx,8.5,-4),Color3.fromRGB(115,73,39))
+        for y=1,16,1.6 do Factory.part(booth,'PostStud',Vector3.new(.45,.45,.15),CFrame.new(-30+dx,y,-4.56),Color3.fromRGB(150,96,53)) end
     end
     for stripe=1,8 do
         local stripeColor=if stripe%2==0 then Color3.fromRGB(255,240,208) else Color3.fromRGB(239,52,46)
-        local awning=Factory.part(booth,'Awning',Vector3.new(1.7,.7,7),CFrame.new(-37.65+stripe*1.7,10,-3),stripeColor); awning.TopSurface=Enum.SurfaceType.Studs
-        Factory.part(booth,'AwningFringe',Vector3.new(1.7,1.4,.5),CFrame.new(-37.65+stripe*1.7,9.3,-6.3),stripeColor)
-        for _,y in {9,9.7} do Factory.part(booth,'AwningStud',Vector3.new(.65,.45,.18),CFrame.new(-37.65+stripe*1.7,y,-6.62),stripeColor:Lerp(Color3.new(1,1,1),.1)) end
+        local awning=Factory.part(booth,'Awning',Vector3.new(1.7,.7,7),CFrame.new(-37.65+stripe*1.7,17,-3),stripeColor); awning.TopSurface=Enum.SurfaceType.Studs
+        Factory.part(booth,'AwningFringe',Vector3.new(1.7,1.4,.5),CFrame.new(-37.65+stripe*1.7,16.3,-6.3),stripeColor)
+        for _,y in {16,16.7} do Factory.part(booth,'AwningStud',Vector3.new(.65,.45,.18),CFrame.new(-37.65+stripe*1.7,y,-6.62),stripeColor:Lerp(Color3.new(1,1,1),.1)) end
     end
-    Factory.part(booth,'Counter',Vector3.new(13,.6,3),CFrame.new(-30,2.8,-5),Color3.fromRGB(134,82,36))
-    Factory.prop(booth,'Shopkeeper',CFrame.new(-30,0,-2),.95)
-    Factory.part(booth,'MiniSignFrame',Vector3.new(9.6,3.1,.6),CFrame.new(-30,7.25,-4.8),Color3.fromRGB(87,53,38))
-    Factory.part(booth,'MiniSignFace',Vector3.new(8.8,2.45,.1),CFrame.new(-30,7.25,-5.16),Color3.fromRGB(152,111,91))
+    Factory.part(booth,'Counter',Vector3.new(13,.6,3),CFrame.new(-30,5.2,-5),Color3.fromRGB(134,82,36))
+    local farmer=Factory.prop(booth,'Shopkeeper',CFrame.new(-30,.45,-2))
+    if farmer then
+        farmer.Size*=(5.5/Map.PlotScale)/farmer.Size.Y
+        farmer.CFrame=CFrame.new(-30,.45+farmer.Size.Y/2,-2)
+    end
+    Factory.part(booth,'MiniSignFrame',Vector3.new(11.6,3.8,.6),CFrame.new(-30,13.5,-4.8),Color3.fromRGB(87,53,38))
+    Factory.part(booth,'MiniSignFace',Vector3.new(10.8,3.1,.1),CFrame.new(-30,13.5,-5.16),Color3.fromRGB(152,111,91))
     for i,tier in {1,2,4} do
-        local icon=Factory.producer(booth,'SignMini',Catalog[string.format('tier_%02d',tier)],Vector3.new(-32+i*1.6,6.3,-5.5),true)
-        icon:ScaleTo(.7)
+        local icon=Factory.producer(booth,'SignMini',Catalog[string.format('tier_%02d',tier)],Vector3.new(-33+i*2.4,12.2,-5.5),true)
+        icon:ScaleTo(1.1)
     end
     -- Raised brick arrow stays visible with the miniature models on the sign.
     local function arrowLayer(padding: number,color: Color3,depth: number)
-        Factory.part(booth,'DepositArrow',Vector3.new(.42+padding,1.5+padding,.1),CFrame.new(-33,7.35,depth),color)
+        Factory.part(booth,'DepositArrow',Vector3.new(.55+padding,1.8+padding,.1),CFrame.new(-34,13.6,depth),color)
         for _,side in {-1,1} do
-            Factory.part(booth,'DepositArrow',Vector3.new(.42+padding,1.05+padding,.1),CFrame.new(-33+side*.3,6.85,depth)*CFrame.Angles(0,0,-side*math.pi/4),color)
+            Factory.part(booth,'DepositArrow',Vector3.new(.55+padding,1.2+padding,.1),CFrame.new(-34+side*.36,13,depth)*CFrame.Angles(0,0,-side*math.pi/4),color)
         end
     end
     arrowLayer(.17,Color3.fromRGB(42,27,17),-5.38)
@@ -159,12 +194,13 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     for key,position in Map.PassPads do
         local passPad=pad(root,'Pass_'..key,Vector3.new(8,.4,6),CFrame.new(position),Color3.fromRGB(255,222,35))
         passPad:SetAttribute('PassKey',key); local label=Factory.label(passPad,PassConfig[key].name..'\nComing soon',125,54); label.TextSize=14; label.Parent.MaxDistance=26
+        if key=='autoCollect' then label.Text='Auto Collect\nComing soon';label.TextSize=20;label.TextColor3=Color3.fromRGB(255,241,209);label.Parent.StudsOffset=Vector3.new(0,4.1,0);local outline=Instance.new('UIStroke');outline.Color=Color3.new(0,0,0);outline.Thickness=2;outline.Parent=label end
     end
     local claim=pad(root,'CoinPad',Vector3.new(15,.4,10),CFrame.new(Map.Claim),Color3.fromRGB(107,234,82))
     local saleLabel=Factory.label(claim,'Collect cash\n$0',155,50);saleLabel.TextColor3=Color3.fromRGB(130,255,44);saleLabel.TextSize=20
     local merge=pad(root,'MergePad',Vector3.new(10,.4,7),CFrame.new(Map.Merge),Color3.fromRGB(252,219,50))
-    Factory.label(merge,'MERGE',140,44)
-    local sign=Factory.part(root,'OwnerSign',Vector3.new(14,4,1),CFrame.new(0,4,72),Color3.fromRGB(157,91,31))
+    Factory.label(merge,'Merge',140,44)
+    local sign=Factory.part(root,'OwnerSign',Vector3.new(14,4,1),CFrame.new(0,4,Config.PlotBackZ-2),Color3.fromRGB(157,91,31))
     local ownerLabel=Factory.label(sign,'BRAINROT FARM',260,58)
     local badgePart=Factory.part(root,'OwnerBadgeAnchor',Vector3.one,CFrame.new(0,44,Config.DisplayZ),orange); badgePart.Transparency=1
     local badge=Instance.new('BillboardGui'); badge.Name='OwnerBadge'; badge.Size=UDim2.fromOffset(220,120); badge.MaxDistance=500; badge.AlwaysOnTop=true; badge.Parent=badgePart
@@ -178,7 +214,9 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     local belt=Factory.part(root,'ConveyorBelt',Vector3.new(102,.4,8),CFrame.new(0,.5,Config.BeltZ),Color3.fromRGB(222,61,62),nil,true); belt.TopSurface=Enum.SurfaceType.Studs
     Factory.part(root,'ConveyorBackRail',Vector3.new(104,1,1),CFrame.new(0,.9,Config.BeltZ+4.6),orange,nil,true)
     for _,x in {-30,30} do Factory.part(root,'ConveyorFrontRail',Vector3.new(44,1,1),CFrame.new(x,.9,Config.BeltZ-4.6),orange,nil,true) end
-    Factory.part(root,'ConveyorCenter',Vector3.new(14,.4,12),CFrame.new(0,.5,49),Color3.fromRGB(222,61,62))
+    local chuteStart=Config.TrayZ+6
+    local chuteEnd=Config.BeltZ-4
+    Factory.part(root,'ConveyorCenter',Vector3.new(14,.4,chuteEnd-chuteStart+1),CFrame.new(0,.5,(chuteStart+chuteEnd)/2),Color3.fromRGB(222,61,62))
     Factory.part(root,'CollectionTray',Vector3.new(16,.4,12),CFrame.new(0,.45,Config.TrayZ),Color3.fromRGB(239,95,71))
     for _,x in {-8,8} do Factory.part(root,'TrayRim',Vector3.new(.7,.8,12),CFrame.new(x,.8,Config.TrayZ),orange,nil,true) end
     Factory.part(root,'TrayFront',Vector3.new(16,.6,.7),CFrame.new(0,.7,Config.TrayZ-6),orange,nil,true)
@@ -190,7 +228,7 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
     end
     local plotDecor=Instance.new('Model');plotDecor.Name='PlotDecor';plotDecor.WorldPivot=CFrame.identity;plotDecor.Parent=root
     -- Identical authored locations, variants and sizes on every plot; keep all play areas clear.
-    for _,spec in {{Vector3.new(-48,0,67),.8,2,.3},{Vector3.new(48,0,67),.9,1,0},{Vector3.new(-43,0,-7),.65,3,0}} do
+    for _,spec in {{Vector3.new(-48,0,Config.DisplayZ+1),.8,2,.3},{Vector3.new(48,0,Config.DisplayZ+1),.9,1,0},{Vector3.new(-43,0,-7),.65,3,0}} do
         Environment.tree(plotDecor,CFrame.new(spec[1])*CFrame.Angles(0,spec[4],0),spec[2],spec[3])
     end
     for _,spot in {Vector3.new(-43,0,18),Vector3.new(44,0,0)} do
@@ -206,11 +244,26 @@ local function buildPlot(parent: Instance,id: number,transform: CFrame)
         local guestPivot=roofGuest:GetPivot()
         roofGuest:PivotTo(CFrame.lookAt(guestPivot.Position,Vector3.new(0,guestPivot.Position.Y,18)))
     end
-    local groupCF=CFrame.new(-47,7,6)*CFrame.Angles(0,-math.pi/2,0)
+    local groupCF=CFrame.new(-47,9,6)*CFrame.Angles(0,-math.pi/2,0)
+    for _,x in {-6.5,6.5} do
+        local support=Factory.part(root,'GroupBoardSupport',Vector3.new(.9,9,.9),groupCF*CFrame.new(x,-4.5,.1),Color3.fromRGB(101,62,34));support.TopSurface=Enum.SurfaceType.Studs
+    end
     local groupBoard=Factory.part(root,'GroupRewardBoard',Vector3.new(17,10,.8),groupCF,Color3.fromRGB(153,101,56),nil,true)
     for x=-7,7,2 do for y=-4,4,2 do Factory.part(root,'GroupBoardStud',Vector3.new(.7,.7,.15),groupCF*CFrame.new(x,y,-.48),Color3.fromRGB(188,133,82)) end end
+    for _,y in {-5,5} do Factory.part(root,'GroupBoardFrame',Vector3.new(17.6,.55,1),groupCF*CFrame.new(0,y,0),Color3.fromRGB(103,61,31)) end
+    for _,x in {-8.5,8.5} do Factory.part(root,'GroupBoardFrame',Vector3.new(.55,10,1),groupCF*CFrame.new(x,0,0),Color3.fromRGB(103,61,31)) end
     local groupGui=Instance.new('SurfaceGui');groupGui.Face=Enum.NormalId.Front;groupGui.CanvasSize=Vector2.new(510,300);groupGui.AlwaysOnTop=true;groupGui.Parent=groupBoard
-    local groupText=Instance.new('TextLabel');groupText.Size=UDim2.fromScale(1,1);groupText.BackgroundTransparency=1;groupText.Text='GROUP REWARD\nJoin our group\nComing soon';groupText.Font=Enum.Font.FredokaOne;groupText.TextSize=38;groupText.TextColor3=Color3.fromRGB(255,239,194);groupText.TextStrokeTransparency=0;groupText.Parent=groupGui
+    for _,line in {
+        {name='Reward',text='Free money every\n10 minutes!',y=22,height=104,size=43,color=Color3.fromRGB(147,228,139)},
+        {name='Instructions',text='Like the game +\nJoin the group',y=143,height=94,size=42,color=Color3.new(1,1,1)},
+        {name='Status',text='Coming soon',y=252,height=30,size=25,color=Color3.fromRGB(255,239,194)},
+    } do
+        local label=Instance.new('TextLabel');label.Name=line.name;label.Size=UDim2.new(1,-30,0,line.height);label.Position=UDim2.fromOffset(15,line.y);label.BackgroundTransparency=1;label.Text=line.text;label.Font=Enum.Font.FredokaOne;label.TextSize=line.size;label.TextColor3=line.color;label.TextStrokeTransparency=0;label.TextStrokeColor3=Color3.new(0,0,0);label.Parent=groupGui
+        local outline=Instance.new('UIStroke');outline.Thickness=2.3;outline.Color=Color3.new(0,0,0);outline.Parent=label
+    end
+    local groupLogCF=groupCF*CFrame.new(0,-8.3,-1.8)
+    local groupLog=Factory.part(root,'GroupBoardFootLog',Vector3.new(7,1.4,1.6),groupLogCF,Color3.fromRGB(145,88,43));groupLog.TopSurface=Enum.SurfaceType.Studs
+    for x=-2.8,2.8,1.4 do for _,z in {-.4,.4} do Factory.part(root,'GroupLogStud',Vector3.new(.65,.18,.65),groupLogCF*CFrame.new(x,.79,z),Color3.fromRGB(184,120,65)) end end
     pad(root,'GroupRewardPad',Vector3.new(10,.4,7),CFrame.new(-35,.2,6),Color3.fromRGB(181,170,133))
     local spawn=Instance.new('SpawnLocation'); spawn.Name='FarmSpawn'; spawn.Anchored=true; spawn.Transparency=1
     spawn.CanCollide=false; spawn.CanTouch=false; spawn.Size=Vector3.new(6,1,6); spawn.CFrame=Map.Spawn; spawn.Neutral=true; spawn.Parent=root
@@ -247,7 +300,8 @@ function World.build()
     for i=1,6 do
         local angle=(i-1)*math.pi/3
         local outward=Vector3.new(math.sin(angle),0,math.cos(angle))
-        local transform=CFrame.lookAt(outward*150,outward*149)
+        local plotRadius=131+38*Map.PlotScale
+        local transform=CFrame.lookAt(outward*plotRadius,outward*(plotRadius-1))
         table.insert(plots,buildPlot(root,i,transform))
         local bridgeCF=CFrame.lookAt(outward*112.5+Vector3.new(0,-.2,0),outward*113.5+Vector3.new(0,-.2,0))
         local bridge=Factory.part(root,'Bridge',Vector3.new(14,1,37),bridgeCF,Color3.fromRGB(162,111,63),nil,true);bridge.TopSurface=Enum.SurfaceType.Studs
@@ -298,7 +352,7 @@ function World.build()
     for index,position in {Vector3.new(-65,0,25),Vector3.new(65,0,-24)} do
         local facing=CFrame.Angles(0,if index==1 then -.4 else math.pi-.4,0)
         Factory.prop(root,'BrickBarn',CFrame.new(position)*facing,.85)
-        Factory.prop(root,'CoolTralalero',CFrame.new(position+Vector3.new(6,0,-2))*facing,.65)
+        Factory.prop(root,'CoolTralalero',CFrame.new(position+Vector3.new(8,0,-10))*facing,.65)
         Factory.prop(root,'BrickGrass',CFrame.new(position+Vector3.new(-4,0,-3)),1.4)
         Factory.prop(root,'BrickFlower',CFrame.new(position+Vector3.new(4,0,3)),1.1)
     end
@@ -330,15 +384,15 @@ function World.render(world: any,state: any)
     world.renderGeneration=(world.renderGeneration or 0)+1
     local generation=world.renderGeneration
     local block=world.root:FindFirstChild('LuckyBlock')
-    if state.lucky and not block then
-        block=Factory.prop(world.root,'LuckyBlock',world.frame*CFrame.new(Vector3.new(0,.4,24)*Map.PlotScale),Map.PlotScale)
-        if not block then block=Factory.part(world.root,'LuckyBlock',Vector3.new(3.5,3.5,3.5)*Map.PlotScale,world.frame*CFrame.new(Vector3.new(0,2.5,24)*Map.PlotScale),Color3.fromRGB(255,203,21)) end
-        Factory.label(block,'LUCKY BLOCK\nOpen to see rewards',170,55)
+    if state.lucky and not state.lucky.held and not block then
+        block=Factory.prop(world.root,'LuckyBlock',world.frame*CFrame.new(Vector3.new(Config.LuckyX,.4,Config.LuckyZ)*Map.PlotScale),Map.PlotScale)
+        if not block then block=Factory.part(world.root,'LuckyBlock',Vector3.new(3.5,3.5,3.5)*Map.PlotScale,world.frame*CFrame.new(Vector3.new(Config.LuckyX,2.5,Config.LuckyZ)*Map.PlotScale),Color3.fromRGB(255,203,21)) end
+        Factory.label(block,'Lucky Block\nWalk near to hold',170,55)
         if not block:IsA('MeshPart') then for _,face in {Enum.NormalId.Front,Enum.NormalId.Back,Enum.NormalId.Left,Enum.NormalId.Right} do
             local gui=Instance.new('SurfaceGui'); gui.Face=face; gui.CanvasSize=Vector2.new(100,100); gui.Parent=block
             local q=Instance.new('TextLabel'); q.Size=UDim2.fromScale(1,1); q.Text='?'; q.TextSize=80; q.Font=Enum.Font.FredokaOne; q.TextColor3=Color3.new(1,1,1); q.BackgroundTransparency=1; q.Parent=gui
         end end
-    elseif not state.lucky and block then block:Destroy() end
+    elseif (not state.lucky or state.lucky.held) and block then block:Destroy() end
     local present={}
     for _,p in state.producers do
         present[p.id]=true
@@ -363,18 +417,21 @@ function World.render(world: any,state: any)
     for row=1,rowCount do
         if not world.rows:FindFirstChild(tostring(row)) then
             local shelf=Instance.new('Model'); shelf.Name=tostring(row); shelf.WorldPivot=CFrame.identity
-            local base=Factory.part(shelf,'ShelfBase',Vector3.new(67,.35,7),CFrame.new(0,.2+(row-1)*Config.RowHeight,Config.DisplayZ),orange)
+            local rowY=(row-1)*Config.RowHeight
+            local platformHeight=Config.DisplayPlatformHeight
+            local lift=platformHeight-.5
+            local base=Factory.part(shelf,'ShelfBase',Vector3.new(67,.45,7),CFrame.new(0,.225+rowY,Config.DisplayZ),orange)
             base.TopSurface=Enum.SurfaceType.Studs
             for column=1,Config.Columns do
                 local slot=(row-1)*Config.Columns+column; local pos=layout:slotPosition(slot)
-                local plinth=Factory.part(shelf,'DisplayPlatform',Vector3.new(5.7,.5,5.7),CFrame.new(pos.x,.25+(row-1)*Config.RowHeight,Config.DisplayZ),Color3.fromRGB(255,223,122)); plinth.TopSurface=Enum.SurfaceType.Studs
+                local plinth=Factory.part(shelf,'DisplayPlatform',Vector3.new(5.7,platformHeight,5.7),CFrame.new(pos.x,platformHeight/2+rowY,Config.DisplayZ),Color3.fromRGB(255,223,122)); plinth.TopSurface=Enum.SurfaceType.Studs
                 for _,dx in {-1.8,0,1.8} do for _,dz in {-1.8,0,1.8} do
-                    Factory.part(shelf,'DisplayBrickStud',Vector3.new(.7,.16,.7),CFrame.new(pos.x+dx,.58+(row-1)*Config.RowHeight,Config.DisplayZ+dz),Color3.fromRGB(255,237,167))
+                    Factory.part(shelf,'DisplayBrickStud',Vector3.new(.7,.16,.7),CFrame.new(pos.x+dx,platformHeight+.08+rowY,Config.DisplayZ+dz),Color3.fromRGB(255,237,167))
                 end end
-                Factory.part(shelf,'DisplayBack',Vector3.new(6.4,5.8,.25),CFrame.new(pos.x,3.1+(row-1)*Config.RowHeight,Config.DisplayZ+3.45),Color3.fromRGB(178,128,52))
-                Factory.part(shelf,'DisplayDivider',Vector3.new(.22,4.5,6.8),CFrame.new(pos.x-3.2,2.45+(row-1)*Config.RowHeight,Config.DisplayZ),Color3.fromRGB(217,164,66))
-                local glow=Factory.part(shelf,'Slot'..slot,Vector3.new(5.9,.12,5.9),CFrame.new(pos.x,.28+(row-1)*Config.RowHeight,Config.DisplayZ),orange); glow.Material=Enum.Material.Neon
-                local h=(row-1)*Config.RowHeight
+                Factory.part(shelf,'DisplayBack',Vector3.new(6.4,5.8,.25),CFrame.new(pos.x,3.1+lift+rowY,Config.DisplayZ+3.45),Color3.fromRGB(178,128,52))
+                Factory.part(shelf,'DisplayDivider',Vector3.new(.22,4.5,6.8),CFrame.new(pos.x-3.2,2.45+lift+rowY,Config.DisplayZ),Color3.fromRGB(217,164,66))
+                local glow=Factory.part(shelf,'Slot'..slot,Vector3.new(5.9,.12,5.9),CFrame.new(pos.x,platformHeight-.12+rowY,Config.DisplayZ),orange); glow.Material=Enum.Material.Neon
+                local h=rowY+lift
                 for x=-2.4,2.4,1.2 do
                     for y=1,5.2,1.05 do Factory.part(shelf,'BackStud',Vector3.new(.42,.42,.15),CFrame.new(pos.x+x,h+y,Config.DisplayZ+3.25),Color3.fromRGB(212,164,87)) end
                     for _,z in {-2.7,2.7} do Factory.part(shelf,'PlatformStud',Vector3.new(.42,.12,.42),CFrame.new(pos.x+x,h+.52,Config.DisplayZ+z),Color3.fromRGB(255,234,150)) end
@@ -384,7 +441,8 @@ function World.render(world: any,state: any)
                 end end end
                 Factory.part(shelf,'DividerTopTrim',Vector3.new(.38,.22,7),CFrame.new(pos.x-3.2,h+4.8,Config.DisplayZ),Color3.fromRGB(255,215,103))
                 Factory.part(shelf,'BayTopTrim',Vector3.new(6.4,.25,.42),CFrame.new(pos.x,h+6,Config.DisplayZ+3.45),Color3.fromRGB(255,215,103))
-                Factory.part(shelf,'PlatformFrontTrim',Vector3.new(6.4,.5,.4),CFrame.new(pos.x,h+.2,Config.DisplayZ-3.4),Color3.fromRGB(255,195,42))
+                Factory.part(shelf,'PlatformFrontTrim',Vector3.new(6.4,platformHeight,.4),CFrame.new(pos.x,rowY+platformHeight/2,Config.DisplayZ-3.4),Color3.fromRGB(255,195,42))
+                for x=-2.4,2.4,1.2 do Factory.part(shelf,'PlatformFrontStud',Vector3.new(.55,.55,.18),CFrame.new(pos.x+x,rowY+platformHeight/2,Config.DisplayZ-3.66),Color3.fromRGB(255,217,105)) end
             end
             placeScaled(shelf,world.frame); shelf.Parent=world.rows; task.wait()
             if generation~=world.renderGeneration then return end
@@ -428,14 +486,19 @@ function World.render(world: any,state: any)
         local free=quantity=='1' and not state.starterClaimed
         local amount=if quantity=='100' then math.min(100,Config.Slots-#state.producers) else tonumber(quantity)
         local tier=if quantity=='100' then math.clamp(state.rebirths,1,Config.MaxTier) else 1
-        label.Text=(if free then 'BUY FIRST\n$5' elseif amount==0 then 'STACK FULL\nMERGE TO MAKE ROOM' else 'BUY '..(if quantity=='100' then 'UP TO 100 '..Catalog[string.format('tier_%02d',tier)].name else quantity)..'\n$'..(Economy.buyCost(state.purchased or 0,amount,tier)/4))..(if unlocked then '' else '\nRebirth '..Config.BuyUnlocks[quantity]..' required')
-        if quantity=='100' then label.Parent.Size=UDim2.fromOffset(160,78);label.TextSize=15 end
-        label.TextColor3=if unlocked then Color3.fromRGB(130,255,62) else Color3.fromRGB(255,195,195)
+        local cost=if free then Config.BuyUnits else Economy.buyCost(state.purchased or 0,amount,tier)
+        padAvailability(label.Parent.Parent,unlocked and (state.starterClaimed or quantity=='1') and amount>0 and #state.producers+amount<=Config.Slots and state.coinUnits>=cost)
+        label.Text=if amount==0 then 'Stack full' else 'Buy '..quantity
+        local price=label.Parent.Price
+        price.Text=if amount==0 then '' else cashText(cost)
+        price.TextColor3=if unlocked then Color3.fromRGB(132,255,0) else Color3.fromRGB(255,195,195)
+        label.Parent.Detail.Text=if not unlocked then 'Rebirth '..Config.BuyUnlocks[quantity]..' required' elseif amount==0 then 'Merge to make room' elseif quantity=='100' then 'Up to 100 '..Catalog[string.format('tier_%02d',tier)].name else ''
     end
     world.saleLabel.Text='Collect cash\n$'..string.format('%g',state.soldUnits/4)
     world.processorLabel.Text=tostring(Economy.count(state.saleQueue))
     world.processorRate.Text=Config.ProcessorRates[state.processorLevel+1]..' per second'
     local upgradeCost=Config.ProcessorCosts[state.processorLevel+1]
+    padAvailability(world.upgradeLabel.Parent.Parent,upgradeCost~=nil and state.coinUnits>=upgradeCost)
     world.upgradeLabel.Text=if upgradeCost then '+'..(Config.ProcessorRates[state.processorLevel+2]-Config.ProcessorRates[state.processorLevel+1])..' per second' else 'PROCESSOR MAXED'
     world.upgradePrice.Text=if upgradeCost then '$'..(upgradeCost/4) else ''
 end

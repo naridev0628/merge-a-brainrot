@@ -15,9 +15,9 @@ local t=s.state.tokens[1]
 assert(t.startX==core:slotPosition(1).x and t.startZ>Config.BeltZ)
 assert(t.readyAt==Config.Interval+Config.TransitSeconds)
 assert(math.abs(t.x)<=7.5 and t.z>=Config.TrayZ-6 and t.z<=Config.TrayZ+6)
-assert(cmd('Collect',{t.id},Config.Interval,t.x,t.z).code=='InTransit')
+assert(cmd('Collect',{t.id},Config.Interval,t.x,t.z).code=='TooFar','Pickup must use the airborne location rather than the remote tray target')
 assert(Economy.count(s.state.bag)==0 and #s.state.tokens==1)
-assert(cmd('Collect',{t.id},t.readyAt,t.x,t.z).code=='OK')
+assert(cmd('Collect',{t.id},Config.Interval,t.startX,t.startZ).code=='OK','New Mini is collectible immediately at its producer')
 assert(Economy.count(s.state.bag)==1)
 core:setPasses(s,{autoCollect=true})
 local nextDrop=t.readyAt+Config.Interval
@@ -28,7 +28,7 @@ local arrivingId=s.state.tokens[1].id
 core:step(s,nextDrop+Config.TransitSeconds)
 for _,mini in s.state.tokens do assert(mini.id~=arrivingId,'Arrived Mini must be collected while newer Minis remain in transit') end
 assert(#s.state.saleQueue>0)
-print('PASS conveyor ordering, tray bounds, transit pickup rejection and automation arrival gate')
+print('PASS conveyor ordering, tray bounds, immediate producer pickup, remote-target rejection and automation arrival gate')
 
 -- A full tray must never reuse the same resting place, and collecting the
 -- bottom of the pile must compact the survivors into supported lower slots.

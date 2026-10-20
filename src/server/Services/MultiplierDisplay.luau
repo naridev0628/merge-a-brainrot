@@ -40,7 +40,7 @@ function Display.new(parent: Instance)
     local anchor = Instance.new('Part')
     anchor.Name = 'MiniMultiplierBillboardAnchor'
     anchor.Size = Vector3.new(1, 1, 1)
-    anchor.CFrame = CFrame.new(0, 30, 0)
+    anchor.CFrame = CFrame.new(0, 40, 0)
     anchor.Anchored = true
     anchor.CanCollide = false
     anchor.CanTouch = false

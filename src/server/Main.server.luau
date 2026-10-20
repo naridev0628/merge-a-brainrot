@@ -12,6 +12,7 @@ local MultiplierDisplay=require(script.Parent.Services.MultiplierDisplay)
 local Core=require(script.Parent.Domain.FarmCore)
 local Limiter=require(script.Parent.Domain.RateLimiter)
 local World=require(script.Parent.Services.WorldBuilder)
+local LuckyCarry=require(script.Parent.Services.LuckyCarry)
 local Passes=require(script.Parent.Services.PassService)
 local net=Instance.new('Folder'); net.Name='FarmNetwork'
 local command=Instance.new('RemoteEvent'); command.Name='Command'; command.Parent=net
@@ -32,7 +33,7 @@ local worlds: {[Player]: any}={}
 local owners: {[number]: Player}={}
 local buckets: {[Player]: any}={}
 local connections: {[Player]: RBXScriptConnection}={}
-local rates={CollectNearby={4,6},AutoMerge={2,3},Collect={12,24},State={1,2},Deposit={3,6},Claim={3,6},Buy={10,12},Merge={3,6},Rebirth={1,2},Upgrade={10,12},OpenLucky={2,3},Home={1/3,1},Sprint={4,8}}
+local rates={CollectNearby={4,6},AutoMerge={2,3},Collect={12,24},State={1,2},Deposit={3,6},Claim={3,6},Buy={4,6},Merge={3,6},Rebirth={1,2},Upgrade={4,6},OpenLucky={2,3},PickupLucky={2,3},DropLucky={2,3},DiscardLucky={2,3},Home={1/3,1},Sprint={4,8}}
 local function send(player: Player)
     local session=sessions[player]
     if not session then snapshot:FireClient(player,{status='Unavailable',reason='All six plots are occupied. Waiting for a free plot.'}); return end
@@ -45,6 +46,7 @@ local function render(player: Player)
     if not sessions[player] then return end
     local ok,err=pcall(World.render,worlds[player],sessions[player].state)
     if not ok then warn('[MergeABrainrot] Visual update failed: '..tostring(err)) end
+    LuckyCarry.update(player.Character,sessions[player].state.lucky)
 end
 local refreshPasses=Passes.start(function(player,owned)
     if sessions[player] then core:setPasses(sessions[player],owned); render(player); send(player) end
@@ -75,7 +77,13 @@ local function attach(player: Player)
     core:setEvent(sessions[player],eventValue)
     sessions[player].joinedAt=os.clock()
     World.setOwner(chosen,player); refreshPasses(player)
-    connections[player]=player.CharacterAdded:Connect(function(c) moveHome(player,c) end)
+    connections[player]=player.CharacterAdded:Connect(function(c)
+        local session=sessions[player]
+        if session and session.state.lucky and session.state.lucky.held then
+            local state=core:snapshot(session);state.lucky.held=false;core:commit(session,state);render(player);send(player)
+        end
+        moveHome(player,c)
+    end)
     if player.Character then task.spawn(moveHome,player,player.Character) end
     render(player); send(player)
     print('[MergeABrainrot] Ready on plot '..chosen.id..': $5 starter purchase and timed sales.')
@@ -125,7 +133,12 @@ task.spawn(function()
             for player,session in sessions do core:setEvent(session,eventValue);send(player) end
         end
         eventDisplay:update(eventValue,eventNextAt,now)
-        for player,session in sessions do if core:step(session,os.clock()) then render(player); send(player) end end
+        for player,session in sessions do
+            if session.state.lucky and session.state.lucky.held and not context(player).alive then
+                local dropped=core:snapshot(session);dropped.lucky.held=false;core:commit(session,dropped);render(player);send(player)
+            end
+            if core:step(session,os.clock()) then render(player); send(player) end
+        end
         if os.clock()>=nextBoards then
             nextBoards=os.clock()+3; local entries={}
             for player,session in sessions do

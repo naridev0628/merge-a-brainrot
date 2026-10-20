@@ -2,7 +2,10 @@
 Uses the established mesh/atlas helpers without touching the character palette.
 """
 from pathlib import Path
-import re
+import argparse, re, sys
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--only', choices=['BrickRockIsland', 'LuckyBlock', 'CoolTralalero'])
+args = parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 source = Path(__file__).with_name('build_brainrot_models.py').read_text()
 prefix = source.split('stats={}; models=[]')[0]
 prefix = prefix.replace("OUT = ROOT / 'assets' / 'characters' / 'blender'", "OUT = ROOT / 'assets' / 'map' / 'blender'")
@@ -20,6 +23,48 @@ palette = {
 prefix = re.sub(r'PALETTE = \{.*?\n\}', 'PALETTE = '+repr(palette), prefix, count=1, flags=re.S)
 exec(compile(prefix, str(Path(__file__).with_name('build_brainrot_models.py')), 'exec'))
 from mathutils import Matrix
+import bmesh
+
+def lucky_atlas(obj):
+    """One UV0 atlas, with a padded continuous gold gradient in the middle tile."""
+    names=list(PALETTE)
+    image.scale(256,256)
+    pixels=[]
+    # Keep the lower face orange, with no red stop, as in the supplied reference.
+    stops=[(0,(1,.40,.003)),(.25,(1,.46,.003)),(.5,(1,.58,.003)),(.75,(1,.71,.004)),(1,PALETTE['gold_top'])]
+    for y in range(256):
+        for x in range(256):
+            index=(y//64)*4+x//64
+            color=PALETTE[names[index]]
+            if names[index]=='gold_middle':
+                t=max(0,min(1,((y%64)/63-.125)/.75))
+                segment=min(3,int(t*4));blend=t*4-segment
+                color=tuple(stops[segment][1][c]*(1-blend)+stops[segment+1][1][c]*blend for c in range(3))
+            pixels.extend((*color,1))
+    image.pixels=pixels;image.save()
+    uv=obj.data.uv_layers.active
+    uv.name='UVMap'
+    # The base join helper already placed each face in its palette cell.
+    gold_cells={names.index(name) for name in ['gold_top','gold_upper','gold_middle','gold_lower','gold_bottom','rim_gold']}
+    for poly in obj.data.polygons:
+        first=uv.data[poly.loop_start].uv
+        cell=int(first.y*4)*4+int(first.x*4)
+        if cell in gold_cells:
+            for loop_index in poly.loop_indices:
+                z=(obj.matrix_world@obj.data.vertices[obj.data.loops[loop_index].vertex_index].co).z
+                uv.data[loop_index].uv=(.125,.5+(.125+.75*max(0,min(1,z/3.80)))/4)
+    # Explicitly export the authored texture as TEXCOORD_0, never a spare UV set.
+    obj.data.uv_layers.active_index=0
+    obj.data.uv_layers[0].active_render=True
+    tex.interpolation='Linear'
+
+def soft_box(name,pos,size,color,bevel=.04):
+    obj=cube(name,pos,size,color,bevel=0)
+    mod=obj.modifiers.new('Molded toy edge','BEVEL');mod.width=bevel;mod.segments=3
+    bpy.ops.object.modifier_apply(modifier=mod.name)
+    mod=obj.modifiers.new('Weighted face normals','WEIGHTED_NORMAL')
+    bpy.ops.object.modifier_apply(modifier=mod.name)
+    return obj
 
 # Mesh data construction keeps the many tiny studs inexpensive to regenerate.
 def box_fast(name, pos, size, color):
@@ -95,7 +140,7 @@ def question_mark():
             indices[key]=len(verts);verts.append(((x-2.5)*.35,y,.73+z*.35))
         return indices[key]
     for x,z in cells:
-        front=-2.095;back=-1.925
+        front=-2.005;back=-1.86
         faces.append(tuple(vertex(a,front,b) for a,b in [(x,z),(x+1,z),(x+1,z+1),(x,z+1)]))
         faces.append(tuple(vertex(a,back,b) for a,b in [(x,z+1),(x+1,z+1),(x+1,z),(x,z)]))
         for dx,dz,edge in [(-1,0,[(x,z+1),(x,z)]),(1,0,[(x+1,z),(x+1,z+1)]),(0,-1,[(x,z),(x+1,z)]),(0,1,[(x+1,z+1),(x,z+1)])]:
@@ -105,23 +150,29 @@ def question_mark():
     mesh=bpy.data.meshes.new('ContinuousPixelQuestion');mesh.from_pydata(verts,[],faces);mesh.update()
     obj=bpy.data.objects.new('WhitePixelQuestionMark',mesh);bpy.context.collection.objects.link(obj);obj.data.materials.append(MATS['white']);pieces.append(obj)
     bpy.ops.object.select_all(action='DESELECT');obj.select_set(True);bpy.context.view_layer.objects.active=obj
-    bevel=obj.modifiers.new('Soft pixel edges','BEVEL');bevel.width=.022;bevel.segments=1;bpy.ops.object.modifier_apply(modifier=bevel.name)
+    # Dissolve coplanar pixel-cell boundaries before beveling the silhouette.
+    bm=bmesh.new();bm.from_mesh(mesh)
+    bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces))
+    bmesh.ops.dissolve_limit(bm,angle_limit=.001,verts=list(bm.verts),edges=list(bm.edges))
+    bm.to_mesh(mesh);bm.free();mesh.update()
+    bevel=obj.modifiers.new('Soft pixel edges','BEVEL');bevel.width=.035;bevel.segments=3;bpy.ops.object.modifier_apply(modifier=bevel.name)
     normal=obj.modifiers.new('Weighted normals','WEIGHTED_NORMAL');bpy.ops.object.modifier_apply(modifier=normal.name)
 
 def lucky_block():
-    # Five clean horizontal bands recreate the luminous yellow-to-orange block.
-    for i,color in enumerate(['gold_bottom','gold_lower','gold_middle','gold_upper','gold_top']):
-        cube('GoldenBand_%d'%i,(0,0,.38+i*.76),(3.80,3.80,.76),color,bevel=.035)
-    cube('YellowTopPlate',(0,0,3.82),(3.79,3.79,.10),'gold_top',bevel=.035)
+    # A single molded shell avoids seams across the white relief and gold gradient.
+    soft_box('GoldenBody',(0,0,1.90),(3.80,3.80,3.80),'gold_middle',bevel=.07)
+    soft_box('YellowTopPlate',(0,0,3.80),(3.72,3.72,.12),'gold_top',bevel=.035)
     # Thin inset top border and small corner caps maintain the open yellow top.
     for side in (-1,1):
         cube('TopBorder',(side*1.77,0,3.90),(.095,3.48,.12),'rim_gold',bevel=.015)
         cube('TopBorder',(0,side*1.77,3.90),(3.48,.095,.12),'rim_gold',bevel=.015)
     for x in (-1.80,1.80):
         for y in (-1.80,1.80):
-            for z in (.11,3.79):cube('WhiteCornerCap',(x,y,z),(.35,.35,.30),'white',bevel=.025)
-    # Pixel contour is built as thick extruded strokes, deliberately legible at distance.
-    strokes=[((-.02,2.86),(1.84,.35)),((-.77,2.57),(.34,.56)),((.73,2.47),(.34,.78)),((.41,2.08),(.98,.34)),((.04,1.74),(.34,.71)),((.04,1.03),(.34,.35))]
+            for z in (.15,3.76):soft_box('WhiteCornerCap',(x,y,z),(.35,.35,.30),'white',bevel=.025)
+    # Classic square brick studs read clearly from the game's elevated camera.
+    for x in (-1.14,-.38,.38,1.14):
+        for y in (-1.14,-.38,.38,1.14):
+            soft_box('TopLegoStud',(x,y,3.94),(.48,.48,.18),'gold_top',bevel=.035)
     for face in range(4):
         transform=Matrix.Rotation(face*math.pi/2,4,'Z')
         start=len(pieces)
@@ -155,27 +206,34 @@ def cool_tralalero():
 
 models=[];stats={}
 for name,builder in [('BrickRockIsland',rock_island),('LuckyBlock',lucky_block),('CoolTralalero',cool_tralalero)]:
+    if args.only and args.only!=name:continue
     pieces.clear();builder();obj,tris=join_and_atlas(name)
+    if name=='LuckyBlock':lucky_atlas(obj)
     bpy.context.view_layer.update()
     assert tris<=15000,(name,tris)
-    stats[name]={'triangles':tris,'vertices':len(obj.data.vertices),'dimensions_xyz':[round(v,3) for v in obj.dimensions],'mesh_objects':1,'material_slots':len(obj.data.materials)}
+    stats[name]={'triangles':tris,'vertices':len(obj.data.vertices),'dimensions_xyz':[round(v,3) for v in obj.dimensions],'mesh_objects':1,'material_slots':len(obj.data.materials),'uv_layers':[layer.name for layer in obj.data.uv_layers]}
     bpy.ops.object.select_all(action='DESELECT');obj.select_set(True);bpy.context.view_layer.objects.active=obj
     bpy.ops.export_scene.gltf(filepath=str(OUT/(name+'.glb')),export_format='GLB',use_selection=True,export_apply=True)
     bpy.ops.export_scene.fbx(filepath=str(OUT/(name+'.fbx')),use_selection=True,object_types={'MESH'},add_leaf_bones=False,path_mode='COPY',embed_textures=True,axis_forward='-Z',axis_up='Y')
     models.append(obj)
 # A separate presentation scene; exported meshes retain origin at flat bottom center.
-models[0].location=(-4,1.2,0);models[1].location=(5.5,1.2,.10);models[2].location=(4,-5.0,.10)
-pieces.clear();cube('PreviewWater',(0,0,-.22),(25,19,.35),'water',bevel=.1)
+if not args.only:
+    models[0].location=(-4,1.2,0);models[1].location=(5.5,1.2,.10);models[2].location=(4,-5.0,.10)
+pieces.clear();cube('PreviewGround',(0,0,-.22),(200,200,.35) if args.only else (25,19,.35),'rock_dark' if args.only else 'water',bevel=.1)
 bpy.ops.object.camera_add(location=(18,-29,22));camera=bpy.context.object;camera.rotation_euler=(Vector((-.5,-.5,2.1))-camera.location).to_track_quat('-Z','Y').to_euler();camera.data.type='ORTHO';camera.data.ortho_scale=26;bpy.context.scene.camera=camera
+if args.only:
+    camera.location=(7,-10,7.6);camera.rotation_euler=(Vector((0,0,1.8))-camera.location).to_track_quat('-Z','Y').to_euler();camera.data.ortho_scale=7.6
 for pos,power in [((-7,-10,16),2600),((12,-4,10),1800),((0,9,15),2800)]:
     bpy.ops.object.light_add(type='AREA',location=pos);lamp=bpy.context.object;lamp.data.energy=power;lamp.data.size=8;lamp.rotation_euler=(Vector((0,0,2))-lamp.location).to_track_quat('-Z','Y').to_euler()
 bpy.context.preferences.filepaths.save_version=0
 scene=bpy.context.scene;scene.name='BonusProps';scene.render.engine='CYCLES';scene.cycles.samples=32;scene.world.color=(.28,.32,.4)
 scene.render.resolution_x=1600;scene.render.resolution_y=1000;scene.render.resolution_percentage=100;scene.view_settings.view_transform='Standard';scene.view_settings.look='Medium High Contrast';scene.render.image_settings.file_format='PNG';scene.render.filepath=str(OUT/'BonusPropsPreview.png')
+if args.only:
+    scene.name=args.only;scene.render.resolution_x=1200;scene.render.resolution_y=1200;scene.render.filepath=str(OUT/(args.only+'Preview.png'));scene.view_settings.exposure=-.35
 for screen in bpy.data.screens:
     for area in screen.areas:
         if area.type=='VIEW_3D':area.spaces.active.region_3d.view_perspective='CAMERA';area.spaces.active.shading.type='MATERIAL'
-image.pack();bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'BonusProps.blend'))
+image.pack();bpy.ops.wm.save_as_mainfile(filepath=str(OUT/((args.only or 'BonusProps')+'.blend')))
 for name,data in stats.items():data['glb_bytes']=(OUT/(name+'.glb')).stat().st_size
-(OUT/'bonus-stats.json').write_text(json.dumps(stats,indent=2));print('BONUS_STATS',json.dumps(stats),flush=True)
+(OUT/((args.only+'.stats.json') if args.only else 'bonus-stats.json')).write_text(json.dumps(stats,indent=2));print('BONUS_STATS',json.dumps(stats),flush=True)
 bpy.ops.render.render(write_still=True)

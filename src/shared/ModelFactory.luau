@@ -47,19 +47,21 @@ function Factory.part(parent: Instance,name: string,size: Vector3,cf: CFrame,col
 end
 function Factory.label(part: BasePart,value: string,width: number?,height: number?)
     local gui=Instance.new('BillboardGui'); gui.Name='Label'; gui.Size=UDim2.fromOffset(width or 170,height or 48)
-    gui.StudsOffset=Vector3.new(0,3.2,0); gui.MaxDistance=65; gui.Parent=part
+    gui.StudsOffset=Vector3.new(0,3.2,0); gui.MaxDistance=100; gui.Parent=part
     local l=Instance.new('TextLabel'); l.Name='Text'; l.Size=UDim2.fromScale(1,1); l.BackgroundTransparency=1
     l.Text=value; l.TextColor3=Color3.new(1,1,1); l.TextStrokeColor3=Color3.new(0,0,0); l.TextStrokeTransparency=0
-    l.Font=Enum.Font.FredokaOne; l.TextSize=18; l.TextWrapped=true; l.Parent=gui
+    l.Font=Enum.Font.FredokaOne; l.TextSize=22; l.TextWrapped=true; l.TextStrokeTransparency=1;l.Parent=gui
+    local outline=Instance.new('UIStroke');outline.Color=dark;outline.Thickness=2;outline.Parent=l
     return l
 end
 function Factory.characterLabel(part: BasePart,species: any,offset: number)
-    local gui=Instance.new('BillboardGui'); gui.Name='CharacterLabel'; gui.Size=UDim2.fromOffset(140,48); gui.StudsOffset=Vector3.new(0,offset-.7,0); gui.MaxDistance=32; gui.Parent=part
+    local gui=Instance.new('BillboardGui'); gui.Name='CharacterLabel'; gui.Size=UDim2.fromOffset(174,59); gui.StudsOffset=Vector3.new(0,offset-.3,0); gui.MaxDistance=65; gui.Parent=part
     local function line(name: string,value: string,y: number,height: number,fontSize: number,color: Color3)
         local label=Instance.new('TextLabel'); label.Name=name; label.Text=value; label.Position=UDim2.fromOffset(0,y); label.Size=UDim2.new(1,0,0,height); label.BackgroundTransparency=1; label.Font=Enum.Font.FredokaOne; label.TextSize=fontSize; label.TextColor3=color; label.TextStrokeTransparency=0; label.TextStrokeColor3=Color3.fromRGB(28,18,15); label.Parent=gui
+        label.TextStrokeTransparency=1;local outline=Instance.new('UIStroke');outline.Thickness=if name=='Name' then 2.5 else 1.6;outline.Color=dark;outline.Parent=label
     end
-    line('Name',species.name,0,27,if #species.name>16 then 14 else 19,Color3.fromRGB(table.unpack(species.color)))
-    line('Level','Level '..species.tier,26,19,14,Color3.fromRGB(255,244,222))
+    line('Name',species.name,0,33,if #species.name>16 then 18 else 24,Color3.fromRGB(table.unpack(species.color)))
+    line('Level','Level '..species.tier,33,23,16,Color3.fromRGB(255,244,222))
 end
 function Factory.producer(parent: Instance,id: string,species: any,position: Vector3,mini: boolean?): Model
     local m=Instance.new('Model'); m.Name=id

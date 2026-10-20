@@ -1,5 +1,6 @@
 --!strict
 local Collection=game:GetService('CollectionService')
+local MiniMotion=require(game:GetService('ReplicatedStorage'):WaitForChild('Shared'):WaitForChild('MiniMotion'))
 local Conveyor={}; Conveyor.__index=Conveyor
 local function smooth(t: number): number
     return t*t*(3-2*t)
@@ -47,7 +48,9 @@ function Conveyor.update(self: any,now: number)
         if not start or not drop or not center or not target or not spawned or not ready then continue end
         local scale=model:GetAttribute('PlotScale') or .5
         local finalRotation=model:GetAttribute('FinalRotation') or record.rotation
-        local t=math.clamp((now-spawned)/math.max(.01,ready-spawned),0,1)
+        local t=MiniMotion.progress(now,spawned,ready)
+        if not t then continue end
+        local phase,alpha,lift=MiniMotion.phase(t)
         local floorOffset=if model:GetAttribute('FinalRotation') then (model:GetAttribute('RestingLift') or Vector3.zero)*math.clamp((t-.77)/.23,0,1) else model:GetAttribute('FloorOffset') or Vector3.zero
         if record.target and record.target~=target and t>=1 then
             record.repackFrom=model:GetPivot(); record.repackAt=now; record.settled=false
@@ -55,17 +58,17 @@ function Conveyor.update(self: any,now: number)
         record.target=target
         local point: Vector3; local rotation: CFrame
         local fallen=record.rotation*CFrame.Angles(0,.65,1.2)
-        if t<.22 then
-            local fall=t/.22
-            point=start:Lerp(drop,fall*fall)
+        if phase==1 then
+            local fall=math.sqrt(alpha)
+            point=start:Lerp(drop,alpha)
             rotation=record.rotation*CFrame.Angles(fall*math.pi*2,fall*.65,fall*1.2)
-        elseif t<.77 then
-            local slide=(t-.22)/.55
+        elseif phase==2 then
+            local slide=alpha
             point=drop:Lerp(center,slide)
             rotation=fallen*CFrame.Angles(math.sin(slide*18)*.08,slide*.4,math.sin(slide*13)*.08)
-        elseif t<1 then
-            local arc=(t-.77)/.23
-            point=center:Lerp(target,arc)+Vector3.new(0,math.sin(arc*math.pi)*3*scale,0)
+        elseif phase==3 then
+            local arc=alpha
+            point=center:Lerp(target,arc)+Vector3.new(0,lift*scale,0)
             rotation=(fallen*CFrame.Angles(0,.4,0)):Lerp(finalRotation,smooth(arc))*CFrame.Angles(math.sin(arc*math.pi)*math.pi*2,0,0)
         else
             local elapsed=now-ready

@@ -1,0 +1,17 @@
+{
+  "LuckyBlock": {
+    "triangles": 11860,
+    "vertices": 6504,
+    "dimensions_xyz": [
+      4.01,
+      4.01,
+      4.084
+    ],
+    "mesh_objects": 1,
+    "material_slots": 1,
+    "uv_layers": [
+      "UVMap"
+    ],
+    "glb_bytes": 731648
+  }
+}

@@ -24,11 +24,11 @@ local function frame(parent: Instance,name: string,color: Color3): Frame
 end
 local function text(parent: Instance,name: string,size: number,color: Color3): TextLabel
     local l=Instance.new('TextLabel'); l.Name=name; l.BackgroundTransparency=1; l.Text=''; l.TextColor3=color
-    l.TextSize=size; l.Font=Enum.Font.FredokaOne; l.TextWrapped=true; l.Parent=parent; return l
+    l.TextSize=size; l.Font=Enum.Font.FredokaOne; l.TextWrapped=true; l.TextStrokeColor3=Color3.fromRGB(12,10,8); l.TextStrokeTransparency=0; l.Parent=parent; return l
 end
 local function button(parent: Instance,name: string,label: string,color: Color3): TextButton
-    local b=Instance.new('TextButton'); b.Name=name; b.Text=label; b.BackgroundColor3=color; b.TextColor3=C.navy
-    b.Font=Enum.Font.FredokaOne; b.TextSize=18; b.TextWrapped=true; b.BorderSizePixel=0; b.Parent=parent
+    local b=Instance.new('TextButton'); b.Name=name; b.Text=label; b.BackgroundColor3=color; b.TextColor3=C.cream
+    b.Font=Enum.Font.FredokaOne; b.TextSize=22; b.TextWrapped=true; b.TextStrokeColor3=Color3.fromRGB(12,10,8); b.TextStrokeTransparency=0; b.BorderSizePixel=0; b.Parent=parent
     local corner=Instance.new('UICorner'); corner.CornerRadius=UDim.new(0,5); corner.Parent=b
     local stroke=Instance.new('UIStroke'); stroke.ApplyStrokeMode=Enum.ApplyStrokeMode.Border; stroke.Color=C.navy; stroke.Thickness=3; stroke.Parent=b
     local gradient=Instance.new('UIGradient'); gradient.Color=ColorSequence.new(Color3.new(1,1,1),Color3.fromRGB(204,204,204)); gradient.Rotation=90; gradient.Parent=b
@@ -46,7 +46,7 @@ local function button(parent: Instance,name: string,label: string,color: Color3)
     return b
 end
 function UI.new(parent: Instance)
-    local self: any=setmetatable({selected={},pending=false,state=nil,context=nil,quantity='1',mode='Merge',shopInfo={},onBuy=function() end,onDeposit=function() end,onClaim=function() end,onMerge=function() end,onRebirth=function() end,onHome=function() end,onPass=function() end},UI)
+    local self: any=setmetatable({selected={},pending=false,state=nil,context=nil,quantity='1',mode='Merge',shopInfo={},onBuy=function() end,onDeposit=function() end,onClaim=function() end,onMerge=function() end,onRebirth=function() end,onHome=function() end,onPass=function() end,onLucky=function() end,onDropLucky=function() end,onDiscardLucky=function() end},UI)
     local gui=Instance.new('ScreenGui'); gui.Name='BrainrotHUD'; gui.ResetOnSpawn=false; gui.ZIndexBehavior=Enum.ZIndexBehavior.Sibling; gui.ScreenInsets=Enum.ScreenInsets.CoreUISafeInsets; gui.Parent=parent; self.gui=gui
     local root=Instance.new('Frame'); root.Name='SafeArea'; root.BackgroundTransparency=1; root.Size=UDim2.fromScale(1,1); root.Parent=gui; self.root=root
     self.hud=frame(root,'FarmStats',C.green)
@@ -99,18 +99,32 @@ function UI.new(parent: Instance)
     self.rebirthBadge=frame(self.rebirthButton,'ReadyBadge',Color3.fromRGB(255,62,69)); self.rebirthBadge.Size=UDim2.fromOffset(28,28); self.rebirthBadge.Position=UDim2.fromOffset(-9,-9); self.rebirthBadge.ZIndex=6; self.rebirthBadge.Visible=false
     self.rebirthBadge:FindFirstChildOfClass('UICorner').CornerRadius=UDim.new(1,0)
     local alert=text(self.rebirthBadge,'Alert',25,C.cream); alert.Text='!'; alert.TextStrokeTransparency=0; alert.Size=UDim2.fromScale(1,1); alert.ZIndex=7
-    self.homeButton=button(root,'Home','My plot',C.cream)
-    self.boostButton=button(root,'MoneyBoost','2x MONEY',C.green)
+    self.homeButton=button(root,'Home','Home',Color3.fromRGB(29,190,242))
+    self.boostButton=button(root,'MoneyBoost','2x Cash',C.green)
     self.autoButton=button(root,'Automation','Auto Collect\nAuto Sell',C.amber)
-    Art.brick(self.boostButton,C.green); self.boostButton.TextColor3=Color3.fromRGB(88,255,0); self.boostButton.TextStrokeTransparency=0; self.boostButton.TextStrokeColor3=Color3.fromRGB(0,35,0)
+    Art.brick(self.boostButton,C.green); self.boostButton.TextColor3=Color3.fromRGB(49,255,0); self.boostButton.TextStrokeTransparency=1; self.boostButton.TextStrokeColor3=Color3.fromRGB(0,0,0)
     self.boostButton.TextSize=40; self.boostButton.TextYAlignment=Enum.TextYAlignment.Center
     local rainbow=self.boostButton:FindFirstChildOfClass('UIStroke'); rainbow.Color=Color3.new(1,1,1); rainbow.Thickness=5
     local spectrum=Instance.new('UIGradient'); spectrum.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,45,45)),ColorSequenceKeypoint.new(.2,Color3.fromRGB(255,234,0)),ColorSequenceKeypoint.new(.4,Color3.fromRGB(40,255,30)),ColorSequenceKeypoint.new(.6,Color3.fromRGB(0,195,255)),ColorSequenceKeypoint.new(.8,Color3.fromRGB(110,55,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(255,45,130))}); spectrum.Parent=rainbow
     TweenService:Create(spectrum,TweenInfo.new(3,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut,-1),{Rotation=360}):Play()
-    local boostOutline=Instance.new('UIStroke'); boostOutline.Thickness=3; boostOutline.Color=Color3.fromRGB(0,20,0); boostOutline.Parent=self.boostButton.BrickCaption
-    self.permanent=text(self.boostButton,'Permanent',18,Color3.fromRGB(255,102,106)); self.permanent.Text='PERMANENT!'; self.permanent.Rotation=-5; self.permanent.Position=UDim2.fromScale(-.03,-.16); self.permanent.Size=UDim2.fromScale(1.06,.28); self.permanent.TextStrokeTransparency=0; self.permanent.ZIndex=4
-    self.boostPrice=text(root,'BoostPrice',17,C.cream); self.boostPrice.Text='Coming soon'; self.boostPrice.TextStrokeTransparency=0
-    Art.brick(self.homeButton,C.blue); self.homeButton.BackgroundColor3=C.blue; self.homeButton.Text='Home'; self.homeButton.TextColor3=C.cream; self.homeButton.TextStrokeTransparency=0
+    for layer=1,3 do
+        local glow=Instance.new('Frame'); glow.Name='RainbowGlow'..layer; glow.Size=UDim2.fromScale(1,1); glow.BackgroundTransparency=1; glow.Active=false; glow.ZIndex=2; glow.Parent=self.boostButton
+        local corner=Instance.new('UICorner'); corner.CornerRadius=UDim.new(0,5); corner.Parent=glow
+        local glowStroke=Instance.new('UIStroke'); glowStroke.Thickness=6+layer*4; glowStroke.Color=Color3.new(1,1,1); glowStroke.Transparency=.60+layer*.10; glowStroke.Parent=glow
+        local glowSpectrum=spectrum:Clone(); glowSpectrum.Parent=glowStroke
+        TweenService:Create(glowSpectrum,TweenInfo.new(3,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut,-1),{Rotation=360}):Play()
+        TweenService:Create(glowStroke,TweenInfo.new(1.2,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut,-1,true),{Transparency=.72+layer*.08}):Play()
+    end
+    local boostOutline=Instance.new('UIStroke'); boostOutline.Thickness=3.5; boostOutline.Color=Color3.new(0,0,0); boostOutline.Parent=self.boostButton.BrickCaption
+    self.permanent=text(self.boostButton,'Permanent',23,Color3.fromRGB(255,93,104)); self.permanent.Text='PERMANENT!'; self.permanent.Rotation=-4; self.permanent.Position=UDim2.fromScale(-.03,-.19); self.permanent.Size=UDim2.fromScale(1.06,.30); self.permanent.TextStrokeTransparency=1; self.permanent.ZIndex=4
+    local permanentOutline=Instance.new('UIStroke'); permanentOutline.Thickness=2.5; permanentOutline.Color=Color3.new(0,0,0); permanentOutline.Parent=self.permanent
+    self.boostPrice=text(root,'BoostPrice',25,Color3.new(1,1,1)); self.boostPrice.Text='Coming soon'; self.boostPrice.TextStrokeTransparency=1
+    local priceOutline=Instance.new('UIStroke'); priceOutline.Thickness=2.5; priceOutline.Color=Color3.new(0,0,0); priceOutline.Parent=self.boostPrice
+    Art.brick(self.homeButton,self.homeButton.BackgroundColor3); self.homeButton.TextColor3=Color3.new(1,1,1); self.homeButton.TextStrokeTransparency=1
+    local homeBorder=self.homeButton:FindFirstChildOfClass('UIStroke'); homeBorder.Color=Color3.fromRGB(4,39,48); homeBorder.Thickness=4
+    local homeRim=Instance.new('Frame'); homeRim.Name='InsetRim'; homeRim.Position=UDim2.fromOffset(5,5); homeRim.Size=UDim2.new(1,-10,1,-10); homeRim.BackgroundTransparency=1; homeRim.ZIndex=2; homeRim.Parent=self.homeButton
+    local rimStroke=Instance.new('UIStroke'); rimStroke.Color=Color3.fromRGB(176,241,255); rimStroke.Transparency=.35; rimStroke.Thickness=2; rimStroke.Parent=homeRim
+    local homeOutline=Instance.new('UIStroke'); homeOutline.Thickness=3.5; homeOutline.Color=Color3.new(0,0,0); homeOutline.Parent=self.homeButton.BrickCaption
     Art.icon(self.autoButton,'gear',UDim2.fromScale(0,.05),UDim2.fromScale(.3,.8)); self.autoButton.Text='Auto'; self.autoButton.TextXAlignment=Enum.TextXAlignment.Right
     self.autoButton.BackgroundTransparency=1; self.autoButton:FindFirstChildOfClass('UIStroke').Transparency=1; self.autoButton.TextColor3=C.cream; self.autoButton.TextStrokeTransparency=0
     self.memory=text(root,'MemoryNotice',12,Color3.new(1,1,1)); self.memory.Text='STUDIO PREVIEW - progress resets on Stop'; self.memory.TextStrokeTransparency=0; self.memory.Size=UDim2.new(1,0,0,18); self.memory.Position=UDim2.new(0,0,1,-18)
@@ -123,7 +137,7 @@ function UI.new(parent: Instance)
     self.contextText=text(self.contextPanel,'Summary',13,C.cream); self.contextText.Size=UDim2.new(1,-12,0,22); self.contextText.Position=UDim2.fromOffset(6,0); self.contextText.TextStrokeTransparency=0
     self.contextButton=button(self.contextPanel,'Act','',C.amber); self.contextButton.Position=UDim2.fromOffset(6,22); self.contextButton.Size=UDim2.new(1,-12,0,40)
     self.contextButton.BackgroundTransparency=1; self.contextButton:FindFirstChildOfClass('UIStroke').Transparency=1; self.contextButton.TextColor3=C.cream; self.contextButton.TextSize=20; self.contextButton.TextStrokeTransparency=0
-    self.overlay=Instance.new('TextButton'); self.overlay.Name='MergeOverlay'; self.overlay.Text=''; self.overlay.AutoButtonColor=false; self.overlay.Size=UDim2.fromScale(1,1); self.overlay.BackgroundColor3=Color3.new(0,0,0); self.overlay.BackgroundTransparency=.35; self.overlay.ZIndex=10; self.overlay.Visible=false; self.overlay.Parent=root
+    self.overlay=Instance.new('Frame'); self.overlay.Name='PanelOverlay'; self.overlay.Active=false; self.overlay.BorderSizePixel=0; self.overlay.Size=UDim2.fromScale(1,1); self.overlay.BackgroundColor3=Color3.new(0,0,0); self.overlay.BackgroundTransparency=.35; self.overlay.ZIndex=10; self.overlay.Visible=false; self.overlay.Parent=root
     self.panel=frame(self.overlay,'MergePanel',C.navy); self.panel.AnchorPoint=Vector2.new(.5,.5); self.panel.Position=UDim2.fromScale(.5,.5); self.panel.ZIndex=11
     self.heading=text(self.panel,'Heading',23,C.cream); self.heading.Position=UDim2.fromOffset(12,4); self.heading.Size=UDim2.new(1,-80,0,48)
     self.closeButton=button(self.panel,'Close','X',C.pink); self.closeButton.Position=UDim2.new(1,-60,0,6); self.closeButton.Size=UDim2.fromOffset(48,48)
@@ -142,7 +156,11 @@ function UI.new(parent: Instance)
     self.autoButton.Activated:Connect(function() self:open('Shop') end)
     self.homeButton.Activated:Connect(function() if not self:isOpen() then self.onHome() end end)
     self.cashPlus.Activated:Connect(function() self:open('Shop') end)
-    self.closeButton.Activated:Connect(function() self:close() end)
+    self.closeButton.Activated:Connect(function()
+        if self:isLuckyOpen() then
+            if not self.pending then self.onDropLucky() end
+        else self:close() end
+    end)
     self.contextButton.Activated:Connect(function() self:act() end)
     self.confirm.Activated:Connect(function()
         if self.pending then return end
@@ -182,22 +200,26 @@ function UI.resize(self: any)
     local actionHeight=if phone or short then 62 else 86
     self.actions.Size=UDim2.fromOffset(actionWidth,3*(actionHeight+8)); self.actions.Position=UDim2.new(1,-actionWidth-12,0,if short then 65 else 140)
     for i,b in {self.mergeButton,self.indexButton,self.rebirthButton} do b.Size=UDim2.new(1,0,0,actionHeight); b.Position=UDim2.fromOffset(0,(i-1)*(actionHeight+8)); b.TextSize=if short or phone then 16 else 23 end
-    self.mergeButton.Text='Merge pad'
-    self.boostButton.Position=UDim2.fromOffset(12,if short then 74 else 150); self.boostButton.Size=UDim2.fromOffset(if phone or short then 112 else 175,if short then 85 else 120); self.boostButton.TextSize=if short or phone then 26 else 36
-    self.boostPrice.Position=self.boostButton.Position+UDim2.fromOffset(0,self.boostButton.Size.Y.Offset+5); self.boostPrice.Size=UDim2.fromOffset(self.boostButton.Size.X.Offset,22); self.boostPrice.TextSize=if phone or short then 14 else 18
-    self.autoButton.Position=UDim2.fromOffset(12,if short then 194 else 310); self.autoButton.Size=UDim2.fromOffset(if phone or short then 90 else 130,44)
-    self.homeButton.AnchorPoint=Vector2.new(.5,0); self.homeButton.Position=UDim2.new(.5,0,0,4); self.homeButton.Size=UDim2.fromOffset(160,42); self.homeButton.Visible=self.state~=nil and self.state.tutorialStep>=7
+    self.mergeButton.Text='Merge Pad'
+    self.actions.Visible=not self:isLuckyOpen()
+    self.boostButton.Position=UDim2.fromOffset(16,if short then 78 else 150); self.boostButton.Size=UDim2.fromOffset(if phone or short then 126 else 184,if phone or short then 86 else 112); self.boostButton.TextSize=if short or phone then 28 else 38
+    self.permanent.TextSize=if phone or short then 17 else 23
+    self.boostPrice.Position=self.boostButton.Position+UDim2.fromOffset(-4,self.boostButton.Size.Y.Offset+9); self.boostPrice.Size=UDim2.fromOffset(self.boostButton.Size.X.Offset+8,30); self.boostPrice.TextSize=if phone or short then 17 else 25
+    self.autoButton.Position=UDim2.fromOffset(12,if short then 216 else 310); self.autoButton.Size=UDim2.fromOffset(if phone or short then 90 else 130,44)
+    self.homeButton.AnchorPoint=Vector2.new(.5,0); self.homeButton.Position=UDim2.new(.5,0,0,6); self.homeButton.Size=UDim2.fromOffset(if phone or short then 190 else 252,if phone or short then 50 else 66); self.homeButton.TextSize=if phone or short then 30 else 39; self.homeButton.Visible=self.state~=nil and (self.state.tutorialStep>=7 or self:isLuckyOpen())
     self.contextPanel.Position=UDim2.new(.5,0,1,if phone then -300 elseif short then -178 else -226); self.contextPanel.Size=UDim2.fromOffset(math.min(320,size.X-36),62); self.contextButton.TextSize=if phone or short then 18 else 20
     self.toast.Position=UDim2.new(.5,0,0,if short then 104 else 108); self.toast.Size=UDim2.fromOffset(math.min(size.X-32,410),44); self.toastText.TextSize=if phone or short then 14 else 16
     self.panel.Size=UDim2.fromOffset(math.min(size.X-24,640),math.min(size.Y-24,620))
-    self.panel.AnchorPoint=Vector2.new(.5,.5); self.panel.Position=UDim2.fromScale(.5,.5); self.panel.BackgroundColor3=C.navy
-    self.closeButton.Size=UDim2.fromOffset(48,48); self.closeButton.Position=UDim2.new(1,-60,0,6)
+    self.panel.AnchorPoint=Vector2.new(.5,.5); self.panel.Position=UDim2.fromScale(.5,.5); self.panel.BackgroundColor3=C.navy; self.panel.BackgroundTransparency=if self.mode=='Rebirth' then .25 elseif self.mode=='Index' then .28 else 0
+    self.panel:FindFirstChildOfClass('UIStroke').Transparency=if self.mode=='Lucky' then 1 else 0
+    self.closeButton.Size=UDim2.fromOffset(48,48); self.closeButton.Position=UDim2.new(1,-60,0,6); self.closeButton.TextSize=22
     if self.mode=='Index' then self.panel.Size=UDim2.fromOffset(math.min(size.X-24,820),math.min(size.Y-24,650)) end
     if self.mode=='Lucky' then
-        local scale=math.min(1,(size.X-24)/340,(size.Y-24)/560)
-        self.panel.Size=UDim2.fromOffset(340*scale,560*scale)
-        self.closeButton.Size=UDim2.fromOffset(38*scale,38*scale); self.closeButton.Position=UDim2.new(1,-46*scale,0,8*scale)
-        if not phone then self.panel.AnchorPoint=Vector2.new(1,.5); self.panel.Position=UDim2.new(1,-12,.5,0) end
+        local width=if phone then math.min(238,size.X*.60) else 306
+        local scale=math.max(.05,math.min(width/LuckyPanel.Width,(size.Y-28)/LuckyPanel.Height))
+        self.panel.Size=UDim2.fromOffset(LuckyPanel.Width*scale,LuckyPanel.Height*scale); self.panel.BackgroundTransparency=1
+        self.closeButton.Size=UDim2.fromOffset(32*scale,32*scale); self.closeButton.Position=UDim2.new(1,-38*scale,0,6*scale); self.closeButton.TextSize=24*scale
+        self.panel.AnchorPoint=Vector2.new(1,.5); self.panel.Position=UDim2.new(1,-12,.5,0)
     end
     self.preview.Size=UDim2.new(1,-24,0,if short then 44 else 76); self.preview.TextSize=if short then 14 else 16
     self.list.Position=UDim2.fromOffset(12,if short then 112 else 144); self.list.Size=UDim2.new(1,-24,1,if short then -180 else -212)
@@ -236,9 +258,20 @@ end
 function UI.unavailable(self: any,reason: string) self.state=nil; self.stats.Text='Unavailable'; self.objective.Text=reason; self:close(); self.contextPanel.Visible=false end
 function UI.setPending(self: any,value: boolean) self.pending=value; self.signature=nil; self:drawMerge(); self:setContext(self.context,self.quantity) end
 function UI.clearSelection(self: any) self.selected={}; self.signature=nil; self:drawMerge() end
-function UI.isOpen(self: any): boolean return self.overlay.Visible end
-function UI.close(self: any) self.overlay.Visible=false; self:setContext(self.context,self.quantity) end
-function UI.open(self: any,mode: string) self.mode=mode; self.overlay.Visible=true; self.toast.Visible=false; self.signature=nil; self:resize(); self:drawMerge(); self:setContext(self.context,self.quantity) end
+-- Lucky is a side panel: input, proximity pickups, and pad actions stay live.
+function UI.isOpen(self: any): boolean return self.overlay.Visible and self.mode~='Lucky' end
+function UI.isLuckyOpen(self: any): boolean return self.overlay.Visible and self.mode=='Lucky' end
+-- Programmatic closes never drop a block; only the close button requests a drop.
+function UI.close(self: any)
+    if self.mode~='Lucky' and self.state and self.state.lucky and self.state.lucky.held then
+        self:open('Lucky'); return
+    end
+    self.overlay.Visible=false; self.overlay.Active=false; self:resize(); self:setContext(self.context,self.quantity)
+end
+function UI.open(self: any,mode: string)
+    self.mode=mode; self.overlay.Visible=true; self.overlay.Active=mode~='Lucky'; self.overlay.BackgroundTransparency=if mode=='Lucky' then 1 else .35
+    self.toast.Visible=false; self.signature=nil; self:resize(); self:drawMerge(); self:setContext(self.context,self.quantity)
+end
 function UI.toggleMerge(self: any) self.onMerge() end
 function UI.offerUpgrade(self: any,multiplier: number)
     self:notice(tostring(multiplier)..'x Cash is active!')
@@ -264,7 +297,7 @@ function UI.act(self: any)
 end
 function UI.setContext(self: any,kind: string?,quantity: string?)
     self.context=kind; self.quantity=quantity or '1'
-    self.contextPanel.Visible=kind~=nil and self.state~=nil and not self:isOpen()
+    self.contextPanel.Visible=kind~=nil and self.state~=nil and not self:isOpen() and not (kind=='Lucky' and self:isLuckyOpen())
     self.contextButton.Active=kind=='Pass' or kind=='Lucky' or kind=='FinishNow'
     if not self.contextPanel.Visible then return end
     local s=self.state
@@ -277,7 +310,7 @@ function UI.setContext(self: any,kind: string?,quantity: string?)
     elseif kind=='Upgrade' then
         local cost=Config.ProcessorCosts[s.processorLevel+1]
         self.contextText.Text='Processor Lv '..s.processorLevel..' | '..Config.ProcessorRates[s.processorLevel+1]..' / s'
-        self.contextButton.Text=if cost then 'Step on pad - $'..UI.coins(cost)..' | Hold 2s to repeat' else 'Fully upgraded!'
+        self.contextButton.Text=if cost then 'Step on pad - $'..UI.coins(cost) else 'Fully upgraded!'
     elseif kind=='Pass' then
         local pass=PassConfig[self.quantity]; local info=self.shopInfo[self.quantity]
         self.contextText.Text=pass.name
@@ -289,7 +322,7 @@ function UI.setContext(self: any,kind: string?,quantity: string?)
     else
         local unlock=Config.BuyUnlocks[self.quantity]
         local free=self.quantity=='1' and not s.starterClaimed
-        self.contextText.Text=if s.rebirths<unlock then 'Unlocks at rebirth '..unlock else tostring(Config.Slots-#s.producers)..' spaces left | Hold 2s to repeat'
+        self.contextText.Text=if s.rebirths<unlock then 'Unlocks at rebirth '..unlock else tostring(Config.Slots-#s.producers)..' spaces left'
         local amount=if self.quantity=='100' then math.min(100,Config.Slots-#s.producers) else tonumber(self.quantity)
         self.contextButton.Text=if s.rebirths<unlock then 'LOCKED - Rebirth '..unlock elseif free then 'Walk onto the pad - $5' elseif amount==0 then 'Maximum reached - merge!' else 'Step on pad - $'..UI.coins(Economy.buyCost(s.purchased or 0,amount,if self.quantity=='100' then math.clamp(s.rebirths,1,Config.MaxTier) else 1))
     end
@@ -324,7 +357,7 @@ function UI.drawMerge(self: any)
     local s=self.state
     if not s then return end
     local signature=self.mode..tostring(self.pending)..table.concat(self.selected,',')
-    if s then signature..=tostring(s.coinUnits)..':'..s.rebirths..':'..s.cashMultiplier..':'..tostring(s.lucky and s.lucky.id)..':'..tostring(s.autoCollect)..':'..tostring(s.autoSell)..':'..s.miniMultiplier; for _,p in s.producers do signature..=p.id..p.speciesId end end
+    if s then signature..=tostring(s.coinUnits)..':'..s.rebirths..':'..s.cashMultiplier..':'..tostring(s.lucky and s.lucky.id)..':'..tostring(s.lucky and s.lucky.held)..':'..tostring(s.autoCollect)..':'..tostring(s.autoSell)..':'..s.miniMultiplier; for _,p in s.producers do signature..=p.id..p.speciesId end end
     if self.signature==signature then return end; self.signature=signature
     local scroll=self.list.CanvasPosition
     for _,child in self.list:GetChildren() do if child:IsA('GuiObject') then child:Destroy() end end
