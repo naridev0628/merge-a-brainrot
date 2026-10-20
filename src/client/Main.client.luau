@@ -9,7 +9,7 @@ local Shared=ReplicatedStorage:WaitForChild('Shared')
 local Config=require(Shared:WaitForChild('Config'))
 local PickupGeometry=require(Shared:WaitForChild('PickupGeometry'))
 local MiniMotion=require(Shared:WaitForChild('MiniMotion'))
-local PadGeometry=require(Shared:WaitForChild('PadGeometry'))
+local PadTargeting=require(Shared:WaitForChild('PadTargeting'))
 local PadHold=require(Shared:WaitForChild('PadHold'))
 local Economy=require(Shared:WaitForChild('Economy'))
 local Map=require(Shared:WaitForChild('MapSpec'))
@@ -216,37 +216,14 @@ task.spawn(function()
         local foot=root.Position-Vector3.new(0,humanoid.HipHeight+root.Size.Y/2+(if humanoid.RigType==Enum.HumanoidRigType.R6 then 2 else 0),0)
         local pos=state.plotCFrame:PointToObjectSpace(foot)/Map.PlotScale
         local footPosition={x=pos.X,y=pos.Y,z=pos.Z}
-        local function onPad(action: string,quantity: string?): boolean
-            return PadGeometry.contains(Config,action,footPosition,quantity)
-        end
-        local padKey: string?=nil; local action: string?=nil; local values: {string}?=nil
-        if onPad('Deposit') then padKey='Deposit'; if #state.bag>0 then action='Deposit' end
-        elseif onPad('Claim') then padKey='Claim'; if state.soldUnits>0 then action='Claim' end
-        elseif onPad('AutoMerge') then
-            padKey='AutoMerge'; local seen={}
-            for _,p in state.producers do if Catalog[p.speciesId].nextId then if seen[p.speciesId] then action='AutoMerge'; break end; seen[p.speciesId]=true end end
-        elseif onPad('Upgrade') then padKey='Upgrade'; action='Upgrade'
-        else
-            for quantity in Config.BuyPads do
-                if onPad('Buy',quantity) then padKey='Buy'..quantity; action='Buy'; values={quantity}; break end
-            end
-        end
-        local holdable=action=='Buy' or action=='Upgrade'
-        PadHold.update(heldPad,padKey,os.clock())
+        local target=PadTargeting.resolve(Config,Catalog,Map,state,footPosition)
+        PadHold.update(heldPad,target.key,os.clock())
         if not view:isOpen() and not pending then
-            if action and PadHold.ready(heldPad,os.clock()) then
-                send(action,values)
+            if target.action and PadHold.ready(heldPad,os.clock()) then
+                send(target.action,target.values)
                 if pending then pending.holdKey=heldPad.key; PadHold.sent(heldPad,os.clock()) end
             end
         end
-        local kind: string?=nil; local value='1'; local nearest=Config.PadDistance
-        local function consider(name: string,point: Vector3,key: string?)
-            local d=(pos-point).Magnitude
-            if d<nearest then nearest=d; kind=name; value=key or '1' end
-        end
-        consider('Deposit',Map.Sell); consider('Claim',Map.Claim); consider('Merge',Map.Merge); consider('Upgrade',Map.Upgrade); consider('FinishNow',Map.FinishNow)
-        for quantity,x in Config.BuyPads do consider('Buy',Vector3.new(x,.15,Config.BuyZ),quantity) end
-        for key,point in Map.PassPads do consider('Pass',point,key) end
         if state.lucky and not state.lucky.held then
             local distance=(pos-Vector3.new(Config.LuckyX,1.6,Config.LuckyZ)).Magnitude
             if distance>Config.LuckyPickupRadius+2 then droppedLucky=nil end
@@ -254,10 +231,8 @@ task.spawn(function()
                 lastLuckyAt=os.clock();send('PickupLucky',{state.lucky.id})
             end
         end
-        -- A pad's full footprint owns its interaction even when its corner is farther from the label.
-        if padKey then kind=if padKey=='AutoMerge' then 'Merge' elseif holdable then action else padKey;value=if values then values[1] else '1' end
         view.estimatedServerNow=state.serverNow+os.clock()-receivedAt
-        view:setContext(kind,value)
+        view:setContext(target.kind,target.value)
         if view:isOpen() or Economy.count(state.bag)>=Config.BagCap or state.autoCollect then continue end
         -- Aura keeps its own four-per-second cadence while pad holds scan more often.
         if os.clock()-lastAuraAt<.25 then continue end

@@ -1,4 +1,12 @@
-# Build status — 2026-10-19
+# Build status — 2026-10-20
+
+## Refactor and Chicken Farm video preparation
+
+Client pad targeting now lives in the pure `Shared/PadTargeting` module. `Main.client` retains the interaction scheduler, remote handling, Lucky pickup and aura. The extraction preserves action precedence, full-pad corner ownership, exact Buy quantities, merge eligibility, immediate entry and the existing two-second/half-second repeat. No balance or visual behavior changed in this preparation pass.
+
+The supplied Chicken Farm video was inspected in Chrome at selected early, middle and late moments. Twelve timestamped screenshots and an annotated [reference board](reference/chicken-farm-video/index.html) document the HUD, conveyor/pad row, farmer/deposit, plot proportions, Lucky card, pickup numbers, processing board, cash effects and rebirth layout. The board distinguishes observed details, proposed adaptations and the user's existing overrides. It is not a continuous viewing or audio audit; sounds remain to be reviewed. Reference screenshots are documentation only and are outside the Rojo project mapping.
+
+Verification for this pass: all 22 standalone Luau test files pass; all 43 source files compile; Rojo builds `MergeABrainrot-StackedFarm.rbxlx`; the new targeting module passes standalone analysis; independent refactor review found no actionable regressions. In Studio, the new module resolved Buy1 correctly, the HUD loaded, and moving the avatar onto Buy1 produced a successful starter purchase followed by the expected insufficient-funds response on the held repeat. This smoke check does not replace a full live Lucky-open/device regression run. The temporary result observer was disconnected afterward.
 
 Current work is on `codex/stacked-brainrot-farm`, based on `codex/first-playable`, in draft PR #2. Plots now have a 50-Brainrot cap, five rows, and at most 50 ordinary conveyor Minis across flight and ground. Buy50 replaces Buy100; a shared quote drives server purchases, HUD prices and green/red pad colors. Pads act immediately, then repeat every half-second after a two-second hold. Farmer/barn and utility boards are mirrored left/right, the stall is larger, bridge landings overlap the plots, front fences close around the entrance, and the red center covers the entire conveyor. Producer animation stays grounded. The carried Lucky Block card, cyan Home button and rainbow Cash offer remain in place. See [current verification](verification/FIFTY_CAP_AND_CONNECTED_PLOTS.md); earlier behavior records are historical.
 
