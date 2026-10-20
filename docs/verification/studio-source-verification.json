@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-10-20T11:25:03.026Z",
+  "recordedAt": "2026-10-20T11:36:37.716Z",
   "algorithm": "DJB2 UTF-8, CRLF normalized to LF",
   "sources": [
     {
@@ -431,8 +431,8 @@
     {
       "path": "src/shared/PadTargeting.luau",
       "studioPath": "ReplicatedStorage.Shared.PadTargeting",
-      "bytes": 2739,
-      "hash": 1667320723
+      "bytes": 2823,
+      "hash": 4032236232
     },
     {
       "path": "src/shared/PassConfig.luau",
@@ -455,8 +455,8 @@
     {
       "path": "src/shared/StallDecor.luau",
       "studioPath": "ReplicatedStorage.Shared.StallDecor",
-      "bytes": 29810,
-      "hash": 959061757
+      "bytes": 29942,
+      "hash": 762775361
     },
     {
       "path": "src/shared/StarterPad.luau",

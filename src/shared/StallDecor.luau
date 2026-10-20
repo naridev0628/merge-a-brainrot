@@ -1,7 +1,8 @@
 --!strict
 -- Generated from assets/map/stall_props/*-layout.json. Rebuild with tools/build_stall_runtime.py.
 local Factory=require(script.Parent.ModelFactory)
-local data={
+type PartValue=Vector3 | CFrame | Color3 | Enum.PartType
+local data: {[string]: {{PartValue}}}={
 KeyCrate={
 {Vector3.new(0.46,0.2,1.91),CFrame.new(-1.225,0.12,0,1,0,0,0,1,0,0,0,1),Color3.new(0.722027,0.484529,0.2717),Enum.PartType.Block},
 {Vector3.new(0.46,0.2,1.91),CFrame.new(-0.735,0.12,0,1,0,0,0,1,0,0,0,1),Color3.new(0.722027,0.484529,0.2717),Enum.PartType.Block},
@@ -213,7 +214,7 @@ CashStash={
 local Decor={}
 function Decor.place(parent: Instance,key: string,cf: CFrame,scale: number?): Model
 local model=Instance.new('Model');model.Name=key;model.WorldPivot=CFrame.identity
-for _,p in data[key] do Factory.part(model,key..'Detail',p[1],p[2],p[3],p[4]) end
+for _,p in data[key] do Factory.part(model,key..'Detail',p[1] :: Vector3,p[2] :: CFrame,p[3] :: Color3,p[4] :: Enum.PartType) end
 model:ScaleTo(scale or 1);model:PivotTo(cf);model.Parent=parent;return model
 end
 return Decor

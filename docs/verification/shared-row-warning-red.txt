@@ -1,0 +1,12 @@
+										23534 tab item (settable, string) PadTargeting
+										23535 tab item (settable, string) StallDecor
+										23567 tree item (settable, string) ReplicatedStorage.Shared.PadTargeting
+										23568 tree item (settable, string) Type Error: (46,27) Key 'X' not found in table 'typeof(string)'
+										23569 tree item (settable, string) Type Error: (46,35) Key 'Y' not found in table 'typeof(string)'
+										23570 tree item (settable, string) Type Error: (46,43) Key 'Z' not found in table 'typeof(string)'
+										23571 tree item (settable, string) ReplicatedStorage.Shared.StallDecor
+										23572 tree item (settable, string) Type Error: (6,29) Expected this to be 'Vector3', but got 'CFrame'
+										23573 tree item (settable, string) Type Error: (6,73) Expected this to be 'Vector3', but got 'Color3'
+										23574 tree item (settable, string) Type Error: (6,110) Expected this to be 'Vector3', but got 'Enum.PartType'
+									112 check box (settable, string) 0 of 0 Errors ID: RBXMainWindow.RootWidget.Layout0.Layout3.FixedSplitLayoutSouth0.Layout27.scriptAnalysisPanel.ScriptingAnalysisWidget.ErrorsToolButton
+									114 check box (settable, string) 606 of 606 Warnings ID: RBXMainWindow.RootWidget.Layout0.Layout3.FixedSplitLayoutSouth0.Layout27.scriptAnalysisPanel.ScriptingAnalysisWidget.WarningsToolButton

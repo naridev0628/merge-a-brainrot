@@ -41,9 +41,12 @@ function Targeting.resolve(config: any,catalog: any,map: any,state: any,position
         local distance=math.sqrt((position.x-x)^2+(position.y-y)^2+(position.z-z)^2)
         if distance<nearest then nearest=distance; target.kind=kind; target.value=value or '1' end
     end
-    for _,entry in {{'Deposit',map.Sell},{'Claim',map.Claim},{'Merge',map.Merge},{'Upgrade',map.Upgrade},{'FinishNow',map.FinishNow}} do
-        local point=entry[2]
-        consider(entry[1],point.X,point.Y,point.Z)
+    for _,entry in {
+        {kind='Deposit',point=map.Sell},{kind='Claim',point=map.Claim},{kind='Merge',point=map.Merge},
+        {kind='Upgrade',point=map.Upgrade},{kind='FinishNow',point=map.FinishNow},
+    } do
+        local point=entry.point
+        consider(entry.kind,point.X,point.Y,point.Z)
     end
     for quantity,x in config.BuyPads do consider('Buy',x,.15,config.BuyZ,quantity) end
     for key,point in map.PassPads do consider('Pass',point.X,point.Y,point.Z,key) end
